@@ -1,0 +1,91 @@
+.profile-userpic {
+    text-align: center;
+}
+
+.profile-userpic img {
+    margin: 0 auto;
+    border: 2px solid white;
+    width: 100px;
+    height: 100px;
+}
+.profile-upload-img {
+    
+    position: relative;
+    bottom: 41px;
+    left: 40px;
+    padding: 4px;
+    background-color: #e4e6eb;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+
+.profile-usertitle {
+    text-align: center;
+    margin-top: -20px;
+}
+.edit-profile-btn{
+    cursor: pointer;
+    color: white;
+}
+
+.profile-usertitle-name {
+    margin-bottom: 7px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #000000;
+}
+
+.profile-usertitle-job {
+    font-size: 14px;
+    font-weight: 400;
+    color: #5d5d5d;
+}
+
+.profile-usermenu {
+    margin-top: 30px;
+}
+
+.profile-usermenu ul li {
+    border-bottom: 1px solid #f0f4f7;
+}
+
+.profile-usermenu ul li:last-child {
+    border-bottom: none;
+}
+
+.profile-usermenu ul li a {
+    padding: 10px 15px;
+    display: block;
+    font-size: 16px;
+    font-weight: 400;
+    color: #5d5d5d;
+}
+
+.profile-usermenu ul li a:hover {
+    background-color: #f0f4f7;
+}
+
+.profile-content {
+    margin-top: 30px;
+    padding-left: 30px;
+}
+
+.profile-content h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #5d5d5d;
+    margin-bottom: 20px;
+}
+
+.profile-content hr {
+    border: none;
+    border-bottom: 1px solid #e1e1e1;
+    margin-bottom: 30px;
+}
+
+@media (max-width: 767px) {
+    .profile-sidebar {
+        margin-bottom: 30px;
+    }
+}
