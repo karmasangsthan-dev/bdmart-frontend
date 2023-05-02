@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-import React from 'react';
-=======
 import Link from "next/link";
 import React, { useState } from "react";
 import { Table } from "react-bootstrap";
@@ -10,17 +7,10 @@ import Image from "next/image";
 import { useSelector } from "react-redux";
 import CartProductRow from "../components/Cart/CartProductRow";
 
-const Cart = () => {
-  const cart = useSelector((state) => state.auth.user?.cart) || [];
->>>>>>> faysal
-
 const cart = () => {
+  const cart = useSelector((state) => state.auth.user?.cart) || [];
+
   return (
-<<<<<<< HEAD
-    <div>
-      <h3>cart page</h3>
-    </div>
-=======
     <Layout title="Cart - Bangladesh Mart">
       <div style={{ minHeight: "120vh" }}>
         <div className="container">
@@ -119,7 +109,6 @@ const cart = () => {
         <div></div>
       </div>
     </Layout>
->>>>>>> faysal
   );
 };
 
