@@ -1,8 +1,10 @@
+import { Slider } from "@mui/material";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import { Collapse } from "react-bootstrap";
 
 
-export default function ShopProduct({data}) {
+export default function ShopProduct({ data }) {
   const [catOpen, setCatOpen] = useState(false);
   const [brandOpen, setBrandOpen] = useState(true);
   const [sizeOpen, setSizeOpen] = useState(true);
