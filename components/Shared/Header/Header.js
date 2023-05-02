@@ -15,15 +15,15 @@ const Header = () => {
   useEffect(() => {
     window.addEventListener("scroll", function () {
       let header = this.document.querySelector("#strip2");
-      let bar = this.document.querySelector("#nav_Bar");
-      let strip = this.document.querySelector("#strip");
-      let bod = document.querySelector("#accordion_body");
-      let stick = this.document.querySelector("#sec_bar");
+      // let bar = this.document.querySelector("#nav_Bar");
+      // let strip = this.document.querySelector("#strip");
+      // let bod = document.querySelector("#accordion_body");
+      // let stick = this.document.querySelector("#sec_bar");
       // bar.classList.toggle('removeBar', window.scrollY >0)
       header?.classList.toggle("sticky", window.scrollY > 0);
-      stick?.classList.toggle("stic", window.scrollY > 0);
-      bod?.classList.toggle("main-bod", window.scrollY > 0);
-      strip?.classList.toggle("strip-2-mar", window.scrollY > 0);
+      // stick?.classList.toggle("stic", window.scrollY > 0);
+      // bod?.classList.toggle("main-bod", window.scrollY > 0);
+      // strip?.classList.toggle("strip-2-mar", window.scrollY > 0);
     });
   }, []);
 
@@ -1062,7 +1062,7 @@ const Header = () => {
                       <li className="inner-li">Customer Services</li>
                     </a>
                     <Link href="/shop">
-                      <li  className="inner-li">Shop</li>
+                      <li className="inner-li">Shop</li>
                     </Link>
                   </ul>
                 </div>
