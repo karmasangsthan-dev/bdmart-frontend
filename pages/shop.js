@@ -19,8 +19,11 @@ export async function getServerSideProps(context) {
 }
 
 const shop = ({ data }) => {
-  const [sort, setSort] = useState({});
-
+  const [sort, setSort] = useState({
+    pageShort: 15,
+    priceShort: "default",
+  });
+  console.log(sort);
   return (
     <Layout>
       <div className="shop page-content">
@@ -31,34 +34,39 @@ const shop = ({ data }) => {
             </aside>
             <div className="col-lg-10 pl-lg-5">
               <div className="">
-                <div className="widget w-100 widget-clean d-flex justify-content-between">
-                  <span className="">
+                <div className="widget w-100 widget-clean d-flex justify-content-between align-items-center">
+                  <p className="fs-6">
                     Showing {data?.products?.length} of 4 Products
-                  </span>
-                  <div>
-                    <div className="d-flex py-1">
-                      <span>Sort by : </span>
-                      <select
-                        name=""
-                        id=""
-                        className="border-0 ms-1 whitesmoke"
-                      >
-                        <option value="">Default</option>
-                        <option value="">Highest to lowest</option>
-                        <option value="">Lowest to Highest</option>
-                      </select>
-                    </div>
-
+                  </p>
+                  <div className="d-flex gap-4">
                     <div className="d-flex py-1">
                       <span>Per page : </span>
                       <select
-                        name=""
-                        id=""
-                        className="border-0 ms-1 whitesmoke"
+                        onChange={(e) =>
+                          setSort({ ...sort, pageShort: e.target.value })
+                        }
+                        className="border-0 ms-1 whitesmoke px-2"
                       >
-                        <option value="">Default</option>
-                        <option value="">Highest to lowest</option>
-                        <option value="">Lowest to Highest</option>
+                        <option value={15}>15</option>
+                        <option value={10}>10</option>
+                        <option value={20}>20</option>
+                      </select>
+                    </div>
+                    <div className="d-flex py-1">
+                      <span>Sort by : </span>
+                      <select
+                        onChange={(e) =>
+                          setSort({ ...sort, priceShort: e.target.value })
+                        }
+                        className="border-0 ms-1 whitesmoke px-2 "
+                      >
+                        <option value="default">Default</option>
+                        <option value="hightestToLowest">
+                          Highest to lowest
+                        </option>
+                        <option value="lowestToHighest">
+                          Lowest to Highest
+                        </option>
                       </select>
                     </div>
                   </div>

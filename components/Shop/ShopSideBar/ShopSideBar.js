@@ -2,6 +2,7 @@ import { Collapse, Slider } from "@mui/material";
 import React, { useState } from "react";
 
 const ShopSideBar = ({ data }) => {
+  const filter = {};
   let allBrands = [];
   let allCategory = [];
   const [catOpen, setCatOpen] = useState(false);
@@ -53,7 +54,18 @@ const ShopSideBar = ({ data }) => {
             <Collapse in={catOpen}>
               <div id="example-collapse-text">
                 {allCategory?.map((cat) => (
-                  <li className="text-capitalize">{cat}</li>
+                  <div className="form-check">
+                    <label className="form-check-label text-capitalize">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        id="small"
+                        name="category"
+                      />
+
+                      {cat}
+                    </label>
+                  </div>
                 ))}
               </div>
             </Collapse>
@@ -75,57 +87,23 @@ const ShopSideBar = ({ data }) => {
             <Collapse in={sizeOpen}>
               <div id="example-collapse-text">
                 <div className="form-check">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    id="extra-small"
-                  />
                   <label className="form-check-label" for="extra-small">
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      id="extra-small"
+                    />
                     Extra Small
                   </label>
                 </div>
-
                 <div className="form-check">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    id="small"
-                  />
-                  <label className="form-check-label" for="small">
-                    Small
-                  </label>
-                </div>
-
-                <div className="form-check">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    id="medium"
-                  />
-                  <label className="form-check-label" for="medium">
-                    Medium
-                  </label>
-                </div>
-
-                <div className="form-check">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    id="large"
-                  />
-                  <label className="form-check-label" for="large">
-                    Large
-                  </label>
-                </div>
-
-                <div className="form-check">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    id="extra-large"
-                  />
-                  <label className="form-check-label" for="extra-large">
-                    Extra Large
+                  <label className="form-check-label" for="extra-small">
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      id="extra-small"
+                    />
+                    Extra Small
                   </label>
                 </div>
               </div>
@@ -154,6 +132,7 @@ const ShopSideBar = ({ data }) => {
                         className="form-check-input"
                         type="checkbox"
                         id="next-brand"
+                        name={b}
                       />
                       <label className="form-check-label" for="next-brand">
                         {b}
