@@ -7,7 +7,7 @@ import { toast } from 'react-hot-toast';
 import { Button, Collapse } from 'react-bootstrap';
 import ShopProduct from '../components/Product/ShopProduct';
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
     const res = await fetch('https://dummyjson.com/products');
     const data = await res.json();
     return {
