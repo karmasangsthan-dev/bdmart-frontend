@@ -6,17 +6,17 @@ const ShopSideBar = ({ data, filter, setFilter }) => {
   const [brandOpen, setBrandOpen] = useState(true);
   const [priceOpen, setPriceOpen] = useState(true);
   const [sizeOpen, setSizeOpen] = useState(true);
-
+  const [priceRange, setPriceRange] = useState([0, 150]);
   let allBrands = [];
   let allCategory = [];
 
-  data?.products?.map((product) => {
+  data?.data?.map((product) => {
     const brandExists = allBrands.find((brand) => brand === product.brand);
     if (!brandExists) {
       allBrands.push(product.brand);
     }
   });
-  data?.products?.map((product) => {
+  data?.data?.map((product) => {
     const brandExists = allCategory.find((brand) => brand === product.category);
     if (!brandExists) {
       allCategory.push(product.category);
@@ -39,9 +39,10 @@ const ShopSideBar = ({ data, filter, setFilter }) => {
   };
   const handlePriceChange = (event, newValue) => {
     setFilter({ ...filter, price: newValue });
-    console.log({ event, newValue });
+    setPriceRange(newValue);
+
     if (typeof onChange === "function") {
-      setFilter({ ...filter, price: newValue });
+      onChange(newValue);
     }
   };
 
@@ -194,12 +195,12 @@ const ShopSideBar = ({ data, filter, setFilter }) => {
                 <div className="">
                   <p className="text-center">
                     {" "}
-                    ${filter.price[0]} - ${filter.price[1]}
+                    ${priceRange[0]} - ${priceRange[1]}
                   </p>
                 </div>
 
                 <Slider
-                  value={filter.price}
+                  value={priceRange}
                   onChange={handlePriceChange}
                   valueLabelDisplay="auto"
                   min={0}
