@@ -7,12 +7,22 @@ import ShopDepartments from "../components/HomePage/Department/ShopDepartments";
 import Layout from "../components/Layout";
 import Footer from "../components/Shared/Footer/Footer";
 
-export default function Home() {
+export async function getServerSideProps() {
+  const res = await fetch('https://dummyjson.com/products');
+  const data = await res.json();
+  return {
+    props: {
+      data
+    }
+  };
+}
+
+export default function Home({data}) {
   return (
     <Layout>
       <Banner />
       {/* <LandingImage/> */}
-      <BestSelling />
+      <BestSelling data={data} />
       <ShopDepartments />
       <Footer></Footer>
     </Layout>
