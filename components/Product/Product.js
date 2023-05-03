@@ -1,8 +1,10 @@
 import Image from "next/image";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
 
 export default function Product({ item }) {
+  const router = useRouter();
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   const handleAddToCart = (event, productId) => {
@@ -14,12 +16,12 @@ export default function Product({ item }) {
   const handleQunatityDecrement = (id) => {
     toast(id)
   }
-
   return (
-    <section key={item._id} className="product-link">
+    <section key={item.id} className="product-link bestselling-product-container">
       <div className="product p-3">
         <picture>
           <Image
+            onClick={()=> router.push(`/productDetails/${item.id}`)}
             src={item.thumbnail}
             layout="responsive"
             width={1000}
@@ -29,7 +31,7 @@ export default function Product({ item }) {
 
         </picture>
         <div className="main-detail ">
-          <div className="item-name">{item.title.length > 20 ? `${item.title.slice(0, 18)}...` : item.title}</div>
+          <div className="item-name" onClick={()=> router.push(`/productDetails/${item.id}`)}>{item.title.length > 20 ? `${item.title.slice(0, 18)}...` : item.title}</div>
         </div>
         <div className="item-price">{item.price ? item?.price : 30}.00$</div>
         <div className="old-price">

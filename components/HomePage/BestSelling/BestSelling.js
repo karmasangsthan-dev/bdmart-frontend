@@ -26,14 +26,8 @@ const SamplePrevArrow = (props) => {
 };
 
 const BestSelling = (props) => {
-  console.log(props.product,'pp')
-  const [data, setData] = useState([]);
+  const data = props?.data?.products;
 
-  useEffect(() => {
-    fetch('https://dummyjson.com/products')
-      .then(res => res.json())
-      .then(data => setData(data.products))
-  }, [])
 
   const settings = {
     dots: false,

@@ -1,0 +1,149 @@
+/* product description  */
+
+.product-description-size:focus {
+    box-shadow: none !important;
+}
+
+
+
+button:focus,
+input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.product-quantity a,
+a:hover {
+    text-decoration: none;
+}
+
+/*--------------------------*/
+.product-quantity .qty-container {
+    display: flex;
+    align-items: center;
+}
+
+.product-quantity .qty-container .input-qty {
+    text-align: center;
+    padding: 6px 10px;
+    border: 1px solid #d4d4d4;
+    max-width: 80px;
+}
+
+.product-quantity .qty-container .qty-btn-minus,
+.qty-container .qty-btn-plus {
+    border: 1px solid #d4d4d4;
+    padding: 10px 13px;
+    font-size: 10px;
+    height: 38px;
+    width: 38px;
+    transition: 0.3s;
+}
+
+.share-buttons {
+    display: flex;
+    justify-content: center;
+}
+
+.share-buttons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: #fff;
+    background-color: #3b5998;
+    /* Facebook blue */
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.share-buttons a:hover {
+    opacity: 0.8;
+}
+
+.share-buttons a i {
+    margin: 0;
+}
+
+.share-buttons a:nth-of-type(2) {
+    background-color: #1da1f2;
+    /* Twitter blue */
+}
+
+.share-buttons a:last-of-type {
+    background-color: #bd081c;
+    /* Pinterest red */
+}
+
+
+.product-description {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+#product-tabs {
+    border-bottom: none;
+}
+
+#product-tabs .nav-item {
+    margin-bottom: -1px;
+}
+
+#product-tabs .nav-link {
+    background-color: #f9f9f9;
+    color: #666;
+    border: none;
+    border-radius: 0;
+    font-weight: 600;
+}
+
+#product-tabs .nav-link.active {
+    background-color: #fff;
+    color: #333;
+    border: none;
+    border-radius: 0;
+}
+
+.review {
+    margin-bottom: 30px;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.review-header h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.review-date {
+    font-size: 14px;
+    color: #999;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+}
+
+.rating i {
+    color: #ffd700;
+    margin-right: 5px;
+    font-size: 18px;
+}
+
+.fa-star {
+    color: #ffd700;
+}
+
+.far {
+    color: #999;
+}
