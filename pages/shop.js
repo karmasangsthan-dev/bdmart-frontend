@@ -23,14 +23,19 @@ const shop = ({ data }) => {
     pageShort: 15,
     priceShort: "default",
   });
-  console.log(sort);
+  const [filter, setFilter] = useState({
+    category: "",
+    size: "",
+    brand: [],
+    price: [0, 150],
+  });
   return (
     <Layout>
       <div className="shop page-content">
         <div className="container">
           <div className="row ">
             <aside className="col-lg-2 order-lg-first">
-              <ShopSideBar data={data} />
+              <ShopSideBar data={data} filter={filter} setFilter={setFilter} />
             </aside>
             <div className="col-lg-10 pl-lg-5">
               <div className="">
