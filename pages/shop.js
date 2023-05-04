@@ -27,9 +27,9 @@ const shop = ({ data }) => {
                                 <div className="products">
                                     <div className="shop-products">
                                         {
-                                            data?.products?.map((d) => {
+                                            data?.data?.map((d) => {
                                                 return (
-                                                    <div key={d?.id} className='shop-single-product'>
+                                                    <div key={d?._id} className='shop-single-product'>
                                                         <figure className='product-media'>
                                                             <span className="product-label label-top">Top</span>
                                                             <Link style={{ marginTop: '-21px' }} href='/shop'>
@@ -99,7 +99,7 @@ const shop = ({ data }) => {
     );
 };
 export async function getServerSideProps() {
-    const res = await fetch('https://dummyjson.com/products');
+    const res = await fetch('http://localhost:5000/api/v1/products');
     const data = await res.json();
     return {
         props: {

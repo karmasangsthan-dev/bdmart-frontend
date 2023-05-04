@@ -9,8 +9,8 @@ export default function ShopProduct({ data }) {
   const [brandOpen, setBrandOpen] = useState(true);
   const [sizeOpen, setSizeOpen] = useState(true);
   const [value, setValue] = useState([0, 150]);
-  const brands = data?.products?.map(product => product.brand);
-  const category = data?.products?.map(product => product.category);
+  const brands = data?.data?.map(product => product.brand);
+  const category = data?.data?.map(product => product.category);
   const handleOnChange = (event, newValue) => {
     setValue(newValue);
     if (typeof onChange === 'function') {
