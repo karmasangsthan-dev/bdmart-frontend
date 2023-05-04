@@ -25,7 +25,20 @@ const productApi = apiSlice.injectEndpoints({
       },
       providesTags: ["Products"],
     }),
+    getProductDetails: builder.query({
+      query: (id) => {
+        return {
+          url: `/product/${id}`,
+          method: "GET",
+        };
+      },
+      providesTags: ["Product"],
+    }),
   }),
 });
 
-export const { useGetProductsQuery, useGetAllProductsQuery } = productApi;
+export const {
+  useGetProductsQuery,
+  useGetAllProductsQuery,
+  useGetProductDetailsQuery,
+} = productApi;
