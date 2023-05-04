@@ -1,12 +1,18 @@
 import { Collapse, Rating } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 
 export default function ShopProduct({ product }) {
+  const router = useRouter();
   return (
-    <div key={product?.id} className="shop-single-product">
+    <div
+      key={product?.id}
+      className="shop-single-product"
+      onClick={() => router.push(`/productDetails/${product._id}`)}
+    >
       <figure className="product-media">
         <span className="product-label label-top">Top</span>
         <Link style={{ marginTop: "-21px" }} href="/shop">
