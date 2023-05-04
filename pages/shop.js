@@ -27,14 +27,14 @@ import {
 
 const shop = () => {
   const { data } = useGetAllProductsQuery();
-  console.log(data);
+
   const [allProducts, setAllProducts] = useState([]);
   const [sort, setSort] = useState({
     pageSort: 0,
     priceSort: 0,
   });
   const [filter, setFilter] = useState({
-    category: "",
+    category: [],
     size: "",
     brand: [],
     price: [],
@@ -51,12 +51,34 @@ const shop = () => {
     // if (isLoading && !isSuccess) {
     //   toast.loading("Loading...", { id: "product" });
     // }
-    if (sort.pageSort || sort.priceSort || filter.category) {
+    if (
+      sort.pageSort ||
+      sort.priceSort ||
+      filter.category.length ||
+      filter.brand.length ||
+      filter.price.length
+    ) {
       setAllProducts(products);
-    } else if (!sort.pageSort || !sort.priceSort || !filter.category) {
+    } else if (
+      !sort.pageSort ||
+      !sort.priceSort ||
+      !filter.category.length ||
+      !filter.brand.length ||
+      !filter.price.length
+    ) {
       setAllProducts(data);
     }
-  }, [products, data, sort.pageSort, sort.priceSort, isLoading, isSuccess]);
+  }, [
+    products,
+    data,
+    sort.pageSort,
+    sort.priceSort,
+    isLoading,
+    isSuccess,
+    filter.category,
+    filter.brand,
+    filter.price,
+  ]);
   return (
     <Layout title="Shop - Bangladesh Mart">
       <div className="shop page-content">
@@ -78,7 +100,7 @@ const shop = () => {
                         onChange={(e) =>
                           setSort({ ...sort, pageSort: e.target.value })
                         }
-                        className="border-0 ms-1 whitesmoke px-2"
+                        className="ms-1 rounded px-2 border"
                       >
                         <option value={15}>15</option>
                         <option value={10}>10</option>
@@ -94,7 +116,7 @@ const shop = () => {
                             priceSort: Number(e.target.value),
                           })
                         }
-                        className="border-0 ms-1 whitesmoke px-2 "
+                        className="ms-1 border rounded px-2 "
                       >
                         <option value={0}>Default</option>
                         <option value={-1}>Highest to lowest</option>
