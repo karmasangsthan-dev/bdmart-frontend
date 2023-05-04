@@ -7,22 +7,27 @@ import { toast } from "react-hot-toast";
 import { Button, Collapse } from "react-bootstrap";
 import ShopProduct from "../components/Product/ShopProduct";
 import ShopSideBar from "../components/Shop/ShopSideBar/ShopSideBar";
-import { useGetProductsQuery } from "../features/product/productApi";
+import {
+  useGetAllProductsQuery,
+  useGetProductsQuery,
+} from "../features/product/productApi";
 
 // https://dummyjson.com/products
-export async function getServerSideProps() {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_SITE_LINK}/api/v1/products/bulk`
-  );
-  const data = await res.json();
-  return {
-    props: {
-      data,
-    },
-  };
-}
+// export async function getServerSideProps() {
+//   const res = await fetch(
+//     `${process.env.NEXT_PUBLIC_BACKEND_SITE_LINK}/api/v1/products/bulk`
+//   );
+//   const data = await res.json();
+//   return {
+//     props: {
+//       data,
+//     },
+//   };
+// }
 
-const shop = ({ data }) => {
+const shop = () => {
+  const { data } = useGetAllProductsQuery();
+  console.log(data);
   const [allProducts, setAllProducts] = useState([]);
   const [sort, setSort] = useState({
     pageSort: 0,

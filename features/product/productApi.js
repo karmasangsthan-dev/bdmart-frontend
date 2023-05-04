@@ -16,7 +16,16 @@ const productApi = apiSlice.injectEndpoints({
       },
       providesTags: ["Products"],
     }),
+    getAllProducts: builder.query({
+      query: () => {
+        return {
+          url: `/products/bulk`,
+          method: "GET",
+        };
+      },
+      providesTags: ["Products"],
+    }),
   }),
 });
 
-export const { useGetProductsQuery } = productApi;
+export const { useGetProductsQuery, useGetAllProductsQuery } = productApi;
