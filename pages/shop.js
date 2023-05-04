@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Layout from '../components/Layout';
 import { Rating, Slider } from '@mui/material';
 import Link from 'next/link';
@@ -7,7 +7,15 @@ import { toast } from 'react-hot-toast';
 import { Button, Collapse } from 'react-bootstrap';
 import ShopProduct from '../components/Product/ShopProduct';
 
-const shop = ({ data }) => {
+const shop = () => {
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:5000/api/v1/products/bulk')
+            .then(res => res.json())
+            .then(data => setData(data.products))
+    }, [])
+    console.log(data)
 
     return (
         <Layout>
@@ -98,15 +106,7 @@ const shop = ({ data }) => {
         </Layout>
     );
 };
-export async function getServerSideProps() {
-    const res = await fetch('http://localhost:5000/api/v1/products');
-    const data = await res.json();
-    return {
-        props: {
-            data
-        }
-    };
-}
+
 
 
 
