@@ -7,7 +7,7 @@ import Image from "next/image";
 import { useSelector } from "react-redux";
 import CartProductRow from "../components/Cart/CartProductRow";
 
-const Cart = () => {
+const cart = () => {
   const cart = useSelector((state) => state.auth.user?.cart) || [];
 
   return (
