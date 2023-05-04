@@ -15,7 +15,7 @@ import {
 // https://dummyjson.com/products
 // export async function getServerSideProps() {
 //   const res = await fetch(
-//     `${process.env.NEXT_PUBLIC_BACKEND_SITE_LINK}/api/v1/products/bulk`
+//     ${process.env.NEXT_PUBLIC_BACKEND_SITE_LINK}/api/v1/products/bulk
 //   );
 //   const data = await res.json();
 //   return {

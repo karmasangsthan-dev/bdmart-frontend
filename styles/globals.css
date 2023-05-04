@@ -63,8 +63,7 @@ buttton:focus {
   outline: 0;
 }
 
-@media (max-width: 1094px) {
-}
+@media (max-width: 1094px) {}
 
 /*==========================================
 CoMmOn CsS EnD
@@ -880,14 +879,14 @@ MGA CONTENT NAV
 
 .sticky {
   margin-top: 0 !important;
-  /* transition: all 0.3s ease; */
+  transition: all 0.3s ease;
   justify-content: center !important;
   width: 100% !important;
 
   padding-bottom: 0px;
   position: fixed !important;
   top: 0;
-  z-index: 100;
+  z-index: 9999;
 
   background-color: white;
 }
@@ -983,7 +982,7 @@ MGA CONTENT NAV
 }
 
 @media (max-width: 1027px) {
-  .row > * {
+  .row>* {
     flex-shrink: 0;
     /* max-width: 100%; */
     padding-right: 0 !important;
@@ -1249,16 +1248,7 @@ Galery Part
   margin: revert;
   width: 100%;
 }
-.whitesmoke {
-  background-color: whitesmoke;
-}
-.shop_header {
-  position: sticky;
-  top: 200px;
-  background-color: white;
-  padding: 00px 0;
-  z-index: 1000;
-}
+
 .ROw {
   width: 100%;
 }
@@ -1943,8 +1933,7 @@ a.slide_btn {
   }
 }
 
-@media (max-width: 960px) {
-}
+@media (max-width: 960px) {}
 
 @media (max-width: 936px) {
   .desktop {
@@ -1979,8 +1968,7 @@ a.slide_btn {
   }
 }
 
-@media (max-width: 890px) {
-}
+@media (max-width: 890px) {}
 
 @media (max-width: 836px) {
   .social-area {
@@ -2146,6 +2134,7 @@ a.slide_btn {
 
 .page-content {
   font-size: 14px;
+
 }
 
 .form-check-input:focus {
@@ -2169,9 +2158,11 @@ a.slide_btn {
   color: #ccc;
   text-decoration: line-through;
 }
+
 .shop-categories {
   user-select: none;
 }
+
 .shop-categories li {
   list-style-type: none;
 }
@@ -2184,6 +2175,14 @@ a.slide_btn {
   top: 15px;
   padding: 2px 5px;
   z-index: 3;
+}
+
+.bestselling-product-container img:hover {
+  cursor: pointer;
+}
+
+.main-detail .item-name:hover {
+  cursor: pointer;
 }
 
 .product-body {
@@ -2205,6 +2204,11 @@ a.slide_btn {
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 }
+.shop-product-details {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+}
 
 .shop-single-product {
   box-shadow: 2px 2px 16px #f0f0f0;
@@ -2217,6 +2221,7 @@ a.slide_btn {
 .ratings-container {
   display: flex;
   justify-content: space-evenly;
+
 }
 
 .shop-add-to-cart-button {
@@ -2238,14 +2243,21 @@ a.slide_btn {
   transform: translateY(0%);
 }
 
-@media only screen and (max-width: 576px) {
+@media only screen and (max-width:576px) {
   .shop-products {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .shop-product-details {
     grid-template-columns: repeat(1, 1fr);
   }
 }
 
 @media only screen and (min-width: 577px) and (max-width: 992px) {
   .shop-products {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .shop-product-details {
     grid-template-columns: repeat(2, 1fr);
   }
 }

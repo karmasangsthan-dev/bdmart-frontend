@@ -20,10 +20,10 @@ const Header = () => {
       // let bod = document.querySelector("#accordion_body");
       // let stick = this.document.querySelector("#sec_bar");
       // bar.classList.toggle('removeBar', window.scrollY >0)
-      header?.classList.toggle("sticky", window.scrollY > 0);
-      // stick?.classList.toggle("stic", window.scrollY > 0);
-      // bod?.classList.toggle("main-bod", window.scrollY > 0);
-      // strip?.classList.toggle("strip-2-mar", window.scrollY > 0);
+      header?.classList.toggle("sticky", window.scrollY > 50);
+      stick?.classList.toggle("stic", window.scrollY > 50);
+      bod?.classList.toggle("main-bod", window.scrollY > 50);
+      strip?.classList.toggle("strip-2-mar", window.scrollY > 50);
     });
   }, []);
 
@@ -1045,12 +1045,9 @@ const Header = () => {
               <div className="w-auto">
                 <div className="frombar">
                   <ul>
-                    <li
-                      className="inner-li d-inline-block fw-bold"
-                      onClick={() => router.push("/shop")}
-                    >
-                      Shop
-                    </li>
+                    <Link href="/shop">
+                      <li className="inner-li">Shop</li>
+                    </Link>
 
                     <a href="">
                       <li className="inner-li">Track your Order</li>
@@ -1058,9 +1055,9 @@ const Header = () => {
                     <a href="">
                       <li className="inner-li">Submit RFQ</li>
                     </a>
-                    <a href="">
-                      <li className="inner-li">Customer Services</li>
-                    </a>
+                    <Link href="/productDetails">
+                      <li className="inner-li">ProductDetails</li>
+                    </Link>
                     <Link href="/shop">
                       <li className="inner-li">Shop</li>
                     </Link>
