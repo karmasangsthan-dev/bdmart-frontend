@@ -2,11 +2,14 @@ import { Collapse, Slider } from "@mui/material";
 import React, { useState } from "react";
 
 const ShopSideBar = ({ data, filter, setFilter }) => {
-  const [catOpen, setCatOpen] = useState(false);
+  const [catOpen, setCatOpen] = useState(true);
   const [brandOpen, setBrandOpen] = useState(true);
   const [priceOpen, setPriceOpen] = useState(true);
   const [sizeOpen, setSizeOpen] = useState(true);
-  const [priceRange, setPriceRange] = useState([0, 150]);
+  const [priceRange, setPriceRange] = useState([
+    data?.lowestPriceProduct?.price,
+    data?.highestPriceProduct?.price,
+  ]);
   let allBrands = [];
   let allCategory = [];
 
@@ -37,6 +40,8 @@ const ShopSideBar = ({ data, filter, setFilter }) => {
       });
     }
   };
+  // console.log(data?.highestPriceProduct);
+
   const handlePriceChange = (event, newValue) => {
     setFilter({ ...filter, price: newValue });
     setPriceRange(newValue);
@@ -45,7 +50,22 @@ const ShopSideBar = ({ data, filter, setFilter }) => {
       onChange(newValue);
     }
   };
-
+  const handleCategoryName = (e) => {
+    if (!filter.category.includes(e.target.value)) {
+      setFilter({
+        ...filter,
+        category: [...filter.category, e.target.value],
+      });
+    }
+    if (filter.category.includes(e.target.value)) {
+      setFilter({
+        ...filter,
+        category: [
+          ...filter.category.filter((name) => name !== e.target.value),
+        ],
+      });
+    }
+  };
   return (
     <div className="sticky-content">
       <aside className="sidebar sidebar-shop">
@@ -76,12 +96,10 @@ const ShopSideBar = ({ data, filter, setFilter }) => {
                     <label className="form-check-label text-capitalize">
                       <input
                         className="form-check-input"
-                        type="radio"
+                        type="checkbox"
                         id="small"
                         value={cat}
-                        onClick={(e) =>
-                          setFilter({ ...filter, category: e.target.value })
-                        }
+                        onClick={handleCategoryName}
                         name="category"
                       />
 
@@ -203,8 +221,8 @@ const ShopSideBar = ({ data, filter, setFilter }) => {
                   value={priceRange}
                   onChange={handlePriceChange}
                   valueLabelDisplay="auto"
-                  min={0}
-                  max={150}
+                  min={data?.lowestPriceProduct?.price || 0}
+                  max={data?.highestPriceProduct?.price || 0}
                   color="primary"
                 />
               </div>
