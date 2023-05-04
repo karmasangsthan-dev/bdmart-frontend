@@ -3,6 +3,7 @@ import { toast } from "react-hot-toast";
 import Slider from "react-slick";
 
 import Product from "../../Product/Product";
+import { useGetAllProductsQuery } from "../../../features/product/productApi";
 
 const SampleNextArrow = (props) => {
   const { onClick } = props;
@@ -25,16 +26,8 @@ const SamplePrevArrow = (props) => {
   );
 };
 
-const BestSelling = (props) => {
-
-  const [data,setData] = useState([]);
-
-  useEffect(()=>{
-    fetch('https://dummyjson.com/products')
-    .then(res => res.json())
-    .then(data => setData(data.products))
-  },[])
-
+const BestSelling = () => {
+  const { data } = useGetAllProductsQuery();
 
   const settings = {
     dots: false,
@@ -78,7 +71,7 @@ const BestSelling = (props) => {
         <h1 className="text-center mb-4">Bestselling items on Rollback</h1>
       </div>
       <Slider className="mb-3 px-4" {...settings}>
-        {data?.map((item,index) => (
+        {data?.data?.map((item, index) => (
           <Product key={index} item={item} />
         ))}
       </Slider>
