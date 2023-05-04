@@ -14,15 +14,16 @@ const Layout = ({ children, title = "Bangladesh Mart" }) => {
     dispatch(fetchUser(token));
   }, [dispatch]);
 
-  
-
   return (
     <div>
       <Head>
         <title>{title}</title>
       </Head>
-      <Script src="https://kit.fontawesome.com/a3939c0da5.js" crossorigin="anonymous"></Script>
-      
+      <Script
+        src="https://kit.fontawesome.com/a3939c0da5.js"
+        crossorigin="anonymous"
+      ></Script>
+
       <Header />
 
       <main>{children}</main>
