@@ -29,7 +29,7 @@ const shop = ({ data }) => {
                                         {
                                             data?.data?.map((d) => {
                                                 return (
-                                                    <div key={d?.id} className='shop-single-product'>
+                                                    <div key={d?._id} className='shop-single-product'>
                                                         <figure className='product-media'>
                                                             <span className="product-label label-top">Top</span>
                                                             <Link style={{ marginTop: '-21px' }} href='/shop'>
