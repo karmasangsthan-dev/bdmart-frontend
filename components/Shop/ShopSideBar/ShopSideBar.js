@@ -173,9 +173,9 @@ const ShopSideBar = ({ data, filter, setFilter }) => {
             </div>
             <Collapse in={brandOpen}>
               <div id="example-collapse-text">
-                {allBrands?.map((b) => {
+                {allBrands?.map((b,i) => {
                   return (
-                    <div key={b} className="form-check">
+                    <div key={i} className="form-check">
                       <input
                         className="form-check-input"
                         type="checkbox"
