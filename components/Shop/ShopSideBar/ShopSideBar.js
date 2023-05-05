@@ -1,18 +1,20 @@
 import { Collapse, Slider } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const ShopSideBar = ({ data, filter, setFilter }) => {
   const [catOpen, setCatOpen] = useState(true);
   const [brandOpen, setBrandOpen] = useState(true);
   const [priceOpen, setPriceOpen] = useState(true);
-  const [sizeOpen, setSizeOpen] = useState(true);
-  const [priceRange, setPriceRange] = useState([
-    data?.lowestPriceProduct?.price,
-    data?.highestPriceProduct?.price,
-  ]);
+  const [priceRange, setPriceRange] = useState([]);
   let allBrands = [];
   let allCategory = [];
 
+  useEffect(() => {
+    setPriceRange([
+      data?.lowestPriceProduct.price,
+      data?.highestPriceProduct.price,
+    ]);
+  }, [data?.lowestPriceProduct, data?.highestPriceProduct]);
   data?.data?.map((product) => {
     const brandExists = allBrands.find((brand) => brand === product.brand);
     if (!brandExists) {
@@ -40,7 +42,6 @@ const ShopSideBar = ({ data, filter, setFilter }) => {
       });
     }
   };
-  // console.log(data?.highestPriceProduct);
 
   const handlePriceChange = (event, newValue) => {
     setFilter({ ...filter, price: newValue });
@@ -66,15 +67,23 @@ const ShopSideBar = ({ data, filter, setFilter }) => {
       });
     }
   };
+  console.log(priceRange);
   return (
     <div className="sticky-content">
       <aside className="sidebar sidebar-shop">
         <div>
-          <div className="widget  widget-clean">
-            <label htmlFor="filter">Filter:</label>
-            <a className="sidebar-filter-clear" href="#">
-              Clean All
-            </a>
+          <div className="d-flex justify-content-between align-items-center border-bottom">
+            <p className="fw-bold">Filter:</p>
+            <p
+              onClick={() =>
+                setFilter({ category: [], size: "", brand: [], price: [] })
+              }
+              className="text-danger px-2 rounded fw-bold"
+              style={{ cursor: "pointer" }}
+              href="#"
+            >
+              Clear All
+            </p>
           </div>
           <div
             style={{ borderBottom: "0.1rem solid #ebebeb" }}
@@ -84,7 +93,7 @@ const ShopSideBar = ({ data, filter, setFilter }) => {
               onClick={() => setCatOpen(!catOpen)}
               aria-controls="example-collapse-text"
               aria-expanded={catOpen}
-              className="d-flex justify-content-between align-items-center"
+              className="d-flex justify-content-between align-items-center mt-3 "
             >
               <h5>Category</h5>
               <i className="fa fa-caret-down"></i>
@@ -98,6 +107,7 @@ const ShopSideBar = ({ data, filter, setFilter }) => {
                         className="form-check-input"
                         type="checkbox"
                         id="small"
+                        checked={filter?.category?.includes(cat) ? true : false}
                         value={cat}
                         onClick={handleCategoryName}
                         name="category"
@@ -111,7 +121,7 @@ const ShopSideBar = ({ data, filter, setFilter }) => {
             </Collapse>
           </div>
 
-          <div
+          {/* <div
             style={{ borderBottom: "0.1rem solid #ebebeb" }}
             className="mb-3 pb-2"
           >
@@ -156,7 +166,7 @@ const ShopSideBar = ({ data, filter, setFilter }) => {
                 </label>
               </div>
             </Collapse>
-          </div>
+          </div> */}
           {/* brand  */}
           <div
             style={{ borderBottom: "0.1rem solid #ebebeb" }}
@@ -173,23 +183,23 @@ const ShopSideBar = ({ data, filter, setFilter }) => {
             </div>
             <Collapse in={brandOpen}>
               <div id="example-collapse-text">
-                {allBrands?.map((b) => {
-                  return (
-                    <div key={b} className="form-check">
+                {allBrands?.map((b) => (
+                  <div key={b} className="form-check">
+                    <label className="form-check-label text-capitalize">
                       <input
                         className="form-check-input"
                         type="checkbox"
-                        id="next-brand"
+                        id="small"
                         value={b}
-                        onChange={handleBrandFilter}
-                        name={b}
+                        checked={filter?.brand?.includes(b) ? true : false}
+                        onClick={handleBrandFilter}
+                        name="brand"
                       />
-                      <label className="form-check-label" for="next-brand">
-                        {b}
-                      </label>
-                    </div>
-                  );
-                })}
+
+                      {b}
+                    </label>
+                  </div>
+                ))}
               </div>
             </Collapse>
           </div>
@@ -197,7 +207,7 @@ const ShopSideBar = ({ data, filter, setFilter }) => {
 
           <div
             style={{ borderBottom: "0.1rem solid #ebebeb" }}
-            className="mb-3 pb-2s"
+            className="mb-3 pb-2"
           >
             <div
               onClick={() => setPriceOpen(!priceOpen)}
@@ -213,16 +223,31 @@ const ShopSideBar = ({ data, filter, setFilter }) => {
                 <div className="">
                   <p className="text-center">
                     {" "}
-                    ${priceRange[0]} - ${priceRange[1]}
+                    $
+                    {filter.price.length
+                      ? filter.price[0]
+                      : data?.lowestPriceProduct?.price}{" "}
+                    - $
+                    {filter.price.length
+                      ? filter.price[1]
+                      : data?.highestPriceProduct?.price}
                   </p>
                 </div>
 
                 <Slider
-                  value={priceRange}
+                  size="small"
+                  value={[
+                    ...(filter.price.length
+                      ? filter.price
+                      : [
+                          data?.lowestPriceProduct?.price,
+                          data?.highestPriceProduct?.price,
+                        ]),
+                  ]}
                   onChange={handlePriceChange}
                   valueLabelDisplay="auto"
-                  min={data?.lowestPriceProduct?.price || 0}
-                  max={data?.highestPriceProduct?.price || 0}
+                  min={data?.lowestPriceProduct?.price}
+                  max={data?.highestPriceProduct?.price}
                   color="primary"
                 />
               </div>

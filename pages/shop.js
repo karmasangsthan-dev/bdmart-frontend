@@ -26,7 +26,7 @@ import {
 // }
 
 const shop = () => {
-  const { data } = useGetAllProductsQuery();
+  const { data, isLoading } = useGetAllProductsQuery();
 
   const [allProducts, setAllProducts] = useState([]);
   const [sort, setSort] = useState({
@@ -42,15 +42,12 @@ const shop = () => {
   const {
     data: products,
     isSuccess,
-    isLoading,
+    isLoading: loading,
     isError,
     error,
   } = useGetProductsQuery({ sort, filter });
 
   useEffect(() => {
-    // if (isLoading && !isSuccess) {
-    //   toast.loading("Loading...", { id: "product" });
-    // }
     if (
       sort.pageSort ||
       sort.priceSort ||
@@ -73,12 +70,11 @@ const shop = () => {
     data,
     sort.pageSort,
     sort.priceSort,
-    isLoading,
-    isSuccess,
     filter.category,
     filter.brand,
     filter.price,
   ]);
+
   return (
     <Layout title="Shop - Bangladesh Mart">
       <div className="shop page-content">
