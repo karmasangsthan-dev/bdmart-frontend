@@ -9,6 +9,7 @@ import "../styles/signin.css";
 import '../styles/profile.css'
 import '../styles/loading.css'
 import '../styles/productDetails.css'
+import "../styles/notfoundpage.css"
 
 import { Toaster } from "react-hot-toast";
 import Providers from "../app/provider";

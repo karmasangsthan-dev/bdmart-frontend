@@ -62,6 +62,7 @@ p {
 buttton:focus {
   outline: 0;
 }
+
 .text-underline-hover:hover {
   text-decoration: underline;
 }
@@ -1268,6 +1269,11 @@ Galery Part
 .gallery-img img {
   width: 149px;
   height: 149px;
+  cursor: pointer;
+}
+
+.gallery-show .gallery-title p {
+  cursor: pointer;
 }
 
 .gal-text {
@@ -2207,6 +2213,7 @@ a.slide_btn {
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 }
+
 .shop-product-details {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -2260,7 +2267,9 @@ a.slide_btn {
   .shop-products {
     grid-template-columns: repeat(2, 1fr);
   }
+
   .shop-product-details {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+

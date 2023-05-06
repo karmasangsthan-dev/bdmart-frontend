@@ -6,81 +6,82 @@ const gallery = [
     imageSrc: `/images/gal-1.jpg`,
   },
   {
-    name: "Carrot",
-    imageSrc: `/images/gal-7.jpg`,
+    name: "Toys",
+    imageSrc: `/images/gal-2.jpg`,
   },
 
+  {
+    name: "Gift",
+    imageSrc: `/images/gal-3.jfif`,
+  },
+  {
+    name: "Furniture",
+    imageSrc: `/images/gal-4.jpg`,
+  },
+
+  {
+    name: "Personal Care",
+    imageSrc: `/images/gal-5.jpg`,
+  },
+  {
+    name: "Pets",
+    imageSrc: `/images/gal-6.jfif`,
+  },
+
+  {
+    name: "Rat",
+    imageSrc: `/images/gal-7.jpg`,
+  },
+  {
+    name: "Women",
+    imageSrc: `/images/gal-8.jpg`,
+  },
+
+  {
+    name: "Man",
+    imageSrc: `/images/gal-9.jfif`,
+  },
+  {
+    name: "Clothes",
+    imageSrc: `/images/gal-10.jfif`,
+  },
   {
     name: "Carrot",
     imageSrc: `/images/gal-1.jpg`,
   },
   {
-    name: "Carrot",
-    imageSrc: `/images/gal-7.jpg`,
+    name: "Toys",
+    imageSrc: `/images/gal-2.jpg`,
   },
 
   {
-    name: "Carrot",
-    imageSrc: `/images/gal-1.jpg`,
+    name: "Gift",
+    imageSrc: `/images/gal-3.jfif`,
   },
   {
-    name: "Carrot",
-    imageSrc: `/images/gal-7.jpg`,
+    name: "Furniture",
+    imageSrc: `/images/gal-4.jpg`,
   },
 
   {
-    name: "Carrot",
-    imageSrc: `/images/gal-1.jpg`,
+    name: "Personal Care",
+    imageSrc: `/images/gal-5.jpg`,
   },
   {
-    name: "Carrot",
-    imageSrc: `/images/gal-7.jpg`,
+    name: "Pets",
+    imageSrc: `/images/gal-6.jfif`,
   },
 
   {
-    name: "Carrot",
-    imageSrc: `/images/gal-1.jpg`,
+    name: "Rat",
+    imageSrc: `/images/gal-7.jpg`,
   },
   {
-    name: "Carrot",
-    imageSrc: `/images/gal-7.jpg`,
+    name: "Women",
+    imageSrc: `/images/gal-8.jpg`,
   },
 
-  {
-    name: "Carrot",
-    imageSrc: `/images/gal-1.jpg`,
-  },
-  {
-    name: "Carrot",
-    imageSrc: `/images/gal-7.jpg`,
-  },
-
-  {
-    name: "Carrot",
-    imageSrc: `/images/gal-1.jpg`,
-  },
-  {
-    name: "Carrot",
-    imageSrc: `/images/gal-7.jpg`,
-  },
-
-  {
-    name: "Carrot",
-    imageSrc: `/images/gal-1.jpg`,
-  },
-  {
-    name: "Carrot",
-    imageSrc: `/images/gal-7.jpg`,
-  },
-
-  {
-    name: "Carrot",
-    imageSrc: `/images/gal-1.jpg`,
-  },
-  {
-    name: "Carrot",
-    imageSrc: `/images/gal-7.jpg`,
-  },
+  
 ];
 
 const ShopDepartments = () => {
