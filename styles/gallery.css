@@ -26,9 +26,15 @@ picture img:hover {
   height: 180px;
   margin-bottom: 30px;
 }
+
+
 .gallery-img img {
   width: 149px;
   height: 149px;
+  
+}
+.gallery-img img:hover{
+  cursor: pointer;
 }
 .gallery-title {
   text-align: center;
