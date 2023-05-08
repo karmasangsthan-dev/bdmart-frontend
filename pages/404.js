@@ -10,17 +10,17 @@ const NotFoundPage = () => {
     return (
         <div style={{ minHeight: '120vh' }}>
             <Layout>
-                <div class="main" >
+                <div className="main" >
                     
-                    <div class="error-content text-center position-relative" style={{ backgroundImage: 'url("/images/error-bg.jpg")' }}>
-                        <div class="container">
+                    <div className="error-content text-center position-relative" style={{ backgroundImage: 'url("/images/error-bg.jpg")' }}>
+                        <div className="container">
 
-                            <h1 class="error-title">Error 404</h1>
+                            <h1 className="error-title">Error 404</h1>
                             <p>We are sorry, the page you've requested is not available.</p>
                             
                             <button onClick={()=> router.push('/')} className='btn custom-back-to-homepage'>
                                 <span>BACK TO HOMEPAGE</span>
-                                <i class="icon-long-arrow-right"></i>
+                                <i className="icon-long-arrow-right"></i>
                             </button>
                         </div>
                     </div>

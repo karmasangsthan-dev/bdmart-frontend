@@ -6,7 +6,7 @@ import AddReview from './AddReview';
 const ProductDescription = ({ product }) => {
 
     return (
-        <div class="product-description">
+        <div className="product-description">
             <Tabs defaultActiveKey="product-info" id="product-tabs">
                 <Tab eventKey="product-info" title="Product Information">
                     <h2>Product Information</h2>
@@ -47,7 +47,7 @@ const ProductDescription = ({ product }) => {
                 </Tab>
                 <Tab eventKey="reviews" title="Reviews">
                     <h4>Reviews</h4>
-                    <div class="review">
+                    <div className="review">
                         <div className='row no-gutters'>
                             <div className="col-auto">
                                 <h4>John Doe</h4>
@@ -71,7 +71,7 @@ const ProductDescription = ({ product }) => {
                             </div>
                         </div>
                     </div>
-                    <div class="review">
+                    <div className="review">
                         <div className='row no-gutters'>
                             <div className="col-auto">
                                 <h4>Samanta J.</h4>
