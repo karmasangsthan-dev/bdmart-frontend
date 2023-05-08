@@ -33,7 +33,7 @@ export default function ShopProduct({ product }) {
               className="shop-add-to-cart-button"
             >
               Add to Cart
-              <i class="far plus-ico fa-plus-square" aria-hidden="true"></i>
+              <i className="far plus-ico fa-plus-square" aria-hidden="true"></i>
             </button>
           </div>
         </Link>

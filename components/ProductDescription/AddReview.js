@@ -31,21 +31,21 @@ const AddReview = () => {
                 />
             </div>
             <form onSubmit={handleReviewFormSubmit} >
-                <textarea id="reply-message" cols="30" rows="6" class="form-control review-text-area mt-2 mb-4" placeholder="Comment *" required></textarea>
+                <textarea id="reply-message" cols="30" rows="6" className="form-control review-text-area mt-2 mb-4" placeholder="Comment *" required></textarea>
 
-                <div class="row">
-                    <div class="col-md-6">
-                        <input type="text" class="form-control" id="reply-name" name="reply-name" placeholder="Name *" required />
+                <div className="row">
+                    <div className="col-md-6">
+                        <input type="text" className="form-control" id="reply-name" name="reply-name" placeholder="Name *" required />
                     </div>
-                    <div class="col-md-6">
-                        <input type="email" class="form-control" id="reply-email" name="reply-email" placeholder="Email *" required />
+                    <div className="col-md-6">
+                        <input type="email" className="form-control" id="reply-email" name="reply-email" placeholder="Email *" required />
                     </div>
                 </div>
-                <div class="form-checkbox d-flex align-items-start my-3">
-                    <input style={{ height: '24px' }} type="checkbox" class="custom-checkbox " id="signin-remember" name="signin-remember" />
-                    <label class="form-control-label ms-2" for="signin-remember">Save my name, email, and website in this browser for the next time I comment.</label>
+                <div className="form-checkbox d-flex align-items-start my-3">
+                    <input style={{ height: '24px' }} type="checkbox" className="custom-checkbox " id="signin-remember" name="signin-remember" />
+                    <label className="form-control-label ms-2" for="signin-remember">Save my name, email, and website in this browser for the next time I comment.</label>
                 </div>
-                <button style={{ background: '#92b25a', borderColor: '#92b25a' }} type="submit" class="btn text-white px-5">Submit</button>
+                <button style={{ background: '#92b25a', borderColor: '#92b25a' }} type="submit" className="btn text-white px-5">Submit</button>
             </form>
         </div>
     );
