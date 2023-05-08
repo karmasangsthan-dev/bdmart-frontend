@@ -10,6 +10,7 @@ import {
   useGetAllProductsQuery,
   useGetProductDetailsQuery,
 } from "../../features/product/productApi";
+import ProductDescription from "../../components/ProductDescription/ProductDescription";
 
 const productNo = () => {
   const router = useRouter();
@@ -40,7 +41,7 @@ const productNo = () => {
   return (
     <Layout>
       <div style={{ minHeight: "120vh" }} className="container">
-        <div role="presentation" onClick={handleClick}>
+        <div style={{marginTop:'-15px',marginBottom:'5px'}} role="presentation" onClick={handleClick}>
           <Breadcrumbs aria-label="breadcrumb">
             <Link
               onClick={() => router.push("/")}
@@ -84,7 +85,7 @@ const productNo = () => {
               </div>
               <div className="ratings-texts">( 2 Reviews )</div>
             </div>
-            <p>Product Id : {product?.id}</p>
+            
             <p>{product?.description}</p>
             {product?.color && <p>{product?.color}</p>}
             <div className="d-flex align-items-center gap-2">
@@ -132,17 +133,17 @@ const productNo = () => {
               <div id="cart-btn">
                 <button
                   onClick={() => toast.success("Product added to Cart")}
-                  style={{ minWidth: "214px !important" }}
-                  className="cart-btn w-auto px-3 py-1"
+                  style={{ minWidth: "214px " }}
+                  className="cart-btn px-3 py-1"
                 >
-                  Add to Cart<i className="far plus-ico fa-plus-square"></i>
+                  Add to Cart<i className="far plus-ico fa-plus-square text-white"></i>
                 </button>
               </div>
             </div>
             <div>
-              <h6>Category: {product?.category}</h6>
+              <h6 className="my-2">Category: {product?.category}</h6>
             </div>
-            <div className="share">
+            <div className="share mt-3">
               <div className="d-flex align-items-center">
                 <h6>Share</h6>
                 <div class="share-buttons">
@@ -169,75 +170,7 @@ const productNo = () => {
             </div>
           </div>
         </div>
-        <div class="product-description">
-          <Tabs defaultActiveKey="product-info" id="product-tabs">
-            <Tab eventKey="product-info" title="Product Information">
-              <h2>Product Information</h2>
-            </Tab>
-
-            <Tab eventKey="additional-info" title="Additional Information">
-              <h2>Information</h2>
-              <ul>
-                <li>Cras pretium blandit magna a consequat.</li>
-                <li>Etiam vel lacus eget leo eleifend rutrum.</li>
-              </ul>
-            </Tab>
-            <Tab eventKey="shipping" title="Shipping & Returns">
-              <h2>Delivery & returns</h2> <br />
-              <p>
-                We deliver to over 100 countries around the world. For full
-                details of the delivery options we offer, please view our
-                Delivery information We hope you’ll love every purchase, but if
-                you ever need to return an item you can do so within a month of
-                receipt. For full details of how to make a return, please view
-                our Returns information
-              </p>
-            </Tab>
-            <Tab eventKey="reviews" title="Reviews">
-              <h2>Reviews</h2>
-              <div class="review">
-                <div class="review-header">
-                  <h3>John Doe</h3>
-                  <span class="review-date">May 1, 2023</span>
-                  <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="far fa-star"></i>
-                  </div>
-                </div>
-                <div class="review-body">
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Duis sit amet dui euismod, eleifend turpis in, efficitur
-                    nisi.
-                  </p>
-                </div>
-              </div>
-              <div class="review">
-                <div class="review-header">
-                  <h3>Jane Smith</h3>
-                  <span class="review-date">April 25, 2023</span>
-                  <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="far fa-star"></i>
-                    <i class="far fa-star"></i>
-                  </div>
-                </div>
-                <div class="review-body">
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Duis sit amet dui euismod, eleifend turpis in, efficitur
-                    nisi.
-                  </p>
-                </div>
-              </div>
-            </Tab>
-          </Tabs>
-        </div>
+        <ProductDescription product={product}></ProductDescription>
         <h4 className="text-center my-4">You May Also Like</h4>
 
         <div className="shop page-content">
@@ -250,7 +183,7 @@ const productNo = () => {
                       ?.filter((d) => d.category === `${product?.category}`)
                       .map((d) => {
                         return (
-                          <div key={d?.id} className="shop-single-product">
+                          <div key={d?._id} className="shop-single-product">
                             <figure className="product-media">
                               <span className="product-label label-top">
                                 Top
