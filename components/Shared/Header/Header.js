@@ -20,7 +20,7 @@ const Header = () => {
       let bod = document.querySelector("#accordion_body");
       let stick = this.document.querySelector("#sec_bar");
 
-      bar.classList.toggle('removeBar', window.scrollY >50)
+      bar?.classList.toggle('removeBar', window.scrollY >50)
 
       header?.classList.toggle("sticky", window.scrollY > 50);
       stick?.classList.toggle("stic", window.scrollY > 50);
