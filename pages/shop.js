@@ -11,6 +11,7 @@ import {
   useGetAllProductsQuery,
   useGetProductsQuery,
 } from "../features/product/productApi";
+import Pagination from "../components/Shared/Pagination/Pagination";
 
 // https://dummyjson.com/products
 // export async function getServerSideProps() {
@@ -27,12 +28,13 @@ import {
 
 const shop = () => {
   const { data, isLoading } = useGetAllProductsQuery();
-
+  const [pageNumber, setPageNumber] = useState(0);
   const [allProducts, setAllProducts] = useState([]);
   const [sort, setSort] = useState({
     pageSort: 0,
     priceSort: 0,
   });
+
   const [filter, setFilter] = useState({
     category: [],
     size: "",
@@ -45,12 +47,13 @@ const shop = () => {
     isLoading: loading,
     isError,
     error,
-  } = useGetProductsQuery({ sort, filter });
+  } = useGetProductsQuery({ sort, filter, pageNumber });
 
   useEffect(() => {
     if (
       sort.pageSort ||
       sort.priceSort ||
+      pageNumber ||
       filter.category.length ||
       filter.brand.length ||
       filter.price.length
@@ -59,6 +62,7 @@ const shop = () => {
     } else if (
       !sort.pageSort ||
       !sort.priceSort ||
+      !pageNumber ||
       !filter.category.length ||
       !filter.brand.length ||
       !filter.price.length
@@ -68,13 +72,14 @@ const shop = () => {
   }, [
     products,
     data,
+    pageNumber,
     sort.pageSort,
     sort.priceSort,
     filter.category,
     filter.brand,
     filter.price,
   ]);
-
+  console.log({ pageFound: products?.pageFound });
   return (
     <Layout title="Shop - Bangladesh Mart">
       <div className="shop page-content">
@@ -128,6 +133,12 @@ const shop = () => {
                     ))}
                   </div>
                 </div>
+              </div>
+              <div className="my-5">
+                <Pagination
+                  setPageNumber={setPageNumber}
+                  pageFound={products?.pageFound}
+                />
               </div>
             </div>
           </div>

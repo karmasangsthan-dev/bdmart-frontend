@@ -67,7 +67,7 @@ const ShopSideBar = ({ data, filter, setFilter }) => {
       });
     }
   };
-  console.log(priceRange);
+
   return (
     <div className="sticky-content">
       <aside className="sidebar sidebar-shop">

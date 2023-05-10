@@ -3,10 +3,12 @@ import apiSlice from "../api/apiSlice";
 const productApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getProducts: builder.query({
-      query: ({ sort, filter }) => {
+      query: ({ sort, filter, pagination }) => {
+        console.log(pagination);
         const params = new URLSearchParams();
         params.append("sort", JSON.stringify(sort));
         params.append("filter", JSON.stringify(filter));
+        // params.append("queries", JSON.stringify(pagination));
         const queryString = params.toString();
         return {
           url: `/products?${queryString}`,
