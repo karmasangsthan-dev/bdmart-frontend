@@ -18,9 +18,9 @@ const productApi = apiSlice.injectEndpoints({
       providesTags: ["Products"],
     }),
     getAllProducts: builder.query({
-      query: () => {
+      query: ({ pageNumber, perPage }) => {
         return {
-          url: `/products/bulk`,
+          url: `/products/bulk?perPage=${perPage}&pageNumber=${pageNumber}`,
           method: "GET",
         };
       },

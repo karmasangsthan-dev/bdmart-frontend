@@ -15,13 +15,13 @@ const ShopSideBar = ({ data, filter, setFilter }) => {
       data?.highestPriceProduct.price,
     ]);
   }, [data?.lowestPriceProduct, data?.highestPriceProduct]);
-  data?.data?.map((product) => {
+  data?.allResult?.map((product) => {
     const brandExists = allBrands.find((brand) => brand === product.brand);
     if (!brandExists) {
       allBrands.push(product.brand);
     }
   });
-  data?.data?.map((product) => {
+  data?.allResult?.map((product) => {
     const brandExists = allCategory.find((brand) => brand === product.category);
     if (!brandExists) {
       allCategory.push(product.category);
