@@ -20,6 +20,14 @@ body {
   padding: 0;
 }
 
+.d-lg-none {
+  display: none !important;
+}
+
+.d-lg-block {
+  display: block !important;
+}
+
 .clr {
   clear: both;
 }
@@ -61,6 +69,10 @@ p {
 
 buttton:focus {
   outline: 0;
+}
+
+.text-underline-hover:hover {
+  text-decoration: underline;
 }
 
 @media (max-width: 1094px) {}
@@ -633,7 +645,7 @@ form.example::after {
 
 @media (max-width: 585px) {
   .example input {
-    width: 190px !important;
+    width: 100% !important;
 
     font-size: 12px !important;
   }
@@ -1265,6 +1277,11 @@ Galery Part
 .gallery-img img {
   width: 149px;
   height: 149px;
+  cursor: pointer;
+}
+
+.gallery-show .gallery-title p {
+  cursor: pointer;
 }
 
 .gal-text {
@@ -2020,7 +2037,6 @@ a.slide_btn {
     /* background: green; */
     display: flex;
     overflow: hidden;
-    margin-bottom: 20px;
   }
 }
 
@@ -2051,7 +2067,6 @@ a.slide_btn {
     /* background: green; */
     display: flex;
     overflow: hidden;
-    margin-bottom: 20px;
   }
 
   .landing-img img {
@@ -2204,6 +2219,7 @@ a.slide_btn {
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 }
+
 .shop-product-details {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -2244,6 +2260,14 @@ a.slide_btn {
 }
 
 @media only screen and (max-width:576px) {
+  .d-sm-none {
+    display: none !important;
+  }
+
+  .d-sm-block {
+    display: block !important;
+  }
+
   .shop-products {
     grid-template-columns: repeat(1, 1fr);
   }
@@ -2254,10 +2278,34 @@ a.slide_btn {
 }
 
 @media only screen and (min-width: 577px) and (max-width: 992px) {
+  .d-md-none {
+    display: none !important;
+  }
+
+  .d-md-block {
+    display: block !important;
+  }
+
   .shop-products {
     grid-template-columns: repeat(2, 1fr);
   }
+
   .shop-product-details {
     grid-template-columns: repeat(2, 1fr);
   }
+}
+
+
+.mobile-slider .flash {
+  background: #f6f9fc;
+  padding: 50px 0;
+}
+
+.mobile-slider .product h4 {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.mobile-slider .product-details .product-name {
+  cursor: pointer;
 }

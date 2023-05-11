@@ -1,4 +1,9 @@
 /* product description  */
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+.product-description {
+    font-family: 'Lato', sans-serif;
+}
 
 .product-description-size:focus {
     box-shadow: none !important;
@@ -111,7 +116,14 @@ a:hover {
 
 .review {
     margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ebebeb;
 }
+.review-actions span{
+    cursor: pointer;
+}
+
+
 
 .review-header {
     display: flex;
@@ -146,4 +158,7 @@ a:hover {
 
 .far {
     color: #999;
+}
+.add-a-review-container input,textarea:focus{
+    box-shadow: none !important;
 }
