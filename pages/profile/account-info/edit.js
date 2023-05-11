@@ -53,14 +53,14 @@ const profile = () => {
 
   return (
     <Layout title="Edit Profile - Bangladesh Mart">
-      <div className="container">
+      <div className="container ">
         <div className="row">
           <div className="col-md-3">
             <ProfileSideNav />
           </div>
-          <div className="col-md-9">
-            <div className="profile-content">
-              <form
+          <div className="col-md-9 border py-4 px-3">
+            <div className="profile-content ">
+              <form 
                 onSubmit={handleUpdate}
                 className="tab-pane fade show active"
                 id="account-info"
@@ -171,88 +171,6 @@ const profile = () => {
                   </div>
                 </div>
               </form>
-
-              <div className="tab-pane fade" id="order-history">
-                <h2>Order History</h2>
-                <hr />
-
-                <p>Your order history is empty.</p>
-              </div>
-
-              <div className="tab-pane fade" id="settings">
-                <h2>Settings</h2>
-                <hr></hr>
-                <form>
-                  <div className="form-group">
-                    <label htmlFor="name">Name</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="name"
-                      value="John Doe"
-                    />
-                  </div>
-
-                  <div className="form-group">
-                    <label htmlFor="email">Email</label>
-                    <input
-                      type="email"
-                      className="form-control"
-                      id="email"
-                      value="john.doe@gmail.com"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="phone">Phone</label>
-                    <input
-                      type="tel"
-                      className="form-control"
-                      id="phone"
-                      value="123-456-7890"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="address">Address</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="address"
-                      value="123 Main St, Anytown USA 12345"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="address">Address</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="address"
-                      value="123 Main St, Anytown USA 12345"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="payment-method">Payment Method</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="payment-method"
-                      value="Visa **** **** **** 1234"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="password">Password</label>
-                    <input
-                      type="password"
-                      className="form-control"
-                      id="password"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <button type="submit" className="btn btn-primary">
-                      Save Changes
-                    </button>
-                  </div>
-                </form>
-              </div>
             </div>
           </div>
         </div>

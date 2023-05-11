@@ -41,7 +41,7 @@ export const googleLogin = createAsyncThunk(
       }
     );
     const result = await response.json();
-    console.log(result);
+    console.log(result,'google');
     if (result?.status == 1) {
       localStorage.setItem("accessToken", result?.token);
       return data;

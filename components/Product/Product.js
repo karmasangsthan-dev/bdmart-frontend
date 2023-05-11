@@ -21,7 +21,7 @@ export default function Product({ item }) {
       <div className="product p-3">
         <picture>
           <Image
-            onClick={()=> router.push(`/productDetails/${item._id}`)}
+            onClick={() => router.push(`/productDetails/${item._id}`)}
             src={item.thumbnail}
             layout="responsive"
             width={1000}
@@ -30,8 +30,8 @@ export default function Product({ item }) {
           />
 
         </picture>
-        <div className="main-detail ">
-          <div className="item-name" onClick={()=> router.push(`/productDetails/${item._id}`)}>{item.title.length > 20 ? `${item.title.slice(0, 18)}...` : item.title}</div>
+        <div className="main-detail">
+          <div className="item-name" onClick={() => router.push(`/productDetails/${item._id}`)}>{item.title.length > 20 ? `${item.title.slice(0, 18)}...` : item.title}</div>
         </div>
         <div className="item-price">{item.price ? item?.price : 30}.00$</div>
         <div className="old-price">
