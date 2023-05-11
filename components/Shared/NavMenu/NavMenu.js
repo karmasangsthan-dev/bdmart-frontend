@@ -22,6 +22,7 @@ const NavMenu = () => {
   // const [userSocial, loading2, error2] = useAuthState(auth);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
+  console.log(user,'user')
 
   const [anchorEl, setAnchorEl] = useState(null);
 
