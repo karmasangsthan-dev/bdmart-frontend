@@ -44,7 +44,7 @@ const BestSelling = () => {
     infinite: true,
     slidesToShow: 5,
     slidesToScroll: 1,
-    autoplay: true,
+    autoplay: false,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
     responsive: [

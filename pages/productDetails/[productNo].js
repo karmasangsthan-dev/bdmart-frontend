@@ -22,7 +22,7 @@ const productNo = () => {
   } = router;
 
   const { data: allData } = useGetAllProductsQuery();
-  const { data,isLoading } = useGetProductDetailsQuery(productNo);
+  const { data, isLoading } = useGetProductDetailsQuery(productNo);
 
 
   const [quantity, setQuantity] = useState(1);
@@ -41,7 +41,7 @@ const productNo = () => {
       setQuantity(quantity - 1);
     }
   };
-  if(isLoading){
+  if (isLoading) {
     return <Loading></Loading>
   }
 
@@ -52,7 +52,7 @@ const productNo = () => {
   return (
     <Layout title={`${product?.title ? product?.title : ''} Bangladesh Mart`}>
       {
-        data?.status && <div style={{ minHeight: "120vh" }} className="container">
+        data?.status && <div style={{ minHeight: "120vh", maxWidth: '1200px' }} className="container">
           <div style={{ marginTop: '-15px', marginBottom: '5px' }} role="presentation" onClick={handleClick}>
             <Breadcrumbs aria-label="breadcrumb">
               <Link
@@ -78,11 +78,11 @@ const productNo = () => {
               </Link>
             </Breadcrumbs>
           </div>
-          <div className="d-flex ">
-            <div className="col-md-6">
+          <div className="d-flex border p-3">
+            <div className="col-md-6 ">
               <img src={product.thumbnail} alt="" />
             </div>
-            <div className="col-md-6">
+            <div style={{ borderLeft: '1px solid #ddd' }} className="col-md-6 py-2 px-4">
               <h3>Name: {product?.title}</h3>
               <div className="d-flex justiy-content-center">
                 <div className="ratings">
@@ -93,6 +93,9 @@ const productNo = () => {
                   />
                 </div>
                 <div className="ratings-texts">( 2 Reviews )</div>
+              </div>
+              <div>
+                <p className="my-2">Category: {product?.category}</p>
               </div>
 
               <p>{product?.description}</p>
@@ -142,20 +145,18 @@ const productNo = () => {
                 <div id="cart-btn">
                   <button
                     onClick={() => toast.success("Product added to Cart")}
-                    style={{ minWidth: "214px " }}
+                    style={{ minWidth: "214px ", height: '38px' }}
                     className="cart-btn px-3 py-1"
                   >
                     Add to Cart<i className="far plus-ico fa-plus-square text-white"></i>
                   </button>
                 </div>
               </div>
-              <div>
-                <h6 className="my-2">Category: {product?.category}</h6>
-              </div>
-              <div className="share mt-3">
+
+              <div className="share mt-2">
                 <div className="d-flex align-items-center">
-                  <h6>Share</h6>
-                  <div className="share-buttons">
+                  <h6 className="mt-1">Share:</h6>
+                  <div className="share-buttons ms-2">
                     <a
                       href="https://www.facebook.com/sharer/sharer.php?u=https://example.com"
                       target="_blank"
@@ -189,58 +190,43 @@ const productNo = () => {
                   <div className="products ">
                     <div className="shop-product-details ">
                       {products
-                        ?.filter((d) => d.category === `${product?.category}`)
-                        .map((d) => {
+                        ?.filter((d) => d.category === `${product?.category}`).slice(0, 5).map((d) => {
                           return (
-                            <div key={d?._id} className="shop-single-product">
+                            <div
+                              key={d?._id}
+                              className="shop-single-product">
                               <figure className="product-media">
-                                <span className="product-label label-top">
-                                  Top
-                                </span>
+                                <span className="product-label label-top">Top</span>
+                                <Link style={{ marginTop: "-21px" }} href="/shop">
+                                  <div style={{ width: "217px", height: "217px" }}>
+                                    <Image
+                                      onClick={() => router.push(`/productDetails/${d._id}`)}
+                                      width={217}
+                                      height={217}
+                                      src={d?.thumbnail}
+                                      className=""
+                                      alt=""
+                                    />
 
-                                <div
-                                  onClick={() =>
-                                    router.push(`/productDetails/${d.id}`)
-                                  }
-                                  style={{ width: "217px", height: "217px" }}
-                                >
-                                  <Image
-                                    width={217}
-                                    height={217}
-                                    src={d?.thumbnail}
-                                    className=""
-                                    alt=""
-                                  />
-                                </div>
-                                <button
-                                  onClick={(e) => {
-                                    e.preventDefault();
-                                    toast.success("product added in cart");
-                                  }}
-                                  className="shop-add-to-cart-button"
-                                >
-                                  Add to Cart
-                                  <i
-                                    className="far plus-ico fa-plus-square"
-                                    aria-hidden="true"
-                                  ></i>
-                                </button>
+                                    <button
+                                      onClick={(e) => {
+                                        e.preventDefault();
+                                        toast.success("product added in cart");
+                                      }}
+                                      className="shop-add-to-cart-button"
+                                    >
+                                      Add to Cart
+                                      <i className="far plus-ico fa-plus-square" aria-hidden="true"></i>
+                                    </button>
+                                  </div>
+                                </Link>
                               </figure>
                               <div className="product-body">
                                 <div className="product-cat">
-                                  <Link href="/shop/?category=fruit">
-                                    {d?.category}
-                                  </Link>
+                                  <Link href="#">{d?.category}</Link>
                                 </div>
-                                <div className="product-title">
-                                  <p
-                                    className="cursor-pointer"
-                                    onClick={() =>
-                                      router.push(`/productDetails/${d.id}`)
-                                    }
-                                  >
-                                    {d?.title}
-                                  </p>
+                                <div onClick={() => router.push(`/productDetails/${d._id}`)} className="product-title">
+                                  <Link href="/shop/?category=fruit">{d?.title}</Link>
                                 </div>
                                 <div className="product-price d-flex gap-2 justify-content-center">
                                   <div className="new-price">
@@ -258,9 +244,7 @@ const productNo = () => {
                                       readOnly
                                     />
                                   </div>
-                                  <div className="ratings-texts">
-                                    ( 2 Reviews )
-                                  </div>
+                                  <div className="ratings-texts">( 2 Reviews )</div>
                                 </div>
                               </div>
                             </div>
