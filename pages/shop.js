@@ -11,6 +11,7 @@ import {
   useGetAllProductsQuery,
   useGetProductsQuery,
 } from "../features/product/productApi";
+import Pagination from "../components/Shared/Pagination/Pagination";
 
 // https://dummyjson.com/products
 // export async function getServerSideProps() {
@@ -26,42 +27,44 @@ import {
 // }
 
 const shop = () => {
-  const { data } = useGetAllProductsQuery();
-
+  // const [pageNumber, setPageNumber] = useState(0);
   const [allProducts, setAllProducts] = useState([]);
   const [sort, setSort] = useState({
-    pageSort: 0,
+    perPage: 15,
+    pageNumber: 1,
     priceSort: 0,
   });
+
   const [filter, setFilter] = useState({
     category: [],
     size: "",
     brand: [],
     price: [],
   });
+
+  const { data, isLoading } = useGetAllProductsQuery(sort);
   const {
     data: products,
     isSuccess,
-    isLoading,
+    isLoading: loading,
     isError,
     error,
   } = useGetProductsQuery({ sort, filter });
 
   useEffect(() => {
-    // if (isLoading && !isSuccess) {
-    //   toast.loading("Loading...", { id: "product" });
-    // }
     if (
-      sort.pageSort ||
+      sort.perPage !== 15 ||
       sort.priceSort ||
+      sort.pageNumber !== 1 ||
       filter.category.length ||
       filter.brand.length ||
       filter.price.length
     ) {
       setAllProducts(products);
     } else if (
-      !sort.pageSort ||
+      sort.perPage === 15 ||
       !sort.priceSort ||
+      sort.pageNumber === 1 ||
       !filter.category.length ||
       !filter.brand.length ||
       !filter.price.length
@@ -71,14 +74,14 @@ const shop = () => {
   }, [
     products,
     data,
-    sort.pageSort,
+    sort.pageNumber,
+    sort.perPage,
     sort.priceSort,
-    isLoading,
-    isSuccess,
     filter.category,
     filter.brand,
     filter.price,
   ]);
+
   return (
     <Layout title="Shop - Bangladesh Mart">
       <div className="shop page-content">
@@ -90,15 +93,13 @@ const shop = () => {
             <div className="col-lg-10 pl-lg-5">
               <div className="">
                 <div className="widget w-100 widget-clean d-flex justify-content-between align-items-center">
-                  <p className="fs-6">
-                    Showing {data?.data?.length} of 4 Products
-                  </p>
+                  <p className="fs-6">Total Products: {data?.total}</p>
                   <div className="d-flex gap-4">
                     <div className="d-flex py-1">
                       <span>Per page : </span>
                       <select
                         onChange={(e) =>
-                          setSort({ ...sort, pageSort: e.target.value })
+                          setSort({ ...sort, perPage: Number(e.target.value) })
                         }
                         className="ms-1 rounded px-2 border"
                       >
@@ -132,6 +133,14 @@ const shop = () => {
                     ))}
                   </div>
                 </div>
+              </div>
+              <div className="my-5">
+                <Pagination
+                  setSort={setSort}
+                  sort={sort}
+                  data={data}
+                  pageFound={products?.pageFound}
+                />
               </div>
             </div>
           </div>
