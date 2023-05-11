@@ -8,6 +8,7 @@ import NavMenu from "../NavMenu/NavMenu";
 import Loading from "../Loading/Loading";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { Container, Nav, NavDropdown, Navbar } from "react-bootstrap";
 const Header = () => {
   const router = useRouter();
   const user = useSelector((state) => state.auth.user);
@@ -20,7 +21,7 @@ const Header = () => {
       let bod = document.querySelector("#accordion_body");
       let stick = this.document.querySelector("#sec_bar");
 
-      bar?.classList.toggle('removeBar', window.scrollY >50)
+      bar?.classList.toggle('removeBar', window.scrollY > 50)
 
       header?.classList.toggle("sticky", window.scrollY > 50);
       stick?.classList.toggle("stic", window.scrollY > 50);
@@ -32,7 +33,7 @@ const Header = () => {
   return (
     <div id="strip2">
       <div id="nav_Bar" className="navBar ">
-        <div className="strip-1">
+        <div className="strip-1 ">
           <div className="contact-area">
             <div className="phone">
               <i className="fas fa-phone-alt"></i>
@@ -136,7 +137,7 @@ const Header = () => {
           </div>
         </div>
 
-        <div className="main-strip-2">
+        <div className="main-strip-2 d-sm-none d-lg-block">
           <div id="strip" className="strip-2 ">
             <div className="nav-bar">
               <i className="fas bar fa-bars"></i>
@@ -198,6 +199,96 @@ const Header = () => {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* for mobile */}
+        <div className="main-strip-2 d-sm-block d-lg-none">
+          {/* <div id="strip" className="strip-2 ">
+            <div className="nav-bar">
+              <i className="fas bar fa-bars"></i>
+            </div>
+            
+            <div className="search-box">
+              <form className="example" action="action_page.php">
+                <input
+                  type="text"
+                  placeholder="What are you looking for?"
+                  name="search"
+                />
+                <button type="submit">
+                  <i className="fa fa-search"></i>
+                </button>
+              </form>
+            </div>
+            <div className="d-flex ">
+              <div className="cart-icon ms-3">
+                {user?.email && <NavMenu></NavMenu>}
+              </div>
+              <div className="cart-icon ms-4">
+                <Link href="/cart">
+                  <Image
+                    className="flag-img"
+                    src="/images/cart.png"
+                    alt="country"
+                    width={45}
+                    height={40}
+                    loading="eager"
+                  />
+                </Link>
+                {user?.cart?.length ? (
+                  <span
+                    className=" d-inline-block text-white rounded-circle bg-danger fs-6  fw-semibold border"
+                    style={{
+                      padding: "1px 5px",
+                      margin: "0 -15px",
+                    }}
+                  >
+                    {" "}
+                    {user?.cart?.length < 10
+                      ? `0${user?.cart?.length}`
+                      : user?.cart.length}
+                  </span>
+                ) : (
+                  ""
+                )}
+              </div>
+            </div>
+          </div> */}
+
+          <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
+            <Container>
+              <div className="logo">
+                <Link href="/">
+                  <Image
+                    className="flag-img"
+                    src="/images/logo2.jpg"
+                    alt="country"
+                    width={190}
+                    height={70}
+                  />
+                </Link>
+              </div>
+              <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+              <Navbar.Collapse id="responsive-navbar-nav">
+                <Nav>
+                  <div className="search-box">
+                    <form className="example" >
+                      <input
+                        type="text"
+                        placeholder="What are you looking for?"
+                        name="search"
+                      />
+                      <button type="submit">
+                        <i className="fa fa-search"></i>
+                      </button>
+                    </form>
+                  </div>
+                </Nav>
+                
+
+              </Navbar.Collapse>
+            </Container>
+          </Navbar>
         </div>
 
         {/* header start from here  */}

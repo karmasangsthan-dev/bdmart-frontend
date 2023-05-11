@@ -53,7 +53,7 @@ export default function ProfileSideNav() {
   };
   //
   return (
-    <div className="profile-sidebar">
+    <div className="profile-sidebar border border-1">
       <div
         style={{ flexDirection: "column" }}
         className="profile-userpic d-flex justify-content-center align-items-center"
@@ -65,14 +65,14 @@ export default function ProfileSideNav() {
           alt=""
         /> */}
 
-        <div style={{ width: '130px', height: '130px' }}>
+        <div className="mt-4" style={{ width: '130px', height: '130px' }}>
           <Image
             style={{ width: '100%', height: '100%', borderRadius: '50%' }}
             layout="responsive"
             width={100}
             height={100}
             src={user?.profilePicture || "https://i.ibb.co/x258KZb/profile.jpg"}
-            className=" "
+            className=""
             alt=""
           />
         </div>

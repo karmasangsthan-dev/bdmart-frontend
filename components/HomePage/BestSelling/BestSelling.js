@@ -25,21 +25,40 @@ const SamplePrevArrow = (props) => {
     </div>
   );
 };
+const styles = {
+  bestsellingTitle: {
+    margin: '20px 0',
+  },
+  '@media (max-width: 700px)': {
+    bestsellingTitle: {
+      margin: '10px 0 15px 0',
+    },
+  },
+};
 
 const BestSelling = () => {
-  const { data } = useGetAllProductsQuery();
-
+  const { data, isLoading } = useGetAllProductsQuery();
+  console.log(data, 'data from best')
   const settings = {
     dots: false,
     infinite: true,
     slidesToShow: 5,
     slidesToScroll: 1,
-    autoplay: false,
+    autoplay: true,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
     responsive: [
       {
         breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 800,
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
@@ -68,13 +87,27 @@ const BestSelling = () => {
   return (
     <div>
       <div className="card-header">
-        <h1 className="text-center mb-4">Bestselling items on Rollback</h1>
+        <h1 style={styles.bestsellingTitle} className="text-center  bestselling-title">Bestselling items on Rollback</h1>
       </div>
-      <Slider className="mb-3 px-4" {...settings}>
-        {data?.data?.map((item, index) => (
-          <Product key={index} item={item} />
-        ))}
-      </Slider>
+      {
+        isLoading ? (
+          <div className="">
+            <div className="d-flex justify-content-center ">
+              <div className="spinner1"></div>
+            </div>
+          </div>
+        ) : (
+          <Slider className="mb- px-4 " {...settings}>
+            {data?.data?.map((item, index) => (
+              <Product key={index} item={item} />
+            ))}
+          </Slider>
+        )
+      }
+      
+
+
+
     </div>
   );
 };

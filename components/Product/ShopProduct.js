@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 import Slider from "react-slick";
 
 export default function ShopProduct({ product }) {
@@ -11,13 +12,14 @@ export default function ShopProduct({ product }) {
     <div
       key={product?.id}
       className="shop-single-product"
-      onClick={() => router.push(`/productDetails/${product._id}`)}
+
     >
       <figure className="product-media">
         <span className="product-label label-top">Top</span>
         <Link style={{ marginTop: "-21px" }} href="/shop">
           <div style={{ width: "217px", height: "217px" }}>
             <Image
+              onClick={() => router.push(`/productDetails/${product._id}`)}
               width={217}
               height={217}
               src={product?.thumbnail}
@@ -42,7 +44,7 @@ export default function ShopProduct({ product }) {
         <div className="product-cat">
           <Link href="/shop/?category=fruit">{product?.category}</Link>
         </div>
-        <div className="product-title">
+        <div onClick={() => router.push(`/productDetails/${product._id}`)} className="product-title">
           <Link href="/shop/?category=fruit">{product?.title}</Link>
         </div>
         <div className="product-price d-flex gap-2 justify-content-center">

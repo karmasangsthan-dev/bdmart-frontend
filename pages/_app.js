@@ -16,6 +16,8 @@ import { Toaster } from "react-hot-toast";
 import Providers from "../app/provider";
 
 export default function App({ Component, pageProps }) {
+  
+  
   return (
     <Providers>
       <Component {...pageProps} />
