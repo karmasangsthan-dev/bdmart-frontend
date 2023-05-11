@@ -18,9 +18,18 @@ const productApi = apiSlice.injectEndpoints({
       providesTags: ["Products"],
     }),
     getAllProducts: builder.query({
-      query: ({ pageNumber, perPage }) => {
+      query: (params = {}) => {
+        const { pageNumber, perPage, ...restParams } = params;
+        const queryParams = new URLSearchParams(restParams);
+        if (pageNumber) {
+          queryParams.append("pageNumber", pageNumber);
+        }
+        if (perPage) {
+          queryParams.append("perPage", perPage);
+        }
+
         return {
-          url: `/products/bulk?perPage=${perPage}&pageNumber=${pageNumber}`,
+          url: `/products/bulk?${queryParams.toString()}`,
           method: "GET",
         };
       },

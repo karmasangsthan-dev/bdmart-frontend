@@ -12,6 +12,7 @@ import {
   useGetProductsQuery,
 } from "../features/product/productApi";
 import Pagination from "../components/Shared/Pagination/Pagination";
+import Loading from "../components/Shared/Loading/Loading";
 
 // https://dummyjson.com/products
 // export async function getServerSideProps() {
@@ -82,71 +83,93 @@ const shop = () => {
     filter.price,
   ]);
 
+
+
+
   return (
     <Layout title="Shop - Bangladesh Mart">
-      <div className="shop page-content">
-        <div className="container">
-          <div className="row ">
-            <aside className="col-lg-2 order-lg-first">
-              <ShopSideBar data={data} filter={filter} setFilter={setFilter} />
-            </aside>
-            <div className="col-lg-10 pl-lg-5">
-              <div className="">
-                <div className="widget w-100 widget-clean d-flex justify-content-between align-items-center">
-                  <p className="fs-6">Total Products: {data?.total}</p>
-                  <div className="d-flex gap-4">
-                    <div className="d-flex py-1">
-                      <span>Per page : </span>
-                      <select
-                        onChange={(e) =>
-                          setSort({ ...sort, perPage: Number(e.target.value) })
-                        }
-                        className="ms-1 rounded px-2 border"
-                      >
-                        <option value={15}>15</option>
-                        <option value={10}>10</option>
-                        <option value={20}>20</option>
-                      </select>
+      {
+        isLoading || loading ? (
+          <div style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "42vh"
+          }}>
+            <div className="spinner1"></div>
+          </div>
+        ) : (
+          <div className="shop page-content">
+            <div className="container">
+              <div className="row ">
+                <aside className="col-lg-2 order-lg-first">
+                  <ShopSideBar data={data} filter={filter} setFilter={setFilter} />
+                </aside>
+                <div className="col-lg-10 pl-lg-5">
+                  <div className="">
+                    <div className="widget w-100 widget-clean d-flex justify-content-between align-items-center">
+                      <p className="fs-6">Total Products: {data?.total}</p>
+                      <div className="d-flex gap-4">
+                        <div className="d-flex py-1">
+                          <span>Per page : </span>
+                          <select
+                            onChange={(e) =>
+                              setSort({ ...sort, perPage: Number(e.target.value) })
+                            }
+                            className="ms-1 rounded px-2 border"
+                          >
+                            <option value={15}>15</option>
+                            <option value={10}>10</option>
+                            <option value={20}>20</option>
+                          </select>
+                        </div>
+                        <div className="d-flex py-1">
+                          <span>Sort by : </span>
+                          <select
+                            onChange={(e) =>
+                              setSort({
+                                ...sort,
+                                priceSort: Number(e.target.value),
+                              })
+                            }
+                            className="ms-1 border rounded px-2 "
+                          >
+                            <option value={0}>Default</option>
+                            <option value={-1}>Highest to lowest</option>
+                            <option value={1}>Lowest to Highest</option>
+                          </select>
+                        </div>
+                      </div>
                     </div>
-                    <div className="d-flex py-1">
-                      <span>Sort by : </span>
-                      <select
-                        onChange={(e) =>
-                          setSort({
-                            ...sort,
-                            priceSort: Number(e.target.value),
-                          })
-                        }
-                        className="ms-1 border rounded px-2 "
-                      >
-                        <option value={0}>Default</option>
-                        <option value={-1}>Highest to lowest</option>
-                        <option value={1}>Lowest to Highest</option>
-                      </select>
+                    <div className="products">
+                      {
+                        loading || isLoading ? (
+                          <Loading></Loading>
+                        ) : (
+                          <div className="shop-products">
+                            {allProducts?.data?.map((product) => (
+                              <ShopProduct product={product} key={product?._id} />
+                            ))}
+                          </div>
+                        )
+                      }
                     </div>
                   </div>
-                </div>
-                <div className="products">
-                  <div className="shop-products">
-                    {allProducts?.data?.map((product) => (
-                      <ShopProduct product={product} key={product?._id} />
-                    ))}
+                  <div className="my-5">
+                    <Pagination
+                      setSort={setSort}
+                      sort={sort}
+                      data={data}
+                      pageFound={products?.pageFound}
+                    />
                   </div>
                 </div>
-              </div>
-              <div className="my-5">
-                <Pagination
-                  setSort={setSort}
-                  sort={sort}
-                  data={data}
-                  pageFound={products?.pageFound}
-                />
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </Layout>
+        )
+      }
+    </Layout >
   );
 };
 

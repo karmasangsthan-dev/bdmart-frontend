@@ -1916,6 +1916,7 @@ a.slide_btn {
 }
 
 @media (max-width: 1260px) {
+  
   .button a {
     font-size: 15px !important;
   }
@@ -2196,6 +2197,7 @@ a.slide_btn {
   cursor: pointer;
 }
 
+
 .main-detail .item-name:hover {
   cursor: pointer;
 }
@@ -2293,6 +2295,7 @@ a.slide_btn {
   .shop-product-details {
     grid-template-columns: repeat(2, 1fr);
   }
+  
 }
 
 

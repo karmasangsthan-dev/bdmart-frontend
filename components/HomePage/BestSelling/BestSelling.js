@@ -25,21 +25,40 @@ const SamplePrevArrow = (props) => {
     </div>
   );
 };
+const styles = {
+  bestsellingTitle: {
+    margin: '20px 0',
+  },
+  '@media (max-width: 700px)': {
+    bestsellingTitle: {
+      margin: '10px 0 15px 0',
+    },
+  },
+};
 
 const BestSelling = () => {
-  const { data } = useGetAllProductsQuery();
-
+  const { data, isLoading } = useGetAllProductsQuery();
+  console.log(data, 'data from best')
   const settings = {
     dots: false,
     infinite: true,
     slidesToShow: 5,
     slidesToScroll: 1,
-    autoplay: false,
+    autoplay: true,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
     responsive: [
       {
         breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 800,
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
@@ -68,48 +87,26 @@ const BestSelling = () => {
   return (
     <div>
       <div className="card-header">
-        <h1 className="text-center mb-4">Bestselling items on Rollback</h1>
+        <h1 style={styles.bestsellingTitle} className="text-center  bestselling-title">Bestselling items on Rollback</h1>
       </div>
-      <Slider className="mb-3 px-4 d-sm-none d-lg-block" {...settings}>
-        {data?.data?.map((item, index) => (
-          <Product key={index} item={item} />
-        ))}
-      </Slider>
-
-      <Slider className="d-lg-none d-sm-block mobile-slider" {...settings}>
-        {data?.data?.map((item, index) => (
-          <div key={item?._id} style={{ padding: "0 20px" }} className=''>
-            <div style={{ "background": "#fff", "padding": "20px", "position": "relative", "borderRadius": "8px", "boxShadow": "rgb(3 0 71 / 9%) 0px 1px 3px", "margin": "10px" }} className=' mtop'>
-              <div className='img'>
-                {
-                  item?.quantity > 0 ? <span className='discount'>10 % Off</span> : <span style={{ "position": "absolute", "top": "0", "left": "0", "background": "#e94560", "padding": "3px 10px", "fontSize": "12px", "borderRadius": "50px", "color": "#fff", "margin": "10px" }} className=''>Out of Stock</span>
-                }
-                {/* <span className='available'>{item.discount}% Off</span> */}
-                <img width='100%' height='232px' src={item?.thumbnail} alt='' />
-
-              </div>
-              <div className='product-details'>
-                <h3 onClick={() => navigate(`/product-details/${item._id}`)} className="product-name mt-1">{item.title}</h3>
-                <div className='rate'>
-                  <i className='fa fa-star'></i>
-                  <i className='fa fa-star'></i>
-                  <i className='fa fa-star'></i>
-                  <i className='fa fa-star'></i>
-                  <i className='fa fa-star'></i>
-                </div>
-                <div className='price '>
-                  <h4 className="mb-0 mt-2">${item.price}.00 </h4>
-                  {/* step : 3  
-                     if hami le button ma click garryo bahne 
-                    */}
-                  
-                </div>
-              </div>
+      {
+        isLoading ? (
+          <div className="">
+            <div className="d-flex justify-content-center ">
+              <div className="spinner1"></div>
             </div>
           </div>
-        ))}
+        ) : (
+          <Slider className="mb- px-4 " {...settings}>
+            {data?.data?.map((item, index) => (
+              <Product key={index} item={item} />
+            ))}
+          </Slider>
+        )
+      }
+      
 
-      </Slider>
+
 
     </div>
   );
