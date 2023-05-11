@@ -62,10 +62,10 @@ const signin = () => {
   }, [isSuccess, data, dispatch, isError, error, user]);
 
   return (
-    <div className="">
+    <div  className="">
 
       <Header></Header>
-      <div style={{ backgroundColor: "#fff !important", minHeight: "100vh" }}>
+      <div style={{ backgroundColor: "#fff !important" }}>
         <div className="mx-auto" style={{ width: "60% " }}>
           <div className=" d-flex justify-content-between">
             <h4 style={{ color: "#424242" }}>
@@ -76,8 +76,6 @@ const signin = () => {
             </span>
           </div>
           <div>
-
-
             <div
               style={{ backgroundColor: "#eff0f5" }}
               className="form-container  d-flex"

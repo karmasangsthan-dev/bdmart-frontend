@@ -6,7 +6,7 @@ import { FaUserFriends } from "react-icons/fa";
 import { BsApple } from "react-icons/bs";
 const Footer = () => {
   return (
-    <footer className="footer-section">
+    <footer className="footer-section ">
       <div className="footer-main">
         <div className="footer-1">
           {[1, 2, 3, 4, 5, 6].map((item) => (
@@ -22,13 +22,13 @@ const Footer = () => {
           ))}
         </div>
       </div>
-      <div className="footer-2">
+      <div className="footer-2 ">
         <div className="social-area">
           <div className="">
-            <h6>Stay Connected</h6>
+            <h6 className="ms-1 ">Stay Connected</h6>
           </div>
           <div className="social-icons">
-            <ul>
+            <ul className="ps-0">
               <a href="">
                 <li>
                   <i className="fab fa-facebook-square"></i>
@@ -39,11 +39,7 @@ const Footer = () => {
                   <i className="fab fa-twitter"></i>
                 </li>
               </a>
-              <a href="">
-                <li>
-                  <i className="fab fa-instagram"></i>
-                </li>
-              </a>
+              
               <a href="">
                 <li>
                   <i className="fab fa-whatsapp"></i>
@@ -107,9 +103,9 @@ const Footer = () => {
       </div>
       <div className="footer-3">
         <div>
-          <ul className="last-ul">
+          <ul className="last-ul ">
             <a href="">
-              <li>Terms of use</li>
+              <li  className="">Terms of use</li>
             </a>{" "}
             |
             <a href="">

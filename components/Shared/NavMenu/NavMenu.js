@@ -88,8 +88,8 @@ const NavMenu = () => {
             </IconButton>
           </Tooltip>
         </Box>
-        <Menu 
-        style={{zIndex:'999999'}}
+        <Menu
+          style={{ zIndex: '999999' }}
           anchorEl={anchorEl}
           id="account-menu"
           open={open}
@@ -153,24 +153,20 @@ const NavMenu = () => {
           </div>
           <h4 className="text-center">{user?.fullName}</h4>
           <MenuItem onClick={() => router.push("/profile")}>
-            <Avatar /> Profile
+          <img className="me-2" style={{width:'32px',height:'32px',borderRadius:'50%',marginLeft:'-10px'}} src="https://img.icons8.com/color/48/null/administrator-male-skin-type-7.png"/> Profile
           </MenuItem>
           <MenuItem onClick={() => router.push("/profile/order-history")}>
-            <Avatar /> My Orders
+          <img className="me-2" style={{width:'32px',height:'32px',borderRadius:'50%',marginLeft:'-10px'}} src="https://img.icons8.com/color/48/null/my-orange.png"/> My Orders
           </MenuItem>
-          <MenuItem onClick={() => router.push("/dashboard")}>
-            <Avatar /> Admin Panel
+          <MenuItem onClick={() => window.location.href ="https://bangladesh-mart-admin.netlify.app"}>
+          <img className="me-2" style={{width:'32px',height:'32px',borderRadius:'50%',marginLeft:'-10px'}} src="https://img.icons8.com/color/48/null/administrative-tools.png"/> Admin Panel
           </MenuItem>
           <MenuItem>
-            <ListItemIcon>
-              <Settings fontSize="small" />
-            </ListItemIcon>
+          <img className="me-2" style={{width:'32px',height:'32px',borderRadius:'50%',marginLeft:'-10px'}} src="https://img.icons8.com/color/48/null/settings--v1.png"/>
             Settings
           </MenuItem>
           <MenuItem onClick={handleLogout}>
-            <ListItemIcon>
-              <Logout fontSize="small" />
-            </ListItemIcon>
+          <img className="me-2" style={{width:'32px',height:'32px',borderRadius:'50%',marginLeft:'-10px'}} src="https://img.icons8.com/color/48/null/exit.png"/>
             Logout
           </MenuItem>
         </Menu>
