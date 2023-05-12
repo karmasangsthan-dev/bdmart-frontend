@@ -52,7 +52,7 @@ export default function CartProductRow({ item }) {
       dispatch(fetchUser(token));
     }
   }, []);
-  console.log({ isSuccess, isError, error });
+
   return (
     <tr key={product?._id}>
       <td>

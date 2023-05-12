@@ -27,18 +27,18 @@ const SamplePrevArrow = (props) => {
 };
 const styles = {
   bestsellingTitle: {
-    margin: '20px 0',
+    margin: "20px 0",
   },
-  '@media (max-width: 700px)': {
+  "@media (max-width: 700px)": {
     bestsellingTitle: {
-      margin: '10px 0 15px 0',
+      margin: "10px 0 15px 0",
     },
   },
 };
 
 const BestSelling = () => {
   const { data, isLoading } = useGetAllProductsQuery();
-  console.log(data, 'data from best')
+
   const settings = {
     dots: false,
     infinite: true,
@@ -87,32 +87,28 @@ const BestSelling = () => {
   return (
     <div>
       <div className="card-header">
-        <h1 style={styles.bestsellingTitle} className="text-center  bestselling-title">Bestselling items on Rollback</h1>
+        <h1
+          style={styles.bestsellingTitle}
+          className="text-center  bestselling-title"
+        >
+          Bestselling items on Rollback
+        </h1>
       </div>
-      {
-        isLoading ? (
-          <div className="">
-            <div className="d-flex justify-content-center ">
-              <div className="spinner1"></div>
-            </div>
+      {isLoading ? (
+        <div className="">
+          <div className="d-flex justify-content-center ">
+            <div className="spinner1"></div>
           </div>
-        ) : (
-          <Slider className="mb- px-4 " {...settings}>
-            {data?.data?.map((item, index) => (
-              <Product key={index} item={item} />
-            ))}
-          </Slider>
-        )
-      }
-      
-
-
-
+        </div>
+      ) : (
+        <Slider className="mb- px-4 " {...settings}>
+          {data?.data?.map((item, index) => (
+            <Product key={index} item={item} />
+          ))}
+        </Slider>
+      )}
     </div>
   );
 };
 
 export default BestSelling;
-
-
-

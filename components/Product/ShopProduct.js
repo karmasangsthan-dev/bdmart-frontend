@@ -5,45 +5,85 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import Slider from "react-slick";
+import { useAddToCartMutation } from "../../features/auth/authApi";
+import { useSelector } from "react-redux";
 
 export default function ShopProduct({ product }) {
+  const [token, setToken] = useState();
+  const user = useSelector((state) => state.auth?.user);
   const router = useRouter();
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    setToken(token);
+  }, []);
+
+  const [addToCart, { data, isSuccess }] = useAddToCartMutation();
+  const handleAddToCart = (product) => {
+    if (user?.email) {
+      const data = {
+        userId: user?._id,
+        productId: product?._id,
+      };
+      addToCart({ token, data });
+    }
+    if (!user?.email) {
+      const cartProducts = localStorage.getItem("cartProducts");
+      if (cartProducts) {
+        const cart = JSON.parse(localStorage.getItem("cartProducts"));
+        const index = cart?.findIndex(
+          (item) => item?.product._id === product?._id
+        );
+        if (index !== -1) {
+          cart[index].quantity += 1;
+        } else {
+          cart.push({ product, quantity: 1 });
+        }
+        localStorage.setItem("cartProducts", JSON.stringify(cart));
+      }
+      if (!cartProducts) {
+        const cart = [{ product, quantity: 1 }];
+        localStorage.setItem("cartProducts", JSON.stringify(cart));
+      }
+    }
+  };
   return (
     <div
       key={product?.id}
-      className="shop-single-product">
+      className="shop-single-product"
+      // onClick={() => router.push(`/productDetails/${product._id}`)}
+    >
       <figure className="product-media">
         <span className="product-label label-top">Top</span>
-        <Link style={{ marginTop: "-21px" }} href={`/productDetails/${product._id}`}>
-          <div style={{ width: "217px", height: "217px" }}>
-            <Image
-              onClick={() => router.push(`/productDetails/${product._id}`)}
-              width={217}
-              height={217}
-              src={product?.thumbnail}
-              className=""
-              alt=""
-            />
+        {/* <Link style={{ marginTop: "-21px" }} href="/shop"> */}
+        <div style={{ width: "217px", height: "217px", marginTop: "-18px" }}>
+          <Image
+            width={217}
+            height={217}
+            src={product?.thumbnail}
+            className=""
+            alt=""
+          />
 
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                toast.success("product added in cart");
-              }}
-              className="shop-add-to-cart-button"
-            >
-              Add to Cart
-              <i className="far plus-ico fa-plus-square" aria-hidden="true"></i>
-            </button>
-          </div>
-        </Link>
-      </figure>
-      <div className="product-body">
-        <div className="product-cat">
-          <Link href="/shop/?category=fruit">{product?.category}</Link>
+          <button
+            onClick={() => handleAddToCart(product)}
+            className="shop-add-to-cart-button"
+          >
+            Add to Cart
+            <i class="far plus-ico fa-plus-square" aria-hidden="true"></i>
+          </button>
         </div>
-        <div onClick={() => router.push(`/productDetails/${product._id}`)} className="product-title">
-          <Link href="/shop/?category=fruit">{product?.title}</Link>
+        {/* </Link> */}
+      </figure>
+      <div className="product-body mt-2">
+        <div className="product-cat">
+          <Link href="/shop/?category=fruit" className="text-capitalize">
+            {product?.category}
+          </Link>
+        </div>
+        <div className="product-title">
+          <Link href="/shop/?category=fruit" className="text-capitalize">
+            {product?.title}
+          </Link>
         </div>
         <div className="product-price d-flex gap-2 justify-content-center">
           <div className="new-price">

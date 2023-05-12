@@ -4,7 +4,6 @@ const productApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getProducts: builder.query({
       query: ({ sort, filter, pagination }) => {
-        console.log(pagination);
         const params = new URLSearchParams();
         params.append("sort", JSON.stringify(sort));
         params.append("filter", JSON.stringify(filter));
