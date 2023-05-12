@@ -37,7 +37,7 @@ export default function Product({ item }) {
         <del>{item.oldPrice ? item?.oldPrice : 40}.00$</del>
       </div>
       <div className="save-price">{item.savedPrice ? item?.savedPrice : 10}.00$</div>
-      <div id="cart-btn" >
+      <div id="" >
         <button className="cart-btn w-100 " onClick={(event) => handleAddToCart(event, item._id)}>Add to Cart<i className="far plus-ico fa-plus-square text-white"></i></button>
       </div>
     </div>

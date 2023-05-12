@@ -11,6 +11,7 @@ import Layout from "../../components/Layout";
 import ProfileSideNav from "../../components/Profile/ProfileSideNav";
 import { useSelector } from "react-redux";
 import { BsPencil } from "react-icons/bs";
+import Footer from "../../components/Shared/Footer/Footer";
 
 const profile = () => {
   const router = useRouter();
@@ -69,6 +70,7 @@ const profile = () => {
           </div>
         </div>
       </div>
+      <Footer></Footer>
     </Layout>
   );
 };

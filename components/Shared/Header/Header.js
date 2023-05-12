@@ -284,7 +284,7 @@ const Header = () => {
                     </form>
                   </div>
                 </Nav>
-                
+
 
               </Navbar.Collapse>
             </Container>
@@ -1139,6 +1139,12 @@ const Header = () => {
                 <div className="frombar">
                   <ul>
                     <Link href="/shop">
+                      <li className="inner-li">Top Products</li>
+                    </Link>
+                    <Link href="/shop">
+                      <li className="inner-li">Top Products</li>
+                    </Link>
+                    <Link href="/shop">
                       <li className="inner-li">Shop</li>
                     </Link>
 
@@ -1151,8 +1157,11 @@ const Header = () => {
                     <Link href="/productDetails">
                       <li className="inner-li">ProductDetails</li>
                     </Link>
+                    <Link href="/profile">
+                      <li className="inner-li">My Account</li>
+                    </Link>
                     <Link href="/shop">
-                      <li className="inner-li">Shop</li>
+                      <li className="inner-li">Contact Us</li>
                     </Link>
                   </ul>
                 </div>

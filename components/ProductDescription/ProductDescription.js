@@ -7,16 +7,93 @@ const ProductDescription = ({ product }) => {
 
     return (
         <div className="product-description">
-            <Tabs defaultActiveKey="product-info" id="product-tabs">
+            <Tabs style={{ paddingLeft: '20px' }} defaultActiveKey="product-info" id="product-tabs">
                 <Tab eventKey="product-info" title="Product Information">
-                    <h2>Product Information</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna viverra non, semper suscipit, posuere a, pede. Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis. Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus.</p>
-                    <ul>
-                        <li>Nunc nec porttitor turpis. In eu risus enim. In vitae mollis elit.</li>
-                        <li>Vivamus finibus vel mauris ut vehicula.</li>
-                        <li>Nullam a magna porttitor, dictum risus nec, faucibus sapien.</li>
-                    </ul>
-                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna viverra non, semper suscipit, posuere a, pede. Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis. Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus.</p>
+
+                    <div class="container">
+                        <div class="row">
+                            <h4 className='mt-2'>Product Information:</h4>
+
+                            {
+                                product?.category === "smartphones" && <div class="col-lg-6 ">
+                                    <p>Operating System: Android</p>
+                                    <p>Display size (inches) : 08"06'
+                                    </p>
+                                    <p>Screen resolution (pixels) : 1020x1890px</p>
+                                    <p>Processor type : Snapdragon</p>
+                                    <p>RAM : 8gb</p>
+                                    <p>Storage capacity : 128gb</p>
+                                    <p>Rear camera resolution : 108 megapixels</p>
+                                    <p>Front camera resolution : 16 megapixels</p>
+                                    <p>Battery capacity : 6000 mAh</p>
+                                </div>
+                            }
+                            {
+                                product?.category === "smartphones" && <div class="col-lg-6 ">
+                                    <p>SIM card type : Dual-SIM</p>
+                                    <p>Network connectivity : 5G</p>
+                                    <p>Bluetooth version : Not Specified'
+                                    </p>
+                                    <p>Water resistance rating : IP68</p>
+                                    <p>Fingerprint : Yes</p>
+
+                                </div>
+                            }
+                            {
+                                product?.category === "laptops" && <div class="col-lg-6 ">
+                                    <p>Brand : HP</p>
+                                    <p>Model : Hp-300</p>
+                                    <p>Processor : Intel Core i7
+                                    </p>
+                                    <p>Graphics Card : NVIDIA GeForce RTX 3060</p>
+                                    <p>RAM : 16GB DDR4</p>
+                                    <p>Storage : 512GB SSD</p>
+                                </div>
+                            }
+                            {
+                                product?.category === "fragrances" && <div class="col-lg-6 ">
+                                    <p>Volume : 100 ml</p>
+                                    <p>Scent : Floral</p>
+                                    <p>Gender : Women</p>
+                                    <p>Type : Eau de Parfum</p>
+                                    <p>Top Notes : Bergamot, Lemon, Pear</p>
+
+                                </div>
+                            }
+                            {
+                                product?.category === "fragrances" && <div class="col-lg-6 ">
+                                    <p>Heart Notes : Rose, Jasmine, Ylang-ylang</p>
+                                    <p>Base Notes : Vanilla, Musk, Patchouli</p>
+                                    <p>Longevity : Long Lasting</p>
+                                    <p>Sillage : Moderate</p>
+                                    <p>Occasion : Evening</p>
+                                </div>
+                            }
+                            {
+                                product?.category === "skincare" && (
+                                    <div class="col-lg-6 ">
+                                        <p>Product Type: Moisturizer</p>
+                                        <p>Skin Type: Combination/Oily</p>
+                                        <p>Ingredients: Aloe Vera, Hyaluronic Acid, Vitamin C</p>
+                                        <p>Scent: Unscented</p>
+                                        <p>Texture: Lightweight Cream</p>
+                                    </div>
+                                )
+                            }
+                            {
+                                product?.category === "skincare" && (
+                                    <div class="col-lg-6 ">
+                                        <p>SPF: 30</p>
+                                        <p>Volume: 50 ml</p>
+                                        <p>Cruelty-Free: Yes</p>
+                                        <p>Free From: Parabens, Sulfates, Fragrance</p>
+                                    </div>
+                                )
+                            }
+                        </div>
+                    </div>
+
+
                 </Tab>
 
                 <Tab eventKey="additional-info" title="Additional Information">
