@@ -6,8 +6,15 @@ import { fetchUser } from "../features/auth/authSlice";
 import Script from "next/script";
 import Link from "next/link";
 import Footer from "./Shared/Footer/Footer";
+import { useParams } from 'next/navigation';
+import { useRouter } from "next/router";
 
 const Layout = ({ children, title = "Bangladesh Mart" }) => {
+  const router = useRouter();
+  console.log(router.pathname, 'router')
+  const invalid = router.pathname === '/shop';
+  const invalidURL = '/shop' || "/profile";
+
   const dispatch = useDispatch();
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
@@ -23,8 +30,8 @@ const Layout = ({ children, title = "Bangladesh Mart" }) => {
         src="https://kit.fontawesome.com/a3939c0da5.js"
         crossorigin="anonymous"
       ></Script>
-
-      <Header />
+      {invalid ? <></> : <Header></Header>}
+      
 
       <main>{children}</main>
     </div>

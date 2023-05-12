@@ -11,12 +11,10 @@ export default function ShopProduct({ product }) {
   return (
     <div
       key={product?.id}
-      className="shop-single-product"
-
-    >
+      className="shop-single-product">
       <figure className="product-media">
         <span className="product-label label-top">Top</span>
-        <Link style={{ marginTop: "-21px" }} href="/shop">
+        <Link style={{ marginTop: "-21px" }} href={`/productDetails/${product._id}`}>
           <div style={{ width: "217px", height: "217px" }}>
             <Image
               onClick={() => router.push(`/productDetails/${product._id}`)}

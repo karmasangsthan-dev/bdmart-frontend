@@ -46,7 +46,7 @@ const signup = () => {
   return (
     <div className="">
       <Header></Header>
-      <div style={{ backgroundColor: "#fff !important", minHeight: "100vh" }}>
+      <div style={{ backgroundColor: "#fff !important", minHeight: "120vh" }}>
         <div className="mx-auto" style={{ width: "60%" }}>
           <div className=" d-flex justify-content-between">
             <h4>Welcome to BD Mart! Please Register.</h4>
