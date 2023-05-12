@@ -21,7 +21,7 @@ export default function Home({data}) {
   return (
     <Layout>
       <Banner />
-      {/* <LandingImage/> */}
+      <LandingImage/>
       <BestSelling />
       <ShopDepartments />
       <Footer></Footer>
