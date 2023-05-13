@@ -12,36 +12,33 @@ export default function ShopProduct({ product }) {
     <div
       key={product?.id}
       className="shop-single-product">
-      <figure className="product-media">
-        <span className="product-label label-top">Top</span>
-        <Link style={{ marginTop: "-21px" }} href={`/productDetails/${product._id}`}>
-          <div style={{ width: "217px", height: "217px" }}>
-            <Image
-              onClick={() => router.push(`/productDetails/${product._id}`)}
-              width={217}
-              height={217}
-              src={product?.thumbnail}
-              className=""
-              alt=""
-            />
-
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                toast.success("product added in cart");
-              }}
-              className="shop-add-to-cart-button"
-            >
-              Add to Cart
-              <i className="far plus-ico fa-plus-square" aria-hidden="true"></i>
-            </button>
-          </div>
-        </Link>
-      </figure>
-      <div className="product-body">
-        <div className="product-cat">
-          <Link href="/shop/?category=fruit">{product?.category}</Link>
+      <div className="product-media">
+      <span className="position-absolute text-white px-2 " style={{backgroundColor:'#50b7db'}}>Top</span>
+        <div style={{ width: "217px", height: "217px" }}>
+          <Image
+            onClick={() => router.push(`/productDetails/${product._id}`)}
+            width={217}
+            height={217}
+            src={product?.thumbnail}
+            className=""
+            alt=""
+            style={{cursor:'pointer'}}
+          />
         </div>
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            toast.success("product added in cart");
+          }}
+          className="shop-add-to-cart-button"
+        >
+          Add to Cart
+          <i className="far plus-ico fa-plus-square text-white" aria-hidden="true"></i>
+        </button>
+
+      </div>
+      <div className="product-body">
+        
         <div onClick={() => router.push(`/productDetails/${product._id}`)} className="product-title">
           <Link href="/shop/?category=fruit">{product?.title}</Link>
         </div>

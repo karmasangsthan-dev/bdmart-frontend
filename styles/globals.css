@@ -2248,7 +2248,7 @@ a.slide_btn {
   border: none;
   padding: 4px 0px;
   width: 100%;
-  background-color: #e99e2d;
+  background-color: #f0a535;
   color: white;
   text-decoration: none;
   visibility: hidden;
@@ -2259,6 +2259,10 @@ a.slide_btn {
 .shop-single-product:hover .shop-add-to-cart-button {
   visibility: visible;
   transform: translateY(0%);
+}
+.shop-add-to-cart-button:hover{
+  transition: 0.5s;
+  background-color: #d88d1e;
 }
 
 @media only screen and (max-width:576px) {
