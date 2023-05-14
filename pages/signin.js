@@ -22,25 +22,21 @@ const signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPass, setShowPass] = useState(false);
-
-  const [signInWithGoogle, user, loading, errorGoogle] =
-    useSignInWithGoogle(auth);
   const router = useRouter();
   const dispatch = useDispatch();
-  const [login, { data, isSuccess, isError, error }] = useLoginMutation();
-  const [
-    socialLogin,
-    { data: socialUser, isSuccess: success, isError: isErr, error: err },
-  ] = useSocialLoginMutation();
-  const handleSignIn = (event) => {
-    event.preventDefault();
+  const [login, { data, isSuccess, isLoading, isError, error }] =
+    useLoginMutation();
+
+  const handleSignIn = () => {
+    // event.preventDefault();
 
     login({ email, password });
   };
-  const handleGoogleSignIn = () => {
-    signInWithGoogle();
-  };
+
   useEffect(() => {
+    if (isLoading) {
+      toast.loading("Loading...", { id: "login" });
+    }
     if (isSuccess) {
       localStorage.setItem("accessToken", data.token);
       toast.success("Success", { id: "login" });
@@ -50,15 +46,8 @@ const signin = () => {
     if (isError) {
       toast.error(error?.data?.error, { id: "login" });
     }
-    if (user?.user) {
-      const email = user?.user?.email;
-      const fullName = user?.user?.displayName;
-      const providerId = "firebase";
-      socialLogin({ email, fullName, providerId });
-      router.push("/");
-    }
-  }, [isSuccess, data, dispatch, isError, error, user]);
-
+  }, [isSuccess, data, dispatch, isError, error, isLoading]);
+  console.log({ data, isSuccess, isError, error });
   return (
     <div className="">
       <Header></Header>
@@ -123,8 +112,9 @@ const signin = () => {
                 <button
                   style={{ backgroundColor: "#faa72c" }}
                   className="btn w-100 px-2 py-2 mt-3 text-white"
+                  onClick={handleSignIn}
                 >
-                  Sign Up
+                  Signin
                 </button>
                 <p>or sign in with</p>
                 <GoogleLogin />

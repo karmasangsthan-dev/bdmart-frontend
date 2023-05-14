@@ -7,23 +7,34 @@ import Image from "next/image";
 import { useSelector } from "react-redux";
 import CartProductRow from "../components/Cart/CartProductRow";
 import { useGetAllProductsQuery } from "../features/product/productApi";
+import { useUpdateCartMutation } from "../features/auth/authApi";
+import { toast } from "react-hot-toast";
 
 const cart = () => {
   const [cart, setCart] = useState([]);
   const user = useSelector((state) => state?.auth?.user);
   const { data, isSuccess, isError } = useGetAllProductsQuery();
+  const [updateCart, { isSuccess: success, isLoading: loading }] =
+    useUpdateCartMutation();
   const products = data?.data;
-  useEffect(() => {
-    if (!user?.email) {
-      const cart = JSON.parse(localStorage.getItem("cartProducts"));
-      setCart(cart);
-    }
-    if (user?.email) {
-      const cart = user?.cart;
-      setCart(cart);
-    }
-  }, [products]);
 
+  const handleUpdateCart = () => {
+    const token = localStorage.getItem("accessToken");
+    const updatedProducts = user?.cart?.map((item) => {
+      return { productId: item?._id, quantity: item?.quantity };
+    });
+    updateCart({ token, userId: user?._id, cartProducts: updatedProducts });
+  };
+
+  useEffect(() => {
+    if (loading) {
+      toast.loading("Loading...", { id: "updateCart" });
+    }
+
+    if (success) {
+      toast.success("Updated successful", { id: "updateCart" });
+    }
+  }, [success, loading]);
   return (
     <Layout title="Cart - Bangladesh Mart">
       <div style={{ minHeight: "120vh" }}>
@@ -40,7 +51,7 @@ const cart = () => {
               </tr>
             </thead>
             <tbody>
-              {cart?.map((item) => (
+              {user?.cart?.map((item) => (
                 <CartProductRow item={item} key={item} />
               ))}
             </tbody>
@@ -73,6 +84,7 @@ const cart = () => {
             <button
               className=" btn bg-white border border-dark border-2 py-2 px-4 text-dark text-decoration-none"
               href="/"
+              onClick={handleUpdateCart}
             >
               Save Cart
             </button>
