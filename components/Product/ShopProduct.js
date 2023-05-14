@@ -5,15 +5,53 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import Slider from "react-slick";
+import { useAddToCartMutation } from "../../features/auth/authApi";
+import { useSelector } from "react-redux";
 
 export default function ShopProduct({ product }) {
+  const [token, setToken] = useState();
+  const user = useSelector((state) => state.auth?.user);
   const router = useRouter();
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    setToken(token);
+  }, []);
+
+  const [addToCart, { data, isSuccess }] = useAddToCartMutation();
+  const handleAddToCart = (product) => {
+    if (user?.email) {
+      const data = {
+        userId: user?._id,
+        productId: product?._id,
+      };
+      addToCart({ token, data });
+    }
+    if (!user?.email) {
+      const cartProducts = localStorage.getItem("cartProducts");
+      if (cartProducts) {
+        const cart = JSON.parse(localStorage.getItem("cartProducts"));
+        const index = cart?.findIndex(
+          (item) => item?.product._id === product?._id
+        );
+        if (index !== -1) {
+          cart[index].quantity += 1;
+        } else {
+          cart.push({ product, quantity: 1 });
+        }
+        localStorage.setItem("cartProducts", JSON.stringify(cart));
+      }
+      if (!cartProducts) {
+        const cart = [{ product, quantity: 1 }];
+        localStorage.setItem("cartProducts", JSON.stringify(cart));
+      }
+    }
+  };
   return (
     <div
       key={product?.id}
       className="shop-single-product">
       <div className="product-media">
-      <span className="position-absolute text-white px-2 " style={{backgroundColor:'#50b7db'}}>Top</span>
+        <span className="position-absolute text-white px-2 " style={{ backgroundColor: '#50b7db' }}>Top</span>
         <div style={{ width: "217px", height: "217px" }}>
           <Image
             onClick={() => router.push(`/productDetails/${product._id}`)}
@@ -22,14 +60,11 @@ export default function ShopProduct({ product }) {
             src={product?.thumbnail}
             className=""
             alt=""
-            style={{cursor:'pointer'}}
+            style={{ cursor: 'pointer' }}
           />
         </div>
         <button
-          onClick={(e) => {
-            e.preventDefault();
-            toast.success("product added in cart");
-          }}
+          onClick={() => handleAddToCart(product)}
           className="shop-add-to-cart-button"
         >
           Add to Cart
@@ -38,7 +73,7 @@ export default function ShopProduct({ product }) {
 
       </div>
       <div className="product-body">
-        
+
         <div onClick={() => router.push(`/productDetails/${product._id}`)} className="product-title">
           <Link href="/shop/?category=fruit">{product?.title}</Link>
         </div>

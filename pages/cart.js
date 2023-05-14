@@ -1,14 +1,28 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import Header from "../components/Shared/Header/Header";
 import Layout from "../components/Layout";
 import Image from "next/image";
 import { useSelector } from "react-redux";
 import CartProductRow from "../components/Cart/CartProductRow";
+import { useGetAllProductsQuery } from "../features/product/productApi";
 
 const cart = () => {
-  const cart = useSelector((state) => state.auth.user?.cart) || [];
+  const [cart, setCart] = useState([]);
+  const user = useSelector((state) => state?.auth?.user);
+  const { data, isSuccess, isError } = useGetAllProductsQuery();
+  const products = data?.data;
+  useEffect(() => {
+    if (!user?.email) {
+      const cart = JSON.parse(localStorage.getItem("cartProducts"));
+      setCart(cart);
+    }
+    if (user?.email) {
+      const cart = user?.cart;
+      setCart(cart);
+    }
+  }, [products]);
 
   return (
     <Layout title="Cart - Bangladesh Mart">
