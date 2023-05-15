@@ -31,7 +31,7 @@ export default function ShopProduct({ product }) {
         });
       }
       setCartProduct(product);
-      addProductToCart({ token, userId: user?._id, productId: product?._id });
+      addProductToCart({ token, userId: user?._id, product: product?._id });
     }
     if (!user?.email) {
       toast.error("Please, Login first !!!", { id: "addToCart" });

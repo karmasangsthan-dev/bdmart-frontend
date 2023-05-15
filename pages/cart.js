@@ -21,7 +21,7 @@ const cart = () => {
   const handleUpdateCart = () => {
     const token = localStorage.getItem("accessToken");
     const updatedProducts = user?.cart?.map((item) => {
-      return { productId: item?._id, quantity: item?.quantity };
+      return { product: item?.product?._id, quantity: item?.quantity };
     });
     updateCart({ token, userId: user?._id, cartProducts: updatedProducts });
   };
