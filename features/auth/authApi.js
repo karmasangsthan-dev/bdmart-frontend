@@ -80,6 +80,16 @@ const authApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["User"],
     }),
+    removeCartProduct: builder.mutation({
+      query: ({ token, productId, userId }) => ({
+        url: `/user/removeCart/${userId}/${productId}`,
+        method: "DELETE",
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      }),
+      invalidatesTags: ["User"],
+    }),
     handleCartQuantity: builder.mutation({
       query: ({ token, ...data }) => ({
         url: "/user/cartQuantity",
@@ -101,6 +111,7 @@ export const {
   useUpdateProfileImageMutation,
   useUpdateProfileMutation,
   useGetMeQuery,
+  useRemoveCartProductMutation,
   useUpdateCartMutation,
   useAddToCartMutation,
   useHandleCartQuantityMutation,

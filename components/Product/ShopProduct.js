@@ -23,7 +23,10 @@ export default function ShopProduct({ product }) {
   const [addProductToCart, { data, isSuccess, isLoading }] =
     useAddToCartMutation();
   const handleAddToCart = (product) => {
-    const alreadyAdded = user?.cart?.find((item) => item?._id === product?._id);
+    const alreadyAdded = !!user?.cart?.find((item) =>
+      item?.product?._id === product?._id ? true : false
+    );
+    console.log(alreadyAdded);
     if (user?.email) {
       if (alreadyAdded) {
         return toast.error("Product already added to cart!!!", {

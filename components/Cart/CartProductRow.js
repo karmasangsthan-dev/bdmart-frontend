@@ -7,21 +7,25 @@ import {
   removeCartProduct,
 } from "../../features/auth/authSlice";
 import Image from "next/image";
-import { useHandleCartQuantityMutation } from "../../features/auth/authApi";
+import {
+  useHandleCartQuantityMutation,
+  useRemoveCartProductMutation,
+} from "../../features/auth/authApi";
+import { toast } from "react-hot-toast";
 
 export default function CartProductRow({ item }) {
   const { product, quantity } = item || {};
 
   const [token, setToken] = useState();
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth.user);
+  const user = useSelector((state) => state.auth?.user);
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
     setToken(accessToken);
   }, []);
 
-  const [handleCartQuantity, { isSuccess, isError, error }] =
-    useHandleCartQuantityMutation();
+  const [removeCartProductMutation, { isSuccess, isLoading, isError, error }] =
+    useRemoveCartProductMutation();
 
   const handleQuantityIncrement = (item) => {
     const productId = item?._id;
@@ -47,11 +51,22 @@ export default function CartProductRow({ item }) {
       })
     );
   };
+
+  const handleRemove = (product) => {
+    const productId = product?.product?._id;
+    const userId = user?._id;
+
+    removeCartProductMutation({ token, productId, userId });
+  };
   useEffect(() => {
-    if (isSuccess) {
-      dispatch(fetchUser(token));
+    if (isLoading) {
+      toast.loading("Loading...", { id: "cartClear" });
     }
-  }, []);
+    if (isSuccess) {
+      dispatch(removeCartProduct(item));
+      toast.success("Successfully removed.", { id: "cartClear" });
+    }
+  }, [isLoading, isSuccess]);
 
   return (
     <tr key={product?._id}>
@@ -98,7 +113,7 @@ export default function CartProductRow({ item }) {
       </td>
       <td>
         <button
-          onClick={() => dispatch(removeCartProduct(item))}
+          onClick={() => handleRemove(item)}
           style={{ padding: "0 5px" }}
           className="text-danger border-0"
         >
