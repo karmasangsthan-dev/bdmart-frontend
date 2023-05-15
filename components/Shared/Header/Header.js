@@ -189,7 +189,7 @@ const Header = () => {
                       }}
                     >
                       {" "}
-                      {user?.cart?.length < 10 < 10
+                      {user?.cart?.length < 10
                         ? `0${user?.cart?.length}`
                         : user?.cart.length}
                     </span>
