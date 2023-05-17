@@ -75,7 +75,8 @@ buttton:focus {
   text-decoration: underline;
 }
 
-@media (max-width: 1094px) {}
+@media (max-width: 1094px) {
+}
 
 /*==========================================
 CoMmOn CsS EnD
@@ -891,7 +892,7 @@ MGA CONTENT NAV
 
 .sticky {
   margin-top: 0 !important;
-  transition: all 0.3s ease;
+  /* transition: all 0.3s ease; */
   justify-content: center !important;
   width: 100% !important;
 
@@ -994,7 +995,7 @@ MGA CONTENT NAV
 }
 
 @media (max-width: 1027px) {
-  .row>* {
+  .row > * {
     flex-shrink: 0;
     /* max-width: 100%; */
     padding-right: 0 !important;
@@ -1738,7 +1739,7 @@ a.slide_btn {
 
 /* Footer Area start */
 .footer-section {
-  margin-top: 100px;
+  margin-top: 20px;
   background-color: whitesmoke;
   /* margin-bottom: 50px; */
 
@@ -1916,7 +1917,6 @@ a.slide_btn {
 }
 
 @media (max-width: 1260px) {
-  
   .button a {
     font-size: 15px !important;
   }
@@ -1951,7 +1951,8 @@ a.slide_btn {
   }
 }
 
-@media (max-width: 960px) {}
+@media (max-width: 960px) {
+}
 
 @media (max-width: 936px) {
   .desktop {
@@ -1986,7 +1987,8 @@ a.slide_btn {
   }
 }
 
-@media (max-width: 890px) {}
+@media (max-width: 890px) {
+}
 
 @media (max-width: 836px) {
   .social-area {
@@ -2150,7 +2152,6 @@ a.slide_btn {
 
 .page-content {
   font-size: 14px;
-
 }
 
 .form-check-input:focus {
@@ -2197,7 +2198,6 @@ a.slide_btn {
   cursor: pointer;
 }
 
-
 .main-detail .item-name:hover {
   cursor: pointer;
 }
@@ -2239,7 +2239,6 @@ a.slide_btn {
 .ratings-container {
   display: flex;
   justify-content: space-evenly;
-
 }
 
 .shop-add-to-cart-button {
@@ -2248,7 +2247,7 @@ a.slide_btn {
   border: none;
   padding: 4px 0px;
   width: 100%;
-  background-color: #e99e2d;
+  background-color: #f0a535;
   color: white;
   text-decoration: none;
   visibility: hidden;
@@ -2260,8 +2259,12 @@ a.slide_btn {
   visibility: visible;
   transform: translateY(0%);
 }
+.shop-add-to-cart-button:hover{
+  transition: 0.5s;
+  background-color: #d88d1e;
+}
 
-@media only screen and (max-width:576px) {
+@media only screen and (max-width: 576px) {
   .d-sm-none {
     display: none !important;
   }
@@ -2295,9 +2298,7 @@ a.slide_btn {
   .shop-product-details {
     grid-template-columns: repeat(2, 1fr);
   }
-  
 }
-
 
 .mobile-slider .flash {
   background: #f6f9fc;

@@ -22,7 +22,6 @@ const NavMenu = () => {
   // const [userSocial, loading2, error2] = useAuthState(auth);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
-  console.log(user,'user')
 
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -39,26 +38,19 @@ const NavMenu = () => {
       toast.success("Logout Successful", { id: "logout" });
     }
     if (user?.providerId === "firebase") {
-      console.log("success00");
       try {
-        console.log("success11");
         const success = signOut().then(() => {
-          console.log("success333");
           localStorage.removeItem("accessToken");
           dispatch(logOut());
           toast.success("Logout successful", { id: "logout" });
         });
-      } catch (error) {
-        console.log(error.message);
-      }
+      } catch (error) {}
     }
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const avatar = user?.profilePicture
-    ? user?.profilePicture
-    : "https://i.ibb.co/x258KZb/profile.jpg";
+  const avatar = user?.profilePicture || "https://i.ibb.co/x258KZb/profile.jpg";
   return (
     <div>
       <>
@@ -90,7 +82,7 @@ const NavMenu = () => {
           </Tooltip>
         </Box>
         <Menu
-          style={{ zIndex: '999999' }}
+          style={{ zIndex: "999999" }}
           anchorEl={anchorEl}
           id="account-menu"
           open={open}
@@ -141,33 +133,98 @@ const NavMenu = () => {
                 : "https://i.ibb.co/x258KZb/profile.jpg"
             } */}
 
-          <div style={{ height: '56px', position: 'relative' }}>
+          <div style={{ height: "56px", position: "relative" }}>
             <Image
-              style={{ height: '100%', borderRadius: '50%', margin: 'auto' }}
+              style={{ height: "100%", borderRadius: "50%", margin: "auto" }}
               className="d-block "
               width={56}
               height={56}
               src={avatar}
               loading="eager"
-              alt='profile-pic'
+              alt="profile-pic"
             />
           </div>
-          <h4 className="text-center">{user?.fullName}</h4>
+          <h5 className="text-center text-capitalize ">{user?.fullName}</h5>
+          <p
+            className="text-center  px-1 rounded"
+            style={{
+              marginTop: "-7px",
+              marginBottom: "5px",
+              fontSize: "13px",
+              backgroundColor: "whitesmoke",
+            }}
+          >
+            {user?.email}
+          </p>
+
           <MenuItem onClick={() => router.push("/profile")}>
-          <img className="me-2" style={{width:'32px',height:'32px',borderRadius:'50%',marginLeft:'-10px'}} src="https://img.icons8.com/color/48/null/administrator-male-skin-type-7.png"/> Profile
+            <img
+              className="me-2"
+              style={{
+                width: "32px",
+                height: "32px",
+                borderRadius: "50%",
+                marginLeft: "-10px",
+              }}
+              src="https://img.icons8.com/color/48/null/administrator-male-skin-type-7.png"
+            />{" "}
+            Profile
           </MenuItem>
           <MenuItem onClick={() => router.push("/profile/order-history")}>
-          <img className="me-2" style={{width:'32px',height:'32px',borderRadius:'50%',marginLeft:'-10px'}} src="https://img.icons8.com/color/48/null/my-orange.png"/> My Orders
+            <img
+              className="me-2"
+              style={{
+                width: "32px",
+                height: "32px",
+                borderRadius: "50%",
+                marginLeft: "-10px",
+              }}
+              src="https://img.icons8.com/color/48/null/my-orange.png"
+            />{" "}
+            My Orders
           </MenuItem>
-          <MenuItem onClick={() => window.location.href ="https://bangladesh-mart-admin.netlify.app"}>
-          <img className="me-2" style={{width:'32px',height:'32px',borderRadius:'50%',marginLeft:'-10px'}} src="https://img.icons8.com/color/48/null/administrative-tools.png"/> Admin Panel
+          <MenuItem
+            onClick={() =>
+              (window.location.href =
+                "https://bangladesh-mart-admin.netlify.app")
+            }
+          >
+            <img
+              className="me-2"
+              style={{
+                width: "32px",
+                height: "32px",
+                borderRadius: "50%",
+                marginLeft: "-10px",
+              }}
+              src="https://img.icons8.com/color/48/null/administrative-tools.png"
+            />{" "}
+            Admin Panel
           </MenuItem>
           <MenuItem>
-          <img className="me-2" style={{width:'32px',height:'32px',borderRadius:'50%',marginLeft:'-10px'}} src="https://img.icons8.com/color/48/null/settings--v1.png"/>
+            <img
+              className="me-2"
+              style={{
+                width: "32px",
+                height: "32px",
+                borderRadius: "50%",
+                marginLeft: "-10px",
+              }}
+              src="https://img.icons8.com/color/48/null/settings--v1.png"
+            />
             Settings
           </MenuItem>
           <MenuItem onClick={handleLogout}>
-          <img className="me-2" style={{width:'32px',height:'32px',borderRadius:'50%',marginLeft:'-10px'}} src="https://img.icons8.com/color/48/null/exit.png"/>
+            <img
+              className="me-2"
+              style={{
+                width: "32px",
+                height: "32px",
+                borderRadius: "50%",
+                marginLeft: "-10px",
+              }}
+              src="https://img.icons8.com/color/48/null/exit.png"
+            />
             Logout
           </MenuItem>
         </Menu>

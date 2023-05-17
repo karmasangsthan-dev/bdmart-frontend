@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,9 +10,17 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { Container, Nav, NavDropdown, Navbar } from "react-bootstrap";
 const Header = () => {
+  const [cart, setCart] = useState([]);
   const router = useRouter();
   const user = useSelector((state) => state.auth.user);
-
+  useEffect(() => {
+    const localCart = localStorage.getItem("cartProducts");
+    if (localCart) {
+      const cart = JSON.parse(localStorage.getItem("cartProducts"));
+      setCart(cart);
+    }
+  }, []);
+  console.log(cart);
   useEffect(() => {
     window.addEventListener("scroll", function () {
       let header = this.document.querySelector("#strip2");
@@ -21,7 +29,7 @@ const Header = () => {
       let bod = document.querySelector("#accordion_body");
       let stick = this.document.querySelector("#sec_bar");
 
-      bar?.classList.toggle('removeBar', window.scrollY > 50)
+      bar?.classList.toggle("removeBar", window.scrollY > 50);
 
       header?.classList.toggle("sticky", window.scrollY > 50);
       stick?.classList.toggle("stic", window.scrollY > 50);
@@ -179,23 +187,24 @@ const Header = () => {
                     height={40}
                     loading="eager"
                   />
+
+                  {user?.cart?.length || cart?.length ? (
+                    <span
+                      className=" d-inline-block text-white rounded-circle bg-danger fs-6  fw-semibold border"
+                      style={{
+                        padding: "1px 5px",
+                        margin: "0 -15px",
+                      }}
+                    >
+                      {" "}
+                      {user?.cart?.length < 10 || cart?.length < 10
+                        ? `0${user?.cart?.length || cart?.length}`
+                        : user?.cart.length || cart?.length}
+                    </span>
+                  ) : (
+                    user?.cart?.length === 0 || (cart?.length === 0 && "")
+                  )}
                 </Link>
-                {user?.cart?.length ? (
-                  <span
-                    className=" d-inline-block text-white rounded-circle bg-danger fs-6  fw-semibold border"
-                    style={{
-                      padding: "1px 5px",
-                      margin: "0 -15px",
-                    }}
-                  >
-                    {" "}
-                    {user?.cart?.length < 10
-                      ? `0${user?.cart?.length}`
-                      : user?.cart.length}
-                  </span>
-                ) : (
-                  ""
-                )}
               </div>
             </div>
           </div>
@@ -272,7 +281,7 @@ const Header = () => {
               <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav>
                   <div className="search-box">
-                    <form className="example" >
+                    <form className="example">
                       <input
                         type="text"
                         placeholder="What are you looking for?"
@@ -284,8 +293,6 @@ const Header = () => {
                     </form>
                   </div>
                 </Nav>
-
-
               </Navbar.Collapse>
             </Container>
           </Navbar>
