@@ -19,9 +19,9 @@ import auth from "../firebase.init";
 import GoogleLogin from "../components/Shared/SocialLogin/GoogleLogin";
 
 const signin = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [showPass, setShowPass] = useState(false)
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPass, setShowPass] = useState(false);
 
   const [signInWithGoogle, user, loading, errorGoogle] =
     useSignInWithGoogle(auth);
@@ -34,7 +34,6 @@ const signin = () => {
   ] = useSocialLoginMutation();
   const handleSignIn = (event) => {
     event.preventDefault();
-
 
     login({ email, password });
   };
@@ -52,7 +51,6 @@ const signin = () => {
       toast.error(error?.data?.error, { id: "login" });
     }
     if (user?.user) {
-      console.log('user created by google', user)
       const email = user?.user?.email;
       const fullName = user?.user?.displayName;
       const providerId = "firebase";
@@ -62,8 +60,7 @@ const signin = () => {
   }, [isSuccess, data, dispatch, isError, error, user]);
 
   return (
-    <div  className="">
-
+    <div className="">
       <Header></Header>
       <div style={{ backgroundColor: "#fff !important" }}>
         <div className="mx-auto" style={{ width: "60% " }}>
@@ -109,9 +106,17 @@ const signin = () => {
                     type={showPass ? "text" : "password"}
                     placeholder="Please Enter your Password"
                   />
-                  {
-                    showPass ? <AiFillEye onClick={() => setShowPass(!showPass)} className="fs-5 signup-password-show-button" /> : <AiFillEyeInvisible onClick={() => setShowPass(!showPass)} className="fs-5 signup-password-show-button" />
-                  }
+                  {showPass ? (
+                    <AiFillEye
+                      onClick={() => setShowPass(!showPass)}
+                      className="fs-5 signup-password-show-button"
+                    />
+                  ) : (
+                    <AiFillEyeInvisible
+                      onClick={() => setShowPass(!showPass)}
+                      className="fs-5 signup-password-show-button"
+                    />
+                  )}
                 </div>
               </div>
               <div className="right w-50 mb-4 p-4">

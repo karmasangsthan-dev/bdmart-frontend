@@ -6,6 +6,8 @@ import ShopDepartments from "../components/HomePage/Department/ShopDepartments";
 
 import Layout from "../components/Layout";
 import Footer from "../components/Shared/Footer/Footer";
+import Discount from "../components/HomePage/Discount/Discount";
+import JustForYou from "../components/HomePage/JustForYou/JustForYou";
 
 // export async function getServerSideProps(context) {
 //   const res = await fetch('https://dummyjson.com/products');
@@ -21,9 +23,11 @@ export default function Home({data}) {
   return (
     <Layout>
       <Banner />
-      {/* <LandingImage/> */}
+      <LandingImage/>
       <BestSelling />
       <ShopDepartments />
+      <Discount></Discount>
+      <JustForYou></JustForYou>
       <Footer></Footer>
     </Layout>
   );
