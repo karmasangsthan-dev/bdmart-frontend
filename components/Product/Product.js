@@ -79,16 +79,13 @@ export default function Product({ product }) {
       </picture>
       <div className="main-detail">
         <div
-          className="product-name"
-          onClick={() => router.push(`/productDetails/${product._id}`)}
+          className="item-name"
+          onClick={() => router.push(`/productDetails/${item._id}`)}
         >
-          {product.title.length > 20
-            ? `${product.title.slice(0, 18)}...`
-            : product.title}
+          {item.title?.length > 20
+            ? `${item.title.slice(0, 18)}...`
+            : item.title}
         </div>
-      </div>
-      <div className="product-price">
-        {product.price ? product?.price : 30}.00$
       </div>
       <div className="old-price">
         <del>{product.oldPrice ? product?.oldPrice : 40}.00$</del>

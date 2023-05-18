@@ -33,6 +33,19 @@ const productNo = () => {
     event.preventDefault();
   }
 
+  const buttonStyle = {
+    backgroundColor: "rgb(179 48 61)",
+    borderColor: 'rgb(179 48 61)',
+    color: '#ffffff',
+    padding: '0.375rem 0.75rem',
+    fontSize: '1rem',
+    minWidth: "214px ",
+    height: '38px',
+    borderRadius: '0.25rem',
+    cursor: 'not-allowed',
+    opacity: '0.65',
+
+  };
   const handleQunatityIncrement = (id) => {
     setQuantity(quantity + 1);
   };
@@ -48,6 +61,7 @@ const productNo = () => {
   if (!data?.status) {
     return <NotFoundPage></NotFoundPage>
   }
+  console.log(product, 'product in product details')
 
   return (
     <Layout title={`${product?.title ? product?.title : ''} Bangladesh Mart`}>
@@ -95,7 +109,7 @@ const productNo = () => {
                 <div className="ratings-texts">( 2 Reviews )</div>
               </div>
               <div>
-                <p className="my-2">Category: {product?.category}</p>
+                <h5 className="my-2">Price: <span style={{ color: '#26d5fd' }} >${product?.price}</span></h5>
               </div>
 
               <p>{product?.description}</p>
@@ -143,13 +157,17 @@ const productNo = () => {
               </div>
               <div className="mt-2">
                 <div id="cart-btn">
-                  <button
-                    onClick={() => toast.success("Product added to Cart")}
-                    style={{ minWidth: "214px ", height: '38px' }}
-                    className="cart-btn px-3 py-1"
-                  >
-                    Add to Cart<i className="far plus-ico fa-plus-square text-white"></i>
-                  </button>
+                  {
+                    product?.stock >= 1 ? <button
+                      onClick={() => toast.success("Product added to Cart")}
+                      style={{ minWidth: "214px ", height: '38px' }}
+                      className="cart-btn px-3 py-1"
+                    >
+                      Add to Cart<i className="far plus-ico fa-plus-square text-white"></i>
+                    </button> : <button title="Out of Stock" type="button" className="btn" style={buttonStyle} disabled>
+                      Out of Stock
+                    </button>
+                  }
                 </div>
               </div>
 

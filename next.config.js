@@ -9,6 +9,7 @@ const nextConfig = {
       "lh3.googleusercontent.com",
       "upload.wikimedia.org",
       "i.dummyjson.com",
+      "example.com",
       "img.freepik.com",
     ],
   },

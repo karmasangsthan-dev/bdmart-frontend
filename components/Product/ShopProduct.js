@@ -71,41 +71,33 @@ export default function ShopProduct({ product }) {
   return (
     <div
       key={product?.id}
-      className="shop-single-product"
-      // onClick={() => router.push(`/productDetails/${product._id}`)}
-    >
-      <figure className="product-media">
-        <span className="product-label label-top">Top</span>
-        {/* <Link style={{ marginTop: "-21px" }} href="/shop"> */}
-        <div style={{ width: "217px", height: "217px", marginTop: "-18px" }}>
+      className="shop-single-product">
+      <div className="product-media">
+        <span className="position-absolute text-white px-2 " style={{ backgroundColor: '#50b7db' }}>Top</span>
+        <div style={{ width: "217px", height: "217px" }}>
           <Image
+            onClick={() => router.push(`/productDetails/${product._id}`)}
             width={217}
             height={217}
             src={product?.thumbnail}
             className=""
             alt=""
+            style={{ cursor: 'pointer' }}
           />
+        </div>
+        <button
+          onClick={() => handleAddToCart(product)}
+          className="shop-add-to-cart-button"
+        >
+          Add to Cart
+          <i className="far plus-ico fa-plus-square text-white" aria-hidden="true"></i>
+        </button>
 
-          <button
-            onClick={() => handleAddToCart(product)}
-            className="shop-add-to-cart-button"
-          >
-            Add to Cart
-            <i class="far plus-ico fa-plus-square" aria-hidden="true"></i>
-          </button>
-        </div>
-        {/* </Link> */}
-      </figure>
-      <div className="product-body mt-2">
-        <div className="product-cat">
-          <Link href="/shop/?category=fruit" className="text-capitalize">
-            {product?.category}
-          </Link>
-        </div>
-        <div className="product-title">
-          <Link href="/shop/?category=fruit" className="text-capitalize">
-            {product?.title}
-          </Link>
+      </div>
+      <div className="product-body">
+
+        <div onClick={() => router.push(`/productDetails/${product._id}`)} className="product-title">
+          <Link href="/shop/?category=fruit">{product?.title}</Link>
         </div>
         <div className="product-price d-flex gap-2 justify-content-center">
           <div className="new-price">

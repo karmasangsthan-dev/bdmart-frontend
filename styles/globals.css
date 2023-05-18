@@ -112,6 +112,7 @@ CoMmOn CsS EnD
 }
 
 .removeBar {
+  box-shadow: 3px 2px 8px gray;
   margin-bottom: 0 !important;
   border-bottom: none !important;
 }
@@ -1739,7 +1740,7 @@ a.slide_btn {
 
 /* Footer Area start */
 .footer-section {
-  margin-top: 100px;
+  margin-top: 20px;
   background-color: whitesmoke;
   /* margin-bottom: 50px; */
 
@@ -2247,7 +2248,7 @@ a.slide_btn {
   border: none;
   padding: 4px 0px;
   width: 100%;
-  background-color: #e99e2d;
+  background-color: #f0a535;
   color: white;
   text-decoration: none;
   visibility: hidden;
@@ -2258,6 +2259,10 @@ a.slide_btn {
 .shop-single-product:hover .shop-add-to-cart-button {
   visibility: visible;
   transform: translateY(0%);
+}
+.shop-add-to-cart-button:hover{
+  transition: 0.5s;
+  background-color: #d88d1e;
 }
 
 @media only screen and (max-width: 576px) {
@@ -2309,3 +2314,4 @@ a.slide_btn {
 .mobile-slider .product-details .product-name {
   cursor: pointer;
 }
+

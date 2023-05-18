@@ -189,9 +189,9 @@ const Header = () => {
                       }}
                     >
                       {" "}
-                      {user?.cart?.length < 10
-                        ? `0${user?.cart?.length}`
-                        : user?.cart.length}
+                      {user?.cart?.length < 10 || cart?.length < 10
+                        ? `0${user?.cart?.length || cart?.length}`
+                        : user?.cart?.length || cart?.length}
                     </span>
                   ) : (
                     user?.cart?.length === 0 && ""
