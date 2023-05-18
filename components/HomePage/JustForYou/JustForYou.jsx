@@ -60,7 +60,7 @@ const JustForYou = () => {
                                         </div>
                                         <div className="product-details-card p-2">
                                             <div className="product-title">
-                                                <span>{product?.title.length > 37 ? `${product?.title.slice(0, 40)} ...` : product?.title}</span>
+                                                <span>{product?.title?.length > 37 ? `${product?.title.slice(0, 40)} ...` : product?.title}</span>
                                             </div>
                                             <div className="product-price">
                                                 <p className='mb-0 '>${product?.price}</p>
