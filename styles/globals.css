@@ -112,6 +112,7 @@ CoMmOn CsS EnD
 }
 
 .removeBar {
+  box-shadow: 3px 2px 8px gray;
   margin-bottom: 0 !important;
   border-bottom: none !important;
 }
@@ -2313,3 +2314,4 @@ a.slide_btn {
 .mobile-slider .product-details .product-name {
   cursor: pointer;
 }
+
