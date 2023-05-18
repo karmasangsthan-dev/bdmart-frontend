@@ -121,7 +121,7 @@ const Discount = () => {
                                                         <div className=''>
                                                             <img className='border' style={{ width: '100%', height: '139px' }} src={product?.thumbnail} alt='' />
                                                         </div>
-                                                        <p style={{ minHeight: '42px' }} className="item-name mt-2 mb-0">{product?.title.length > 37 ? `${product?.title.slice(0, 30)} ...` : product?.title}</p>
+                                                        <p style={{ minHeight: '42px' }} className="item-name mt-2 mb-0">{product?.title?.length > 37 ? `${product?.title?.slice(0, 30)} ...` : product?.title}</p>
                                                         <div className="d-flex justify-content-between align-items-center">
                                                             <span className='item-price'>${product?.price}</span>
 
