@@ -11,6 +11,7 @@ import { useUpdateCartMutation } from "../features/auth/authApi";
 import { toast } from "react-hot-toast";
 
 const cart = () => {
+  const [subTotal, setSubtotal] = useState(0);
   const [cart, setCart] = useState([]);
   const user = useSelector((state) => state?.auth?.user);
   const { data, isSuccess, isError } = useGetAllProductsQuery();
@@ -35,6 +36,18 @@ const cart = () => {
       toast.success("Updated successful", { id: "updateCart" });
     }
   }, [success, loading]);
+
+  useEffect(() => {
+    let subTotal_ = 0;
+
+    if (user?.cart?.length) {
+      for (let i = 0; i < user.cart.length; i++) {
+        subTotal_ += user.cart[i].product.price;
+      }
+    }
+
+    setSubtotal(subTotal_);
+  }, [user]);
   return (
     <Layout title="Cart - Bangladesh Mart">
       <div style={{ minHeight: "120vh" }}>
@@ -115,12 +128,12 @@ const cart = () => {
               >
                 <li className="d-flex justify-content-between">
                   <span className="fw-bold">Subtotal:</span>
-                  <span>$250</span>
+                  <span>${subTotal}</span>
                 </li>
                 <hr />
                 <li className="d-flex justify-content-between">
                   <span className="fw-bold">Total:</span>
-                  <span>$350</span>
+                  <span>${subTotal + 100}</span>
                 </li>
               </div>
               <button

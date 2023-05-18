@@ -143,8 +143,8 @@ const shop = () => {
                           className="ms-1 border rounded px-2 "
                         >
                           <option value={0}>Default</option>
-                          <option value={-1}>Highest to lowest</option>
-                          <option value={1}>Lowest to Highest</option>
+                          <option value={-1}>High to low</option>
+                          <option value={1}>Low to High</option>
                         </select>
                       </div>
                     </div>
