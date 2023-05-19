@@ -9,10 +9,11 @@ import Loading from "../Loading/Loading";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { Container, Nav, NavDropdown, Navbar } from "react-bootstrap";
-import { setCart } from "../../../features/auth/authSlice";
+
 const Header = () => {
   const router = useRouter();
   const user = useSelector((state) => state?.auth?.user);
+  const { cart } = useSelector((state) => state?.cart);
   useEffect(() => {
     window.addEventListener("scroll", function () {
       let header = this.document.querySelector("#strip2");
@@ -180,7 +181,7 @@ const Header = () => {
                     loading="eager"
                   />
 
-                  {user?.cart?.length ? (
+                  {cart?.length ? (
                     <span
                       className=" d-inline-block text-white rounded-circle bg-danger fs-6  fw-semibold border"
                       style={{
@@ -189,12 +190,12 @@ const Header = () => {
                       }}
                     >
                       {" "}
-                      {user?.cart?.length < 10 || user?.cart?.length < 10
-                        ? `0${user?.cart?.length || user?.cart?.length}`
-                        : user?.cart?.length || user?.cart?.length}
+                      {cart?.length < 10 || cart?.length < 10
+                        ? `0${cart?.length || cart?.length}`
+                        : cart?.length || cart?.length}
                     </span>
                   ) : (
-                    user?.cart?.length === 0 && ""
+                    cart?.length === 0 && ""
                   )}
                 </Link>
               </div>
@@ -297,7 +298,7 @@ const Header = () => {
         <div id="sec_bar" className="sec_nav ">
           <div className="container-fluid">
             <div className="row align-items-center">
-              <div
+              {/* <div
                 style={{ minHeight: "67px" }}
                 className="accordion w-auto"
                 id="accordionPanelsStayOpenExample"
@@ -1133,7 +1134,8 @@ const Header = () => {
                     </ul>
                   </div>
                 </div>
-              </div>
+              </div> */}
+
               <div className="w-auto">
                 <div className="frombar">
                   <ul>

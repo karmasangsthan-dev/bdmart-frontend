@@ -7,73 +7,82 @@ import { toast } from "react-hot-toast";
 import Slider from "react-slick";
 import { useAddToCartMutation } from "../../features/auth/authApi";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../../features/auth/authSlice";
+import { addToCart } from "../../features/cart/cartSlice";
 
 export default function ShopProduct({ product }) {
-  const [token, setToken] = useState();
-  const [cartProduct, setCartProduct] = useState({});
+  // const [token, setToken] = useState();
+  // const [cartProduct, setCartProduct] = useState({});
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth?.user);
-  const router = useRouter();
-  useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    setToken(token);
-  }, []);
+  // const user = useSelector((state) => state.auth?.user);
+  // const router = useRouter();
+  // useEffect(() => {
+  //   const token = localStorage.getItem("accessToken");
+  //   setToken(token);
+  // }, []);
 
-  const [addProductToCart, { data, isSuccess, isLoading }] =
-    useAddToCartMutation();
+  // const [addProductToCart, { data, isSuccess, isLoading }] =
+  //   useAddToCartMutation();
   const handleAddToCart = (product) => {
-    const alreadyAdded = !!user?.cart?.find((item) =>
-      item?.product?._id === product?._id ? true : false
-    );
-    console.log(alreadyAdded);
-    if (user?.email) {
-      if (alreadyAdded) {
-        return toast.error("Product already added to cart!!!", {
-          id: "addToCart",
-        });
-      }
-      setCartProduct(product);
-      addProductToCart({ token, userId: user?._id, product: product?._id });
-    }
-    if (!user?.email) {
-      toast.error("Please, Login first !!!", { id: "addToCart" });
-    }
-    // if (!user?.email) {
-    //   const cartProducts = localStorage.getItem("cartProducts");
-    //   if (cartProducts) {
-    //     const cart = JSON.parse(localStorage.getItem("cartProducts"));
-    //     const index = cart?.findIndex(
-    //       (item) => item?.product._id === product?._id
-    //     );
-    //     if (index !== -1) {
-    //       cart[index].quantity += 1;
-    //     } else {
-    //       cart.push({ product, quantity: 1 });
+    //   const alreadyAdded = !!user?.cart?.find(
+    //     (item) => item?.product?._id === product?._id
+    //   );
+    //   console.log(alreadyAdded);
+    //   if (user?.email) {
+    //     if (alreadyAdded) {
+    //       return toast.error("Product already added to cart!!!", {
+    //         id: "addToCart",
+    //       });
     //     }
-    //     localStorage.setItem("cartProducts", JSON.stringify(cart));
+    //     setCartProduct(product);
+    //     addProductToCart({ token, userId: user?._id, product: product?._id });
     //   }
-    //   if (!cartProducts) {
-    //     const cart = [{ product, quantity: 1 }];
-    //     localStorage.setItem("cartProducts", JSON.stringify(cart));
+    //   if (!user?.email) {
+    //     toast.error("Please, Login first !!!", { id: "addToCart" });
     //   }
-    // }
-  };
-  useEffect(() => {
-    if (isLoading) {
-      toast.loading("Loading...", { id: "addToCart" });
+
+    //   ----------------------------------------------------------
+
+    const cartProducts = localStorage.getItem("cartProducts");
+    if (cartProducts) {
+      const cart = JSON.parse(localStorage.getItem("cartProducts"));
+      const index = cart?.findIndex(
+        (cartProduct) => cartProduct?.id === product?._id
+      );
+      if (index !== -1) {
+        cart[index].quantity += 1;
+        toast.success("Updated Quantity", { id: "addToCart" });
+      } else {
+        cart.push({ id: product?._id, quantity: 1 });
+        toast.success("Added to cart", { id: "addToCart" });
+      }
+      localStorage.setItem("cartProducts", JSON.stringify(cart));
     }
-    if (isSuccess) {
-      dispatch(addToCart(cartProduct));
+    if (!cartProducts) {
+      const cart = [{ id: product?._id, quantity: 1 }];
+      localStorage.setItem("cartProducts", JSON.stringify(cart));
       toast.success("Added to cart", { id: "addToCart" });
     }
-  }, [isSuccess, isLoading]);
+
+    dispatch(addToCart({ id: product?._id }));
+  };
+  // useEffect(() => {
+  //   if (isLoading) {
+  //     toast.loading("Loading...", { id: "addToCart" });
+  //   }
+  //   if (isSuccess) {
+  //     dispatch(addToCart(cartProduct));
+  //     toast.success("Added to cart", { id: "addToCart" });
+  //   }
+  // }, [isSuccess, isLoading]);
   return (
-    <div
-      key={product?.id}
-      className="shop-single-product">
+    <div key={product?.id} className="shop-single-product">
       <div className="product-media">
-        <span className="position-absolute text-white px-2 " style={{ backgroundColor: '#50b7db' }}>Top</span>
+        <span
+          className="position-absolute text-white px-2 text-capitalize "
+          style={{ backgroundColor: "#50b7db" }}
+        >
+          {product?.section}
+        </span>
         <div style={{ width: "217px", height: "217px" }}>
           <Image
             onClick={() => router.push(`/productDetails/${product._id}`)}
@@ -82,7 +91,7 @@ export default function ShopProduct({ product }) {
             src={product?.thumbnail}
             className=""
             alt=""
-            style={{ cursor: 'pointer' }}
+            style={{ cursor: "pointer" }}
           />
         </div>
         <button
@@ -90,13 +99,17 @@ export default function ShopProduct({ product }) {
           className="shop-add-to-cart-button"
         >
           Add to Cart
-          <i className="far plus-ico fa-plus-square text-white" aria-hidden="true"></i>
+          <i
+            className="far plus-ico fa-plus-square text-white"
+            aria-hidden="true"
+          ></i>
         </button>
-
       </div>
       <div className="product-body">
-
-        <div onClick={() => router.push(`/productDetails/${product._id}`)} className="product-title">
+        <div
+          onClick={() => router.push(`/productDetails/${product._id}`)}
+          className="product-title"
+        >
           <Link href="/shop/?category=fruit">{product?.title}</Link>
         </div>
         <div className="product-price d-flex gap-2 justify-content-center">
