@@ -6,10 +6,13 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import Slider from "react-slick";
 import { useAddToCartMutation } from "../../features/auth/authApi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../../features/auth/authSlice";
 
 export default function ShopProduct({ product }) {
   const [token, setToken] = useState();
+  const [cartProduct, setCartProduct] = useState({});
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.auth?.user);
   const router = useRouter();
   useEffect(() => {
@@ -17,35 +20,54 @@ export default function ShopProduct({ product }) {
     setToken(token);
   }, []);
 
-  const [addToCart, { data, isSuccess }] = useAddToCartMutation();
+  const [addProductToCart, { data, isSuccess, isLoading }] =
+    useAddToCartMutation();
   const handleAddToCart = (product) => {
+    const alreadyAdded = !!user?.cart?.find((item) =>
+      item?.product?._id === product?._id ? true : false
+    );
+    console.log(alreadyAdded);
     if (user?.email) {
-      const data = {
-        userId: user?._id,
-        productId: product?._id,
-      };
-      addToCart({ token, data });
+      if (alreadyAdded) {
+        return toast.error("Product already added to cart!!!", {
+          id: "addToCart",
+        });
+      }
+      setCartProduct(product);
+      addProductToCart({ token, userId: user?._id, product: product?._id });
     }
     if (!user?.email) {
-      const cartProducts = localStorage.getItem("cartProducts");
-      if (cartProducts) {
-        const cart = JSON.parse(localStorage.getItem("cartProducts"));
-        const index = cart?.findIndex(
-          (item) => item?.product._id === product?._id
-        );
-        if (index !== -1) {
-          cart[index].quantity += 1;
-        } else {
-          cart.push({ product, quantity: 1 });
-        }
-        localStorage.setItem("cartProducts", JSON.stringify(cart));
-      }
-      if (!cartProducts) {
-        const cart = [{ product, quantity: 1 }];
-        localStorage.setItem("cartProducts", JSON.stringify(cart));
-      }
+      toast.error("Please, Login first !!!", { id: "addToCart" });
     }
+    // if (!user?.email) {
+    //   const cartProducts = localStorage.getItem("cartProducts");
+    //   if (cartProducts) {
+    //     const cart = JSON.parse(localStorage.getItem("cartProducts"));
+    //     const index = cart?.findIndex(
+    //       (item) => item?.product._id === product?._id
+    //     );
+    //     if (index !== -1) {
+    //       cart[index].quantity += 1;
+    //     } else {
+    //       cart.push({ product, quantity: 1 });
+    //     }
+    //     localStorage.setItem("cartProducts", JSON.stringify(cart));
+    //   }
+    //   if (!cartProducts) {
+    //     const cart = [{ product, quantity: 1 }];
+    //     localStorage.setItem("cartProducts", JSON.stringify(cart));
+    //   }
+    // }
   };
+  useEffect(() => {
+    if (isLoading) {
+      toast.loading("Loading...", { id: "addToCart" });
+    }
+    if (isSuccess) {
+      dispatch(addToCart(cartProduct));
+      toast.success("Added to cart", { id: "addToCart" });
+    }
+  }, [isSuccess, isLoading]);
   return (
     <div
       key={product?.id}

@@ -9,18 +9,10 @@ import Loading from "../Loading/Loading";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { Container, Nav, NavDropdown, Navbar } from "react-bootstrap";
+import { setCart } from "../../../features/auth/authSlice";
 const Header = () => {
-  const [cart, setCart] = useState([]);
   const router = useRouter();
-  const user = useSelector((state) => state.auth.user);
-  useEffect(() => {
-    const localCart = localStorage.getItem("cartProducts");
-    if (localCart) {
-      const cart = JSON.parse(localStorage.getItem("cartProducts"));
-      setCart(cart);
-    }
-  }, []);
-  console.log(cart);
+  const user = useSelector((state) => state?.auth?.user);
   useEffect(() => {
     window.addEventListener("scroll", function () {
       let header = this.document.querySelector("#strip2");
@@ -188,7 +180,7 @@ const Header = () => {
                     loading="eager"
                   />
 
-                  {user?.cart?.length || cart?.length ? (
+                  {user?.cart?.length ? (
                     <span
                       className=" d-inline-block text-white rounded-circle bg-danger fs-6  fw-semibold border"
                       style={{
@@ -202,7 +194,7 @@ const Header = () => {
                         : user?.cart?.length || cart?.length}
                     </span>
                   ) : (
-                    user?.cart?.length === 0 || (cart?.length === 0 && "")
+                    user?.cart?.length === 0 && ""
                   )}
                 </Link>
               </div>
