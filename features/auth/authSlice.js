@@ -4,6 +4,7 @@ let initialState = {
   user: {
     cart: [],
   },
+  cart: [],
   isLoading: false,
   isError: false,
   isSuccess: false,
@@ -65,55 +66,45 @@ const authSlice = createSlice({
       state.isError = false;
       state.error = "";
     },
-    addToCart: (state, action) => {
-      state.user = {
-        ...state.user,
-        cart: [
-          ...state.user.cart,
-          { product: action.payload, quantity: 1, _id: action.payload._id },
-        ],
-      };
-    },
-    setCart: (state, action) => {
-      state.user = {
-        ...state.user,
-        cart: [...state.user.cart, ...action.payload],
-      };
+    addToCart: (state, { payload }) => {
+      state.cart = [
+        ...state.cart,
+        { id: payload.id, quantity: payload.quantity },
+      ];
     },
     incCartProductQuantity: (state, { payload }) => {
-      state.user = {
-        ...state.user,
-        cart: state.user.cart.map((product) =>
-          product._id === payload._id
-            ? {
-                ...product,
-                quantity: product.quantity + 1,
-              }
-            : product
+      state.cart = [
+        ...state.cart.filter((product) => product?.id !== payload.id),
+        state.cart.find(
+          (product) =>
+            product.id === payload.id && {
+              ...product,
+              quantity: product.quantity + 1,
+            }
         ),
-      };
+      ];
     },
-    removeCartProduct: (state, { payload }) => {
-      state.user = {
-        ...state.user,
-        cart: [
-          ...state.user.cart.filter((product) => product?._id !== payload?._id),
-        ],
-      };
-    },
-    decCartProductQuantity: (state, { payload }) => {
-      state.user = {
-        ...state.user,
-        cart: state.user.cart.map((product) =>
-          product._id === payload._id
-            ? {
-                ...product,
-                quantity: product.quantity - 1,
-              }
-            : product
-        ),
-      };
-    },
+    // removeCartProduct: (state, { payload }) => {
+    //   state.user = {
+    //     ...state.user,
+    //     cart: [
+    //       ...state.user.cart.filter((product) => product?._id !== payload?._id),
+    //     ],
+    //   };
+    // },
+    // decCartProductQuantity: (state, { payload }) => {
+    //   state.user = {
+    //     ...state.user,
+    //     cart: state.user.cart.map((product) =>
+    //       product._id === payload._id
+    //         ? {
+    //             ...product,
+    //             quantity: product.quantity - 1,
+    //           }
+    //         : product
+    //     ),
+    //   };
+    // },
   },
   extraReducers: (builder) => {
     builder
@@ -158,13 +149,5 @@ const authSlice = createSlice({
   },
 });
 
-export const {
-  logOut,
-  setUser,
-  addToCart,
-  setCart,
-  incCartProductQuantity,
-  decCartProductQuantity,
-  removeCartProduct,
-} = authSlice.actions;
+export const { logOut, setUser } = authSlice.actions;
 export default authSlice.reducer;

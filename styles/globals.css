@@ -768,10 +768,13 @@ Nav Bar End
 .sec_nav {
   position: relative;
   transition: all 0.3s ease;
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
 
+  margin-bottom: 5px;
+  margin-left: 80px;
+}
+.departments {
+  border: 1px solid black;
+}
 .stic {
   transition: all 0.3s ease;
   margin-top: -10px;
@@ -2260,7 +2263,7 @@ a.slide_btn {
   visibility: visible;
   transform: translateY(0%);
 }
-.shop-add-to-cart-button:hover{
+.shop-add-to-cart-button:hover {
   transition: 0.5s;
   background-color: #d88d1e;
 }
@@ -2314,4 +2317,3 @@ a.slide_btn {
 .mobile-slider .product-details .product-name {
   cursor: pointer;
 }
-

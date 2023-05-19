@@ -43,6 +43,14 @@ const productApi = apiSlice.injectEndpoints({
       },
       providesTags: ["Product"],
     }),
+    getCartProducts: builder.mutation({
+      query: (data) => ({
+        url: `/cartProducts`,
+        method: "POST",
+        body: data,
+      }),
+      // invalidatesTags: ["Cart"],
+    }),
   }),
 });
 
@@ -50,4 +58,5 @@ export const {
   useGetProductsQuery,
   useGetAllProductsQuery,
   useGetProductDetailsQuery,
+  useGetCartProductsMutation,
 } = productApi;
