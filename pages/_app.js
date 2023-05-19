@@ -16,10 +16,14 @@ import '../styles/discount.css'
 
 import { Toaster } from "react-hot-toast";
 import Providers from "../app/provider";
+import { useEffect } from "react";
 
 export default function App({ Component, pageProps }) {
-  
-  
+  useEffect(() => {
+    import('bootstrap/dist/js/bootstrap.bundle.min.js')
+      .catch(error => console.log('An error occurred while loading the Bootstrap script:', error));
+  }, []);
+
   return (
     <Providers>
       <Component {...pageProps} />

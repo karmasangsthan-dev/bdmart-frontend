@@ -2,13 +2,15 @@ import Head from "next/head";
 import Header from "./Shared/Header/Header";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { fetchUser, setCart } from "../features/auth/authSlice";
+import { fetchUser } from "../features/auth/authSlice";
 import Script from "next/script";
 import Link from "next/link";
 import Footer from "./Shared/Footer/Footer";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/router";
 import { useSetCartMutation } from "../features/auth/authApi";
+import { setCart, setCartProducts } from "../features/cart/cartSlice";
+import { useGetCartProductsMutation } from "../features/product/productApi";
 
 const Layout = ({ children, title = "Bangladesh Mart" }) => {
   const dispatch = useDispatch();
@@ -17,7 +19,8 @@ const Layout = ({ children, title = "Bangladesh Mart" }) => {
   const [cartArray, setCartArray] = useState([]);
   const invalid = router.pathname === "/shop";
   const invalidURL = "/shop" || "/profile";
-
+  const [getCartProducts, { data, isLoading, isSuccess }] =
+    useGetCartProductsMutation();
   // const { user, isLoading } = useSelector((state) => state?.auth);
   // const [setProductCart, { data, isSuccess, isError }] = useSetCartMutation({
   //   token,
@@ -29,6 +32,17 @@ const Layout = ({ children, title = "Bangladesh Mart" }) => {
     dispatch(fetchUser(token));
   }, [dispatch]);
 
+  useEffect(() => {
+    const cartProducts = localStorage.getItem("cartProducts");
+    if (cartProducts) {
+      const cart = JSON.parse(localStorage.getItem("cartProducts"));
+      dispatch(setCart(cart));
+      getCartProducts(cart);
+    }
+  }, [dispatch]);
+  useEffect(() => {
+    dispatch(setCartProducts(data?.data));
+  }, [data?.data]);
   // useEffect(() => {
   //   const localCart = localStorage.getItem("cartProducts");
   //   if (localCart && !user?.email) {
@@ -71,6 +85,8 @@ const Layout = ({ children, title = "Bangladesh Mart" }) => {
         src="https://kit.fontawesome.com/a3939c0da5.js"
         crossorigin="anonymous"
       ></Script>
+      
+
       <Header />
 
       <main>{children}</main>
