@@ -4,50 +4,63 @@ import { Table } from "react-bootstrap";
 import Header from "../components/Shared/Header/Header";
 import Layout from "../components/Layout";
 import Image from "next/image";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CartProductRow from "../components/Cart/CartProductRow";
-import { useGetAllProductsQuery } from "../features/product/productApi";
-import { useUpdateCartMutation } from "../features/auth/authApi";
+import {
+  useGetAllProductsQuery,
+  useGetCartProductsMutation,
+} from "../features/product/productApi";
+
 import { toast } from "react-hot-toast";
+import { setCartProducts } from "../features/cart/cartSlice";
+// import { addToCart } from "../features/cart/cartSlice";
 
 const cart = () => {
-  const [subTotal, setSubtotal] = useState(0);
-  const [cart, setCart] = useState([]);
-  const user = useSelector((state) => state?.auth?.user);
-  const { data, isSuccess, isError } = useGetAllProductsQuery();
-  const [updateCart, { isSuccess: success, isLoading: loading }] =
-    useUpdateCartMutation();
-  const products = data?.data;
+  // const [subTotal, setSubtotal] = useState(0);
+  // const [cart, setCart] = useState([]);
+  const dispatch = useDispatch();
+  // const user = useSelector((state) => state?.auth?.user);
+  const { cart } = useSelector((state) => state?.cart);
+  const { cartProducts } = useSelector((state) => state?.cart);
+
+  // const [updateCart, { isSuccess: success, isLoading: loading }] =
+  //   useUpdateCartMutation();
+  // const products = data?.data;
 
   const handleUpdateCart = () => {
-    const token = localStorage.getItem("accessToken");
-    const updatedProducts = user?.cart?.map((item) => {
-      return { product: item?.product?._id, quantity: item?.quantity };
-    });
-    updateCart({ token, userId: user?._id, cartProducts: updatedProducts });
+    //   const token = localStorage.getItem("accessToken");
+    //   const updatedProducts = user?.cart?.map((item) => {
+    //     return { product: item?.product?._id, quantity: item?.quantity };
+    //   });
+    //   updateCart({ token, userId: user?._id, cartProducts: updatedProducts });
   };
 
-  useEffect(() => {
-    if (loading) {
-      toast.loading("Loading...", { id: "updateCart" });
-    }
+  // useEffect(() => {
+  //   if (loading) {
+  //     toast.loading("Loading...", { id: "updateCart" });
+  //   }
 
-    if (success) {
-      toast.success("Updated successful", { id: "updateCart" });
-    }
-  }, [success, loading]);
+  //   if (success) {
+  //     toast.success("Updated successful", { id: "updateCart" });
+  //   }
+  // }, [success, loading]);
 
-  useEffect(() => {
-    let subTotal_ = 0;
+  // useEffect(() => {
+  //   let subTotal_ = 0;
 
-    if (user?.cart?.length) {
-      for (let i = 0; i < user.cart.length; i++) {
-        subTotal_ += user.cart[i].product.price;
-      }
-    }
+  //   if (user?.cart?.length) {
+  //     for (let i = 0; i < user.cart.length; i++) {
+  //       subTotal_ += user.cart[i].product.price;
+  //     }
+  //   }
 
-    setSubtotal(subTotal_);
-  }, [user]);
+  //   setSubtotal(subTotal_);
+  // }, [user]);
+
+  // useEffect(() => {
+  //   getCartProducts(cart);
+  // }, [cart]);
+
   return (
     <Layout title="Cart - Bangladesh Mart">
       <div style={{ minHeight: "120vh" }}>
@@ -64,7 +77,7 @@ const cart = () => {
               </tr>
             </thead>
             <tbody>
-              {user?.cart?.map((item) => (
+              {cartProducts?.map((item) => (
                 <CartProductRow item={item} key={item} />
               ))}
             </tbody>
@@ -128,12 +141,12 @@ const cart = () => {
               >
                 <li className="d-flex justify-content-between">
                   <span className="fw-bold">Subtotal:</span>
-                  <span>${subTotal}</span>
+                  {/* <span>${subTotal}</span> */}
                 </li>
                 <hr />
                 <li className="d-flex justify-content-between">
                   <span className="fw-bold">Total:</span>
-                  <span>${subTotal + 100}</span>
+                  {/* <span>${subTotal + 100}</span> */}
                 </li>
               </div>
               <button

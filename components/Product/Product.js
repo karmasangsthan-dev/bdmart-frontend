@@ -4,67 +4,73 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useAddToCartMutation } from "../../features/auth/authApi";
-import { addToCart } from "../../features/auth/authSlice";
+import { addToCart } from "../../features/cart/cartSlice";
 
 export default function Product({ product }) {
-  const [token, setToken] = useState();
-  const [cartProduct, setCartProduct] = useState({});
+  // const [token, setToken] = useState();
+  // const [cartProduct, setCartProduct] = useState({});
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth?.user);
-  const router = useRouter();
-  useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    setToken(token);
-  }, []);
+  // const user = useSelector((state) => state.auth?.user);
+  // const router = useRouter();
+  // useEffect(() => {
+  //   const token = localStorage.getItem("accessToken");
+  //   setToken(token);
+  // }, []);
 
-  const [addProductToCart, { data, isSuccess, isLoading }] =
-    useAddToCartMutation();
+  // const [addProductToCart, { data, isSuccess, isLoading }] =
+  //   useAddToCartMutation();
   const handleAddToCart = (product) => {
-    const alreadyAdded = !!user?.cart?.find(
-      (item) => item?.product?._id === product?._id
-    );
-    console.log(alreadyAdded);
-    if (user?.email) {
-      if (alreadyAdded) {
-        return toast.error("Product already added to cart!!!", {
-          id: "addToCart",
-        });
-      }
-      setCartProduct(product);
-      addProductToCart({ token, userId: user?._id, product: product?._id });
-    }
-    if (!user?.email) {
-      toast.error("Please, Login first !!!", { id: "addToCart" });
-    }
-    // if (!user?.email) {
-    //   const cartProducts = localStorage.getItem("cartProducts");
-    //   if (cartProducts) {
-    //     const cart = JSON.parse(localStorage.getItem("cartProducts"));
-    //     const index = cart?.findIndex(
-    //       (product) => product?.product._id === product?._id
-    //     );
-    //     if (index !== -1) {
-    //       cart[index].quantity += 1;
-    //     } else {
-    //       cart.push({ product, quantity: 1 });
+    //   const alreadyAdded = !!user?.cart?.find(
+    //     (item) => item?.product?._id === product?._id
+    //   );
+    //   console.log(alreadyAdded);
+    //   if (user?.email) {
+    //     if (alreadyAdded) {
+    //       return toast.error("Product already added to cart!!!", {
+    //         id: "addToCart",
+    //       });
     //     }
-    //     localStorage.setItem("cartProducts", JSON.stringify(cart));
+    //     setCartProduct(product);
+    //     addProductToCart({ token, userId: user?._id, product: product?._id });
     //   }
-    //   if (!cartProducts) {
-    //     const cart = [{ product, quantity: 1 }];
-    //     localStorage.setItem("cartProducts", JSON.stringify(cart));
+    //   if (!user?.email) {
+    //     toast.error("Please, Login first !!!", { id: "addToCart" });
     //   }
-    // }
-  };
-  useEffect(() => {
-    if (isLoading) {
-      toast.loading("Loading...", { id: "addToCart" });
+
+    //   ----------------------------------------------------------
+
+    const cartProducts = localStorage.getItem("cartProducts");
+    if (cartProducts) {
+      const cart = JSON.parse(localStorage.getItem("cartProducts"));
+      const index = cart?.findIndex(
+        (cartProduct) => cartProduct?.id === product?._id
+      );
+      if (index !== -1) {
+        cart[index].quantity += 1;
+        toast.success("Updated Quantity", { id: "addToCart" });
+      } else {
+        cart.push({ id: product?._id, quantity: 1 });
+        toast.success("Added to cart", { id: "addToCart" });
+      }
+      localStorage.setItem("cartProducts", JSON.stringify(cart));
     }
-    if (isSuccess) {
-      dispatch(addToCart(cartProduct));
+    if (!cartProducts) {
+      const cart = [{ id: product?._id, quantity: 1 }];
+      localStorage.setItem("cartProducts", JSON.stringify(cart));
       toast.success("Added to cart", { id: "addToCart" });
     }
-  }, [isSuccess, isLoading]);
+
+    dispatch(addToCart({ id: product?._id }));
+  };
+  // useEffect(() => {
+  //   if (isLoading) {
+  //     toast.loading("Loading...", { id: "addToCart" });
+  //   }
+  //   if (isSuccess) {
+  //     dispatch(addToCart(cartProduct));
+  //     toast.success("Added to cart", { id: "addToCart" });
+  //   }
+  // }, [isSuccess, isLoading]);
   return (
     <div className="product-link bestselling-product-container product border p-3 ms-3 mt-3 mb-4 me-3 rounded-3 shadow">
       <picture>
