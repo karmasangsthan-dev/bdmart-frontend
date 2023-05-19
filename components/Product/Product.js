@@ -82,9 +82,9 @@ export default function Product({ product }) {
           className="item-name"
           onClick={() => router.push(`/productDetails/${item._id}`)}
         >
-          {item.title?.length > 20
-            ? `${item.title.slice(0, 18)}...`
-            : item.title}
+          {product.title?.length > 20
+            ? `${product?.title?.slice(0, 18)}...`
+            : product?.title}
         </div>
       </div>
       <div className="old-price">
