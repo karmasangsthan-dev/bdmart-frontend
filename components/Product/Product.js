@@ -70,7 +70,7 @@ export default function Product({ product }) {
       <picture>
         <Image
           onClick={() => router.push(`/productDetails/${product._id}`)}
-          src={product.thumbnail}
+          src={product?.thumbnail}
           layout="responsive"
           width={1000}
           height={1000}
@@ -80,18 +80,18 @@ export default function Product({ product }) {
       <div className="main-detail">
         <div
           className="item-name"
-          onClick={() => router.push(`/productDetails/${item._id}`)}
+          onClick={() => router.push(`/productDetails/${product._id}`)}
         >
-          {product.title?.length > 20
+          {product?.title?.length > 20
             ? `${product?.title?.slice(0, 18)}...`
             : product?.title}
         </div>
       </div>
       <div className="old-price">
-        <del>{product.oldPrice ? product?.oldPrice : 40}.00$</del>
+        <del>{product?.oldPrice ? product?.oldPrice : 40}.00$</del>
       </div>
       <div className="save-price">
-        {product.savedPrice ? product?.savedPrice : 10}.00$
+        {product?.savedPrice ? product?.savedPrice : 10}.00$
       </div>
       <div id="">
         <button
