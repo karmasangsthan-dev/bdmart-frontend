@@ -85,11 +85,7 @@ const Layout = ({ children, title = "Bangladesh Mart" }) => {
         src="https://kit.fontawesome.com/a3939c0da5.js"
         crossorigin="anonymous"
       ></Script>
-      <link
-        rel="stylesheet"
-        href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-      />
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+      
 
       <Header />
 
