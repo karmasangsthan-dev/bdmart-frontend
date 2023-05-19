@@ -74,6 +74,12 @@ const authSlice = createSlice({
         ],
       };
     },
+    setCart: (state, action) => {
+      state.user = {
+        ...state.user,
+        cart: [...state.user.cart, ...action.payload],
+      };
+    },
     incCartProductQuantity: (state, { payload }) => {
       state.user = {
         ...state.user,
@@ -156,6 +162,7 @@ export const {
   logOut,
   setUser,
   addToCart,
+  setCart,
   incCartProductQuantity,
   decCartProductQuantity,
   removeCartProduct,

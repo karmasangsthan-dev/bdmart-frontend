@@ -7,23 +7,47 @@ import Image from "next/image";
 import { useSelector } from "react-redux";
 import CartProductRow from "../components/Cart/CartProductRow";
 import { useGetAllProductsQuery } from "../features/product/productApi";
+import { useUpdateCartMutation } from "../features/auth/authApi";
+import { toast } from "react-hot-toast";
 
 const cart = () => {
+  const [subTotal, setSubtotal] = useState(0);
   const [cart, setCart] = useState([]);
   const user = useSelector((state) => state?.auth?.user);
   const { data, isSuccess, isError } = useGetAllProductsQuery();
+  const [updateCart, { isSuccess: success, isLoading: loading }] =
+    useUpdateCartMutation();
   const products = data?.data;
-  useEffect(() => {
-    if (!user?.email) {
-      const cart = JSON.parse(localStorage.getItem("cartProducts"));
-      setCart(cart);
-    }
-    if (user?.email) {
-      const cart = user?.cart;
-      setCart(cart);
-    }
-  }, [products]);
 
+  const handleUpdateCart = () => {
+    const token = localStorage.getItem("accessToken");
+    const updatedProducts = user?.cart?.map((item) => {
+      return { product: item?.product?._id, quantity: item?.quantity };
+    });
+    updateCart({ token, userId: user?._id, cartProducts: updatedProducts });
+  };
+
+  useEffect(() => {
+    if (loading) {
+      toast.loading("Loading...", { id: "updateCart" });
+    }
+
+    if (success) {
+      toast.success("Updated successful", { id: "updateCart" });
+    }
+  }, [success, loading]);
+
+  useEffect(() => {
+    let subTotal_ = 0;
+
+    if (user?.cart?.length) {
+      for (let i = 0; i < user.cart.length; i++) {
+        subTotal_ += user.cart[i].product.price;
+      }
+    }
+
+    setSubtotal(subTotal_);
+  }, [user]);
   return (
     <Layout title="Cart - Bangladesh Mart">
       <div style={{ minHeight: "120vh" }}>
@@ -40,7 +64,7 @@ const cart = () => {
               </tr>
             </thead>
             <tbody>
-              {cart?.map((item) => (
+              {user?.cart?.map((item) => (
                 <CartProductRow item={item} key={item} />
               ))}
             </tbody>
@@ -73,6 +97,7 @@ const cart = () => {
             <button
               className=" btn bg-white border border-dark border-2 py-2 px-4 text-dark text-decoration-none"
               href="/"
+              onClick={handleUpdateCart}
             >
               Save Cart
             </button>
@@ -103,12 +128,12 @@ const cart = () => {
               >
                 <li className="d-flex justify-content-between">
                   <span className="fw-bold">Subtotal:</span>
-                  <span>$250</span>
+                  <span>${subTotal}</span>
                 </li>
                 <hr />
                 <li className="d-flex justify-content-between">
                   <span className="fw-bold">Total:</span>
-                  <span>$350</span>
+                  <span>${subTotal + 100}</span>
                 </li>
               </div>
               <button
