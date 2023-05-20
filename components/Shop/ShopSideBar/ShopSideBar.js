@@ -1,13 +1,15 @@
 import { Collapse, Slider } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
-const ShopSideBar = ({ data, filter, setFilter }) => {
+const ShopSideBar = ({ data, filter, setFilter,params }) => {
   const [catOpen, setCatOpen] = useState(true);
   const [brandOpen, setBrandOpen] = useState(true);
   const [priceOpen, setPriceOpen] = useState(true);
   const [priceRange, setPriceRange] = useState([]);
   let allBrands = [];
   let allCategory = [];
+
+
 
   useEffect(() => {
     setPriceRange([
@@ -22,9 +24,9 @@ const ShopSideBar = ({ data, filter, setFilter }) => {
     }
   });
   data?.allResult?.map((product) => {
-    const brandExists = allCategory.find((brand) => brand === product.category);
+    const brandExists = allCategory.find((brand) => brand === product?.category?.category);
     if (!brandExists) {
-      allCategory.push(product.category);
+      allCategory.push(product?.category?.category);
     }
   });
 
@@ -67,6 +69,7 @@ const ShopSideBar = ({ data, filter, setFilter }) => {
       });
     }
   };
+  
 
   return (
     <div className="sticky-content">
@@ -107,7 +110,7 @@ const ShopSideBar = ({ data, filter, setFilter }) => {
                         className="form-check-input"
                         type="checkbox"
                         id="small"
-                        checked={filter?.category?.includes(cat) ? true : false}
+                        checked={filter?.category?.includes(cat) ? true : cat === 'Laptops' ? true : false }
                         value={cat}
                         onClick={handleCategoryName}
                         name="category"

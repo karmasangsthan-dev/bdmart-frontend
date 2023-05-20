@@ -17,21 +17,13 @@ import { useSelector } from "react-redux";
 import NavMenu from "../components/Shared/NavMenu/NavMenu";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Skeleton from "react-loading-skeleton";
+import { useRouter } from "next/router";
 
-// https://dummyjson.com/products
-// export async function getServerSideProps() {
-//   const res = await fetch(
-//     ${process.env.NEXT_PUBLIC_BACKEND_SITE_LINK}/api/v1/products/bulk
-//   );
-//   const data = await res.json();
-//   return {
-//     props: {
-//       data,
-//     },
-//   };
-// }
 
 const shop = () => {
+  const router = useRouter();
+  const categoryTextParams = router.query?.category;
+
   const user = useSelector((state) => state.auth.user);
   // const [pageNumber, setPageNumber] = useState(0);
   const [allProducts, setAllProducts] = useState([]);
@@ -160,7 +152,7 @@ const shop = () => {
                   {isLoading || loading ? (
                     <div className="all-products-container-shop">
                       {
-                        [1, 2, 3, 4,5,6,7,8].map((elem, i) => {
+                        [1, 2, 3, 4, 5, 6, 7, 8].map((elem, i) => {
                           return (
                             <div
                               key={i}
