@@ -8,6 +8,9 @@
 .product-description-size:focus {
     box-shadow: none !important;
 }
+.product-title{
+    cursor: pointer;
+}
 
 
 

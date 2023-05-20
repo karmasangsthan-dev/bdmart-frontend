@@ -17,21 +17,16 @@ import { useSelector } from "react-redux";
 import NavMenu from "../components/Shared/NavMenu/NavMenu";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Skeleton from "react-loading-skeleton";
+import { useRouter } from "next/router";
 
-// https://dummyjson.com/products
-// export async function getServerSideProps() {
-//   const res = await fetch(
-//     ${process.env.NEXT_PUBLIC_BACKEND_SITE_LINK}/api/v1/products/bulk
-//   );
-//   const data = await res.json();
-//   return {
-//     props: {
-//       data,
-//     },
-//   };
-// }
 
 const shop = () => {
+  const router = useRouter();
+  const [params, setParams] = useState('');
+  useEffect(() => {
+    setParams(router.query?.category)
+  }, [params,router.query?.category])
+
   const user = useSelector((state) => state.auth.user);
   // const [pageNumber, setPageNumber] = useState(0);
   const [allProducts, setAllProducts] = useState([]);
@@ -46,11 +41,12 @@ const shop = () => {
     setPage(page + 4);
   };
   const [filter, setFilter] = useState({
-    category: [],
+    category: [params],
     size: "",
     brand: [],
     price: [],
   });
+  console.log(filter, "filter")
 
   const { data, isLoading } = useGetAllProductsQuery({ perPage: page });
 
@@ -112,6 +108,7 @@ const shop = () => {
           <div className="row ">
             <aside className="col-lg-2 order-lg-first">
               <ShopSideBar
+                params={params}
                 data={data}
                 filter={filter}
                 setFilter={setFilter}
@@ -160,7 +157,7 @@ const shop = () => {
                   {isLoading || loading ? (
                     <div className="all-products-container-shop">
                       {
-                        [1, 2, 3, 4,5,6,7,8].map((elem, i) => {
+                        [1, 2, 3, 4, 5, 6, 7, 8].map((elem, i) => {
                           return (
                             <div
                               key={i}
