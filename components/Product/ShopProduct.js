@@ -14,7 +14,7 @@ export default function ShopProduct({ product }) {
   // const [cartProduct, setCartProduct] = useState({});
   const dispatch = useDispatch();
   // const user = useSelector((state) => state.auth?.user);
-  // const router = useRouter();
+  const router = useRouter();
   // useEffect(() => {
   //   const token = localStorage.getItem("accessToken");
   //   setToken(token);
