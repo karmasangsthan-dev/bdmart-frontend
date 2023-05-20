@@ -9,6 +9,7 @@ import Loading from "../Loading/Loading";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { Container, Nav, NavDropdown, Navbar } from "react-bootstrap";
+import { Badge } from "@mui/material";
 
 const Header = () => {
   const router = useRouter();
@@ -30,7 +31,11 @@ const Header = () => {
       strip?.classList.toggle("strip-2-mar", window.scrollY > 50);
     });
   }, []);
+  let totalProductQuantity = 0;
 
+  for (const item of cart) {
+    totalProductQuantity += item.quantity;
+  }
   return (
     <div id="strip2">
       <div id="nav_Bar" className="navBar ">
@@ -172,31 +177,16 @@ const Header = () => {
               </div>
               <div className="cart-icon ms-4">
                 <Link href="/cart">
-                  <Image
-                    className="flag-img"
-                    src="/images/cart.png"
-                    alt="country"
-                    width={45}
-                    height={40}
-                    loading="eager"
-                  />
-
-                  {cart?.length ? (
-                    <span
-                      className=" d-inline-block text-white rounded-circle bg-danger fs-6  fw-semibold border"
-                      style={{
-                        padding: "1px 5px",
-                        margin: "0 -15px",
-                      }}
-                    >
-                      {" "}
-                      {cart?.length < 10 || cart?.length < 10
-                        ? `0${cart?.length || cart?.length}`
-                        : cart?.length || cart?.length}
-                    </span>
-                  ) : (
-                    cart?.length === 0 && ""
-                  )}
+                  <Badge badgeContent={totalProductQuantity} color="error">
+                    <Image
+                      className="flag-img"
+                      src="/images/cart.png"
+                      alt="country"
+                      width={45}
+                      height={40}
+                      loading="eager"
+                    />
+                  </Badge>
                 </Link>
               </div>
             </div>
@@ -298,7 +288,7 @@ const Header = () => {
         <div id="sec_bar" className="sec_nav ">
           <div className="container-fluid">
             <div className="row align-items-center">
-              {/* <div
+              <div
                 style={{ minHeight: "67px" }}
                 className="accordion w-auto"
                 id="accordionPanelsStayOpenExample"
@@ -1134,7 +1124,7 @@ const Header = () => {
                     </ul>
                   </div>
                 </div>
-              </div> */}
+              </div>
 
               <div className="w-auto">
                 <div className="frombar">

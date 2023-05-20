@@ -22,9 +22,11 @@ const ShopSideBar = ({ data, filter, setFilter }) => {
     }
   });
   data?.allResult?.map((product) => {
-    const brandExists = allCategory.find((brand) => brand === product.category);
+    const brandExists = allCategory.find(
+      (brand) => brand === product.category?.category
+    );
     if (!brandExists) {
-      allCategory.push(product.category);
+      allCategory.push(product.category?.category);
     }
   });
 
