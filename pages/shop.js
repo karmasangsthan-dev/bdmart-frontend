@@ -22,10 +22,7 @@ import { useRouter } from "next/router";
 
 const shop = () => {
   const router = useRouter();
-  const [params, setParams] = useState('');
-  useEffect(() => {
-    setParams(router.query?.category)
-  }, [params,router.query?.category])
+  const categoryTextParams = router.query?.category;
 
   const user = useSelector((state) => state.auth.user);
   // const [pageNumber, setPageNumber] = useState(0);
@@ -41,12 +38,11 @@ const shop = () => {
     setPage(page + 4);
   };
   const [filter, setFilter] = useState({
-    category: [params],
+    category: [],
     size: "",
     brand: [],
     price: [],
   });
-  console.log(filter, "filter")
 
   const { data, isLoading } = useGetAllProductsQuery({ perPage: page });
 
@@ -108,7 +104,6 @@ const shop = () => {
           <div className="row ">
             <aside className="col-lg-2 order-lg-first">
               <ShopSideBar
-                params={params}
                 data={data}
                 filter={filter}
                 setFilter={setFilter}

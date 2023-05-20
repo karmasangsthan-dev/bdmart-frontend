@@ -9,6 +9,8 @@ const ShopSideBar = ({ data, filter, setFilter,params }) => {
   let allBrands = [];
   let allCategory = [];
 
+
+
   useEffect(() => {
     setPriceRange([
       data?.lowestPriceProduct.price,
@@ -108,7 +110,7 @@ const ShopSideBar = ({ data, filter, setFilter,params }) => {
                         className="form-check-input"
                         type="checkbox"
                         id="small"
-                        checked={filter?.category?.includes(cat) ? true : false }
+                        checked={filter?.category?.includes(cat) ? true : cat === 'Laptops' ? true : false }
                         value={cat}
                         onClick={handleCategoryName}
                         name="category"
