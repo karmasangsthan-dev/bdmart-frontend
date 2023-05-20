@@ -9,12 +9,13 @@ import Loading from "../Loading/Loading";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { Container, Nav, NavDropdown, Navbar } from "react-bootstrap";
+import { setCart } from "../../../features/auth/authSlice";
 import { Badge } from "@mui/material";
-
 const Header = () => {
   const router = useRouter();
   const user = useSelector((state) => state?.auth?.user);
   const { cart } = useSelector((state) => state?.cart);
+  console.log(cart, "cart");
   useEffect(() => {
     window.addEventListener("scroll", function () {
       let header = this.document.querySelector("#strip2");
@@ -31,11 +32,13 @@ const Header = () => {
       strip?.classList.toggle("strip-2-mar", window.scrollY > 50);
     });
   }, []);
+
   let totalProductQuantity = 0;
 
   for (const item of cart) {
     totalProductQuantity += item.quantity;
   }
+
   return (
     <div id="strip2">
       <div id="nav_Bar" className="navBar ">
@@ -1125,7 +1128,6 @@ const Header = () => {
                   </div>
                 </div>
               </div>
-
               <div className="w-auto">
                 <div className="frombar">
                   <ul>

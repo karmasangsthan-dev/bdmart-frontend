@@ -1,0 +1,56 @@
+.btn-remove-cart {
+    color: #ccc;
+    background-color: transparent;
+    font-size: 1.7rem;
+    border: none;
+    outline: none;
+    -webkit-transition: all .35s;
+    transition: all .35s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.table .cart-price-col {
+    
+    color: #333;
+    font-weight: 400;
+    font-size: 1rem;
+}
+
+.cart-price-col {
+    width: 120px;
+}
+
+.table-cart td {
+    min-height: 60px;
+    max-height: 60px;
+    border-bottom: .1rem solid #ebebeb;
+    padding: 15px 0;
+}
+
+.table-cart p {
+    margin-bottom: 0;
+}
+
+.summary {
+    padding: 20px;
+    border: 0.1rem dashed #d7d7d7;
+    background-color: #f9f9f9;
+    border-radius: 0.3rem;
+    margin-top: 2.4rem;
+    margin-bottom: 2rem;
+}
+.summary-title {
+    font-weight: 500;
+    font-size: 1.6rem;
+    letter-spacing: 0;
+    padding-bottom: 1.7rem;
+    border-bottom: 0.1rem solid #ccc;
+    margin-bottom: 2.1rem;
+}
+
+
+.btn-remove-cart .delete-icon{
+    color:rgb(255, 90, 90);
+}

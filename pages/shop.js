@@ -17,21 +17,13 @@ import { useSelector } from "react-redux";
 import NavMenu from "../components/Shared/NavMenu/NavMenu";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Skeleton from "react-loading-skeleton";
-
-// https://dummyjson.com/products
-// export async function getServerSideProps() {
-//   const res = await fetch(
-//     ${process.env.NEXT_PUBLIC_BACKEND_SITE_LINK}/api/v1/products/bulk
-//   );
-//   const data = await res.json();
-//   return {
-//     props: {
-//       data,
-//     },
-//   };
-// }
+import { useRouter } from "next/router";
 
 const shop = () => {
+  const router = useRouter();
+  const [params, setParams] = useState();
+  const categoryTextParams = router.query?.category;
+
   const user = useSelector((state) => state.auth.user);
   // const [pageNumber, setPageNumber] = useState(0);
   const [allProducts, setAllProducts] = useState([]);
@@ -45,6 +37,9 @@ const shop = () => {
   const fetchMoreData = () => {
     setPage(page + 4);
   };
+  useEffect(() => {
+    setParams(categoryTextParams);
+  }, [router.query?.category]);
   const [filter, setFilter] = useState({
     category: [],
     size: "",
@@ -59,7 +54,6 @@ const shop = () => {
   const hasMore = loadedProducts < totalProducts;
 
   const {
-
     data: products,
     isSuccess,
     isLoading: loading,
@@ -104,7 +98,7 @@ const shop = () => {
       fetchMoreData();
     }
   }, [totalProducts]);
-
+  console.log(filter);
   return (
     <Layout title="Shop - Bangladesh Mart">
       <div className="shop page-content">
@@ -115,6 +109,7 @@ const shop = () => {
                 data={data}
                 filter={filter}
                 setFilter={setFilter}
+                params={params}
               />
             </aside>
             <div className="col-lg-10 pl-lg-5">
@@ -159,51 +154,59 @@ const shop = () => {
                 <div className="products">
                   {isLoading || loading ? (
                     <div className="all-products-container-shop">
-                      {
-                        [1, 2, 3, 4,5,6,7,8].map((elem, i) => {
-                          return (
-                            <div
-                              key={i}
-                              className="border shadow "
+                      {[1, 2, 3, 4, 5, 6, 7, 8].map((elem, i) => {
+                        return (
+                          <div
+                            key={i}
+                            className="border shadow "
+                            style={{
+                              width: "217px",
+                              minHeight: "217px",
+                              background: "#fff",
+                              height: "100%",
+                            }}
+                          >
+                            <Skeleton
+                              className="d-flex mx-auto mt-2"
                               style={{
-                                width: '217px',
-                                minHeight: '217px',
-                                background: '#fff',
-                                height: '100%',
+                                width: "92%",
+                                minHeight: "188px",
+                                maxHeight: "189px",
                               }}
-                            >
-                              <Skeleton
-                                className="d-flex mx-auto mt-2"
-                                style={{ width: '92%', minHeight: '188px', maxHeight: '189px' }}
-                              />
-                              <div className="product-details-card p-2">
-                                <div style={{ marginTop: '-14px' }} className="product-title ">
-                                  <span>
-                                    <Skeleton />
-                                  </span>
-                                </div>
-                                <div className="product-price">
-                                  <p className="mb-0 ">
-                                    <Skeleton style={{ width: '50px' }} />
-                                  </p>
-                                </div>
-                                <div className="old-price">
-                                  <del style={{ display: 'inline-block' }}>
-                                    <Skeleton style={{ width: '50px' }} />
-                                  </del>
-                                  <span className="ms-1">
-                                    <Skeleton style={{ width: '30px' }} />
-                                  </span>
-                                </div>
-                                <div className="d-flex align-items-center">
-                                  <Skeleton style={{ width: '80px' }} />
-                                  <Skeleton className="ms-1" style={{ width: '30px' }} />
-                                </div>
+                            />
+                            <div className="product-details-card p-2">
+                              <div
+                                style={{ marginTop: "-14px" }}
+                                className="product-title "
+                              >
+                                <span>
+                                  <Skeleton />
+                                </span>
+                              </div>
+                              <div className="product-price">
+                                <p className="mb-0 ">
+                                  <Skeleton style={{ width: "50px" }} />
+                                </p>
+                              </div>
+                              <div className="old-price">
+                                <del style={{ display: "inline-block" }}>
+                                  <Skeleton style={{ width: "50px" }} />
+                                </del>
+                                <span className="ms-1">
+                                  <Skeleton style={{ width: "30px" }} />
+                                </span>
+                              </div>
+                              <div className="d-flex align-items-center">
+                                <Skeleton style={{ width: "80px" }} />
+                                <Skeleton
+                                  className="ms-1"
+                                  style={{ width: "30px" }}
+                                />
                               </div>
                             </div>
-                          )
-                        })
-                      }
+                          </div>
+                        );
+                      })}
                     </div>
                   ) : (
                     <div className="shop-products">
@@ -212,7 +215,6 @@ const shop = () => {
                       ))}
                       {loadedProducts === 0 && <p>No products found.</p>}
                     </div>
-
                   )}
                 </div>
               </div>
@@ -220,57 +222,69 @@ const shop = () => {
                 dataLength={loadedProducts}
                 next={fetchMoreData}
                 hasMore={!isLoading && hasMore}
-                loader={<div className="all-products-container-shop mt-3">
-                  {
-                    [1, 2, 3, 4].map((elem, i) => {
+                loader={
+                  <div className="all-products-container-shop mt-3">
+                    {[1, 2, 3, 4].map((elem, i) => {
                       return (
                         <div
                           key={i}
                           className="border shadow shop-single-product"
                           style={{
-                            width: '216px',
-                            minHeight: '217px',
-                            background: '#fff',
-                            height: '100%',
+                            width: "216px",
+                            minHeight: "217px",
+                            background: "#fff",
+                            height: "100%",
                           }}
                         >
                           <Skeleton
                             className="d-flex mx-auto mt-2"
-                            style={{ width: '92%', minHeight: '188px', maxHeight: '189px' }}
+                            style={{
+                              width: "92%",
+                              minHeight: "188px",
+                              maxHeight: "189px",
+                            }}
                           />
                           <div className="product-details-card p-2">
-                            <div style={{ marginTop: '-14px' }} className="product-title ">
+                            <div
+                              style={{ marginTop: "-14px" }}
+                              className="product-title "
+                            >
                               <span>
                                 <Skeleton />
                               </span>
                             </div>
                             <div className="product-price">
                               <p className="mb-0 ">
-                                <Skeleton style={{ width: '50px' }} />
+                                <Skeleton style={{ width: "50px" }} />
                               </p>
                             </div>
                             <div className="old-price">
-                              <del style={{ display: 'inline-block' }}>
-                                <Skeleton style={{ width: '50px' }} />
+                              <del style={{ display: "inline-block" }}>
+                                <Skeleton style={{ width: "50px" }} />
                               </del>
                               <span className="ms-1">
-                                <Skeleton style={{ width: '30px' }} />
+                                <Skeleton style={{ width: "30px" }} />
                               </span>
                             </div>
                             <div className="d-flex align-items-center">
-                              <Skeleton style={{ width: '80px' }} />
-                              <Skeleton className="ms-1" style={{ width: '30px' }} />
+                              <Skeleton style={{ width: "80px" }} />
+                              <Skeleton
+                                className="ms-1"
+                                style={{ width: "30px" }}
+                              />
                             </div>
                           </div>
                         </div>
-                      )
-                    })
-                  }
-                </div>}
+                      );
+                    })}
+                  </div>
+                }
                 endMessage={
-                  data?.data && <p style={{ textAlign: 'center' }}>
-                    <b>End</b>
-                  </p>
+                  data?.data && (
+                    <p style={{ textAlign: "center" }}>
+                      <b>End</b>
+                    </p>
+                  )
                 }
               ></InfiniteScroll>
             </div>

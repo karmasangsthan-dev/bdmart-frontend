@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 const gallery = [
   {
@@ -85,6 +86,7 @@ const gallery = [
 ];
 
 const ShopDepartments = () => {
+  const router = useRouter();
   return (
     <div className="gallery-show ">
       <div className="">
@@ -99,7 +101,9 @@ const ShopDepartments = () => {
         <div className="row mx-auto">
           {gallery.map((gal, index) => (
             <div key={index} className="col-lg-2 col-xl-2 col-sm-6 col-6 gap-4 ">
-              <div className="gallery-img d-flex justify-content-center">
+              <div
+              onClick={()=> router.push(`/shop?category=${gal?.name}`)}
+              className="gallery-img d-flex justify-content-center">
                 <Image
                   layout="responsive"
                   width={1000}
