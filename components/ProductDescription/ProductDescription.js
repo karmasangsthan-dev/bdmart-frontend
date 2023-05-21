@@ -10,12 +10,12 @@ const ProductDescription = ({ product }) => {
             <Tabs style={{ paddingLeft: '20px' }} defaultActiveKey="product-info" id="product-tabs">
                 <Tab eventKey="product-info" title="Product Information">
 
-                    <div class="container">
-                        <div class="row">
+                    <div className="container">
+                        <div className="row">
                             <h4 className='mt-2'>Product Information:</h4>
 
                             {
-                                product?.category === "smartphones" && <div class="col-lg-6 ">
+                                product?.category === "smartphones" && <div className="col-lg-6 ">
                                     <p>Operating System: Android</p>
                                     <p>Display size (inches) : 08"06'
                                     </p>
@@ -29,7 +29,7 @@ const ProductDescription = ({ product }) => {
                                 </div>
                             }
                             {
-                                product?.category === "smartphones" && <div class="col-lg-6 ">
+                                product?.category === "smartphones" && <div className="col-lg-6 ">
                                     <p>SIM card type : Dual-SIM</p>
                                     <p>Network connectivity : 5G</p>
                                     <p>Bluetooth version : Not Specified'
@@ -40,7 +40,7 @@ const ProductDescription = ({ product }) => {
                                 </div>
                             }
                             {
-                                product?.category === "laptops" && <div class="col-lg-6 ">
+                                product?.category === "laptops" && <div className="col-lg-6 ">
                                     <p>Brand : HP</p>
                                     <p>Model : Hp-300</p>
                                     <p>Processor : Intel Core i7
@@ -51,7 +51,7 @@ const ProductDescription = ({ product }) => {
                                 </div>
                             }
                             {
-                                product?.category === "fragrances" && <div class="col-lg-6 ">
+                                product?.category === "fragrances" && <div className="col-lg-6 ">
                                     <p>Volume : 100 ml</p>
                                     <p>Scent : Floral</p>
                                     <p>Gender : Women</p>
@@ -61,7 +61,7 @@ const ProductDescription = ({ product }) => {
                                 </div>
                             }
                             {
-                                product?.category === "fragrances" && <div class="col-lg-6 ">
+                                product?.category === "fragrances" && <div className="col-lg-6 ">
                                     <p>Heart Notes : Rose, Jasmine, Ylang-ylang</p>
                                     <p>Base Notes : Vanilla, Musk, Patchouli</p>
                                     <p>Longevity : Long Lasting</p>
@@ -71,7 +71,7 @@ const ProductDescription = ({ product }) => {
                             }
                             {
                                 product?.category === "skincare" && (
-                                    <div class="col-lg-6 ">
+                                    <div className="col-lg-6 ">
                                         <p>Product Type: Moisturizer</p>
                                         <p>Skin Type: Combination/Oily</p>
                                         <p>Ingredients: Aloe Vera, Hyaluronic Acid, Vitamin C</p>
@@ -82,7 +82,7 @@ const ProductDescription = ({ product }) => {
                             }
                             {
                                 product?.category === "skincare" && (
-                                    <div class="col-lg-6 ">
+                                    <div className="col-lg-6 ">
                                         <p>SPF: 30</p>
                                         <p>Volume: 50 ml</p>
                                         <p>Cruelty-Free: Yes</p>

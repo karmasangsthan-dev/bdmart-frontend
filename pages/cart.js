@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import { useDispatch, useSelector } from "react-redux";
 import CartProductRow from "../components/Cart/CartProductRow";
+import { useRouter } from "next/router";
 
 const cart = () => {
   const dispatch = useDispatch();
   const { cart } = useSelector((state) => state?.cart);
-
+  const router = useRouter();
   const { cartProducts } = useSelector((state) => state?.cart);
 
   const calculateTotal = () => {
@@ -25,10 +26,10 @@ const cart = () => {
   return (
     <Layout title="Cart - Bangladesh Mart">
       <div style={{ minHeight: "120vh" }}>
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-9">
-              <table class="table table-cart table-mobile">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-9">
+              <table className="table table-cart table-mobile">
                 <thead>
                   <tr>
                     <th>Product</th>
@@ -50,12 +51,12 @@ const cart = () => {
               </table>
 
             </div>
-            <aside class="col-lg-3">
-              <div class="summary summary-cart ">
-                <h3 class="summary-title">Cart Total</h3>
-                <table class="table table-summary">
+            <aside className="col-lg-3">
+              <div className="summary summary-cart ">
+                <h3 className="summary-title">Cart Total</h3>
+                <table className="table table-summary">
                   <tbody>
-                    <tr class="summary-total">
+                    <tr className="summary-total">
                       <td>Total:</td>
                       <td>${calculateTotal()}</td>
                     </tr>
@@ -63,6 +64,7 @@ const cart = () => {
                 </table>
               </div>
               <button
+              onClick={()=> router.push('/checkout')}
                   className="mt-3 btn bg-dark border border-dark border-2 py-2 px-5 text-white text-decoration-none"
                 >
                   Proceed to checkout
