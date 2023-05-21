@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Skeleton from "react-loading-skeleton";
 import { useRouter } from "next/router";
+import ShopPagination from "../components/Shared/Pagination/ShopPagination";
 
 const shop = () => {
   const router = useRouter();
@@ -221,79 +222,12 @@ const shop = () => {
                         <ShopProduct product={product} key={product?._id} />
                       ))}
                       {loadedProducts === 0 && <p>No products found.</p>}
+                      
                     </div>
                   )}
                 </div>
               </div>
-              <InfiniteScroll
-                dataLength={loadedProducts}
-                next={fetchMoreData}
-                hasMore={!isLoading && hasMore}
-                loader={
-                  <div className="all-products-container-shop mt-3">
-                    {[1, 2, 3, 4].map((elem, i) => {
-                      return (
-                        <div
-                          key={i}
-                          className="border shadow shop-single-product"
-                          style={{
-                            width: "216px",
-                            minHeight: "217px",
-                            background: "#fff",
-                            height: "100%",
-                          }}
-                        >
-                          <Skeleton
-                            className="d-flex mx-auto mt-2"
-                            style={{
-                              width: "92%",
-                              minHeight: "188px",
-                              maxHeight: "189px",
-                            }}
-                          />
-                          <div className="product-details-card p-2">
-                            <div
-                              style={{ marginTop: "-14px" }}
-                              className="product-title "
-                            >
-                              <span>
-                                <Skeleton />
-                              </span>
-                            </div>
-                            <div className="product-price">
-                              <p className="mb-0 ">
-                                <Skeleton style={{ width: "50px" }} />
-                              </p>
-                            </div>
-                            <div className="old-price">
-                              <del style={{ display: "inline-block" }}>
-                                <Skeleton style={{ width: "50px" }} />
-                              </del>
-                              <span className="ms-1">
-                                <Skeleton style={{ width: "30px" }} />
-                              </span>
-                            </div>
-                            <div className="d-flex align-items-center">
-                              <Skeleton style={{ width: "80px" }} />
-                              <Skeleton
-                                className="ms-1"
-                                style={{ width: "30px" }}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                }
-                endMessage={
-                  data?.data && (
-                    <p style={{ textAlign: "center" }}>
-                      <b>End</b>
-                    </p>
-                  )
-                }
-              ></InfiniteScroll>
+              <ShopPagination></ShopPagination>
             </div>
           </div>
         </div>
