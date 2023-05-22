@@ -5,23 +5,23 @@ import CartProductRow from "../components/Cart/CartProductRow";
 import { useRouter } from "next/router";
 
 const cart = () => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const { cart } = useSelector((state) => state?.cart);
-  const router = useRouter();
   const { cartProducts } = useSelector((state) => state?.cart);
-
+  console.log({cart,cartProducts})
   const calculateTotal = () => {
     let total = 0;
     cart.forEach((cartItem) => {
       const quantity = cartItem?.quantity;
       const product = cartProducts?.find((p) => p?._id === cartItem?.id);
-      console.log({ product })
       if (product?.price && quantity) {
         total += product.price * quantity;
       }
     });
     return total.toFixed(2);
   };
+  console.log(cartProducts)
 
   return (
     <Layout title="Cart - Bangladesh Mart">
