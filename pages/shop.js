@@ -29,17 +29,18 @@ const shop = () => {
   const [allProducts, setAllProducts] = useState([]);
   const [page, setPage] = useState(4);
   const [sort, setSort] = useState({
-    perPage: 15,
+    perPage: 4,
     pageNumber: 1,
     priceSort: 0,
   });
 
   const fetchMoreData = () => {
-    setPage(page + 4);
+    setSort({ ...sort, pageNumber: sort.pageNumber + 1 });
   };
   useEffect(() => {
     setParams(categoryTextParams);
   }, [router.query?.category]);
+
   const [filter, setFilter] = useState({
     category: [],
     size: "",
@@ -49,10 +50,6 @@ const shop = () => {
 
   const { data, isLoading } = useGetAllProductsQuery({ perPage: page });
 
-  const totalProducts = data?.total || 0;
-  const loadedProducts = data?.data?.length || 0;
-  const hasMore = loadedProducts < totalProducts;
-
   const {
     data: products,
     isSuccess,
@@ -60,37 +57,42 @@ const shop = () => {
     isError,
     error,
   } = useGetProductsQuery({ sort, filter });
+  const totalProducts = products?.total || 0;
+  const loadedProducts = products?.data?.length || 0;
+  const hasMore = loadedProducts < totalProducts;
+  console.log(sort);
+  // useEffect(() => {
+  // if (
+  //   sort.perPage !== 15 ||
+  //   sort.priceSort ||
+  //   sort.pageNumber !== 1 ||
+  //   filter.category.length ||
+  //   filter.brand.length ||
+  //   filter.price.length
+  // ) {
+  //   setAllProducts(products);
+  // } else if (
+  //   sort.perPage === 15 ||
+  //   !sort.priceSort ||
+  //   sort.pageNumber === 1 ||
+  //   !filter.category.length ||
+  //   !filter.brand.length ||
+  //   !filter.price.length
+  // ) {
+  //   setAllProducts(data);
+  // }
 
-  useEffect(() => {
-    if (
-      sort.perPage !== 15 ||
-      sort.priceSort ||
-      sort.pageNumber !== 1 ||
-      filter.category.length ||
-      filter.brand.length ||
-      filter.price.length
-    ) {
-      setAllProducts(products);
-    } else if (
-      sort.perPage === 15 ||
-      !sort.priceSort ||
-      sort.pageNumber === 1 ||
-      !filter.category.length ||
-      !filter.brand.length ||
-      !filter.price.length
-    ) {
-      setAllProducts(data);
-    }
-  }, [
-    products,
-    data,
-    sort.pageNumber,
-    sort.perPage,
-    sort.priceSort,
-    filter.category,
-    filter.brand,
-    filter.price,
-  ]);
+  // setAllProducts([...allProducts, products?.data]);
+  // }, [
+  //   products,
+
+  //   sort.pageNumber,
+  //   sort.perPage,
+  //   sort.priceSort,
+  //   filter.category,
+  //   filter.brand,
+  //   filter.price,
+  // ]);
 
   useEffect(() => {
     if (loadedProducts >= totalProducts) {
@@ -98,7 +100,7 @@ const shop = () => {
       fetchMoreData();
     }
   }, [totalProducts]);
-  console.log(filter);
+  console.log(products, "all");
   return (
     <Layout title="Shop - Bangladesh Mart">
       <div className="shop page-content">
@@ -152,7 +154,7 @@ const shop = () => {
                   </div>
                 </div>
                 <div className="products">
-                  {isLoading || loading ? (
+                  {loading ? (
                     <div className="all-products-container-shop">
                       {[1, 2, 3, 4, 5, 6, 7, 8].map((elem, i) => {
                         return (
@@ -210,7 +212,7 @@ const shop = () => {
                     </div>
                   ) : (
                     <div className="shop-products">
-                      {allProducts?.data?.map((product) => (
+                      {products?.data?.map((product) => (
                         <ShopProduct product={product} key={product?._id} />
                       ))}
                       {loadedProducts === 0 && <p>No products found.</p>}
@@ -221,7 +223,7 @@ const shop = () => {
               <InfiniteScroll
                 dataLength={loadedProducts}
                 next={fetchMoreData}
-                hasMore={!isLoading && hasMore}
+                hasMore={!loading && hasMore}
                 loader={
                   <div className="all-products-container-shop mt-3">
                     {[1, 2, 3, 4].map((elem, i) => {
@@ -281,7 +283,7 @@ const shop = () => {
                 }
                 endMessage={
                   data?.data && (
-                    <p style={{ textAlign: "center" }}>
+                    <p style={{ textAlign: "center" }} className="mt-5">
                       <b>End</b>
                     </p>
                   )
