@@ -19,7 +19,7 @@ const orderHistory = () => {
     return (
         <Layout title="Order History - Bangladesh Mart">
             {
-                isLoading ? (
+                isLoading  || orderLoading ? (
                     <p>Loading..</p>
                 ) : (
                     <div className="container" style={{minHeight:'120vh'}}>
