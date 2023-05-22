@@ -7,6 +7,7 @@ import { toast } from "react-hot-toast";
 import { useGetCreateOrderMutation } from "../features/product/productApi";
 
 const checkout = () => {
+    const router = useRouter();
     const [coupon, setCoupon] = useState('');
     const [getCreateOrder, { data, isLoading, isSuccess ,isError}] =
         useGetCreateOrderMutation();
@@ -69,7 +70,7 @@ const checkout = () => {
 
         if (isSuccess) {
             toast.success("Successfully created Order...!!", { id: "createOrder" });
-            
+            router.push('/profile/order-history')
         }
         
     }, [isLoading, isSuccess, isError]);
