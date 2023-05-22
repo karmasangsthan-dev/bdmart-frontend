@@ -3,7 +3,7 @@ import apiSlice from "../api/apiSlice";
 const productApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getProducts: builder.query({
-      query: ({ sort, filter, pagination }) => {
+      query: ({ sort, filter }) => {
         const params = new URLSearchParams();
         params.append("sort", JSON.stringify(sort));
         params.append("filter", JSON.stringify(filter));
@@ -43,9 +43,26 @@ const productApi = apiSlice.injectEndpoints({
       },
       providesTags: ["Product"],
     }),
+    getAllOrdersByEmail: builder.query({
+      query: (email) => {
+        return {
+          url: `/order/order/${email}`,
+          method: "GET",
+        };
+      },
+      providesTags: ["Product"],
+    }),
     getCartProducts: builder.mutation({
       query: (data) => ({
         url: `/cartProducts`,
+        method: "POST",
+        body: data,
+      }),
+      // invalidatesTags: ["Cart"],
+    }),
+    getCreateOrder: builder.mutation({
+      query: (data) => ({
+        url: `/order/order`,
         method: "POST",
         body: data,
       }),
@@ -58,5 +75,7 @@ export const {
   useGetProductsQuery,
   useGetAllProductsQuery,
   useGetProductDetailsQuery,
+  useGetAllOrdersByEmailQuery,
   useGetCartProductsMutation,
+  useGetCreateOrderMutation,
 } = productApi;

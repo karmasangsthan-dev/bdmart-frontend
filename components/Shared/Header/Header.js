@@ -15,7 +15,6 @@ const Header = () => {
   const router = useRouter();
   const user = useSelector((state) => state?.auth?.user);
   const { cart } = useSelector((state) => state?.cart);
-  console.log(cart, 'cart')
   useEffect(() => {
     window.addEventListener("scroll", function () {
       let header = this.document.querySelector("#strip2");
