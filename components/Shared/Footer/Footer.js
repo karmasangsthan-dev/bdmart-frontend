@@ -39,7 +39,7 @@ const Footer = () => {
                   <i className="fab fa-twitter"></i>
                 </li>
               </a>
-              
+
               <a href="">
                 <li>
                   <i className="fab fa-whatsapp"></i>
@@ -101,22 +101,20 @@ const Footer = () => {
           <div></div>
         </div>
       </div>
-      <div className="footer-3">
-        <div>
-          <ul className="last-ul ">
-            <a href="">
-              <li  className="">Terms of use</li>
-            </a>{" "}
-            |
-            <a href="">
-              <li>Privacy Policy</li>
-            </a>{" "}
-            |
-            <a href="">
-              <li>Interest-Based ads</li>
-            </a>
-          </ul>
-        </div>
+      <div className="footer-3 ">
+        <ul className="last-ul copy-right ps-0">
+          <a href="">
+            <li className="">Terms of use</li>
+          </a>{" "}
+          |
+          <a href="">
+            <li>Privacy Policy</li>
+          </a>{" "}
+          |
+          <a href="">
+            <li>Interest-Based ads</li>
+          </a>
+        </ul>
         <div className="copy-right">
           <p>
             @ {new Date().getFullYear()} - {new Date().getFullYear() + 1} by
