@@ -1,7 +1,9 @@
 import { Collapse, Slider } from "@mui/material";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
-const ShopSideBar = ({ data, filter, setFilter }) => {
+const ShopSideBar = ({ data, filter, setFilter, params }) => {
+  const router = useRouter();
   const [catOpen, setCatOpen] = useState(true);
   const [brandOpen, setBrandOpen] = useState(true);
   const [priceOpen, setPriceOpen] = useState(true);
@@ -22,9 +24,11 @@ const ShopSideBar = ({ data, filter, setFilter }) => {
     }
   });
   data?.allResult?.map((product) => {
-    const brandExists = allCategory.find((brand) => brand === product.category);
+    const brandExists = allCategory.find(
+      (brand) => brand === product?.category?.category
+    );
     if (!brandExists) {
-      allCategory.push(product.category);
+      allCategory.push(product?.category?.category);
     }
   });
 
@@ -58,6 +62,7 @@ const ShopSideBar = ({ data, filter, setFilter }) => {
         category: [...filter.category, e.target.value],
       });
     }
+
     if (filter.category.includes(e.target.value)) {
       setFilter({
         ...filter,
@@ -65,8 +70,25 @@ const ShopSideBar = ({ data, filter, setFilter }) => {
           ...filter.category.filter((name) => name !== e.target.value),
         ],
       });
+      router.replace("/shop");
     }
   };
+
+  useEffect(() => {
+    if (params !== "" && typeof params !== "undefined") {
+      if (!filter.category.includes(params)) {
+        setFilter({
+          ...filter,
+          category: [...filter.category, params],
+        });
+      } else {
+        setFilter({
+          ...filter,
+          category: filter.category.filter((name) => name !== params),
+        });
+      }
+    }
+  }, [params]);
 
   return (
     <div className="sticky-content">
@@ -107,7 +129,13 @@ const ShopSideBar = ({ data, filter, setFilter }) => {
                         className="form-check-input"
                         type="checkbox"
                         id="small"
-                        checked={filter?.category?.includes(cat) ? true : false}
+                        checked={
+                          filter?.category?.includes(cat)
+                            ? true
+                            : cat === params
+                              ? true
+                              : false
+                        }
                         value={cat}
                         onClick={handleCategoryName}
                         name="category"
@@ -240,9 +268,9 @@ const ShopSideBar = ({ data, filter, setFilter }) => {
                     ...(filter.price.length
                       ? filter.price
                       : [
-                          data?.lowestPriceProduct?.price,
-                          data?.highestPriceProduct?.price,
-                        ]),
+                        data?.lowestPriceProduct?.price,
+                        data?.highestPriceProduct?.price,
+                      ]),
                   ]}
                   onChange={handlePriceChange}
                   valueLabelDisplay="auto"

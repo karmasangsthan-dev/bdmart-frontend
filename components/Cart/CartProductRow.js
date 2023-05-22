@@ -1,42 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import Image from "next/image";
-
-import { toast } from "react-hot-toast";
 import {
   decreaseQuantity,
   increaseQuantity,
   removeFromCart,
   removeFromCartProducts,
 } from "../../features/cart/cartSlice";
+import { useRouter } from "next/router";
 
-export default function CartProductRow({ item: product }) {
-  // const { product, quantity } = item || {};
+export default function CartProductRow({ product }) {
   const { cart } = useSelector((state) => state.cart);
   const rowProduct = cart?.find((item) => item.id == product?._id);
-  // const [token, setToken] = useState();
   const dispatch = useDispatch();
-  // const user = useSelector((state) => state.auth?.user);
-  // useEffect(() => {
-  //   const accessToken = localStorage.getItem("accessToken");
-  //   setToken(accessToken);
-  // }, []);
-
-  // const [removeCartProductMutation, { isSuccess, isLoading, isError, error }] =
-  //   useRemoveCartProductMutation();
+  const router = useRouter();
 
   const handleQuantityIncrement = (item) => {
-    // const productId = item?._id;
-    // const userId = user?._id;
-    // const data = { productId, userId, token, handleQuantityType: "increment" };
-    // dispatch(
-    //   incCartProductQuantity({
-    //     _id: productId,
-    //     quantity: item.quantity,
-    //     product: item,
-    //   })
-    // );
+
 
     const cart = JSON.parse(localStorage.getItem("cartProducts"));
     const index = cart?.findIndex(
@@ -84,58 +63,48 @@ export default function CartProductRow({ item: product }) {
 
   return (
     <tr key={product?._id}>
-      <td>
-        <div style={{ width: "50px", height: "auto" }}>
-          <Image
-            layout="responsive"
-            width={100}
-            height={100}
-            src={product?.thumbnail}
-            className=" "
-            alt=""
-          />
+      <td className="product-col ">
+        <div className="d-flex align-items-center">
+          <img width={60} height={60} src={product?.thumbnail} alt="product" />
+          <p title={product?.title} onClick={() => router.push(`/productDetails/${product._id}`)} className="product-title mb-0 ms-3">{product?.title.length > 30 ? `${product?.title.slice(0, 35)}...` : product?.title}</p>
         </div>
       </td>
-      <td>
-        <h6 className="text-capitalize">{product?.title?.slice(0, 35)}...</h6>
+      <td className="cart-price-col">
+        <p style={{ height: '60px' }} className="d-flex align-items-center">${product?.price}</p>
       </td>
-      <td>{(product?.price - product?.discountPercentage).toFixed(2)} $</td>
-      <td>
-        <button
-          onClick={() => handleQuantityDecrement(product)}
-          style={{ padding: "0 3px", border: "none" }}
-          className=""
-        >
-          -
-        </button>
-        <input
-          style={{ width: "25px" }}
-          className="text-center border-0"
-          type="text"
-          value={rowProduct?.quantity}
-        />
-        <button
-          onClick={() => handleQuantityIncrement(product)}
-          style={{ padding: "0 3px", border: "none" }}
-        >
-          +
-        </button>
+      <td className="quantity-col">
+        <div style={{ height: '60px' }} className="product-quantity  d-flex align-items-center">
+          <div className="qty-container">
+            <button
+              onClick={() => handleQuantityDecrement(product)}
+              className="qty-btn-minus btn-light"
+              type="button"
+            >
+              <i className="fa fa-minus"></i>
+            </button>
+            <input
+              type="text"
+              name="qty"
+              value={rowProduct?.quantity}
+              className="input-qty"
+            />
+            <button
+              onClick={() => handleQuantityIncrement(product)}
+              className="qty-btn-plus btn-light"
+              type="button"
+            >
+              <i className="fa fa-plus"></i>
+            </button>
+          </div>
+        </div>
       </td>
-      <td>
-        ${" "}
-        {(
-          rowProduct?.quantity *
-          (product?.price - product?.discountPercentage)
-        ).toFixed(2)}
+      <td className="total-col">
+        <p className="mb-0 d-flex align-items-center" style={{ height: '60px' }}>${product?.price * rowProduct?.quantity}</p>
       </td>
-      <td>
-        <button
-          onClick={() => handleRemove(product)}
-          style={{ padding: "0 5px" }}
-          className="text-danger border-0"
-        >
-          X
-        </button>
+      <td className="remove-col">
+        <div style={{ height: '60px' }} className="d-flex justify-content-center align-items-center" >
+          <button style={{ maxHeight: '30px', minHeight: '30px', width: '30px' }} onClick={() => handleRemove(product)} className=" btn-remove-cart "><i className="fa-solid fa-xmark delete-icon"></i></button>
+        </div>
       </td>
     </tr>
   );
