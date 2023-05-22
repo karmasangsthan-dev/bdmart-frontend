@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../components/Layout";
-import { Rating, Slider } from "@mui/material";
-import Link from "next/link";
-import Image from "next/image";
-import { toast } from "react-hot-toast";
 import { Button, Collapse, Container, Navbar, Nav } from "react-bootstrap";
 import ShopProduct from "../components/Product/ShopProduct";
 import ShopSideBar from "../components/Shop/ShopSideBar/ShopSideBar";
@@ -11,13 +7,11 @@ import {
   useGetAllProductsQuery,
   useGetProductsQuery,
 } from "../features/product/productApi";
-import Pagination from "../components/Shared/Pagination/Pagination";
-import Loading from "../components/Shared/Loading/Loading";
 import { useSelector } from "react-redux";
-import NavMenu from "../components/Shared/NavMenu/NavMenu";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Skeleton from "react-loading-skeleton";
 import { useRouter } from "next/router";
+import ShopPagination from "../components/Shared/Pagination/ShopPagination";
 
 const shop = () => {
   const router = useRouter();
@@ -25,7 +19,6 @@ const shop = () => {
   const categoryTextParams = router.query?.category;
 
   const user = useSelector((state) => state.auth.user);
-  // const [pageNumber, setPageNumber] = useState(0);
   const [allProducts, setAllProducts] = useState([]);
   const [page, setPage] = useState(4);
   const [sort, setSort] = useState({
@@ -35,8 +28,14 @@ const shop = () => {
   });
 
   const fetchMoreData = () => {
-    setSort({ ...sort, pageNumber: sort.pageNumber + 1 });
+    setPage(page + 4);
+    setSort({
+      perPage: sort.perPage + 4,
+      pageNumber: 1,
+      priceSort: 0,
+    });
   };
+
   useEffect(() => {
     setParams(categoryTextParams);
   }, [router.query?.category]);
@@ -57,9 +56,7 @@ const shop = () => {
     isError,
     error,
   } = useGetProductsQuery({ sort, filter });
-  const totalProducts = products?.total || 0;
-  const loadedProducts = products?.data?.length || 0;
-  const hasMore = loadedProducts < totalProducts;
+
   console.log(sort);
   // useEffect(() => {
   // if (
@@ -82,17 +79,43 @@ const shop = () => {
   //   setAllProducts(data);
   // }
 
-  // setAllProducts([...allProducts, products?.data]);
-  // }, [
-  //   products,
+  const totalProducts = data?.total || 0;
+  const loadedProducts = data?.data?.length || 0;
+  const hasMore = loadedProducts < totalProducts;
 
-  //   sort.pageNumber,
-  //   sort.perPage,
-  //   sort.priceSort,
-  //   filter.category,
-  //   filter.brand,
-  //   filter.price,
-  // ]);
+  console.log(sort, "sort");
+  console.log(page, "per page");
+  console.log({ data, products });
+  useEffect(() => {
+    if (
+      sort.perPage !== 4 ||
+      sort.priceSort ||
+      sort.pageNumber !== 1 ||
+      filter.category.length ||
+      filter.brand.length ||
+      filter.price.length
+    ) {
+      setAllProducts(products);
+    } else if (
+      sort.perPage === 4 ||
+      !sort.priceSort ||
+      sort.pageNumber === 1 ||
+      !filter.category.length ||
+      !filter.brand.length ||
+      !filter.price.length
+    ) {
+      setAllProducts(data);
+    }
+  }, [
+    products,
+    data,
+    sort.pageNumber,
+    sort.perPage,
+    sort.priceSort,
+    filter.category,
+    filter.brand,
+    filter.price,
+  ]);
 
   useEffect(() => {
     if (loadedProducts >= totalProducts) {
@@ -100,7 +123,12 @@ const shop = () => {
       fetchMoreData();
     }
   }, [totalProducts]);
-  console.log(products, "all");
+
+  useEffect(() => {
+    // Reset page and loaded products when category params change
+    setPage(8);
+    setAllProducts([]);
+  }, [params]);
   return (
     <Layout title="Shop - Bangladesh Mart">
       <div className="shop page-content">
@@ -220,75 +248,7 @@ const shop = () => {
                   )}
                 </div>
               </div>
-              <InfiniteScroll
-                dataLength={loadedProducts}
-                next={fetchMoreData}
-                hasMore={!loading && hasMore}
-                loader={
-                  <div className="all-products-container-shop mt-3">
-                    {[1, 2, 3, 4].map((elem, i) => {
-                      return (
-                        <div
-                          key={i}
-                          className="border shadow shop-single-product"
-                          style={{
-                            width: "216px",
-                            minHeight: "217px",
-                            background: "#fff",
-                            height: "100%",
-                          }}
-                        >
-                          <Skeleton
-                            className="d-flex mx-auto mt-2"
-                            style={{
-                              width: "92%",
-                              minHeight: "188px",
-                              maxHeight: "189px",
-                            }}
-                          />
-                          <div className="product-details-card p-2">
-                            <div
-                              style={{ marginTop: "-14px" }}
-                              className="product-title "
-                            >
-                              <span>
-                                <Skeleton />
-                              </span>
-                            </div>
-                            <div className="product-price">
-                              <p className="mb-0 ">
-                                <Skeleton style={{ width: "50px" }} />
-                              </p>
-                            </div>
-                            <div className="old-price">
-                              <del style={{ display: "inline-block" }}>
-                                <Skeleton style={{ width: "50px" }} />
-                              </del>
-                              <span className="ms-1">
-                                <Skeleton style={{ width: "30px" }} />
-                              </span>
-                            </div>
-                            <div className="d-flex align-items-center">
-                              <Skeleton style={{ width: "80px" }} />
-                              <Skeleton
-                                className="ms-1"
-                                style={{ width: "30px" }}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                }
-                endMessage={
-                  data?.data && (
-                    <p style={{ textAlign: "center" }} className="mt-5">
-                      <b>End</b>
-                    </p>
-                  )
-                }
-              ></InfiniteScroll>
+              <ShopPagination />
             </div>
           </div>
         </div>

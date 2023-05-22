@@ -4,6 +4,7 @@ import Slider from "react-slick";
 
 import Product from "../../Product/Product";
 import { useGetAllProductsQuery } from "../../../features/product/productApi";
+import Skeleton from "react-loading-skeleton";
 
 const SampleNextArrow = (props) => {
   const { onClick } = props;
@@ -95,10 +96,36 @@ const BestSelling = () => {
         </h1>
       </div>
       {isLoading ? (
-        <div className="">
-          <div className="d-flex justify-content-center ">
-            <div className="spinner1"></div>
-          </div>
+        <div>
+          <Slider {...settings}>
+            {
+              [1, 2, 3, 4, 5].map((product, i) => {
+                return (
+                  <div key={i} className='mb-1' >
+                    <div className='product-link bestselling-product-container  border px-3 py-2 m-3  rounded-3 shadow' >
+                      <div className=''>
+                        <Skeleton style={{ width: '100%', height: '139px' }} ></Skeleton>
+                      </div>
+
+                      <p className="item-name mt-2 mb-0"><Skeleton></Skeleton></p>
+
+                      <Skeleton className='mt-0' style={{ width: '50px' }}></Skeleton>
+
+                      <div className="old-price">
+                        <del style={{ display: 'inline-block' }}><Skeleton className='mt-0' style={{ width: '50px' }}></Skeleton></del><span className='ms-2'><Skeleton className='mt-0' style={{ width: '50px' }}></Skeleton></span>
+                      </div>
+
+                      <div className='d-flex align-items-center'>
+                        <Skeleton style={{ width: '80px' }}></Skeleton>
+                        <p className='mb-0 ms-1' style={{ fontSize: '13px' }}><Skeleton style={{ width: '30px' }}></Skeleton></p>
+                      </div>
+
+                    </div>
+                  </div>
+                )
+              })
+            }
+          </Slider>
         </div>
       ) : (
         <Slider className="mb- px-4 " {...settings}>

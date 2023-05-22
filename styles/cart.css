@@ -12,7 +12,7 @@
 }
 
 .table .cart-price-col {
-    
+
     color: #333;
     font-weight: 400;
     font-size: 1rem;
@@ -41,6 +41,7 @@
     margin-top: 2.4rem;
     margin-bottom: 2rem;
 }
+
 .summary-title {
     font-weight: 500;
     font-size: 1.6rem;
@@ -51,6 +52,62 @@
 }
 
 
-.btn-remove-cart .delete-icon{
-    color:rgb(255, 90, 90);
+.btn-remove-cart .delete-icon {
+    color: rgb(255, 90, 90);
+}
+
+.checkout-container input.form-control:focus {
+    box-shadow: 0 0 0 0.10rem #1962eb !important;
+
+}
+
+/* mt-3 btn bg-dark border border-dark border-2 py-2 px-5 text-white text-decoration-none w-100 */
+
+.place-order-btn {
+    background-color: black;
+    border: 2px solid white;
+    color: white;
+    text-decoration: none;
+    width: 100%;
+}
+
+.place-order-btn:hover {
+    background-color: white;
+    border: 2px solid black;
+    color: black;
+    text-decoration: none;
+    width: 100%;
+}
+
+.checkout-discount {
+    position: relative;
+    max-width: 350px;
+    margin-bottom: 0.5rem;
+}
+.checkout-discount label {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    padding-left: 1.1rem;
+    padding-right: 1.1rem;
+    font-weight: 400;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    opacity: 1;
+    -webkit-transition: all .3s;
+    transition: all .3s
+}
+
+.checkout-discount .form-control {
+    background-color: transparent!important;
+    border-radius: .3rem;
+    border: .1rem dashed #d7d7d7;
+    padding-left: 1.1rem;
+    padding-right: 1.1rem
+}
+
+.checkout-discount .form-control:focus {
+    outline: none!important
 }

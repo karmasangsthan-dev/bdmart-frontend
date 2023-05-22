@@ -145,17 +145,7 @@ const NavMenu = () => {
             />
           </div>
           <h5 className="text-center text-capitalize ">{user?.fullName}</h5>
-          <p
-            className="text-center  px-1 rounded"
-            style={{
-              marginTop: "-7px",
-              marginBottom: "5px",
-              fontSize: "13px",
-              backgroundColor: "whitesmoke",
-            }}
-          >
-            {user?.email}
-          </p>
+          
 
           <MenuItem onClick={() => router.push("/profile")}>
             <img

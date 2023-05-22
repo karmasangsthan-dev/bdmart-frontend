@@ -1743,7 +1743,7 @@ a.slide_btn {
   margin-top: 20px;
   background-color: whitesmoke;
   /* margin-bottom: 50px; */
-
+  
   padding-bottom: 10px;
   padding-top: 20px;
 }
@@ -1819,12 +1819,17 @@ a.slide_btn {
   justify-content: center;
 }
 
+.last-ul a {
+  color: #000;
+  text-decoration: none;
+}
 .last-ul a:hover {
   color: #000;
+  text-decoration: none;
 }
 
 .last-ul {
-  margin-left: 120px;
+  
   color: #000;
 }
 
@@ -1897,6 +1902,7 @@ a.slide_btn {
 .footer-links a {
   color: black;
   font-size: 13px;
+  text-decoration: none;
 }
 
 .footer-links a:hover {

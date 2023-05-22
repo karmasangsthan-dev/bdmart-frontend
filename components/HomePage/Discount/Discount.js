@@ -3,6 +3,7 @@ import { useGetAllProductsQuery } from '../../../features/product/productApi';
 import Slider from 'react-slick';
 import { Rating } from '@mui/material';
 import Skeleton from 'react-loading-skeleton';
+import { useRouter } from 'next/router';
 
 const SampleNextArrow = (props) => {
     const { onClick } = props
@@ -27,6 +28,7 @@ const SamplePrevArrow = (props) => {
 
 
 const Discount = () => {
+    const router = useRouter();
     const { data, isLoading } = useGetAllProductsQuery();
     const settings = {
         dots: false,
@@ -119,9 +121,9 @@ const Discount = () => {
                                                 <div className='mb-1' key={product?._id}>
                                                     <div className='product-link bestselling-product-container  border p-3 m-3  rounded-3 shadow' >
                                                         <div className=''>
-                                                            <img className='border' style={{ width: '100%', height: '139px' }} src={product?.thumbnail} alt='' />
+                                                            <img onClick={() => router.push(`/productDetails/${product._id}`)} className='border' style={{ width: '100%', height: '139px' }} src={product?.thumbnail} alt='' />
                                                         </div>
-                                                        <p style={{ minHeight: '42px' }} className="item-name mt-2 mb-0">{product?.title?.length > 37 ? `${product?.title?.slice(0, 30)} ...` : product?.title}</p>
+                                                        <p onClick={() => router.push(`/productDetails/${product._id}`)} style={{ minHeight: '42px',cursor:'pointer' }} className="item-name mt-2 mb-0">{product?.title?.length > 37 ? `${product?.title?.slice(0, 30)} ...` : product?.title}</p>
                                                         <div className="d-flex justify-content-between align-items-center">
                                                             <span className='item-price'>${product?.price}</span>
 
