@@ -14,7 +14,6 @@ const ShopPagination = ({ setSort, sort, pageFound, data }) => {
   //   setSort({ ...sort, pageNumber: Number(arr) });
   //   setSelected(arr);
   // };
-  console.log({ pageFound });
   const [page, setPage] = React.useState(1);
 
   const handleChange = (event, value) => {

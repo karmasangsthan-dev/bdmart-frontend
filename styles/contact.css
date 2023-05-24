@@ -140,14 +140,7 @@ textarea {
     background-color: #af1b1b;
 }
 
-.contact-container button:hover,
-.submit-btn:hover,
-button:focus,
-.contact-container .submit-btn:focus  {
-    background: #ec1c24;
-    outline: 0;
-    color: #eee;
-}
+
 
 .contact-container .error {
     color: #ec1c24;

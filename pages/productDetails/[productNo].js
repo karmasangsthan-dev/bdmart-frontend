@@ -14,9 +14,12 @@ import ProductDescription from "../../components/ProductDescription/ProductDescr
 import Footer from "../../components/Shared/Footer/Footer";
 import NotFoundPage from "../404";
 import Loading from "../../components/Shared/Loading/Loading";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../features/cart/cartSlice";
 
 const productNo = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const {
     query: { productNo },
   } = router;
@@ -32,6 +35,50 @@ const productNo = () => {
   function handleClick(event) {
     event.preventDefault();
   }
+
+  const handleAddToCart = (product) => {
+    //   const alreadyAdded = !!user?.cart?.find(
+    //     (item) => item?.product?._id === product?._id
+    //   );
+    //   if (user?.email) {
+    //     if (alreadyAdded) {
+    //       return toast.error("Product already added to cart!!!", {
+    //         id: "addToCart",
+    //       });
+    //     }
+    //     setCartProduct(product);
+    //     addProductToCart({ token, userId: user?._id, product: product?._id });
+    //   }
+    //   if (!user?.email) {
+    //     toast.error("Please, Login first !!!", { id: "addToCart" });
+    //   }
+
+    //   ----------------------------------------------------------
+
+    const cartProducts = localStorage.getItem("cartProducts");
+    if (cartProducts) {
+      const cart = JSON.parse(localStorage.getItem("cartProducts"));
+      const index = cart?.findIndex(
+        (cartProduct) => cartProduct?.id === product?._id
+      );
+      if (index !== -1) {
+        cart[index].quantity += 1;
+        toast.success("Updated Quantity", { id: "addToCart" });
+      } else {
+        cart.push({ id: product?._id, quantity: 1 });
+        toast.success("Added to cart", { id: "addToCart" });
+      }
+      localStorage.setItem("cartProducts", JSON.stringify(cart));
+    }
+    if (!cartProducts) {
+      const cart = [{ id: product?._id, quantity: 1 }];
+      localStorage.setItem("cartProducts", JSON.stringify(cart));
+      toast.success("Added to cart", { id: "addToCart" });
+    }
+
+    dispatch(addToCart({ id: product?._id }));
+  };
+
 
   const buttonStyle = {
     backgroundColor: "rgb(179 48 61)",
@@ -61,7 +108,6 @@ const productNo = () => {
   if (!data?.status) {
     return <NotFoundPage></NotFoundPage>
   }
-  console.log(product, 'product in product details')
 
   return (
     <Layout title={`${product?.title ? product?.title : ''} Bangladesh Mart`}>
@@ -159,7 +205,7 @@ const productNo = () => {
                 <div id="cart-btn">
                   {
                     product?.stock >= 1 ? <button
-                      onClick={() => toast.success("Product added to Cart")}
+                      onClick={() => handleAddToCart(product)}
                       style={{ minWidth: "214px ", height: '38px' }}
                       className="cart-btn px-3 py-1"
                     >

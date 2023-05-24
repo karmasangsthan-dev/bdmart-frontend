@@ -47,7 +47,6 @@ const signin = () => {
       toast.error(error?.data?.error, { id: "login" });
     }
   }, [isSuccess, data, dispatch, isError, error, isLoading]);
-  console.log({ data, isSuccess, isError, error });
   return (
     <div className="">
       <Header></Header>

@@ -75,7 +75,6 @@ const cartSlice = createSlice({
     },
     removeFromCartProducts: (state, action) => {
       const id = action.payload;
-      console.log(id);
       const index = state.cartProducts?.findIndex((item) => item._id === id);
       if (index !== -1) {
         state.cartProducts?.splice(index, 1);
