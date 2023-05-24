@@ -1127,15 +1127,13 @@ const Header = () => {
                   </div>
                 </div>
               </div>
-              <div className="w-auto">
+              <div className=" d-flex justify-content-end " style={{width:'78%'}}>
                 <div className="frombar">
                   <ul>
-                    <Link href="/shop">
-                      <li className="inner-li">Top Products</li>
+                    <Link href="/">
+                      <li className="inner-li">Home</li>
                     </Link>
-                    <Link href="/shop">
-                      <li className="inner-li">Top Products</li>
-                    </Link>
+                    
                     <Link href="/shop">
                       <li className="inner-li">Shop</li>
                     </Link>
