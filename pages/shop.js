@@ -20,21 +20,12 @@ const shop = () => {
 
   const user = useSelector((state) => state.auth.user);
   const [allProducts, setAllProducts] = useState([]);
-  const [page, setPage] = useState(4);
+  const [page, setPage] = useState();
   const [sort, setSort] = useState({
-    perPage: 4,
+    perPage: 12,
     pageNumber: 1,
     priceSort: 0,
   });
-
-  const fetchMoreData = () => {
-    setPage(page + 4);
-    setSort({
-      perPage: sort.perPage + 4,
-      pageNumber: 1,
-      priceSort: 0,
-    })
-  };
 
   useEffect(() => {
     setParams(categoryTextParams);
@@ -47,7 +38,9 @@ const shop = () => {
     price: [],
   });
 
-  const { data, isLoading } = useGetAllProductsQuery({ perPage: page });
+  const { data, isLoading } = useGetAllProductsQuery({
+    perPage: page,
+  });
 
   const {
     data: products,
@@ -56,57 +49,7 @@ const shop = () => {
     isError,
     error,
   } = useGetProductsQuery({ sort, filter });
-
-  const totalProducts = data?.total || 0;
-  const loadedProducts = data?.data?.length || 0;
-  const hasMore = loadedProducts < totalProducts;
-
-  console.log(sort, 'sort')
-  console.log(page, 'per page');
-  console.log({ data, products });
-  useEffect(() => {
-    if (
-      sort.perPage !== 4 ||
-      sort.priceSort ||
-      sort.pageNumber !== 1 ||
-      filter.category.length ||
-      filter.brand.length ||
-      filter.price.length
-    ) {
-      setAllProducts(products);
-    } else if (
-      sort.perPage === 4 ||
-      !sort.priceSort ||
-      sort.pageNumber === 1 ||
-      !filter.category.length ||
-      !filter.brand.length ||
-      !filter.price.length
-    ) {
-      setAllProducts(data);
-    }
-  }, [
-    products,
-    data,
-    sort.pageNumber,
-    sort.perPage,
-    sort.priceSort,
-    filter.category,
-    filter.brand,
-    filter.price,
-  ]);
-
-  useEffect(() => {
-    if (loadedProducts >= totalProducts) {
-      // Fetch more data when all products are loaded initially
-      fetchMoreData();
-    }
-  }, [totalProducts]);
-
-  useEffect(() => {
-    // Reset page and loaded products when category params change
-    setPage(8);
-    setAllProducts([]);
-  }, [params]);
+  console.log(loading);
   return (
     <Layout title="Shop - Bangladesh Mart">
       <div className="shop page-content">
@@ -125,7 +68,7 @@ const shop = () => {
                 <div className="widget w-100 widget-clean d-flex justify-content-between align-items-center">
                   <p className="fs-6">Total Products: {data?.total}</p>
                   <div className="d-flex gap-4">
-                    {/* <div className="d-flex py-1">
+                    <div className="d-flex py-1">
                       <span>Per page : </span>
                       <select
                         onChange={(e) =>
@@ -136,11 +79,11 @@ const shop = () => {
                         }
                         className="ms-1 rounded px-2 border"
                       >
-                        <option value={15}>15</option>
-                        <option value={10}>10</option>
+                        <option value={12}>12</option>
+                        <option value={16}>16</option>
                         <option value={20}>20</option>
                       </select>
-                    </div> */}
+                    </div>
                     <div className="d-flex py-1">
                       <span>Sort by : </span>
                       <select
@@ -160,7 +103,7 @@ const shop = () => {
                   </div>
                 </div>
                 <div className="products">
-                  {isLoading || loading ? (
+                  {loading ? (
                     <div className="all-products-container-shop">
                       {[1, 2, 3, 4, 5, 6, 7, 8].map((elem, i) => {
                         return (
@@ -218,16 +161,22 @@ const shop = () => {
                     </div>
                   ) : (
                     <div className="shop-products">
-                      {allProducts?.data?.map((product) => (
+                      {products?.data?.map((product) => (
                         <ShopProduct product={product} key={product?._id} />
                       ))}
-                      {loadedProducts === 0 && <p>No products found.</p>}
-                      
+                      {/* {loadedProducts === 0 && <p>No products found.</p>} */}
                     </div>
                   )}
                 </div>
               </div>
-              <ShopPagination></ShopPagination>
+              <div className="my-5">
+                <ShopPagination
+                  setSort={setSort}
+                  sort={sort}
+                  pageFound={products?.pageFound}
+                  data
+                />
+              </div>
             </div>
           </div>
         </div>

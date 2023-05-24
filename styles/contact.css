@@ -1,0 +1,154 @@
+.contact-container{
+    
+}
+.contact-container .contain {
+    background-color: #ddd;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1em;
+}
+
+.contact-container div.form {
+    background-color: #eee;
+}
+
+.contact-container .contact-wrapper {
+    margin: auto 0;
+}
+
+.contact-container .submit-btn {
+    float: left;
+}
+
+.contact-container .reset-btn {
+    float: right;
+}
+
+.contact-container .form-headline:after {
+    content: "";
+    display: block;
+    width: 10%;
+    padding-top: 10px;
+    border-bottom: 3px solid #d42929;
+}
+
+
+
+.contact-container .hightlight-contact-info {
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 1.5;
+}
+
+.contact-container .highlight-text-grey {
+    font-weight: 500;
+}
+
+.contact-container .email-info {
+    margin-top: 20px;
+}
+
+
+.contact-container .required-input {
+    color: black;
+}
+
+@media (min-width: 600px) {
+    .contact-container .contain {
+        padding: 0;
+    }
+}
+
+
+
+
+.contact-container .form-input,
+textarea {
+    width: 100%;
+    border: 1px solid #bdbdbd;
+    border-radius: 5px;
+}
+
+.contact-container .wrapper>* {
+    padding: 1em;
+}
+
+@media (min-width: 700px) {
+    .contact-container .wrapper {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+    }
+
+    .contact-container .wrapper>* {
+        padding: 2em 2em;
+    }
+}
+
+.contact-container ul {
+    list-style: none;
+    padding: 0;
+}
+
+.contact-container .contacts {
+    color: #212d31;
+}
+
+.contact-container .form {
+    background: #fff;
+}
+
+.contact-container form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+}
+
+.contact-container form label {
+    display: block;
+}
+
+.contact-container form p {
+    margin: 0;
+}
+
+.contact-container .full-width {
+    grid-column: 1 / 3;
+}
+
+.contact-container button,
+.submit-btn,
+.reset-btn,
+.form-input,
+textarea {
+    padding: 1em;
+}
+
+.contact-container button,
+.submit-btn  {
+    padding: 5px 20px;
+    text-transform: uppercase;
+}
+.reset-btn{
+    background-color: #f53d3d;
+    border: none;
+    color: white;
+    padding: 11px 25px;
+    border-radius: 5px;
+}
+.reset-btn:hover{
+    background-color: #af1b1b;
+}
+
+.contact-container button:hover,
+.submit-btn:hover,
+button:focus,
+.contact-container .submit-btn:focus  {
+    background: #ec1c24;
+    outline: 0;
+    color: #eee;
+}
+
+.contact-container .error {
+    color: #ec1c24;
+}

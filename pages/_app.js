@@ -14,6 +14,7 @@ import "../styles/notfoundpage.css"
 import '../styles/cart.css'
 import '../styles/discount.css'
 import '../styles/order.css'
+import '../styles/contact.css'
 
 import { Toaster } from "react-hot-toast";
 import Providers from "../app/provider";

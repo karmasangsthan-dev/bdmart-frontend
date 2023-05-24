@@ -133,8 +133,8 @@ const ShopSideBar = ({ data, filter, setFilter, params }) => {
                           filter?.category?.includes(cat)
                             ? true
                             : cat === params
-                              ? true
-                              : false
+                            ? true
+                            : false
                         }
                         value={cat}
                         onClick={handleCategoryName}
@@ -268,9 +268,9 @@ const ShopSideBar = ({ data, filter, setFilter, params }) => {
                     ...(filter.price.length
                       ? filter.price
                       : [
-                        data?.lowestPriceProduct?.price,
-                        data?.highestPriceProduct?.price,
-                      ]),
+                          data?.lowestPriceProduct?.price,
+                          data?.highestPriceProduct?.price,
+                        ]),
                   ]}
                   onChange={handlePriceChange}
                   valueLabelDisplay="auto"
