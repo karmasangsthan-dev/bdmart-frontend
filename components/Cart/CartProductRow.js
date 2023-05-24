@@ -7,6 +7,7 @@ import {
   removeFromCartProducts,
 } from "../../features/cart/cartSlice";
 import { useRouter } from "next/router";
+import { toast } from "react-hot-toast";
 
 export default function CartProductRow({ product }) {
   const { cart } = useSelector((state) => state.cart);
@@ -15,8 +16,6 @@ export default function CartProductRow({ product }) {
   const router = useRouter();
 
   const handleQuantityIncrement = (item) => {
-
-
     const cart = JSON.parse(localStorage.getItem("cartProducts"));
     const index = cart?.findIndex(
       (cartProduct) => cartProduct?.id === item?._id
@@ -33,9 +32,19 @@ export default function CartProductRow({ product }) {
       (cartProduct) => cartProduct?.id === item?._id
     );
     if (index !== -1) {
-      cart[index].quantity -= 1;
-      localStorage.setItem("cartProducts", JSON.stringify(cart));
-      dispatch(decreaseQuantity(item?._id));
+      if (cart[index].quantity > 1) {
+        cart[index].quantity -= 1;
+        localStorage.setItem("cartProducts", JSON.stringify(cart));
+        dispatch(decreaseQuantity(item?._id));
+        console.log(cart[index].quantity);
+      } else {
+        toast.error(
+          "Sorry !! Quantity can't be reduced more. You can remove the product.",
+          {
+            id: "cartProduct",
+          }
+        );
+      }
     }
   };
 
@@ -66,14 +75,27 @@ export default function CartProductRow({ product }) {
       <td className="product-col ">
         <div className="d-flex align-items-center">
           <img width={60} height={60} src={product?.thumbnail} alt="product" />
-          <p title={product?.title} onClick={() => router.push(`/productDetails/${product._id}`)} className="product-title mb-0 ms-3">{product?.title.length > 30 ? `${product?.title.slice(0, 35)}...` : product?.title}</p>
+          <p
+            title={product?.title}
+            onClick={() => router.push(`/productDetails/${product._id}`)}
+            className="product-title mb-0 ms-3"
+          >
+            {product?.title.length > 30
+              ? `${product?.title.slice(0, 35)}...`
+              : product?.title}
+          </p>
         </div>
       </td>
       <td className="cart-price-col">
-        <p style={{ height: '60px' }} className="d-flex align-items-center">${product?.price}</p>
+        <p style={{ height: "60px" }} className="d-flex align-items-center">
+          ${product?.price}
+        </p>
       </td>
       <td className="quantity-col">
-        <div style={{ height: '60px' }} className="product-quantity  d-flex align-items-center">
+        <div
+          style={{ height: "60px" }}
+          className="product-quantity  d-flex align-items-center"
+        >
           <div className="qty-container">
             <button
               onClick={() => handleQuantityDecrement(product)}
@@ -99,11 +121,25 @@ export default function CartProductRow({ product }) {
         </div>
       </td>
       <td className="total-col">
-        <p className="mb-0 d-flex align-items-center" style={{ height: '60px' }}>${product?.price * rowProduct?.quantity}</p>
+        <p
+          className="mb-0 d-flex align-items-center"
+          style={{ height: "60px" }}
+        >
+          ${product?.price * rowProduct?.quantity}
+        </p>
       </td>
       <td className="remove-col">
-        <div style={{ height: '60px' }} className="d-flex justify-content-center align-items-center" >
-          <button style={{ maxHeight: '30px', minHeight: '30px', width: '30px' }} onClick={() => handleRemove(product)} className=" btn-remove-cart "><i className="fa-solid fa-xmark delete-icon"></i></button>
+        <div
+          style={{ height: "60px" }}
+          className="d-flex justify-content-center align-items-center"
+        >
+          <button
+            style={{ maxHeight: "30px", minHeight: "30px", width: "30px" }}
+            onClick={() => handleRemove(product)}
+            className=" btn-remove-cart "
+          >
+            <i className="fa-solid fa-xmark delete-icon"></i>
+          </button>
         </div>
       </td>
     </tr>
