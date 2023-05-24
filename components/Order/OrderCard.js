@@ -1,6 +1,7 @@
 import React from 'react';
 
 const OrderCard = ({ order }) => {
+    
     return (
         <>
             <div className="list-group mb-5 shadow" >
@@ -20,12 +21,12 @@ const OrderCard = ({ order }) => {
 
                         <div className="col-6 col-md">
                             <h6 className="text-charcoal mb-0 w-100">Payment Method</h6>
-                            <p className="text-danger mb-0 w-100 mb-2 mb-md-0">Cash On Delevery</p>
+                            <p className="text-danger mb-0 w-100 mb-2 mb-md-0">{order?.paymentMethod ? order?.paymentMethod : 'Not Found'}</p>
                         </div>
 
                         <div className="col-3 col-md">
                             <h6 className="text-charcoal mb-0 w-50">Status</h6>
-                            <p className="text-danger mb-0 w-100 mb-2 mb-md-0">Pending...</p>
+                            <p className="text-danger mb-0 w-100 mb-2 mb-md-0">{order?.status ? order?.status : 'Not Found'}</p>
                         </div>
 
 

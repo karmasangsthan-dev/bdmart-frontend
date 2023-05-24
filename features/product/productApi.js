@@ -43,6 +43,16 @@ const productApi = apiSlice.injectEndpoints({
       },
       providesTags: ["Product"],
     }),
+    getSearchProduct: builder.query({
+
+      query: (search) => {
+        return {
+          url: `/products/search?search=${search}`,
+          method: "GET",
+        };
+      },
+      providesTags: ["Product"],
+    }),
     getAllOrdersByEmail: builder.query({
       query: (email) => {
         return {
@@ -74,6 +84,7 @@ const productApi = apiSlice.injectEndpoints({
 export const {
   useGetProductsQuery,
   useGetAllProductsQuery,
+  useGetSearchProductQuery,
   useGetProductDetailsQuery,
   useGetAllOrdersByEmailQuery,
   useGetCartProductsMutation,

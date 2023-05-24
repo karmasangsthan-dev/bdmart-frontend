@@ -6,14 +6,34 @@ import CheckoutCartItem from "../components/Checkout/CheckoutCartItem";
 import { toast } from "react-hot-toast";
 import { useGetCreateOrderMutation } from "../features/product/productApi";
 
+const PaymentMethodRadio = ({ method, isSelected, onChange }) => {
+    const handleChange = () => {
+        onChange(method);
+    };
+
+    return (
+        <div className="payment-method-radio">
+            <label>
+                <input type="radio" checked={isSelected} onChange={handleChange} />
+                <span className="radio-label">{method}</span>
+            </label>
+        </div>
+    );
+};
+
 const checkout = () => {
     const router = useRouter();
     const [coupon, setCoupon] = useState('');
-    const [getCreateOrder, { data, isLoading, isSuccess ,isError}] =
+    const [getCreateOrder, { data, isLoading, isSuccess, isError }] =
         useGetCreateOrderMutation();
     const user = useSelector((state) => state?.auth?.user);
     const { cart } = useSelector((state) => state?.cart);
     const { cartProducts } = useSelector((state) => state?.cart);
+    const [selectedMethod, setSelectedMethod] = useState('');
+
+    const handleMethodChange = (method) => {
+        setSelectedMethod(method);
+    };
 
     const calculateTotal = () => {
         let total = 0;
@@ -47,20 +67,25 @@ const checkout = () => {
     });
     const handleCreateOrder = (event) => {
         event.preventDefault();
-        const firstName = event.target.firstName.value;
-        const lastName = event.target.lastName.value;
-        const fullName = firstName + ' ' + lastName;
-        const companyName = event.target.companyName.value;
-        const country = event.target.country.value;
-        const street = event.target.street.value;
-        const street2 = event.target.street2.value;
-        const city = event.target.city.value;
-        const state = event.target.state.value;
-        const postcode = event.target.postcode.value;
-        const phone = event.target.phone.value;
-        const email = event.target.email.value;
-        const orderData = { name: fullName, companyName, country, street, street2, city, state, postcode, phone, billingEmail: email, userEmail: user?.email, products: productsWithQuantity }
-        getCreateOrder(orderData);
+        if (selectedMethod !== '') {
+            const firstName = event.target.firstName.value;
+            const lastName = event.target.lastName.value;
+            const fullName = firstName + ' ' + lastName;
+            const companyName = event.target.companyName.value;
+            const country = event.target.country.value;
+            const street = event.target.street.value;
+            const street2 = event.target.street2.value;
+            const city = event.target.city.value;
+            const state = event.target.state.value;
+            const postcode = event.target.postcode.value;
+            const phone = event.target.phone.value;
+            const email = event.target.email.value;
+            const orderData = { name: fullName, companyName, country, street, street2, city, state, postcode, phone, billingEmail: email, userEmail: user?.email, products: productsWithQuantity, paymentMethod: selectedMethod }
+            getCreateOrder(orderData);
+        }
+        else {
+            toast.error('Please select a payment method at first')
+        }
 
     }
     useEffect(() => {
@@ -72,7 +97,7 @@ const checkout = () => {
             toast.success("Successfully created Order...!!", { id: "createOrder" });
             router.push('/profile/order-history')
         }
-        
+
     }, [isLoading, isSuccess, isError]);
 
 
@@ -109,14 +134,48 @@ const checkout = () => {
                                         <span style={{ fontWeight: 'bold' }}>Total (USD)</span>
                                         <strong>${calculateTotal()}</strong>
                                     </li>
+                                    <PaymentMethodRadio
+                                        method="Credit Card"
+                                        isSelected={selectedMethod === 'Credit Card'}
+                                        onChange={handleMethodChange}
+                                    />
+                                    <PaymentMethodRadio
+                                        method="PayPal"
+                                        isSelected={selectedMethod === 'PayPal'}
+                                        onChange={handleMethodChange}
+                                    />
+                                    <PaymentMethodRadio
+                                        method="Apple Pay"
+                                        isSelected={selectedMethod === 'Apple Pay'}
+                                        onChange={handleMethodChange}
+                                    />
+                                    <PaymentMethodRadio
+                                        method="Cash On Delevery"
+                                        isSelected={selectedMethod === 'Cash On Delevery'}
+                                        onChange={handleMethodChange}
+                                    />
                                 </ul>
 
-                                <button
+                                {selectedMethod === '' && <button
                                     type="submit"
                                     className="place-order-btn btn"
                                 >
                                     Place Order
-                                </button>
+                                </button>}
+                                {selectedMethod === 'Cash On Delevery' && <button
+                                    type="submit"
+                                    className="place-order-btn btn"
+                                >
+                                    Place Order
+                                </button>}
+                                {selectedMethod !== '' && selectedMethod !== "Cash On Delevery" ? <button
+                                    type="submit"
+                                    className=" btn btn-danger"
+                                    disabled
+
+                                >
+                                    Not available. Please select another method...
+                                </button> : <></>}
 
                             </div>
                             <div className="col-md-8 order-md-1">

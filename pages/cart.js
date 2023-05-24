@@ -9,7 +9,6 @@ const cart = () => {
   const dispatch = useDispatch();
   const { cart } = useSelector((state) => state?.cart);
   const { cartProducts } = useSelector((state) => state?.cart);
-  console.log({cart,cartProducts})
   const calculateTotal = () => {
     let total = 0;
     cart.forEach((cartItem) => {
@@ -21,7 +20,6 @@ const cart = () => {
     });
     return total.toFixed(2);
   };
-  console.log(cartProducts)
 
   return (
     <Layout title="Cart - Bangladesh Mart">
