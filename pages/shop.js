@@ -49,7 +49,6 @@ const shop = () => {
     isError,
     error,
   } = useGetProductsQuery({ sort, filter });
-  console.log(loading);
   return (
     <Layout title="Shop - Bangladesh Mart">
       <div className="shop page-content">

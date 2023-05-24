@@ -36,7 +36,6 @@ export default function CartProductRow({ product }) {
         cart[index].quantity -= 1;
         localStorage.setItem("cartProducts", JSON.stringify(cart));
         dispatch(decreaseQuantity(item?._id));
-        console.log(cart[index].quantity);
       } else {
         toast.error(
           "Sorry !! Quantity can't be reduced more. You can remove the product.",

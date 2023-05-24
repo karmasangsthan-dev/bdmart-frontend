@@ -65,7 +65,6 @@ const Discount = () => {
             }
         ]
     }
-    console.log(data?.data)
     return (
 
         <div>

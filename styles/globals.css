@@ -75,8 +75,7 @@ buttton:focus {
   text-decoration: underline;
 }
 
-@media (max-width: 1094px) {
-}
+@media (max-width: 1094px) {}
 
 /*==========================================
 CoMmOn CsS EnD
@@ -996,7 +995,7 @@ MGA CONTENT NAV
 }
 
 @media (max-width: 1027px) {
-  .row > * {
+  .row>* {
     flex-shrink: 0;
     /* max-width: 100%; */
     padding-right: 0 !important;
@@ -1743,7 +1742,7 @@ a.slide_btn {
   margin-top: 20px;
   background-color: whitesmoke;
   /* margin-bottom: 50px; */
-  
+
   padding-bottom: 10px;
   padding-top: 20px;
 }
@@ -1823,13 +1822,14 @@ a.slide_btn {
   color: #000;
   text-decoration: none;
 }
+
 .last-ul a:hover {
   color: #000;
   text-decoration: none;
 }
 
 .last-ul {
-  
+
   color: #000;
 }
 
@@ -1958,8 +1958,7 @@ a.slide_btn {
   }
 }
 
-@media (max-width: 960px) {
-}
+@media (max-width: 960px) {}
 
 @media (max-width: 936px) {
   .desktop {
@@ -1994,8 +1993,7 @@ a.slide_btn {
   }
 }
 
-@media (max-width: 890px) {
-}
+@media (max-width: 890px) {}
 
 @media (max-width: 836px) {
   .social-area {
@@ -2266,7 +2264,8 @@ a.slide_btn {
   visibility: visible;
   transform: translateY(0%);
 }
-.shop-add-to-cart-button:hover{
+
+.shop-add-to-cart-button:hover {
   transition: 0.5s;
   background-color: #d88d1e;
 }
@@ -2319,4 +2318,9 @@ a.slide_btn {
 
 .mobile-slider .product-details .product-name {
   cursor: pointer;
+}
+
+.search-item-header:hover{
+  cursor: pointer;
+  background-color: #f7f7f7;
 }

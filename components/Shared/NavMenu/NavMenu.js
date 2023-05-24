@@ -57,7 +57,7 @@ const NavMenu = () => {
         <Box
           sx={{ display: "flex", alignItems: "center", textAlign: "center" }}
         >
-          <Tooltip title="Account settings">
+          <Tooltip title="Profile">
             <IconButton
               onClick={handleClick}
               size="small"
