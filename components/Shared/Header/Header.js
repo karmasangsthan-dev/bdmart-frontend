@@ -1150,7 +1150,7 @@ const Header = () => {
                     <Link href="/profile">
                       <li className="inner-li">My Account</li>
                     </Link>
-                    <Link href="/shop">
+                    <Link href="/contact">
                       <li className="inner-li">Contact Us</li>
                     </Link>
                   </ul>
