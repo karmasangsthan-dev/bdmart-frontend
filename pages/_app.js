@@ -15,12 +15,10 @@ import '../styles/cart.css'
 import '../styles/discount.css'
 import '../styles/order.css'
 import '../styles/contact.css'
-
 import { Toaster } from "react-hot-toast";
 import Providers from "../app/provider";
 import { useEffect } from "react";
-
-export default function App({ Component, pageProps }) {
+const App = ({ Component, pageProps }) => {
   useEffect(() => {
     import('bootstrap/dist/js/bootstrap.bundle.min.js')
       .catch(error => console.log('An error occurred while loading the Bootstrap script:', error));
@@ -33,4 +31,6 @@ export default function App({ Component, pageProps }) {
     </Providers>
   );
 }
+
+export default App;
 

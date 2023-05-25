@@ -3,27 +3,15 @@ import Banner from "../components/HomePage/Banner/Banner";
 import BestSelling from "../components/HomePage/BestSelling/BestSelling";
 import LandingImage from "../components/HomePage/LandingImage/LandingImage";
 import ShopDepartments from "../components/HomePage/Department/ShopDepartments";
-
 import Layout from "../components/Layout";
 import Footer from "../components/Shared/Footer/Footer";
 import Discount from "../components/HomePage/Discount/Discount";
 import JustForYou from "../components/HomePage/JustForYou/JustForYou";
-
-// export async function getServerSideProps(context) {
-//   const res = await fetch('https://dummyjson.com/products');
-//   const data = await res.json();
-//   return {
-//     props: {
-//       data
-//     }
-//   };
-// }
-
-export default function Home({data}) {
+export default function Home() {
   return (
     <Layout>
       <Banner />
-      <LandingImage/>
+      <LandingImage />
       <BestSelling />
       <ShopDepartments />
       <Discount></Discount>

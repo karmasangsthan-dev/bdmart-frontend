@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import CheckoutCartItem from "../components/Checkout/CheckoutCartItem";
 import { toast } from "react-hot-toast";
 import { useGetCreateOrderMutation } from "../features/product/productApi";
+import { clearCart } from "../features/cart/cartSlice";
 
 const PaymentMethodRadio = ({ method, isSelected, onChange }) => {
     const handleChange = () => {
@@ -22,6 +23,7 @@ const PaymentMethodRadio = ({ method, isSelected, onChange }) => {
 };
 
 const checkout = () => {
+    const dispatch = useDispatch();
     const router = useRouter();
     const [coupon, setCoupon] = useState('');
     const [getCreateOrder, { data, isLoading, isSuccess, isError }] =
@@ -94,8 +96,10 @@ const checkout = () => {
         }
 
         if (isSuccess) {
-            toast.success("Successfully created Order...!!", { id: "createOrder" });
             router.push('/profile/order-history')
+            toast.success("Successfully created Order...!!", { id: "createOrder" });
+            dispatch(clearCart());
+            localStorage.removeItem("cartProducts");
         }
 
     }, [isLoading, isSuccess, isError]);
