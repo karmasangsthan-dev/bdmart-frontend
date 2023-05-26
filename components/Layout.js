@@ -83,9 +83,8 @@ const Layout = ({ children, title = "Bangladesh Mart" }) => {
       </Head>
       <Script
         src="https://kit.fontawesome.com/a3939c0da5.js"
-        crossorigin="anonymous"
+        crossOrigin="anonymous"
       ></Script>
-      
 
       <Header />
 
