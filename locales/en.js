@@ -25,4 +25,23 @@ export const en = {
       title: "Just For You",
     },
   },
+  shopPage: {
+    sideNav: {
+      filterTitle: "Filter",
+      clearTitle: "Clear All",
+      categoryTitle: "Category",
+      brandTitle: "Brand",
+      priceTitle: "Price",
+    },
+    allProducts: {
+      productsCountTitle: "Total Products",
+      perPageTitle: "Per Page",
+      sortBy: {
+        title: "Sort By",
+        option1: "Default",
+        option2: "High to Low",
+        option3: "Low to High",
+      },
+    },
+  },
 };

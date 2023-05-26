@@ -2,7 +2,7 @@ import { Collapse, Slider } from "@mui/material";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
-const ShopSideBar = ({ data, filter, setFilter, params }) => {
+const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
   const router = useRouter();
   const [catOpen, setCatOpen] = useState(true);
   const [brandOpen, setBrandOpen] = useState(true);
@@ -95,7 +95,7 @@ const ShopSideBar = ({ data, filter, setFilter, params }) => {
       <aside className="sidebar sidebar-shop">
         <div>
           <div className="d-flex justify-content-between align-items-center border-bottom">
-            <p className="fw-bold">Filter:</p>
+            <p className="fw-bold">{t.shopPage.sideNav.filterTitle}:</p>
             <p
               onClick={() =>
                 setFilter({ category: [], size: "", brand: [], price: [] })
@@ -104,7 +104,7 @@ const ShopSideBar = ({ data, filter, setFilter, params }) => {
               style={{ cursor: "pointer" }}
               href="#"
             >
-              Clear All
+              {t.shopPage.sideNav.clearTitle}
             </p>
           </div>
           <div
@@ -117,7 +117,7 @@ const ShopSideBar = ({ data, filter, setFilter, params }) => {
               aria-expanded={catOpen}
               className="d-flex justify-content-between align-items-center mt-3 "
             >
-              <h5>Category</h5>
+              <h5>{t.shopPage.sideNav.categoryTitle}</h5>
               <i className="fa fa-caret-down"></i>
             </div>
             <Collapse in={catOpen}>
@@ -206,7 +206,7 @@ const ShopSideBar = ({ data, filter, setFilter, params }) => {
               aria-expanded={brandOpen}
               className="d-flex justify-content-between align-items-center"
             >
-              <h5>Brand</h5>
+              <h5>{t.shopPage.sideNav.brandTitle}</h5>
               <i className="fa fa-caret-down"></i>
             </div>
             <Collapse in={brandOpen}>
@@ -243,7 +243,7 @@ const ShopSideBar = ({ data, filter, setFilter, params }) => {
               aria-expanded={priceOpen}
               className="d-flex justify-content-between align-items-center"
             >
-              <h5>Price</h5>
+              <h5>{t.shopPage.sideNav.priceTitle}</h5>
               <i className="fa fa-caret-down"></i>
             </div>
             <Collapse in={priceOpen}>

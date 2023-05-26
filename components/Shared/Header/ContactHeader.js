@@ -27,10 +27,11 @@ export default function ContactHeader({ user }) {
           <div className="language-selector">
             <div class="dropdown">
               <button
-                class="btn btn-secondary dropdown-toggle"
+                class="btn  border-0  dropdown-toggle"
                 type="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
+                style={{ backgroundColor: "none" }}
               >
                 <Image
                   className="flag-img"
