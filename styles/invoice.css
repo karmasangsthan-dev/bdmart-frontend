@@ -1,0 +1,87 @@
+.order-container .table-bordered td,
+.table-bordered th {
+    border: 1px solid #ddd;
+    padding: 10px;
+    word-break: break-all;
+}
+
+.order-container .h4-14 h4 {
+    font-size: 12px;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.order-container .img {
+    margin-left: "auto";
+    margin-top: "auto";
+    height: 30px;
+}
+
+.order-container pre,
+p {
+    /* width: 99%; */
+    /* overflow: auto; */
+    /* bpicklist: 1px solid #aaa; */
+    padding: 0;
+    margin: 0;
+}
+
+.order-container table {
+    font-family: arial, sans-serif;
+    width: 100%;
+    border-collapse: collapse;
+    padding: 1px;
+}
+
+.order-container .hm-p p {
+    text-align: left;
+    padding: 1px;
+    padding: 5px 4px;
+}
+
+.order-container td,
+th {
+    text-align: left;
+    padding: 8px 6px;
+}
+
+.order-container .table-b td,
+.table-b th {
+    border: 1px solid #ddd;
+}
+
+.order-container th {
+    /* background-color: #ddd; */
+}
+
+.order-container .hm-p td,
+.hm-p th {
+    padding: 3px 0px;
+}
+
+.order-container .cropped {
+    float: right;
+    margin-bottom: 20px;
+    height: 100px;
+    /* height of container */
+    overflow: hidden;
+}
+
+.order-container .cropped img {
+    width: 400px;
+    margin: 8px 0px 0px 80px;
+}
+
+.order-container .main-pd-wrapper {
+    box-shadow: 0 0 10px #ddd;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.order-container .table-bordered td,
+.table-bordered th {
+    border: 1px solid #ddd;
+    padding: 10px;
+    font-size: 14px;
+}

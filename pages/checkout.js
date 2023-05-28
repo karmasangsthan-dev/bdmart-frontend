@@ -75,14 +75,13 @@ const checkout = () => {
             const fullName = firstName + ' ' + lastName;
             const companyName = event.target.companyName.value;
             const country = event.target.country.value;
-            const street = event.target.street.value;
-            const street2 = event.target.street2.value;
+            const address = event.target.address.value;
             const city = event.target.city.value;
             const state = event.target.state.value;
             const postcode = event.target.postcode.value;
             const phone = event.target.phone.value;
             const email = event.target.email.value;
-            const orderData = { name: fullName, companyName, country, street, street2, city, state, postcode, phone, billingEmail: email, userEmail: user?.email, products: productsWithQuantity, paymentMethod: selectedMethod }
+            const orderData = { name: fullName, companyName, country, address, city, state, postcode, phone, billingEmail: email, userEmail: user?.email, products: productsWithQuantity, paymentMethod: selectedMethod }
             getCreateOrder(orderData);
         }
         else {
@@ -196,18 +195,18 @@ const checkout = () => {
                                     </div>
                                 </div>
                                 <div className="mb-3">
-                                    <label for="email">Company Name (Optional)</label>
+                                    <label >Company Name (Optional)</label>
                                     <input name="companyName" type="text" className="form-control" />
                                 </div>
                                 <div className="mb-3">
-                                    <label for="email">Country *</label>
+                                    <label >Country *</label>
                                     <input name="country" type="text" className="form-control" required />
                                 </div>
 
                                 <div className="mb-3">
                                     <label for="address">Street Address *</label>
-                                    <input name="street" type="text" className="form-control" placeholder="House number and Street name" required />
-                                    <input name="street2" type="text" className="form-control mt-2" placeholder="Appartments, suite, unit etc ..." required />
+                                    <textarea name="address" type="text" className="form-control" placeholder="Enter your address" required cols="30" rows="3"></textarea>
+
                                 </div>
 
                                 <div className="row">
@@ -221,7 +220,7 @@ const checkout = () => {
                                     <div className="col-md-6 ">
 
                                         <div className="mt-2">
-                                            <label for="email">State *</label>
+                                            <label >State *</label>
                                             <input name="state" type="text" className="form-control" required />
                                         </div>
                                     </div>
@@ -243,7 +242,7 @@ const checkout = () => {
                                 </div>
                                 <div className="mb-3">
                                     <label for="email">Email Address*</label>
-                                    <input name="email" type="text" className="form-control" required />
+                                    <input readOnly disabled name="email" type="text" id="email" className="form-control checkout-email-input" value={user?.email} required />
                                 </div>
 
 
