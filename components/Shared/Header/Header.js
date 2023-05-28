@@ -1,42 +1,33 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { toast } from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import auth from "../../../firebase.init";
 import NavMenu from "../NavMenu/NavMenu";
+import Loading from "../Loading/Loading";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { Container, Nav, NavDropdown, Navbar } from "react-bootstrap";
+import { setCart } from "../../../features/auth/authSlice";
 import { Badge, Tooltip } from "@mui/material";
 import { useGetSearchProductQuery } from "../../../features/product/productApi";
-
+import ContactHeader from "./ContactHeader";
+import { en } from "../../../locales/en";
+import { bn } from "../../../locales/bn";
 const Header = () => {
   const router = useRouter();
+  const { locale } = router;
+  const t = locale === "en" ? en : bn;
   const user = useSelector((state) => state?.auth?.user);
-  const [searchText, setSearchText] = useState('');
-  const [selectedLanguage, setSelectedLanguage] = useState('en');
+  const [searchText, setSearchText] = useState("");
   const { cart } = useSelector((state) => state?.cart);
-
-  const {
-    data,
-    isLoading,
-    isError,
-    error,
-    refetch
-  } = useGetSearchProductQuery(searchText);
+  const { data, isLoading, isError, error, refetch } =
+    useGetSearchProductQuery(searchText);
 
   useEffect(() => {
-    refetch()
-  }, [searchText])
-
-
-  const handleLanguageChange = (event) => {
-    const selectedLang = event.target.value;
-    console.log(selectedLang, 'text')
-    setSelectedLanguage(selectedLang);
-
-  };
-
-
-
+    refetch();
+  }, [searchText]);
 
   useEffect(() => {
     window.addEventListener("scroll", function () {
@@ -64,112 +55,7 @@ const Header = () => {
   return (
     <div id="strip2">
       <div id="nav_Bar" className="navBar ">
-        <div className="strip-1 ">
-          <div className="contact-area">
-            <div className="phone">
-              <i className="fas fa-phone-alt"></i>
-              <p>11122233</p>
-            </div>
-            <div className="email">
-              <i className="far fa-envelope"></i>
-              <p>contact@bangladeshmart.com.bd</p>
-            </div>
-          </div>
-          <div className="user-area">
-            <div className="language-selector">
-              <div className="dropdown">
-                <button
-                  className="btn dropdown-toggle"
-                  type="button"
-                  id="dropdownMenuButton1"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <Image
-                    className="flag-img"
-                    src="/images/flag.png"
-                    alt="country"
-                    width={18}
-                    height={14}
-                    loading="eager"
-                  />
-
-                  <span className="lan-head">/Country/Currency</span>
-                </button>
-                <ul
-                  className="dropdown-menu"
-                  aria-labelledby="dropdownMenuButton1"
-                >
-                  <li>
-                    {" "}
-                    <span className="ship-text">Ship to</span>
-                    <div className="drop-down">
-                      <select className="English" id="">
-                        <option value="Bangladesh">Country 1</option>
-                        <option value="Bangladesh">Country 2</option>
-                        <option value="Bangladesh">Country 3</option>
-                      </select>
-                    </div>
-                  </li>
-                  <li>
-                    {" "}
-                    <span className="ship-text">Language</span>
-                    <div className="drop-down">
-                      <select
-                        value={selectedLanguage}
-                        onChange={handleLanguageChange}
-                        className="English" id="">
-
-                        <option value='bn'>Bangla</option>
-                        <option value='fr'>Franch</option>
-
-
-                      </select>
-                    </div>
-                  </li>
-                  <li>
-                    {" "}
-                    <span className="ship-text">Currency</span>
-                    <div className="drop-down">
-                      <select className="English" id="">
-                        <option value="Bangladesh">Currency 1</option>
-                        <option value="Bangladesh">Currency 2</option>
-                        <option value="Bangladesh">Currency 3</option>
-                      </select>
-                    </div>
-                  </li>
-                  <button className="btn save btn-danger"> Save</button>
-                </ul>
-              </div>
-            </div>
-            <div className="user-sign ">
-              <div className="sign-icons ">
-                {!user?.providerId && (
-                  <div>
-                    <Link href="/signin" prefetch={false}>
-                      <i className="fas fa-user"></i>
-                      <span className="sign-text "> &nbsp; Sign in &nbsp;</span>
-                    </Link>{" "}
-                    | &nbsp;
-                    <Link href="/signup">
-                      <i className="fas fa-user-plus"></i>
-                      <span className="sign-text">&nbsp; Sign up &nbsp;</span>
-                    </Link>
-                  </div>
-                )}
-
-                {user?.providerId && (
-                  <div className="d-flex ">
-                    <p className="text-warning px-2 rounded-2 text-capitalize ">
-                      {user?.fullName}
-                    </p>
-                  </div>
-                )}
-              </div>
-              <div></div>
-            </div>
-          </div>
-        </div>
+        <ContactHeader user={user} />
 
         <div className="main-strip-2 d-sm-none d-lg-block">
           <div id="strip" className="strip-2 ">
@@ -192,7 +78,7 @@ const Header = () => {
                 <input
                   onChange={(e) => setSearchText(e.target.value)}
                   type="text"
-                  placeholder="What are you looking for?"
+                  placeholder={t.homePage.header.searchTitle}
                   name="search"
                   autoComplete="off"
                 />
@@ -200,43 +86,60 @@ const Header = () => {
                 <button type="submit">
                   <i className="fa fa-search"></i>
                 </button>
-
               </form>
-              {
-                data?.data?.length && <form className="example">
-                  <div style={{ display: "block", minWidth: '841px', zIndex: '999' }} className="dropdown-menu search-content-box shadow px-2" >
+              {data?.data?.length && (
+                <form className="example">
+                  <div
+                    style={{
+                      display: "block",
+                      minWidth: "841px",
+                      zIndex: "999",
+                    }}
+                    className="dropdown-menu search-content-box shadow px-2"
+                  >
                     <div className="search-details">
-                      <div >
-                        {
-                          data?.data?.map((product, i) => {
-                            return (
-                              <div onClick={() => router.push(`/productDetails/${product._id}`)} key={i} className="search-item-header d-flex align-items-center border-bottom py-2">
-                                <div className="image">
-                                  <img width={60} height={60} src={product?.thumbnail}
-                                  />
-                                </div>
-                                <div className="ms-3">
-                                  <div className="name">{product?.title}</div>
-                                  <div className="price"><span style={{ fontWeight: "600" }} className="text-danger">${product?.price}</span></div>
+                      <div>
+                        {data?.data?.map((product, i) => {
+                          return (
+                            <div
+                              onClick={() =>
+                                router.push(`/productDetails/${product._id}`)
+                              }
+                              key={i}
+                              className="search-item-header d-flex align-items-center border-bottom py-2"
+                            >
+                              <div className="image">
+                                <img
+                                  width={60}
+                                  height={60}
+                                  src={product?.thumbnail}
+                                />
+                              </div>
+                              <div className="ms-3">
+                                <div className="name">{product?.title}</div>
+                                <div className="price">
+                                  <span
+                                    style={{ fontWeight: "600" }}
+                                    className="text-danger"
+                                  >
+                                    ${product?.price}
+                                  </span>
                                 </div>
                               </div>
-                            )
-                          })
-                        }
-
-
+                            </div>
+                          );
+                        })}
                       </div>
                       <div className="d-flex justify-content-center my-3">
-                        <span className="btn btn-info text-center ">See All Results</span>
+                        <span className="btn btn-info text-center ">
+                          See All Results
+                        </span>
                       </div>
                     </div>
                   </div>
                 </form>
-              }
-
+              )}
             </div>
-
-
 
             <div className="d-flex ">
               <div className="cart-icon ms-3">
@@ -260,63 +163,17 @@ const Header = () => {
               </div>
             </div>
           </div>
-        </div >
+        </div>
 
         {/* for mobile */}
-        < div className="main-strip-2 d-sm-block d-lg-none" >
-          {/* <div id="strip" className="strip-2 ">
-            <div className="nav-bar">
-              <i className="fas bar fa-bars"></i>
-            </div>
-            
-            <div className="search-box">
-              <form className="example" action="action_page.php">
-                <input
-                  type="text"
-                  placeholder="What are you looking for?"
-                  name="search"
-                />
-                <button type="submit">
-                  <i className="fa fa-search"></i>
-                </button>
-              </form>
-            </div>
-            <div className="d-flex ">
-              <div className="cart-icon ms-3">
-                {user?.email && <NavMenu></NavMenu>}
-              </div>
-              <div className="cart-icon ms-4">
-                <Link href="/cart">
-                  <Image
-                    className="flag-img"
-                    src="/images/cart.png"
-                    alt="country"
-                    width={45}
-                    height={40}
-                    loading="eager"
-                  />
-                </Link>
-                {user?.cart?.length ? (
-                  <span
-                    className=" d-inline-block text-white rounded-circle bg-danger fs-6  fw-semibold border"
-                    style={{
-                      padding: "1px 5px",
-                      margin: "0 -15px",
-                    }}
-                  >
-                    {" "}
-                    {user?.cart?.length < 10
-                      ? `0${user?.cart?.length}`
-                      : user?.cart.length}
-                  </span>
-                ) : (
-                  ""
-                )}
-              </div>
-            </div>
-          </div> */}
-
-          <Navbar Navbar collapseOnSelect expand="lg" bg="light" variant="light" >
+        <div className="main-strip-2 d-sm-block d-lg-none">
+          <Navbar
+            Navbar
+            collapseOnSelect
+            expand="lg"
+            bg="light"
+            variant="light"
+          >
             <Container>
               <div className="logo">
                 <Link href="/">
@@ -340,7 +197,6 @@ const Header = () => {
                         name="search"
                       />
 
-
                       <button type="submit">
                         <i className="fa fa-search"></i>
                       </button>
@@ -349,8 +205,8 @@ const Header = () => {
                 </Nav>
               </Navbar.Collapse>
             </Container>
-          </Navbar >
-        </div >
+          </Navbar>
+        </div>
 
         {/* header start from here  */}
 
@@ -376,7 +232,10 @@ const Header = () => {
                     aria-expanded="false"
                     aria-controls="panelsStayOpen-collapseThree"
                   >
-                    <span style={{ fontSize: "15px" }}> Departments</span>
+                    <span style={{ fontSize: "15px" }}>
+                      {" "}
+                      {t.homePage.header.megaMenuTitle}
+                    </span>
                   </button>
                 </h2>
                 <div
@@ -1196,40 +1055,25 @@ const Header = () => {
                   </div>
                 </div>
               </div>
-              <div className=" d-flex justify-content-end " style={{ width: '78%' }}>
+              <div
+                className=" d-flex justify-content-end "
+                style={{ width: "78%" }}
+              >
                 <div className="frombar">
                   <ul>
-                    <Link href="/">
-                      <li className="inner-li">Home</li>
-                    </Link>
-
-                    <Link href="/shop">
-                      <li className="inner-li">Shop</li>
-                    </Link>
-
-                    <a href="">
-                      <li className="inner-li">Track your Order</li>
-                    </a>
-                    <a href="">
-                      <li className="inner-li">Submit RFQ</li>
-                    </a>
-                    <Link href="/productDetails">
-                      <li className="inner-li">ProductDetails</li>
-                    </Link>
-                    <Link href="/profile">
-                      <li className="inner-li">My Account</li>
-                    </Link>
-                    <Link href="/contact">
-                      <li className="inner-li">Contact Us</li>
-                    </Link>
+                    {t.homePage.header.nav.map((navItem) => (
+                      <Link href={navItem?.link}>
+                        <li className="inner-li">{navItem?.title}</li>
+                      </Link>
+                    ))}
                   </ul>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div >
-    </div >
+      </div>
+    </div>
   );
 };
 

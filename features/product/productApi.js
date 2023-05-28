@@ -43,8 +43,8 @@ const productApi = apiSlice.injectEndpoints({
       },
       providesTags: ["Product"],
     }),
-    getSearchProduct: builder.query({
 
+    getSearchProduct: builder.query({
       query: (search) => {
         return {
           url: `/products/search?search=${search}`,
