@@ -160,7 +160,7 @@ const NavMenu = () => {
             />{" "}
             Profile
           </MenuItem>
-          <MenuItem onClick={() => router.push("/profile/order-history")}>
+          <MenuItem onClick={() => router.push("/profile/my-orders")}>
             <img
               className="me-2"
               style={{

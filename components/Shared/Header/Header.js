@@ -1,22 +1,20 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { toast } from "react-hot-toast";
-import { useDispatch, useSelector } from "react-redux";
-import auth from "../../../firebase.init";
+import { useSelector } from "react-redux";
 import NavMenu from "../NavMenu/NavMenu";
-import Loading from "../Loading/Loading";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { Container, Nav, NavDropdown, Navbar } from "react-bootstrap";
-import { setCart } from "../../../features/auth/authSlice";
 import { Badge, Tooltip } from "@mui/material";
 import { useGetSearchProductQuery } from "../../../features/product/productApi";
+
 const Header = () => {
   const router = useRouter();
   const user = useSelector((state) => state?.auth?.user);
   const [searchText, setSearchText] = useState('');
+  const [selectedLanguage, setSelectedLanguage] = useState('en');
   const { cart } = useSelector((state) => state?.cart);
+
   const {
     data,
     isLoading,
@@ -25,12 +23,21 @@ const Header = () => {
     refetch
   } = useGetSearchProductQuery(searchText);
 
-
   useEffect(() => {
     refetch()
   }, [searchText])
 
-  console.log(data, 'search');
+
+  const handleLanguageChange = (event) => {
+    const selectedLang = event.target.value;
+    console.log(selectedLang, 'text')
+    setSelectedLanguage(selectedLang);
+
+  };
+
+
+
+
   useEffect(() => {
     window.addEventListener("scroll", function () {
       let header = this.document.querySelector("#strip2");
@@ -61,7 +68,7 @@ const Header = () => {
           <div className="contact-area">
             <div className="phone">
               <i className="fas fa-phone-alt"></i>
-              <p>012345678</p>
+              <p>11122233</p>
             </div>
             <div className="email">
               <i className="far fa-envelope"></i>
@@ -72,7 +79,7 @@ const Header = () => {
             <div className="language-selector">
               <div className="dropdown">
                 <button
-                  className="btn  dropdown-toggle"
+                  className="btn dropdown-toggle"
                   type="button"
                   id="dropdownMenuButton1"
                   data-bs-toggle="dropdown"
@@ -89,47 +96,50 @@ const Header = () => {
 
                   <span className="lan-head">/Country/Currency</span>
                 </button>
-                <div id="drop-nav-down" className="dropdown-menu-1">
-                  <ul
-                    className="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton1"
-                  >
-                    <li>
-                      {" "}
-                      <span className="ship-text">Ship to</span>
-                      <div className="drop-down">
-                        <select className="English" id="">
-                          <option value="Bangladesh">Country 1</option>
-                          <option value="Bangladesh">Country 2</option>
-                          <option value="Bangladesh">Country 3</option>
-                        </select>
-                      </div>
-                    </li>
-                    <li>
-                      {" "}
-                      <span className="ship-text">Language</span>
-                      <div className="drop-down">
-                        <select className="English" id="">
-                          <option value="Bangladesh">Language 1</option>
-                          <option value="Bangladesh">Language 2</option>
-                          <option value="Bangladesh">Language 3</option>
-                        </select>
-                      </div>
-                    </li>
-                    <li>
-                      {" "}
-                      <span className="ship-text">Currency</span>
-                      <div className="drop-down">
-                        <select className="English" id="">
-                          <option value="Bangladesh">Currency 1</option>
-                          <option value="Bangladesh">Currency 2</option>
-                          <option value="Bangladesh">Currency 3</option>
-                        </select>
-                      </div>
-                    </li>
-                    <button className="btn save btn-danger"> Save</button>
-                  </ul>
-                </div>
+                <ul
+                  className="dropdown-menu"
+                  aria-labelledby="dropdownMenuButton1"
+                >
+                  <li>
+                    {" "}
+                    <span className="ship-text">Ship to</span>
+                    <div className="drop-down">
+                      <select className="English" id="">
+                        <option value="Bangladesh">Country 1</option>
+                        <option value="Bangladesh">Country 2</option>
+                        <option value="Bangladesh">Country 3</option>
+                      </select>
+                    </div>
+                  </li>
+                  <li>
+                    {" "}
+                    <span className="ship-text">Language</span>
+                    <div className="drop-down">
+                      <select
+                        value={selectedLanguage}
+                        onChange={handleLanguageChange}
+                        className="English" id="">
+
+                        <option value='bn'>Bangla</option>
+                        <option value='fr'>Franch</option>
+
+
+                      </select>
+                    </div>
+                  </li>
+                  <li>
+                    {" "}
+                    <span className="ship-text">Currency</span>
+                    <div className="drop-down">
+                      <select className="English" id="">
+                        <option value="Bangladesh">Currency 1</option>
+                        <option value="Bangladesh">Currency 2</option>
+                        <option value="Bangladesh">Currency 3</option>
+                      </select>
+                    </div>
+                  </li>
+                  <button className="btn save btn-danger"> Save</button>
+                </ul>
               </div>
             </div>
             <div className="user-sign ">

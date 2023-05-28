@@ -56,7 +56,16 @@ const productApi = apiSlice.injectEndpoints({
     getAllOrdersByEmail: builder.query({
       query: (email) => {
         return {
-          url: `/order/order/${email}`,
+          url: `/order/order/email/${email}`,
+          method: "GET",
+        };
+      },
+      providesTags: ["Product"],
+    }),
+    getSingleOrderById: builder.query({
+      query: (id) => {
+        return {
+          url: `/order/order/${id}`,
           method: "GET",
         };
       },
@@ -87,6 +96,7 @@ export const {
   useGetSearchProductQuery,
   useGetProductDetailsQuery,
   useGetAllOrdersByEmailQuery,
+  useGetSingleOrderByIdQuery,
   useGetCartProductsMutation,
   useGetCreateOrderMutation,
 } = productApi;
