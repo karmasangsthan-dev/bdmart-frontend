@@ -137,3 +137,6 @@
     margin-left: 8px;
     /* Adjust the margin as needed */
 }
+.checkout-email-input{
+    pointer-events: none;
+}

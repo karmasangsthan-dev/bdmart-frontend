@@ -80,6 +80,9 @@ const cartSlice = createSlice({
         state.cartProducts?.splice(index, 1);
       }
     },
+    clearCart: (state) => {
+      state.cart = [];
+    },
     // removeCartProduct: (state, { payload }) => {
     //   state.user = {
     //     ...state.user,
@@ -111,6 +114,7 @@ export const {
   setCartProducts,
   removeFromCartProducts,
   increaseQuantity,
+  clearCart,
   decreaseQuantity,
 } = cartSlice.actions;
 
