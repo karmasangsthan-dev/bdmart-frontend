@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { en } from "../../../locales/en";
+import { bn } from "../../../locales/bn";
 
 const gallery = [
   {
@@ -81,18 +83,16 @@ const gallery = [
     name: "Women",
     imageSrc: `/images/gal-8.jpg`,
   },
-
-
 ];
 
-const ShopDepartments = () => {
+const ShopDepartments = ({ t }) => {
   const router = useRouter();
   return (
     <div className="gallery-show ">
       <div className="">
         <div className="col-lg-12 col-md-12 col-sm-12 w">
           <div className="gal-head">
-            <h2>Shop Departments</h2>
+            <h2>{t.homePage.shopDepartments.title}</h2>
           </div>
         </div>
       </div>
@@ -100,10 +100,14 @@ const ShopDepartments = () => {
       <div className="d-sm-none d-lg-block justify-content-center px-5 ">
         <div className="row mx-auto">
           {gallery.map((gal, index) => (
-            <div key={index} className="col-lg-2 col-xl-2 col-sm-6 col-6 gap-4 ">
+            <div
+              key={index}
+              className="col-lg-2 col-xl-2 col-sm-6 col-6 gap-4 "
+            >
               <div
-              onClick={()=> router.push(`/shop?category=${gal?.name}`)}
-              className="gallery-img d-flex justify-content-center">
+                onClick={() => router.push(`/shop?category=${gal?.name}`)}
+                className="gallery-img d-flex justify-content-center"
+              >
                 <Image
                   layout="responsive"
                   width={1000}
@@ -126,7 +130,10 @@ const ShopDepartments = () => {
       <div className="d-sm-block d-lg-none justify-content-center px-5 ">
         <div className="row mx-auto">
           {gallery.map((gal, index) => (
-            <div key={index} className="col-lg-2 col-xl-2 col-sm-6 col-6 gap-4 ">
+            <div
+              key={index}
+              className="col-lg-2 col-xl-2 col-sm-6 col-6 gap-4 "
+            >
               <div className="gallery-img d-flex justify-content-center">
                 <Image
                   layout="responsive"

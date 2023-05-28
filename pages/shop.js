@@ -12,9 +12,13 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Skeleton from "react-loading-skeleton";
 import { useRouter } from "next/router";
 import ShopPagination from "../components/Shared/Pagination/ShopPagination";
+import { en } from "../locales/en";
+import { bn } from "../locales/bn";
 
 const shop = () => {
   const router = useRouter();
+  const { locale } = router;
+  const t = locale === "en" ? en : bn;
   const [params, setParams] = useState();
   const categoryTextParams = router.query?.category;
 
@@ -60,15 +64,18 @@ const shop = () => {
                 filter={filter}
                 setFilter={setFilter}
                 params={params}
+                t={t}
               />
             </aside>
             <div className="col-lg-10 pl-lg-5">
               <div className="">
                 <div className="widget w-100 widget-clean d-flex justify-content-between align-items-center">
-                  <p className="fs-6">Total Products: {data?.total}</p>
+                  <p className="fs-6">
+                    {t.shopPage.allProducts.productsCountTitle}: {data?.total}
+                  </p>
                   <div className="d-flex gap-4">
                     <div className="d-flex py-1">
-                      <span>Per page : </span>
+                      <span>{t.shopPage.allProducts.perPageTitle}: </span>
                       <select
                         onChange={(e) =>
                           setSort({
@@ -84,7 +91,7 @@ const shop = () => {
                       </select>
                     </div>
                     <div className="d-flex py-1">
-                      <span>Sort by : </span>
+                      <span>{t.shopPage.allProducts.sortBy.title} : </span>
                       <select
                         onChange={(e) =>
                           setSort({
@@ -94,9 +101,15 @@ const shop = () => {
                         }
                         className="ms-1 border rounded px-2 "
                       >
-                        <option value={0}>Default</option>
-                        <option value={-1}>High to low</option>
-                        <option value={1}>Low to High</option>
+                        <option value={0}>
+                          {t.shopPage.allProducts.sortBy.option1}
+                        </option>
+                        <option value={-1}>
+                          {t.shopPage.allProducts.sortBy.option2}
+                        </option>
+                        <option value={1}>
+                          {t.shopPage.allProducts.sortBy.option3}
+                        </option>
                       </select>
                     </div>
                   </div>
