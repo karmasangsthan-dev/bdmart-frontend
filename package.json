@@ -20,7 +20,6 @@
     "buffer": "^6.0.3",
     "firebase": "^9.18.0",
     "i18next": "^22.5.0",
-    "i18next-http-backend": "^2.2.1",
     "next": "13.2.3",
     "next-i18next": "^13.2.2",
     "react": "18.2.0",

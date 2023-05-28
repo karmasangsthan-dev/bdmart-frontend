@@ -2,6 +2,10 @@
 
 const nextConfig = {
   reactStrictMode: false,
+  i18n: {
+    locales: ["en", "bn"],
+    defaultLocale: "en",
+  },
   images: {
     domains: [
       "res.cloudinary.com",
@@ -14,9 +18,5 @@ const nextConfig = {
     ],
   },
 };
-// module.exports = {
-//   images: {
-//       domains: ['images.unsplash.com'],
-//   },
-// }
+
 module.exports = nextConfig;
