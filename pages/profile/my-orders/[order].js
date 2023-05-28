@@ -69,10 +69,9 @@ const Order = () => {
               <Table
                 responsive
                 style={{
-                  border: "2px solid rgb(231, 224, 224)",
-
                   background: "white",
                 }}
+                className="rounded-2"
               >
                 <thead className="" style={{ backgroundColor: "" }}>
                   <tr>
