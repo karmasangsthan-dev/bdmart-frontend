@@ -69,7 +69,7 @@ const Discount = ({ t }) => {
   return (
     <div>
       <section className="">
-        <div style={{ maxWidth: "1240px" }} className="mx-auto ">
+        <div style={{ maxWidth: "1260px" }} className="mx-auto ">
           <div className="">
             <div className="col-lg-12 col-md-12 col-sm-12 w">
               <div className="gal-head">

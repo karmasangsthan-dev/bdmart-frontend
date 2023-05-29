@@ -1,9 +1,22 @@
 .all-products-container {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
+  gap: 20px;
 }
+
 .all-products-container-shop {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
+}
+
+@media screen and (max-width:682px) {
+  .all-products-container {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 20px;
+  }
+  .just-for-you-product{
+    margin: 0 25px;
+  }
 }

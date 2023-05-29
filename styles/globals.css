@@ -2326,3 +2326,6 @@ a.slide_btn {
   cursor: pointer;
   background-color: #f7f7f7;
 }
+.slick-track{
+  margin: 15px 0;
+}
