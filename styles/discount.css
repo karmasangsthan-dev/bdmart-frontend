@@ -1,10 +1,9 @@
 .all-products-container {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
 }
 .all-products-container-shop {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
 }

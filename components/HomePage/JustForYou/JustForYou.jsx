@@ -4,6 +4,7 @@ import { Rating } from "@mui/material";
 import Skeleton from "react-loading-skeleton";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useRouter } from "next/router";
+import DiscountProductCard from "../../Product/DiscountProductCard";
 
 const JustForYou = ({ t }) => {
   const router = useRouter();
@@ -40,7 +41,7 @@ const JustForYou = ({ t }) => {
         <div className="all-products-container">
           {isLoading ? (
             <>
-              {Array(6)
+              {Array(5)
                 .fill()
                 .map((p, i) => {
                   return (
@@ -100,54 +101,55 @@ const JustForYou = ({ t }) => {
             <>
               {data?.data?.map((product) => {
                 return (
-                  <div
-                    className="border shadow "
-                    style={{
-                      width: "189px",
-                      minHeight: "189px",
-                      background: "#fff",
-                      height: "100%",
-                    }}
-                    key={product.id}
-                  >
-                    <div>
-                      <img
-                        style={{ minHeight: "189px", maxHeight: "189px" }}
-                        className="w-100 h-100"
-                        src={product?.thumbnail}
-                        alt=""
-                      />
-                    </div>
-                    <div className="product-details-card p-2">
-                      <div className="product-title">
-                        <span>
-                          {product?.title?.length > 37
-                            ? `${product?.title.slice(0, 40)} ...`
-                            : product?.title}
-                        </span>
-                      </div>
-                      <div className="product-price">
-                        <p className="mb-0 ">${product?.price}</p>
-                      </div>
-                      <div className="old-price">
-                        <del>30.00$</del>
-                        <span className="ms-2">
-                          -{product?.discountPercentage}%
-                        </span>
-                      </div>
-                      <div className="d-flex align-items-center">
-                        <Rating
-                          style={{ fontSize: "15px", marginLeft: "-3px" }}
-                          name="read-only"
-                          value={product?.rating}
-                          readOnly
-                        />
-                        <p className="mb-0 ms-1" style={{ fontSize: "13px" }}>
-                          (30)
-                        </p>
-                      </div>
-                    </div>
-                  </div>
+                  <DiscountProductCard key={product?._id} product={product} />
+                  // <div
+                  //   className="border shadow "
+                  //   style={{
+                  //     width: "189px",
+                  //     minHeight: "189px",
+                  //     background: "#fff",
+                  //     height: "100%",
+                  //   }}
+                  //   key={product.id}
+                  // >
+                  //   <div>
+                  //     <img
+                  //       style={{ minHeight: "189px", maxHeight: "189px" }}
+                  //       className="w-100 h-100"
+                  //       src={product?.thumbnail}
+                  //       alt=""
+                  //     />
+                  //   </div>
+                  //   <div className="product-details-card p-2">
+                  //     <div className="product-title">
+                  //       <span>
+                  //         {product?.title?.length > 37
+                  //           ? `${product?.title.slice(0, 40)} ...`
+                  //           : product?.title}
+                  //       </span>
+                  //     </div>
+                  //     <div className="product-price">
+                  //       <p className="mb-0 ">${product?.price}</p>
+                  //     </div>
+                  //     <div className="old-price">
+                  //       <del>30.00$</del>
+                  //       <span className="ms-2">
+                  //         -{product?.discountPercentage}%
+                  //       </span>
+                  //     </div>
+                  //     <div className="d-flex align-items-center">
+                  //       <Rating
+                  //         style={{ fontSize: "15px", marginLeft: "-3px" }}
+                  //         name="read-only"
+                  //         value={product?.rating}
+                  //         readOnly
+                  //       />
+                  //       <p className="mb-0 ms-1" style={{ fontSize: "13px" }}>
+                  //         (30)
+                  //       </p>
+                  //     </div>
+                  //   </div>
+                  // </div>
                 );
               })}
               {loadedProducts === 0 && <p>No products found.</p>}

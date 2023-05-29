@@ -8,7 +8,8 @@ import Skeleton from "react-loading-skeleton";
 import { useRouter } from "next/router";
 import { en } from "../../../locales/en";
 import { bn } from "../../../locales/bn";
-
+import DiscountProductCard from "../../Product/DiscountProductCard";
+import { GrPrevious } from "react-icons/gr";
 const SampleNextArrow = (props) => {
   const { onClick } = props;
   return (
@@ -89,7 +90,7 @@ const BestSelling = ({ t }) => {
   };
 
   return (
-    <div>
+    <div className="px-2">
       <div className="card-header">
         <h1
           style={styles.bestsellingTitle}
@@ -150,7 +151,7 @@ const BestSelling = ({ t }) => {
       ) : (
         <Slider className="mb- px-4 " {...settings}>
           {data?.data?.map((product, index) => (
-            <Product key={index} product={product} />
+            <DiscountProductCard key={index} product={product} />
           ))}
         </Slider>
       )}
