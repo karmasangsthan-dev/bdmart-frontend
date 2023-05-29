@@ -47,7 +47,7 @@ const BestSelling = ({ t }) => {
   const settings = {
     dots: false,
     infinite: true,
-    slidesToShow: 5,
+    slidesToShow: 6,
     slidesToScroll: 1,
     autoplay: false,
     nextArrow: <SampleNextArrow />,

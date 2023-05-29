@@ -71,8 +71,8 @@ export default function DiscountProductCard({ product }) {
   // }, [isSuccess, isLoading]);
 
   return (
-    <div className="mb-1" key={product?._id}>
-      <div className="product-link bestselling-product-container  border p-3 m-3  rounded-3 shadow">
+    <div className="mb-1 w-100" key={product?._id}>
+      <div className="product-link bestselling-product-container  border p-3 m-2  rounded-3 shadow">
         <div className="">
           <img
             onClick={() => router.push(`/productDetails/${product._id}`)}
@@ -87,8 +87,8 @@ export default function DiscountProductCard({ product }) {
           style={{ minHeight: "42px", cursor: "pointer" }}
           className="item-name mt-2 mb-0 text-capitalize"
         >
-          {product?.title?.length > 40
-            ? `${product?.title?.slice(0, 40)} ...`
+          {product?.title?.length > 30
+            ? `${product?.title?.slice(0, 30)} ...`
             : product?.title}
         </p>
 
@@ -109,11 +109,11 @@ export default function DiscountProductCard({ product }) {
           <Rating
             style={{ fontSize: "15px", marginLeft: "-3px" }}
             name="read-only"
-            value={parseInt(product?.rating)}
+            value={parseInt(product?.rating || 5)}
             readOnly
           />
           <p className="mb-0 ms-1" style={{ fontSize: "13px" }}>
-            ({parseInt(product?.rating)})
+            ({parseInt(product?.rating || 5)})
           </p>
         </div>
         <div id="">
