@@ -98,11 +98,11 @@ const ShopDepartments = ({ t }) => {
       </div>
 
       <div className="d-sm-none d-lg-block justify-content-center px-5 ">
-        <div className="row mx-auto">
+        <div className="all-shop-department">
           {gallery.map((gal, index) => (
             <div
               key={index}
-              className="col-lg-2 col-xl-2 col-sm-6 col-6 gap-4 "
+              className=""
             >
               <div
                 onClick={() => router.push(`/shop?category=${gal?.name}`)}
@@ -114,6 +114,7 @@ const ShopDepartments = ({ t }) => {
                   height={1000}
                   src={gal.imageSrc}
                   className=" "
+                  style={{minHeight:'129px'}}
                   loading="lazy"
                   alt=""
                 />

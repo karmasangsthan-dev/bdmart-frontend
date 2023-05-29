@@ -68,7 +68,8 @@ export default function ContactHeader({ user }) {
                     >
                       {locales.map((local) => (
                         <option className="text-capitalize" value={local}>
-                          {local}
+                          {local === 'en' && "English"}
+                          {local === 'bn' && "বাংলা"}
                         </option>
                       ))}
                     </select>
