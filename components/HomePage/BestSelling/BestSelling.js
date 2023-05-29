@@ -102,7 +102,7 @@ const BestSelling = ({ t }) => {
       {isLoading ? (
         <div>
           <Slider {...settings}>
-            {[1, 2, 3, 4, 5].map((product, i) => {
+            {[1, 2, 3, 4, 5,6].map((product, i) => {
               return (
                 <div key={i} className="mb-1">
                   <div className="product-link bestselling-product-container  border px-3 py-2 m-3  rounded-3 shadow">
