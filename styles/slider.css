@@ -23,7 +23,6 @@ main {
   font-size: 14px;
 }
 
-
 .item-price {
   font-size: 15px;
   margin-top: 6px;
@@ -177,7 +176,7 @@ section .product {
 picture {
   width: 100%;
   height: 150px;
-  
+
   padding: 0px 0 10px 0;
   /* margin-left: -20px; */
   margin-top: 10px;
@@ -257,9 +256,8 @@ p.star {
     font-size: 18px !important;
     font-weight: bold;
   }
-  .bestselling-title{
+  .bestselling-title {
     margin-top: 20px;
-    
   }
 }
 
@@ -270,7 +268,8 @@ p.star {
   width: 50px;
   height: 50px;
   line-height: 60px;
-  background: #0f3460;
+  background: orange;
+  border: none;
   border-radius: 50%;
   transform: 0.5s;
   z-index: 5;
@@ -279,6 +278,7 @@ p.star {
 .control-btn .prev {
   left: 5px;
   display: flex;
+  color: white;
   justify-content: center;
   align-items: center;
 }

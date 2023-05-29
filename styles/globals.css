@@ -75,7 +75,8 @@ buttton:focus {
   text-decoration: underline;
 }
 
-@media (max-width: 1094px) {}
+@media (max-width: 1094px) {
+}
 
 /*==========================================
 CoMmOn CsS EnD
@@ -995,7 +996,7 @@ MGA CONTENT NAV
 }
 
 @media (max-width: 1027px) {
-  .row>* {
+  .row > * {
     flex-shrink: 0;
     /* max-width: 100%; */
     padding-right: 0 !important;
@@ -1829,7 +1830,6 @@ a.slide_btn {
 }
 
 .last-ul {
-
   color: #000;
 }
 
@@ -1958,7 +1958,8 @@ a.slide_btn {
   }
 }
 
-@media (max-width: 960px) {}
+@media (max-width: 960px) {
+}
 
 @media (max-width: 936px) {
   .desktop {
@@ -1993,7 +1994,8 @@ a.slide_btn {
   }
 }
 
-@media (max-width: 890px) {}
+@media (max-width: 890px) {
+}
 
 @media (max-width: 836px) {
   .social-area {
@@ -2320,7 +2322,7 @@ a.slide_btn {
   cursor: pointer;
 }
 
-.search-item-header:hover{
+.search-item-header:hover {
   cursor: pointer;
   background-color: #f7f7f7;
 }

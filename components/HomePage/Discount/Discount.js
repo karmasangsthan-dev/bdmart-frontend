@@ -4,6 +4,7 @@ import Slider from "react-slick";
 import { Rating } from "@mui/material";
 import Skeleton from "react-loading-skeleton";
 import { useRouter } from "next/router";
+import DiscountProductCard from "../../Product/DiscountProductCard";
 
 const SampleNextArrow = (props) => {
   const { onClick } = props;
@@ -32,7 +33,7 @@ const Discount = ({ t }) => {
   const settings = {
     dots: false,
     infinite: true,
-    slidesToShow: 6,
+    slidesToShow: 5,
     slidesToScroll: 1,
     autoplay: false,
     nextArrow: <SampleNextArrow />,
@@ -129,56 +130,9 @@ const Discount = ({ t }) => {
           ) : (
             <div>
               <Slider {...settings}>
-                {data?.data?.map((product) => {
-                  return (
-                    <div className="mb-1" key={product?._id}>
-                      <div className="product-link bestselling-product-container  border p-3 m-3  rounded-3 shadow">
-                        <div className="">
-                          <img
-                            onClick={() =>
-                              router.push(`/productDetails/${product._id}`)
-                            }
-                            className="border"
-                            style={{ width: "100%", height: "139px" }}
-                            src={product?.thumbnail}
-                            alt=""
-                          />
-                        </div>
-                        <p
-                          onClick={() =>
-                            router.push(`/productDetails/${product._id}`)
-                          }
-                          style={{ minHeight: "42px", cursor: "pointer" }}
-                          className="item-name mt-2 mb-0"
-                        >
-                          {product?.title?.length > 37
-                            ? `${product?.title?.slice(0, 30)} ...`
-                            : product?.title}
-                        </p>
-                        <div className="d-flex justify-content-between align-items-center">
-                          <span className="item-price">${product?.price}</span>
-                        </div>
-                        <div className="old-price">
-                          <del>
-                            {product?.oldPrice ? product?.oldPrice : 40}.00$
-                          </del>
-                          <span className="ms-2">-61%</span>
-                        </div>
-                        <div className="d-flex align-items-center">
-                          <Rating
-                            style={{ fontSize: "15px", marginLeft: "-3px" }}
-                            name="read-only"
-                            value={parseInt(product?.rating)}
-                            readOnly
-                          />
-                          <p className="mb-0 ms-1" style={{ fontSize: "13px" }}>
-                            ({parseInt(product?.rating)})
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
+                {data?.data?.map((product) => (
+                  <DiscountProductCard product={product} key={product?._id} />
+                ))}
               </Slider>
             </div>
           )}
