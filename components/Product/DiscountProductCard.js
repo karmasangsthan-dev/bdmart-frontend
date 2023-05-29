@@ -72,7 +72,7 @@ export default function DiscountProductCard({ product }) {
 
   return (
     <div className="mb-1 w-100" key={product?._id}>
-      <div className="product-link bestselling-product-container  border p-3 m-2  rounded-3 shadow">
+      <div className="product-link bestselling-product-container  border p-3 mx-3  rounded-3 shadow">
         <div className="">
           <img
             onClick={() => router.push(`/productDetails/${product._id}`)}

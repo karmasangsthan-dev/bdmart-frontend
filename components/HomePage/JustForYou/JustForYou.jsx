@@ -41,7 +41,7 @@ const JustForYou = ({ t }) => {
         <div className=" all-products-container ">
           {isLoading ? (
             <>
-              {Array(5)
+              {Array(6)
                 .fill()
                 .map((p, i) => {
                   return (
@@ -101,55 +101,63 @@ const JustForYou = ({ t }) => {
             <>
               {data?.data?.map((product) => {
                 return (
-                  <DiscountProductCard key={product?._id} product={product} />
-                  // <div
-                  //   className="border shadow "
-                  //   style={{
-                  //     width: "189px",
-                  //     minHeight: "189px",
-                  //     background: "#fff",
-                  //     height: "100%",
-                  //   }}
-                  //   key={product.id}
-                  // >
-                  //   <div>
-                  //     <img
-                  //       style={{ minHeight: "189px", maxHeight: "189px" }}
-                  //       className="w-100 h-100"
-                  //       src={product?.thumbnail}
-                  //       alt=""
-                  //     />
-                  //   </div>
-                  //   <div className="product-details-card p-2">
-                  //     <div className="product-title">
-                  //       <span>
-                  //         {product?.title?.length > 37
-                  //           ? `${product?.title.slice(0, 40)} ...`
-                  //           : product?.title}
-                  //       </span>
-                  //     </div>
-                  //     <div className="product-price">
-                  //       <p className="mb-0 ">${product?.price}</p>
-                  //     </div>
-                  //     <div className="old-price">
-                  //       <del>30.00$</del>
-                  //       <span className="ms-2">
-                  //         -{product?.discountPercentage}%
-                  //       </span>
-                  //     </div>
-                  //     <div className="d-flex align-items-center">
-                  //       <Rating
-                  //         style={{ fontSize: "15px", marginLeft: "-3px" }}
-                  //         name="read-only"
-                  //         value={product?.rating}
-                  //         readOnly
-                  //       />
-                  //       <p className="mb-0 ms-1" style={{ fontSize: "13px" }}>
-                  //         (30)
-                  //       </p>
-                  //     </div>
-                  //   </div>
-                  // </div>
+                  <div className="mb-1 w-100" key={product?._id}>
+                    <div className="product-link bestselling-product-container  border p-3 rounded-3 shadow just-for-you-product">
+                      <div className="">
+                        <img
+                          onClick={() => router.push(`/productDetails/${product._id}`)}
+                          className="border"
+                          style={{ width: "100%", height: "139px" }}
+                          src={product?.thumbnail}
+                          alt=""
+                        />
+                      </div>
+                      <p
+                        onClick={() => router.push(`/productDetails/${product._id}`)}
+                        style={{ minHeight: "42px", cursor: "pointer" }}
+                        className="item-name mt-2 mb-0 text-capitalize"
+                      >
+                        {product?.title?.length > 30
+                          ? `${product?.title?.slice(0, 30)} ...`
+                          : product?.title}
+                      </p>
+
+                      <div className="d-flex justify-content-between align-items-center">
+                        <span className="item-price">
+                          $
+                          {(
+                            product?.price -
+                            (product?.price * product?.discountPercentage) / 100
+                          ).toFixed(2)}
+                        </span>
+                      </div>
+                      <div className="old-price">
+                        <del>{product.price} $</del>
+                        <span className="ms-2"> - {product?.discountPercentage}%</span>
+                      </div>
+                      <div className="d-flex align-items-center">
+                        <Rating
+                          style={{ fontSize: "15px", marginLeft: "-3px" }}
+                          name="read-only"
+                          value={parseInt(product?.rating || 5)}
+                          readOnly
+                        />
+                        <p className="mb-0 ms-1" style={{ fontSize: "13px" }}>
+                          ({parseInt(product?.rating || 5)})
+                        </p>
+                      </div>
+                      <div id="">
+                        <button
+                          className="cart-btn w-100 "
+                          onClick={() => handleAddToCart(product)}
+                        >
+                          Add to Cart
+                          <i className="far plus-ico fa-plus-square text-white"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
                 );
               })}
               {loadedProducts === 0 && <p>No products found.</p>}

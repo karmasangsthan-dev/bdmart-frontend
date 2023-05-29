@@ -244,12 +244,6 @@ p.star {
   }
 }
 
-@media (max-width: 691px) {
-  section {
-    width: 98%;
-    height: 330px;
-  }
-}
 
 @media (max-width: 525px) {
   .card-header h1 {
