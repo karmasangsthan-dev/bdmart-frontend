@@ -38,7 +38,7 @@ const JustForYou = ({ t }) => {
         </div>
       </div>
       <div style={{ maxWidth: "1240px" }} className="mx-auto ">
-        <div className="all-products-container">
+        <div className=" all-products-container ">
           {isLoading ? (
             <>
               {Array(5)
