@@ -44,7 +44,7 @@ export default function ContactHeader({ user }) {
                 <span>/Country/Currency</span>
               </button>
 
-              <form onSubmit={handleChange} class="dropdown-menu">
+              <form onSubmit={handleChange} style={{zIndex:'99999'}} class="dropdown-menu">
                 <li>
                   {" "}
                   <span className="ship-text">Ship to</span>
@@ -68,7 +68,8 @@ export default function ContactHeader({ user }) {
                     >
                       {locales.map((local) => (
                         <option className="text-capitalize" value={local}>
-                          {local}
+                          {local === 'en' && "English"}
+                          {local === 'bn' && "বাংলা"}
                         </option>
                       ))}
                     </select>

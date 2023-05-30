@@ -16,6 +16,7 @@ import '../styles/discount.css'
 import '../styles/order.css'
 import '../styles/invoice.css'
 import '../styles/contact.css'
+import '../styles/shopdepartment.css'
 import { Toaster } from "react-hot-toast";
 import Providers from "../app/provider";
 import { useEffect } from "react";
