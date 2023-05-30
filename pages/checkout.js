@@ -6,6 +6,7 @@ import CheckoutCartItem from "../components/Checkout/CheckoutCartItem";
 import { toast } from "react-hot-toast";
 import { useGetCreateOrderMutation } from "../features/product/productApi";
 import { clearCart } from "../features/cart/cartSlice";
+import RequireAuth from "../components/Shared/RequireAuth/RequireAuth";
 
 const PaymentMethodRadio = ({ method, isSelected, onChange }) => {
   const handleChange = (method) => {
@@ -196,7 +197,7 @@ const checkout = () => {
                   </button>
                 )}
                 {selectedMethod !== "" &&
-                selectedMethod !== "Cash On Delivery" ? (
+                  selectedMethod !== "Cash On Delivery" ? (
                   <button type="submit" className=" btn btn-danger" disabled>
                     Not available. Please select another method...
                   </button>
@@ -331,4 +332,4 @@ const checkout = () => {
   );
 };
 
-export default checkout;
+export default RequireAuth(checkout)

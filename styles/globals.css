@@ -60,6 +60,7 @@ ol {
 
 .mega_content {
   margin-top: 14px !important;
+  
 }
 
 p {
@@ -883,7 +884,7 @@ MGA CONTENT NAV
   z-index: 9999;
   transition: all 0.5s ease;
   background: #fff;
-  top: 34px !important;
+  top: 51px !important;
   width: 314px;
   border-top: 3px solid #faa72c !important;
   border: 1px solid #faa72c;
@@ -912,7 +913,12 @@ MGA CONTENT NAV
 
 .nav-links a {
   padding: 15px 15px;
+  text-decoration: none;
 }
+.nav-links a:hover {
+  text-decoration: underline;
+}
+
 
 .nav-links:hover .main-cata {
   color: white;
@@ -954,7 +960,7 @@ MGA CONTENT NAV
   width: 1010px;
   margin-left: 292px;
   z-index: 999;
-  top: -38px;
+  top: -22px;
   left: 0;
   background: #fff;
 }
@@ -1019,11 +1025,10 @@ MGA CONTENT NAV
   width: 1010px;
   margin-left: 292px;
   z-index: 999;
-  top: -82px;
+  top: -66px;
   left: 0;
   background: #fff;
 }
-
 .ApHead {
   font-size: 19px;
   display: flex;
@@ -1040,7 +1045,7 @@ MGA CONTENT NAV
   width: 1010px;
   margin-left: 292px;
   z-index: 999;
-  top: -126px;
+  top: -110px;
   left: 0;
   background: #fff;
 }
@@ -1055,17 +1060,16 @@ MGA CONTENT NAV
   width: 1010px;
   margin-left: 292px;
   z-index: 999;
-  top: -170px;
+  top: -154px;
   left: 0;
   background: #fff;
 }
-
 .megas4 {
   position: absolute;
   width: 1010px;
   margin-left: 292px;
   z-index: 999;
-  top: -214px;
+  top: -198px;
   left: 0;
   background: #fff;
 }
@@ -1075,7 +1079,7 @@ MGA CONTENT NAV
   width: 1010px;
   margin-left: 292px;
   z-index: 999;
-  top: -258px;
+  top: -242px;
   left: 0;
   background: #fff;
 }
@@ -1085,7 +1089,7 @@ MGA CONTENT NAV
   width: 1010px;
   margin-left: 292px;
   z-index: 999;
-  top: -302px;
+  top: -286px;
   left: 0;
   background: #fff;
 }
@@ -1397,11 +1401,11 @@ accordion_container
 
 .content {
   background: #fff;
-  margin: 5px 0;
-
+  margin-top: 5px;
+  min-height: 322px;
   border-top: 3px solid #faa72c !important;
   border: 1px solid #faa72c;
-  border-bottom-left-radius: 10px;
+  
   border-bottom-right-radius: 10px;
 }
 
