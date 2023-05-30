@@ -1,10 +1,8 @@
 import { useRouter } from "next/router";
 import React, { useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 import Layout from "../../../components/Layout";
 import { useGetSingleOrderByIdQuery } from "../../../features/product/productApi";
-import Loading from "../../../components/Shared/Loading/Loading";
-import Image from "next/image";
 import { Table } from "react-bootstrap";
 import ReactToPrint from "react-to-print";
 
@@ -12,7 +10,7 @@ const Order = () => {
   const router = useRouter();
   const componentRef = useRef();
   const dispatch = useDispatch();
-  
+
   const {
     query: { order },
   } = router;
@@ -23,6 +21,7 @@ const Order = () => {
     totalAmount =
       totalAmount + data.products[i].quantity * data.products[i].price;
   }
+  
 
   return (
     <Layout title="Order">
@@ -30,7 +29,7 @@ const Order = () => {
         <p>Loading...</p>
       ) : (
         <div >
-          <div ref={componentRef}>
+          <div id="invoice-content" ref={componentRef}>
             <div
               className="order-container mx-5 px-5 my-4 py-4 rounded-2"
               style={{ backgroundColor: "whitesmoke" }}
@@ -38,7 +37,7 @@ const Order = () => {
               <div className="d-flex justify-content-between">
                 <div>
                   <h4>INVOICE</h4>
-                  <span style={{fontWeight:'bold'}}>STATUS <span style={{borderRadius:'9999px',backgroundColor:'rgb(227 216 106)',color:'rgba(194,120,3,1)',fontSize:'.75rem'}} className="ms-2 px-2 ">Pending</span></span>
+                  <span style={{ fontWeight: 'bold' }}>STATUS <span style={{ borderRadius: '9999px', backgroundColor: 'rgb(227 216 106)', color: 'rgba(194,120,3,1)', fontSize: '.75rem' }} className="ms-2 px-2 ">Pending</span></span>
                 </div>
                 <div>
                   <img
