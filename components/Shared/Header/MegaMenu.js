@@ -21,7 +21,752 @@ const MegaMenu = () => {
         });
     }, []);
     const megaMenuData = [
+        {
+            mainCategoryName: "Appliances",
+            parentClassName: "nav-links here",
+            childClassName: "mega_content",
+            subCategories: [
+                {
+                    name: "Small Appliances",
+                    childCategories: [
+                        {
+                            name: 'Coffe,Espresso & Tea Makers'
+                        },
+                        {
+                            name: 'Blenders & juicers'
+                        },
+                        {
+                            name: 'Slow Cookers & Multi Pots'
+                        },
+                        {
+                            name: 'Microwaves'
+                        },
+                        {
+                            name: 'Electric Grills & Skillets'
+                        },
+                        {
+                            name: 'Stand Mixers'
+                        }
+                    ]
+                },
+                {
+                    name: "Vacuum Sealers",
+                    childCategories: [
+                        {
+                            name: 'Product-Layout1'
+                        },
+                        {
+                            name: 'Product-Layout2'
+                        },
+                        {
+                            name: 'Product-Layout3'
+                        },
+                        {
+                            name: 'Product-Layout4'
+                        },
+                        {
+                            name: 'Product-Layout5'
+                        },
+                        {
+                            name: 'Product-Layout6'
+                        }
+                    ]
+                },
+                {
+                    name: "Large Appliances",
+                    childCategories: [
+                        {
+                            name: 'Refurbished Vacuums'
+                        },
+                        {
+                            name: 'Product-Layout2'
+                        },
+                        {
+                            name: 'Irons & Clothes Steamers'
+                        },
+                        {
+                            name: 'Product-Layout4'
+                        },
+                        {
+                            name: 'Product-Layout5'
+                        },
+                        {
+                            name: 'Product-Layout6'
+                        }
+                    ]
+                },
+                {
+                    name: "Air Conditioners",
+                    childCategories: [
+                        {
+                            name: 'Product-Layout1'
+                        },
+                        {
+                            name: 'Product-Layout2'
+                        },
+                        {
+                            name: 'Product-Layout3'
+                        }
+                    ]
+                },
+                {
+                    name: "Sewing Machines",
+                    childCategories: [
 
+                        {
+                            name: 'Product-Layout4'
+                        },
+                        {
+                            name: 'Product-Layout5'
+                        },
+                        {
+                            name: 'Product-Layout6'
+                        }
+                    ]
+                },
+            ]
+        },
+        {
+            mainCategoryName: "Automotive",
+            parentClassName: "nav-links second",
+            childClassName: "mega_content megas",
+            htmlId: 'mega_content',
+            subCategories: [
+                {
+                    name: "Water Purification",
+                    childCategories: [
+                        {
+                            name: 'Upright Vacuums'
+                        },
+                        {
+                            name: 'Vacuums & Floorcare'
+                        },
+                        {
+                            name: 'Product Layout3'
+                        },
+                        {
+                            name: 'Canister Vacuums'
+                        },
+                        {
+                            name: 'Product Layout5'
+                        },
+                        {
+                            name: 'Robot Vacuums'
+                        }
+                    ]
+                },
+                {
+                    name: "Heating, Cooling & Air Quality",
+                    childCategories: [
+                        {
+                            name: 'Humidifiers'
+                        },
+                        {
+                            name: 'Product-Layout2'
+                        },
+                        {
+                            name: 'Product-Layout3'
+                        },
+                        {
+                            name: 'Product-Layout4'
+                        },
+                        {
+                            name: 'Product-Layout5'
+                        },
+                        {
+                            name: 'Baby Food Makers'
+                        }
+                    ]
+                },
+                {
+                    name: "Baby Food & Bottle A...",
+                    childCategories: [
+                        {
+                            name: 'Product-Layout1'
+                        },
+                        {
+                            name: 'Baby Formula Makers'
+                        },
+                        {
+                            name: 'Product-Layout3'
+                        },
+                        {
+                            name: 'Product-Layout4'
+                        },
+                        {
+                            name: 'Baby Formula Makers'
+                        },
+                        {
+                            name: 'Handvacs'
+                        }
+                    ]
+                },
+                {
+                    name: "Pet Friendly Vacuums",
+                    childCategories: [
+                        {
+                            name: 'Stick Vacuums'
+                        },
+                        {
+                            name: 'Freezers & Ice Makers'
+                        },
+                        {
+                            name: 'Product-Layout3'
+                        }
+                    ]
+                },
+                {
+                    name: "Refrigerators",
+                    childCategories: [
+
+                        {
+                            name: 'Product-Layout4'
+                        },
+                        {
+                            name: 'Product-Layout5'
+                        },
+                        {
+                            name: 'Product-Layout6'
+                        }
+                    ]
+                },
+            ]
+        },
+        {
+            mainCategoryName: "Baby",
+            parentClassName: "nav-links second",
+            childClassName: "mega_content megas2",
+            htmlId: 'mega_content',
+            subCategories: [
+                {
+                    name: "Specialty Appliances",
+                    childCategories: [
+                        {
+                            name: 'Over-The-Range Microwaves'
+                        },
+                        {
+                            name: 'Product Layout2'
+                        },
+                        {
+                            name: 'Product Layout3'
+                        },
+                        {
+                            name: 'Ovens & Ranges'
+                        },
+                        {
+                            name: 'Product Layout5'
+                        },
+                        {
+                            name: 'Product Layout6'
+                        }
+                    ]
+                },
+                {
+                    name: "Product Layout",
+                    childCategories: [
+                        {
+                            name: 'Product-Layout1'
+                        },
+                        {
+                            name: 'Product-Layout2'
+                        },
+                        {
+                            name: 'Product-Layout3'
+                        },
+                        {
+                            name: 'Product-Layout4'
+                        },
+                        {
+                            name: 'Product-Layout5'
+                        },
+                        {
+                            name: 'Product-Layout6'
+                        }
+                    ]
+                },
+                {
+                    name: "Product Layout",
+                    childCategories: [
+                        {
+                            name: 'Product-Layout1'
+                        },
+                        {
+                            name: 'Product-Layout2'
+                        },
+                        {
+                            name: 'Product-Layout3'
+                        },
+                        {
+                            name: 'Product-Layout4'
+                        },
+                        {
+                            name: 'Product-Layout5'
+                        },
+                        {
+                            name: 'Product-Layout6'
+                        }
+                    ]
+                },
+                {
+                    name: "Product Layout",
+                    childCategories: [
+                        {
+                            name: 'Product-Layout1'
+                        },
+                        {
+                            name: 'Product-Layout2'
+                        },
+                        {
+                            name: 'Product-Layout3'
+                        }
+
+                    ]
+                },
+                {
+                    name: "Product Layout",
+                    childCategories: [
+                        {
+                            name: 'Product-Layout1'
+                        },
+                        {
+                            name: 'Product-Layout2'
+                        },
+                        {
+                            name: 'Product-Layout3'
+                        }
+
+                    ]
+                },
+            ]
+        },
+        {
+            mainCategoryName: "Clothing,Shoes & Accessories",
+            parentClassName: "nav-links second",
+            htmlId: 'mega_content',
+            childClassName: "mega_content megas3",
+            subCategories: [
+                {
+                    name: "Women",
+                    childCategories: [
+                        {
+                            name: "Shop all women's clothing"
+                        },
+                        {
+                            name: 'Plus'
+                        },
+                        {
+                            name: 'Product Layout3'
+                        },
+                        {
+                            name: 'Product Layout4'
+                        },
+                        {
+                            name: 'Handbags & wallets'
+                        },
+                        {
+                            name: 'Product Layout6'
+                        }
+                    ]
+                },
+                {
+                    name: "Men",
+                    childCategories: [
+                        {
+                            name: "Shop all men's clothing"
+                        },
+                        {
+                            name: 'Big & tall'
+                        },
+                        {
+                            name: 'Product-Layout3'
+                        },
+                        {
+                            name: 'Wallets'
+                        },
+                        {
+                            name: 'Product-Layout5'
+                        },
+                        {
+                            name: 'Product-Layout6'
+                        }
+                    ]
+                },
+                {
+                    name: "kids",
+                    childCategories: [
+                        {
+                            name: 'Product-Layout1'
+                        },
+                        {
+                            name: 'Product-Layout2'
+                        },
+                        {
+                            name: 'Product-Layout3'
+                        },
+                        {
+                            name: 'Product-Layout4'
+                        },
+                        {
+                            name: 'Product-Layout5'
+                        },
+                        {
+                            name: 'Product-Layout6'
+                        }
+                    ]
+                },
+                {
+                    name: "Shoes",
+                    childCategories: [
+                        {
+                            name: 'Shop all shoes'
+                        },
+                        {
+                            name: "Women's shoes"
+                        },
+                        {
+                            name: "Boys's shoes"
+                        }
+
+                    ]
+                },
+                {
+                    name: "Juellary",
+                    childCategories: [
+                        {
+                            name: 'Product-Layout1'
+                        },
+                        {
+                            name: 'Product-Layout2'
+                        },
+                        {
+                            name: 'Product-Layout3'
+                        }
+
+                    ]
+                },
+            ]
+        },
+        {
+            mainCategoryName: "Electronics",
+            parentClassName: "nav-links second",
+            htmlId: 'mega_content',
+            childClassName: "mega_content megas4",
+            subCategories: [
+                {
+                    name: "Specialty Appliances",
+                    childCategories: [
+                        {
+                            name: "Over-The-Range Microwaves"
+                        },
+                        {
+                            name: "Shop Rollback"
+                        },
+                        {
+                            name: "Product Layout3"
+                        },
+                        {
+                            name: "Ovens & Ranges"
+                        },
+                        {
+                            name: "Product Layout5"
+                        },
+                        {
+                            name: "Product Layout6"
+                        }
+                    ]
+                },
+                {
+                    name: "Product Layout",
+                    childCategories: [
+                        {
+                            name: "Shop Rollback"
+                        },
+                        {
+                            name: "Product-Layout2"
+                        },
+                        {
+                            name: "Product-Layout3"
+                        },
+                        {
+                            name: "Shop-Rollback"
+                        },
+                        {
+                            name: "Washers & Dryers"
+                        },
+                        {
+                            name: "Vacuum Sealers"
+                        }
+                    ]
+                },
+                {
+                    name: "Product Layout",
+                    childCategories: [
+                        {
+                            name: "Shop Rollback"
+                        },
+                        {
+                            name: "Product-Layout2"
+                        },
+                        {
+                            name: "Shop Rollback"
+                        },
+                        {
+                            name: "Product-Layout4"
+                        },
+                        {
+                            name: "Washers & Dryers"
+                        },
+                        {
+                            name: "Vacuum Sealers"
+                        }
+                    ]
+                },
+                {
+                    name: "Shoes",
+                    childCategories: [
+                        {
+                            name: 'Shop all shoes'
+                        },
+                        {
+                            name: "Women's shoes"
+                        },
+                        {
+                            name: "Boys's shoes"
+                        }
+
+                    ]
+                },
+                {
+                    name: "Juellary",
+                    childCategories: [
+                        {
+                            name: 'Product-Layout1'
+                        },
+                        {
+                            name: 'Product-Layout2'
+                        },
+                        {
+                            name: 'Product-Layout3'
+                        }
+
+                    ]
+                },
+            ]
+        },
+        {
+            mainCategoryName: "Furniture",
+            parentClassName: "nav-links second",
+            htmlId: 'mega_content',
+            childClassName: "mega_content megas5",
+            subCategories: [
+                {
+                    name: "Bedroom Furniture",
+                    childCategories: [
+                        {
+                            name: "Shop all women's clothing"
+                        },
+                        {
+                            name: 'Plus'
+                        },
+                        {
+                            name: 'Product Layout3'
+                        },
+                        {
+                            name: 'Product Layout4'
+                        },
+                        {
+                            name: 'Handbags & wallets'
+                        },
+                        {
+                            name: 'Product Layout6'
+                        }
+                    ]
+                },
+                {
+                    name: "Office Furniture",
+                    childCategories: [
+                        {
+                            name: "Shop all men's clothing"
+                        },
+                        {
+                            name: 'Big & tall'
+                        },
+                        {
+                            name: 'Product-Layout3'
+                        },
+                        {
+                            name: 'Wallets'
+                        },
+                        {
+                            name: 'Product-Layout5'
+                        },
+                        {
+                            name: 'Product-Layout6'
+                        }
+                    ]
+                },
+                {
+                    name: "Living Room Furniture",
+                    childCategories: [
+                        {
+                            name: 'Product-Layout1'
+                        },
+                        {
+                            name: 'Product-Layout2'
+                        },
+                        {
+                            name: 'Product-Layout3'
+                        },
+                        {
+                            name: 'Product-Layout4'
+                        },
+                        {
+                            name: 'Product-Layout5'
+                        },
+                        {
+                            name: 'Product-Layout6'
+                        }
+                    ]
+                },
+                {
+                    name: "Kids Furniture",
+                    childCategories: [
+                        {
+                            name: 'Shop all shoes'
+                        },
+                        {
+                            name: "Women's shoes"
+                        },
+                        {
+                            name: "Boys's shoes"
+                        }
+
+                    ]
+                },
+                {
+                    name: "Kitchen Furniture",
+                    childCategories: [
+                        {
+                            name: 'Product-Layout1'
+                        },
+                        {
+                            name: 'Product-Layout2'
+                        },
+                        {
+                            name: 'Product-Layout3'
+                        }
+
+                    ]
+                },
+            ]
+        },
+        {
+            mainCategoryName: "Gift & Holidays",
+            parentClassName: "nav-links second",
+            htmlId: 'mega_content',
+            childClassName: "mega_content megas6",
+            subCategories: [
+                {
+                    name: "Shop all gifts & holidays",
+                    childCategories: [
+                        {
+                            name: "Shop all women's clothing"
+                        },
+                        {
+                            name: 'Plus'
+                        },
+                        {
+                            name: 'Product Layout3'
+                        },
+                        {
+                            name: 'Product Layout4'
+                        },
+                        {
+                            name: 'Handbags & wallets'
+                        },
+                        {
+                            name: 'Product Layout6'
+                        }
+                    ]
+                },
+                {
+                    name: "Fresh flower - delivered",
+                    childCategories: [
+                        {
+                            name: "Shop all men's clothing"
+                        },
+                        {
+                            name: 'Big & tall'
+                        },
+                        {
+                            name: 'Product-Layout3'
+                        },
+                        {
+                            name: 'Wallets'
+                        },
+                        {
+                            name: 'Product-Layout5'
+                        },
+                        {
+                            name: 'Product-Layout6'
+                        }
+                    ]
+                },
+                {
+                    name: "Secrete Santa & gift exhange",
+                    childCategories: [
+                        {
+                            name: 'Product-Layout1'
+                        },
+                        {
+                            name: 'Product-Layout2'
+                        },
+                        {
+                            name: 'Product-Layout3'
+                        },
+                        {
+                            name: 'Product-Layout4'
+                        },
+                        {
+                            name: 'Product-Layout5'
+                        },
+                        {
+                            name: 'Product-Layout6'
+                        }
+                    ]
+                },
+                {
+                    name: "Product Layout",
+                    childCategories: [
+                        {
+                            name: 'Shop all shoes'
+                        },
+                        {
+                            name: "Women's shoes"
+                        },
+                        {
+                            name: "Boys's shoes"
+                        }
+
+                    ]
+                },
+                {
+                    name: "Product Layout",
+                    childCategories: [
+                        {
+                            name: 'Product-Layout1'
+                        },
+                        {
+                            name: 'Product-Layout2'
+                        },
+                        {
+                            name: 'Product-Layout3'
+                        }
+
+                    ]
+                },
+            ]
+        },
     ];
 
     const router = useRouter();
@@ -61,812 +806,38 @@ const MegaMenu = () => {
                         >
                             <div id="accordion_body" className="accordion-body p-0">
                                 <ul className='m-0 p-0'>
-                                    <li className="nav-links here">
-                                        <a href="#about" className="main-cata  go-down">
-                                            Appliances
-                                        </a>
-                                        <div  className="mega_content">
-                                            <div className="content">
-                                                <div className="dropmenu">
-                                                    <header className="con-head">
-                                                        Small Appliances
-                                                    </header>
-                                                    <ul className="pro-nav">
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Coffee, Espresso & Tea Makers</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Blenders & juicers</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Slow Cookers & Multi Pots</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Microwaves</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Electric Grills & Skillets</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Stand Mixers</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div className="dropmenu">
-                                                    <header className="con-head">
-                                                        Vacuum Sealers
-                                                    </header>
-                                                    <ul className="pro-nav">
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout1</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout2</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout3</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout4</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout5</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout6</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div className="dropmenu">
-                                                    <header className="con-head">
-                                                        Large Appliances
-                                                    </header>
-                                                    <ul className="pro-nav">
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Refurbished Vacuums</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout2</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Irons & Clothes Steamers</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout4</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout5</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout6</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div className="dropmenu" id="dropmenu">
-                                                    <header className="con-head">
-                                                        Air Conditioners
-                                                    </header>
-                                                    <ul className="pro-nav">
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout1</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout2</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout3</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div className="dropmenu" id="dropmenu">
-                                                    <header className="con-head">
-                                                        Sewing Machines
-                                                    </header>
-                                                    <ul className="pro-nav">
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout4</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout5</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout6</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
+                                    {
+                                        megaMenuData?.map(menu => <li className={menu?.parentClassName}>
+                                            <a href="#base" className="main-cata">
 
-                                    <li className="nav-links second">
-                                        <a href="#base" className="main-cata">
-                                            Automotive
-                                        </a>
-                                        <div className="mega_content megas" id="mega_content">
-                                            <div className="content">
-                                                <div className="dropmenu">
-                                                    <header className="con-head">
-                                                        Water Purification
-                                                    </header>
-                                                    <ul className="pro-nav">
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Upright Vacuums</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Vacuums & Floorcare</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product Layout3</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Canister Vacuums</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product Layout5</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Robot Vacuums</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div className="dropmenu">
-                                                    <header className="con-head">
-                                                        Heating, Cooling & Air Quality
-                                                    </header>
-                                                    <ul className="pro-nav">
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Humidifiers</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout2</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout3</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout4</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout5</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Baby Food Makers</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div className="dropmenu">
-                                                    <header
-                                                        title="Baby Food & Bottle Appliances"
-                                                        className="con-head"
-                                                    >
-                                                        Baby Food & Bottle A...
-                                                    </header>
-                                                    <ul className="pro-nav">
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout1</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Baby Formula Makers</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout3</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout4</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Baby Formula Makers</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Handvacs</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div className="dropmenu" id="dropmenu">
-                                                    <header className="con-head">
-                                                        Pet Friendly Vacuums
-                                                    </header>
-                                                    <ul className="pro-nav">
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Stick Vacuums</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Freezers & Ice Makers</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout3</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div className="dropmenu" id="dropmenu">
-                                                    <header className="con-head">
-                                                        Refrigerators
-                                                    </header>
-                                                    <ul className="pro-nav">
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout4</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout5</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout6</a>
-                                                        </li>
-                                                    </ul>
+                                                {menu?.mainCategoryName}
+                                            </a>
+                                            {
+                                                console.log(menu)
+                                            }
+                                            <div className={menu?.childClassName} id={menu?.htmlId}>
+                                                <div className="content">
+                                                    {
+                                                        menu?.subCategories?.map(category => <div className="dropmenu">
+                                                            <header className="con-head">
+                                                                {category?.name}
+                                                            </header>
+                                                            <ul className="pro-nav">
+                                                                {
+                                                                    category?.childCategories?.map(child => <li className="drop-nav-link">
+                                                                        <a href="#">{child?.name}</a>
+                                                                    </li>)
+                                                                }
+
+                                                            </ul>
+                                                        </div>)
+                                                    }
                                                 </div>
                                             </div>
-                                        </div>
-                                    </li>
-                                    <li className="nav-links second">
-                                        <a href="#blog" className="main-cata">
-                                            Baby
-                                        </a>
-                                        <div className="mega_content megas2" id="mega_content">
-                                            <div className="content">
-                                                <div className="dropmenu">
-                                                    <header className="con-head">
-                                                        Specialty Appliances
-                                                    </header>
-                                                    <ul className="pro-nav">
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Over-The-Range Microwaves</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product Layout2</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product Layout3</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Ovens & Ranges</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product Layout5</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product Layout6</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div className="dropmenu">
-                                                    <header className="con-head">
-                                                        Product Layout
-                                                    </header>
-                                                    <ul className="pro-nav">
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout1</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout2</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout3</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout4</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout5</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout6</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div className="dropmenu">
-                                                    <header className="con-head">
-                                                        Product Layout
-                                                    </header>
-                                                    <ul className="pro-nav">
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout1</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout2</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout3</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout4</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout5</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout6</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div className="dropmenu" id="dropmenu">
-                                                    <header className="con-head">
-                                                        Product Layout
-                                                    </header>
-                                                    <ul className="pro-nav">
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout1</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout2</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout3</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div className="dropmenu" id="dropmenu">
-                                                    <header className="con-head">
-                                                        Product Layout
-                                                    </header>
-                                                    <ul className="pro-nav">
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout4</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout5</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout6</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li className="nav-links third">
-                                        <a href="#contact" className="main-cata">
-                                            Clothing,Shoes & Accessories
-                                        </a>
-                                        <div className="mega_content megas3" id="mega_content">
-                                            <div className="content">
-                                                <div className="dropmenu">
-                                                    <header className="con-head">Women</header>
-                                                    <ul className="pro-nav">
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Shop all women's clothing</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Plus</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product Layout3</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product Layout4</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Handbags & wallets</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product Layout6</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div className="dropmenu">
-                                                    <header className="con-head">Men</header>
-                                                    <ul className="pro-nav">
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Shop all men's clothing</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Big & tall</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout3</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Wallets</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout5</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout6</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div className="dropmenu">
-                                                    <header className="con-head">Kids</header>
-                                                    <ul className="pro-nav">
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout1</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout2</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout3</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout4</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout5</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout6</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div className="dropmenu" id="dropmenu">
-                                                    <header className="con-head">Shoes</header>
-                                                    <ul className="pro-nav">
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Shop all shoes</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Women's shoes</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Boys's shoes</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div className="dropmenu" id="dropmenu">
-                                                    <header className="con-head">Juellary</header>
-                                                    <ul className="pro-nav">
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout4</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout5</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout6</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li className="nav-links">
-                                        <a href="#custom" className="main-cata">
-                                            Electronics
-                                        </a>
-                                        <div className="mega_content megas4" id="mega_content">
-                                            <div className="content">
-                                                <div className="dropmenu">
-                                                    <header className="con-head">
-                                                        Specialty Appliances
-                                                    </header>
-                                                    <ul className="pro-nav">
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Over-The-Range Microwaves</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Shop Rollback</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product Layout3</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Ovens & Ranges</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product Layout5</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product Layout6</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div className="dropmenu">
-                                                    <header className="con-head">
-                                                        Product Layout
-                                                    </header>
-                                                    <ul className="pro-nav">
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Shop Rollback</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout2</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout3</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Shop Rollback</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Washers & Dryers</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Vacuum Sealers</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div className="dropmenu">
-                                                    <header className="con-head">
-                                                        Product Layout
-                                                    </header>
-                                                    <ul className="pro-nav">
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Shop Rollback</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout2</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Shop Rollback</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout4</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Washers & Dryers</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Vacuum Sealers</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div className="dropmenu" id="dropmenu">
-                                                    <header className="con-head">
-                                                        Product Layout
-                                                    </header>
-                                                    <ul className="pro-nav">
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout1</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Washers & Dryers</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Vacuum Sealers</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div className="dropmenu" id="dropmenu">
-                                                    <header className="con-head">
-                                                        Product Layout
-                                                    </header>
-                                                    <ul className="pro-nav">
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout4</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout5</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout6</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li className="nav-links">
-                                        <a href="#support" className="main-cata">
-                                            Furniture
-                                        </a>
-                                        <div className="mega_content megas5" id="mega_content">
-                                            <div className="content">
-                                                <div className="dropmenu">
-                                                    <header className="con-head">
-                                                        Bedroom Furniture
-                                                    </header>
-                                                    <ul className="pro-nav">
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Over-The-Range Microwaves</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Shop Rollback</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product Layout3</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Ovens & Ranges</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product Layout5</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product Layout6</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div className="dropmenu">
-                                                    <header className="con-head">
-                                                        Office Furniture
-                                                    </header>
-                                                    <ul className="pro-nav">
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Shop Rollback</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout2</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout3</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Shop Rollback</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Washers & Dryers</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Vacuum Sealers</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div className="dropmenu">
-                                                    <header className="con-head">
-                                                        Living Room Furniture
-                                                    </header>
-                                                    <ul className="pro-nav">
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Shop Rollback</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout2</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Shop Rollback</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout4</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Washers & Dryers</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Vacuum Sealers</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div className="dropmenu" id="dropmenu">
-                                                    <header className="con-head">
-                                                        Kids Furniture
-                                                    </header>
-                                                    <ul className="pro-nav">
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout1</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Washers & Dryers</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Vacuum Sealers</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div className="dropmenu" id="dropmenu">
-                                                    <header className="con-head">
-                                                        Kitchen Furniture
-                                                    </header>
-                                                    <ul className="pro-nav">
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout4</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout5</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout6</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li className="nav-links last-cata">
-                                        <a href="#tools" className="main-cata">
-                                            Gift & Holidays
-                                        </a>
-                                        <div className="mega_content megas6" id="mega_content">
-                                            <div className="content">
-                                                <div className="dropmenu">
-                                                    <header className="con-head">
-                                                        Shop all gifts & holidays
-                                                    </header>
-                                                    <ul className="pro-nav">
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Over-The-Range Microwaves</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Boxing Day</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product Layout3</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Ovens & Ranges</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product Layout5</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product Layout6</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div className="dropmenu">
-                                                    <header className="con-head">
-                                                        Fresh Flowers - Delivered
-                                                    </header>
-                                                    <ul className="pro-nav">
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Electronic gifts</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Gifts for babies</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Gifts for grandparents</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout4</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout5</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout6</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div className="dropmenu">
-                                                    <header className="con-head">
-                                                        Secret Santa & gift exchange
-                                                    </header>
-                                                    <ul className="pro-nav">
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Christmas</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout2</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Gifts for women</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout4</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout5</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout6</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div className="dropmenu" id="dropmenu">
-                                                    <header className="con-head">
-                                                        Product Layout
-                                                    </header>
-                                                    <ul className="pro-nav">
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout1</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout2</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout3</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div className="dropmenu" id="dropmenu">
-                                                    <header className="con-head">
-                                                        Product Layout
-                                                    </header>
-                                                    <ul className="pro-nav">
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout4</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout5</a>
-                                                        </li>
-                                                        <li className="drop-nav-link">
-                                                            <a href="#">Product-Layout6</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
+                                        </li>)
+
+                                    }
+
                                 </ul>
                             </div>
                         </div>
