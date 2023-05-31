@@ -228,7 +228,12 @@
     .navbar-brand img {
         width: 45%;
     }
-    
+    .sidebar-shop{
+        padding: 10px 20px;
+    }
+    .widget-clean{
+        padding: 20px;
+    }
 
     .wrap {
         width: 25%;
@@ -369,6 +374,12 @@
 @media (max-width: 575.98px) {
     .navbar-brand {
         width: 30%;
+    }
+    .sidebar-shop{
+        padding:10px 20px;
+    }
+    .widget-clean{
+        padding: 20px;
     }
 
     .wraper {

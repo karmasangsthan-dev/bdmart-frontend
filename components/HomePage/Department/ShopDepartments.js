@@ -97,7 +97,7 @@ const ShopDepartments = ({ t }) => {
         </div>
       </div>
 
-      <div className="d-sm-none d-lg-block justify-content-center px-5 ">
+      <div className=" justify-content-center px-5 ">
         <div className="all-shop-department">
           {gallery.map((gal, index) => (
             <div
@@ -113,8 +113,7 @@ const ShopDepartments = ({ t }) => {
                   width={1000}
                   height={1000}
                   src={gal.imageSrc}
-                  className=" "
-                  style={{minHeight:'129px'}}
+                  className="shop-department-image "
                   loading="lazy"
                   alt=""
                 />
@@ -127,33 +126,7 @@ const ShopDepartments = ({ t }) => {
           ))}
         </div>
       </div>
-      {/* for mobile device  */}
-      <div className="d-sm-block d-lg-none justify-content-center px-5 ">
-        <div className="row mx-auto">
-          {gallery.map((gal, index) => (
-            <div
-              key={index}
-              className="col-lg-2 col-xl-2 col-sm-6 col-6 gap-4 "
-            >
-              <div className="gallery-img d-flex justify-content-center">
-                <Image
-                  layout="responsive"
-                  width={1000}
-                  height={1000}
-                  src={gal.imageSrc}
-                  className=" "
-                  loading="lazy"
-                  alt=""
-                />
-                {/* <img src={gal.imageSrc} alt="" /> */}
-              </div>
-              <div className="gallery-title">
-                <p className="text-center">{gal.name}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      
     </div>
   );
 };
