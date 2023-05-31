@@ -143,9 +143,7 @@ const Header = () => {
             </div>
 
             <div className="d-flex ">
-              <div className="cart-icon ms-3">
-                {user?.email && <NavMenu></NavMenu>}
-              </div>
+              <div className="cart-icon ms-3">{user?.email && <NavMenu />}</div>
               <div className="cart-icon ms-4">
                 <Tooltip title="Cart">
                   <Link href="/cart">

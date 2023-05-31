@@ -2,14 +2,19 @@ import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { en } from "../../../locales/en";
+import { bn } from "../../../locales/bn";
 export default function ContactHeader({ user }) {
   const router = useRouter();
   const { locale, locales, push } = router;
+
   const handleChange = (e) => {
     e.preventDefault();
     const locale = e.target.locale.value;
     router.push("/", "/", { locale });
   };
+
+  const t = locale === "en" ? en : bn;
   return (
     <>
       <div className="strip-1 ">
@@ -41,10 +46,14 @@ export default function ContactHeader({ user }) {
                   height={14}
                   loading="eager"
                 />
-                <span>/Country/Currency</span>
+                <span>/{t.homePage.header.contactHeader.countryCurrency}</span>
               </button>
 
-              <form onSubmit={handleChange} style={{zIndex:'99999'}} class="dropdown-menu">
+              <form
+                onSubmit={handleChange}
+                style={{ zIndex: "99999" }}
+                class="dropdown-menu"
+              >
                 <li>
                   {" "}
                   <span className="ship-text">Ship to</span>
@@ -68,8 +77,8 @@ export default function ContactHeader({ user }) {
                     >
                       {locales.map((local) => (
                         <option className="text-capitalize" value={local}>
-                          {local === 'en' && "English"}
-                          {local === 'bn' && "বাংলা"}
+                          {local === "en" && "English"}
+                          {local === "bn" && "বাংলা"}
                         </option>
                       ))}
                     </select>
@@ -99,12 +108,17 @@ export default function ContactHeader({ user }) {
                 <div>
                   <Link href="/signin" prefetch={false}>
                     <i className="fas fa-user"></i>
-                    <span className="sign-text "> &nbsp; Sign in &nbsp;</span>
+                    <span className="sign-text ">
+                      {" "}
+                      &nbsp; {t.homePage.header.contactHeader.signInTitle}&nbsp;
+                    </span>
                   </Link>{" "}
                   | &nbsp;
                   <Link href="/signup">
                     <i className="fas fa-user-plus"></i>
-                    <span className="sign-text">&nbsp; Sign up &nbsp;</span>
+                    <span className="sign-text">
+                      &nbsp; {t.homePage.header.contactHeader.singUpTitle}&nbsp;
+                    </span>
                   </Link>
                 </div>
               )}

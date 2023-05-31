@@ -16,6 +16,8 @@ import auth from "../../../firebase.init";
 import { useSignOut } from "react-firebase-hooks/auth";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import { en } from "../../../locales/en";
+import { bn } from "../../../locales/bn";
 const NavMenu = () => {
   const router = useRouter();
   const [signOut, loading, error] = useSignOut(auth);
@@ -50,6 +52,9 @@ const NavMenu = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const { locale } = useRouter();
+  const t = locale === "en" ? en : bn;
   const avatar = user?.profilePicture || "https://i.ibb.co/x258KZb/profile.jpg";
   return (
     <div>
@@ -145,7 +150,6 @@ const NavMenu = () => {
             />
           </div>
           <h5 className="text-center text-capitalize ">{user?.fullName}</h5>
-          
 
           <MenuItem onClick={() => router.push("/profile")}>
             <img
@@ -157,8 +161,8 @@ const NavMenu = () => {
                 marginLeft: "-10px",
               }}
               src="https://img.icons8.com/color/48/null/administrator-male-skin-type-7.png"
-            />{" "}
-            Profile
+            />
+            {t.homePage.header.profileTitle}
           </MenuItem>
           <MenuItem onClick={() => router.push("/profile/my-orders")}>
             <img
@@ -171,7 +175,7 @@ const NavMenu = () => {
               }}
               src="https://img.icons8.com/color/48/null/my-orange.png"
             />{" "}
-            My Orders
+            {t.homePage.header.ordersTitle}
           </MenuItem>
           <MenuItem
             onClick={() =>
@@ -189,7 +193,7 @@ const NavMenu = () => {
               }}
               src="https://img.icons8.com/color/48/null/administrative-tools.png"
             />{" "}
-            Admin Panel
+            {t.homePage.header.adminPanel}
           </MenuItem>
           <MenuItem>
             <img
@@ -202,7 +206,7 @@ const NavMenu = () => {
               }}
               src="https://img.icons8.com/color/48/null/settings--v1.png"
             />
-            Settings
+            {t.homePage.header.settings}
           </MenuItem>
           <MenuItem onClick={handleLogout}>
             <img
@@ -215,7 +219,7 @@ const NavMenu = () => {
               }}
               src="https://img.icons8.com/color/48/null/exit.png"
             />
-            Logout
+            {t.homePage.header.logout}
           </MenuItem>
         </Menu>
       </>
