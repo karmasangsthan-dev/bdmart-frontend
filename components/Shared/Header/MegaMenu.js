@@ -840,7 +840,7 @@ const MegaMenu = () => {
                         </div>
                     </div>
                     <div
-                        className=" d-flex justify-content-end "
+                        className=" d-flex justify-content-center "
                         style={{ width: "78%" }}
                     >
                         <div className="frombar">

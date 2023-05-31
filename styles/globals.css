@@ -914,6 +914,7 @@ MGA CONTENT NAV
 .nav-links a {
   padding: 15px 15px;
   text-decoration: none;
+  color: black;
 }
 .nav-links a:hover {
   text-decoration: underline;
