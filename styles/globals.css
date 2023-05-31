@@ -1037,7 +1037,7 @@ MGA CONTENT NAV
 }
 
 .con-head {
-  border-bottom: 1px solid;
+  /* border-bottom: 1px solid; */
   font-weight: bolder;
 }
 
