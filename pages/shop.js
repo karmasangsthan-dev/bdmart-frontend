@@ -14,6 +14,8 @@ import { useRouter } from "next/router";
 import ShopPagination from "../components/Shared/Pagination/ShopPagination";
 import { en } from "../locales/en";
 import { bn } from "../locales/bn";
+import DiscountProductCard from "../components/Product/DiscountProductCard";
+import { Rating } from "@mui/material";
 
 const shop = () => {
   const router = useRouter();
@@ -53,6 +55,9 @@ const shop = () => {
     isError,
     error,
   } = useGetProductsQuery({ sort, filter });
+
+
+
   return (
     <Layout title="Shop - Bangladesh Mart">
       <div className="shop page-content">
@@ -174,7 +179,62 @@ const shop = () => {
                   ) : (
                     <div className="shop-products">
                       {products?.data?.map((product) => (
-                        <ShopProduct product={product} key={product?._id} />
+                        <div className="mb-1 w-100" key={product?._id}>
+                          <div className="product-link bestselling-product-container  border p-3 rounded-3 shadow">
+                            <div className="">
+                              <img
+                                onClick={() => router.push(`/productDetails/${product._id}`)}
+                                className="border"
+                                style={{ width: "100%", height: "139px" }}
+                                src={product?.thumbnail}
+                                alt=""
+                              />
+                            </div>
+                            <p
+                              onClick={() => router.push(`/productDetails/${product._id}`)}
+                              style={{ minHeight: "42px", cursor: "pointer" }}
+                              className="item-name mt-2 mb-0 text-capitalize"
+                            >
+                              {product?.title?.length > 30
+                                ? `${product?.title?.slice(0, 30)} ...`
+                                : product?.title}
+                            </p>
+
+                            <div className="d-flex justify-content-between align-items-center">
+                              <span className="item-price">
+                                $
+                                {(
+                                  product?.price -
+                                  (product?.price * product?.discountPercentage) / 100
+                                ).toFixed(2)}
+                              </span>
+                            </div>
+                            <div className="old-price">
+                              <del>{product.price} $</del>
+                              <span className="ms-2"> - {product?.discountPercentage}%</span>
+                            </div>
+                            <div className="d-flex align-items-center">
+                              <Rating
+                                style={{ fontSize: "15px", marginLeft: "-3px" }}
+                                name="read-only"
+                                value={parseInt(product?.rating || 5)}
+                                readOnly
+                              />
+                              <p className="mb-0 ms-1" style={{ fontSize: "13px" }}>
+                                ({parseInt(product?.rating || 5)})
+                              </p>
+                            </div>
+                            <div id="">
+                              <button
+                                className="cart-btn w-100 "
+                                onClick={() => handleAddToCart(product)}
+                              >
+                                Add to Cart
+                                <i className="far plus-ico fa-plus-square text-white"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
                       ))}
                       {/* {loadedProducts === 0 && <p>No products found.</p>} */}
                     </div>

@@ -156,7 +156,7 @@ const MegaMenu = () => {
                     ]
                 },
                 {
-                    name: "Heating, Cooling & Air Quality",
+                    name: "Heating, Cooling & Air...",
                     childCategories: [
                         {
                             name: 'Humidifiers'
@@ -713,7 +713,7 @@ const MegaMenu = () => {
                     ]
                 },
                 {
-                    name: "Secrete Santa & gift exhange",
+                    name: "Gift exhange",
                     childCategories: [
                         {
                             name: 'Product-Layout1'
@@ -812,9 +812,6 @@ const MegaMenu = () => {
 
                                                 {menu?.mainCategoryName}
                                             </a>
-                                            {
-                                                console.log(menu)
-                                            }
                                             <div className={menu?.childClassName} id={menu?.htmlId}>
                                                 <div className="content">
                                                     {
