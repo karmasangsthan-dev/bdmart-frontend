@@ -55,7 +55,7 @@ ol {
 
 .accordion-body {
   margin-top: 15px !important;
-  margin-left: -30px;
+  margin-left: 60px;
 }
 
 .mega_content {
@@ -914,6 +914,7 @@ MGA CONTENT NAV
 .nav-links a {
   padding: 15px 15px;
   text-decoration: none;
+  color: black;
 }
 .nav-links a:hover {
   text-decoration: underline;
@@ -957,7 +958,7 @@ MGA CONTENT NAV
 
 .mega_content {
   position: absolute;
-  width: 1010px;
+  width: 890px;
   margin-left: 292px;
   z-index: 999;
   top: -22px;
@@ -1022,7 +1023,7 @@ MGA CONTENT NAV
 ====================================*/
 .megas {
   position: absolute;
-  width: 1010px;
+  width: 890px;
   margin-left: 292px;
   z-index: 999;
   top: -66px;
@@ -1042,7 +1043,7 @@ MGA CONTENT NAV
 
 .megas2 {
   position: absolute;
-  width: 1010px;
+  width: 890px;
   margin-left: 292px;
   z-index: 999;
   top: -110px;
@@ -1057,7 +1058,7 @@ MGA CONTENT NAV
 
 .megas3 {
   position: absolute;
-  width: 1010px;
+  width: 890px;
   margin-left: 292px;
   z-index: 999;
   top: -154px;
@@ -1066,7 +1067,7 @@ MGA CONTENT NAV
 }
 .megas4 {
   position: absolute;
-  width: 1010px;
+  width: 890px;
   margin-left: 292px;
   z-index: 999;
   top: -198px;
@@ -1076,7 +1077,7 @@ MGA CONTENT NAV
 
 .megas5 {
   position: absolute;
-  width: 1010px;
+  width: 890px;
   margin-left: 292px;
   z-index: 999;
   top: -242px;
@@ -1085,8 +1086,8 @@ MGA CONTENT NAV
 }
 
 .megas6 {
+  width: 890px;
   position: absolute;
-  width: 1010px;
   margin-left: 292px;
   z-index: 999;
   top: -286px;
