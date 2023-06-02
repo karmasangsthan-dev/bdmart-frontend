@@ -43,6 +43,8 @@ export default function ContactHeader({ user }) {
     );
     const data = await response.json();
     const currencyRate = data?.data[selectedCurrency];
+    console.log(`https://api.freecurrencyapi.com/v1/latest?apikey=${FREE_CURRENCY_API_KEY}`)
+
     encryptCurrency(currencyRate);
     setIsSaved(isSaved + 1);
     dispatch(setUpCurrency({ currency: selectedCurrency, currencyRate }));
@@ -156,7 +158,7 @@ export default function ContactHeader({ user }) {
                 </span>
               </Dropdown.Toggle>
 
-              <Dropdown.Menu className="dropdown-menu" id="myDD">
+              <Dropdown.Menu style={{zIndex:'99999'}} className="dropdown-menu" id="myDD">
                 <Form onSubmit={handleChange}>
                   <li>
                     <span className="ship-text">Ship to</span>

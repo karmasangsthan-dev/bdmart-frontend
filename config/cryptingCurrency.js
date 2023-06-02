@@ -9,7 +9,7 @@ const secretKey = CryptoJS.enc.Utf8.parse(staticPassphrase);
 
 export const encryptCurrency = (currencyRate) => {
   const iv = CryptoJS.lib.WordArray.random(16);
-  const encrypted = CryptoJS.AES.encrypt(currencyRate.toString(), secretKey, {
+  const encrypted = CryptoJS.AES.encrypt(currencyRate?.toString(), secretKey, {
     iv: iv,
   }).toString();
 
