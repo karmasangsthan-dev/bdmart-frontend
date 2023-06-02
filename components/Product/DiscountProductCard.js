@@ -1,10 +1,22 @@
 import { Rating } from "@mui/material";
 import { useRouter } from "next/router";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../features/cart/cartSlice";
 import { toast } from "react-hot-toast";
 
+import { useEffect, useState } from "react";
+import { decryptCurrency } from "../../config/cryptingCurrency";
+
 export default function DiscountProductCard({ product }) {
+  const { currency, currencyRate } = useSelector((state) => state.currency);
+
+  let productPrice;
+  if (currencyRate) {
+    productPrice = (
+      (product?.price - (product?.price * product?.discountPercentage) / 100) *
+      currencyRate
+    ).toFixed(2);
+  }
   // const [token, setToken] = useState();
   // const [cartProduct, setCartProduct] = useState({});
   const dispatch = useDispatch();
@@ -71,8 +83,8 @@ export default function DiscountProductCard({ product }) {
   // }, [isSuccess, isLoading]);
 
   return (
-    <div className="mb-1 w-100" key={product?._id}>
-      <div className="product-link bestselling-product-container  border p-3 mx-3  rounded-3 shadow">
+    <div className="mb-3 " key={product?._id}>
+      <div className="product-link bestselling-product-container  border p-3 mx-2  rounded-3 shadow">
         <div className="">
           <img
             onClick={() => router.push(`/productDetails/${product._id}`)}
@@ -94,15 +106,18 @@ export default function DiscountProductCard({ product }) {
 
         <div className="d-flex justify-content-between align-items-center">
           <span className="item-price">
-            $
-            {(
-              product?.price -
-              (product?.price * product?.discountPercentage) / 100
-            ).toFixed(2)}
+            {/* {productPrice}
+            {currency} */}
+            {`${productPrice} ${
+              currency ? currency : currency === "USD" ? "$" : $
+            }`}
           </span>
         </div>
         <div className="old-price">
-          <del>{product.price} $</del>
+          <del>
+            {(product.price * currencyRate).toFixed(2)}{" "}
+            {currency || "USD" ? "$" : $}
+          </del>
           <span className="ms-2"> - {product?.discountPercentage}%</span>
         </div>
         <div className="d-flex align-items-center">
