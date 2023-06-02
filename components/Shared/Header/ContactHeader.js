@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { en } from "../../../locales/en";
 import { bn } from "../../../locales/bn";
+import { useExchangeRate } from "../../../hook/useExchangeRate";
 export default function ContactHeader({ user }) {
   const router = useRouter();
   const { locale, locales, push } = router;
@@ -15,6 +16,14 @@ export default function ContactHeader({ user }) {
   };
 
   const t = locale === "en" ? en : bn;
+
+  const [selectedCurrency, setSelectedCurrency] = useState("USD");
+  const exchangeRate = useExchangeRate("USD", selectedCurrency);
+
+  const handleCurrencyChange = (event) => {
+    setSelectedCurrency(event.target.value);
+  };
+
   return (
     <>
       <div className="strip-1 ">
@@ -88,10 +97,13 @@ export default function ContactHeader({ user }) {
                   {" "}
                   <span className="ship-text">Currency</span>
                   <div className="drop-down">
-                    <select className="English" id="">
-                      <option value="Bangladesh">Currency 1</option>
-                      <option value="Bangladesh">Currency 2</option>
-                      <option value="Bangladesh">Currency 3</option>
+                    <select
+                      onChange={handleCurrencyChange}
+                      className="English"
+                      id=""
+                    >
+                      <option value="USD">USD</option>
+                      <option value="BDT">BDT</option>
                     </select>
                   </div>
                 </li>

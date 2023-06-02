@@ -16,6 +16,7 @@
     "@mui/material": "^5.11.14",
     "@next/font": "13.2.3",
     "@reduxjs/toolkit": "^1.9.3",
+    "axios": "^1.4.0",
     "bootstrap": "^5.2.3",
     "buffer": "^6.0.3",
     "firebase": "^9.18.0",
