@@ -5,6 +5,7 @@ import Skeleton from "react-loading-skeleton";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useRouter } from "next/router";
 import DiscountProductCard from "../../Product/DiscountProductCard";
+import { useSelector } from "react-redux";
 
 const JustForYou = ({ t }) => {
   const router = useRouter();
@@ -12,6 +13,16 @@ const JustForYou = ({ t }) => {
   const { data, isLoading, refetch } = useGetAllProductsQuery({
     perPage: page,
   });
+
+  const { currency, currencyRate } = useSelector((state) => state.currency);
+
+  // let productPrice;
+  // if (currencyRate) {
+  //   productPrice = (
+  //     (product?.price - (product?.price * product?.discountPercentage) / 100) *
+  //     currencyRate
+  //   ).toFixed(2);
+  // }
 
   const fetchMoreData = () => {
     setPage(page + 6);
@@ -105,7 +116,9 @@ const JustForYou = ({ t }) => {
                     <div className="product-link bestselling-product-container  border p-3 rounded-3 shadow just-for-you-product">
                       <div className="">
                         <img
-                          onClick={() => router.push(`/productDetails/${product._id}`)}
+                          onClick={() =>
+                            router.push(`/productDetails/${product._id}`)
+                          }
                           className="border"
                           style={{ width: "100%", height: "139px" }}
                           src={product?.thumbnail}
@@ -113,7 +126,9 @@ const JustForYou = ({ t }) => {
                         />
                       </div>
                       <p
-                        onClick={() => router.push(`/productDetails/${product._id}`)}
+                        onClick={() =>
+                          router.push(`/productDetails/${product._id}`)
+                        }
                         style={{ minHeight: "42px", cursor: "pointer" }}
                         className="item-name mt-2 mb-0 text-capitalize"
                       >
@@ -124,16 +139,29 @@ const JustForYou = ({ t }) => {
 
                       <div className="d-flex justify-content-between align-items-center">
                         <span className="item-price">
-                          $
                           {(
-                            product?.price -
-                            (product?.price * product?.discountPercentage) / 100
+                            (product?.price -
+                              (product?.price * product?.discountPercentage) /
+                                100) *
+                            currencyRate
                           ).toFixed(2)}
+
+                          {` ${
+                            currency ? currency : currency === "USD" ? "$" : $
+                          }`}
                         </span>
                       </div>
                       <div className="old-price">
-                        <del>{product.price} $</del>
-                        <span className="ms-2"> - {product?.discountPercentage}%</span>
+                        <del>
+                          {(product.price * currencyRate).toFixed(2)}{" "}
+                          {` ${
+                            currency ? currency : currency === "USD" ? "$" : $
+                          }`}
+                        </del>
+                        <span className="ms-2">
+                          {" "}
+                          - {product?.discountPercentage}%
+                        </span>
                       </div>
                       <div className="d-flex align-items-center">
                         <Rating
@@ -157,7 +185,6 @@ const JustForYou = ({ t }) => {
                       </div>
                     </div>
                   </div>
-
                 );
               })}
               {loadedProducts === 0 && <p>No products found.</p>}

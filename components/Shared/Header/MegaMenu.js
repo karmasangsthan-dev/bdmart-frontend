@@ -760,7 +760,7 @@ const MegaMenu = () => {
   const router = useRouter();
   const { locale } = router;
   const t = locale === "en" ? en : bn;
-  console.log(t);
+
   return (
     <div id="sec_bar" className="sec_nav ">
       <div className="container-fluid">
