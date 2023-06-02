@@ -60,7 +60,6 @@ ol {
 
 .mega_content {
   margin-top: 14px !important;
-  
 }
 
 p {
@@ -238,7 +237,6 @@ CoMmOn CsS EnD
 
 .drop-nav-link a:hover {
   color: black !important;
-  
 }
 
 .logo_icon a span {
@@ -921,7 +919,6 @@ MGA CONTENT NAV
   text-decoration: underline;
 }
 
-
 .nav-links:hover .main-cata {
   color: white;
 }
@@ -1407,7 +1404,7 @@ accordion_container
   min-height: 322px;
   border-top: 3px solid #faa72c !important;
   border: 1px solid #faa72c;
-  
+
   border-bottom-right-radius: 10px;
 }
 
@@ -2232,7 +2229,7 @@ a.slide_btn {
 .shop-products {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  /* gap: 10px; */
 }
 
 .shop-product-details {
@@ -2332,6 +2329,6 @@ a.slide_btn {
   cursor: pointer;
   background-color: #f7f7f7;
 }
-.slick-track{
+.slick-track {
   margin: 15px 0;
 }
