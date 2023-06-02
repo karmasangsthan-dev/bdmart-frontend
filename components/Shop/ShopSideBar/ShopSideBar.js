@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
 const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
-  console.log(data?.data?.map(a => a?.category),'data')
   const router = useRouter();
   const [catOpen, setCatOpen] = useState(true);
   const [brandOpen, setBrandOpen] = useState(true);
@@ -90,6 +89,26 @@ const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
       }
     }
   }, [params]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const deviceWidth = window.innerWidth;
+      if (deviceWidth <= 768) {
+        setCatOpen(false);
+        setBrandOpen(false);
+        setPriceOpen(false);
+      } else {
+        setCatOpen(true);
+        setBrandOpen(true);
+        setPriceOpen(true);
+      }
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return (
     <div className="sticky-content">

@@ -22,3 +22,16 @@
         margin-top: 23px;
     }
 }
+
+.header-shipping-country-name:hover{
+    cursor: pointer;
+    background-color: #ddd;
+}
+.country-ul-header{
+    overflow-y: scroll;
+    max-height: 227px;
+    max-width: 278px;
+    margin-left: -1px;
+    margin-top: 5px;
+    border-radius: 0px;
+}

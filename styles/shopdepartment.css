@@ -1,5 +1,19 @@
-.all-shop-department{
+.all-shop-department {
     display: grid;
-    grid-template-columns: repeat(6,1fr);
+    grid-template-columns: repeat(6, 1fr);
     gap: 20px;
+
+}
+.shop-department-image{
+    min-height: 129px;
+}
+@media screen and (max-width:682px) {
+    .all-shop-department {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    .shop-department-image{
+        min-height: auto;
+    }
 }

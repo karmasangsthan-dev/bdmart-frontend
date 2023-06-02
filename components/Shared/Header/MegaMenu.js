@@ -155,7 +155,7 @@ const MegaMenu = () => {
           ],
         },
         {
-          name: "Heating, Cooling & Air Quality",
+          name: "Heating, Cooling & Air...",
           childCategories: [
             {
               name: "Humidifiers",
@@ -703,7 +703,7 @@ const MegaMenu = () => {
           ],
         },
         {
-          name: "Secrete Santa & gift exhange",
+          name: "Gift exhange",
           childCategories: [
             {
               name: "Product-Layout1",
@@ -760,6 +760,7 @@ const MegaMenu = () => {
   const router = useRouter();
   const { locale } = router;
   const t = locale === "en" ? en : bn;
+  console.log(t);
   return (
     <div id="sec_bar" className="sec_nav ">
       <div className="container-fluid">
@@ -779,8 +780,7 @@ const MegaMenu = () => {
                 aria-controls="panelsStayOpen-collapseThree"
               >
                 <span style={{ fontSize: "15px" }}>
-                  {" "}
-                  {t.homePage.header.megaMenuTitle}
+                  {t?.homePage?.header.megaMenuTitle}
                 </span>
               </button>
             </h2>
@@ -796,9 +796,6 @@ const MegaMenu = () => {
                       <a href="#base" className="main-cata">
                         {menu?.mainCategoryName}
                       </a>
-                      {
-                        // console.log(menu)
-                      }
                       <div className={menu?.childClassName} id={menu?.htmlId}>
                         <div className="content">
                           {menu?.subCategories?.map((category) => (
@@ -806,7 +803,7 @@ const MegaMenu = () => {
                               <header className="con-head">
                                 {category?.name}
                               </header>
-                              <ul className="pro-nav">
+                              <ul className="pro-nav ps-0">
                                 {category?.childCategories?.map((child) => (
                                   <li className="drop-nav-link">
                                     <a href="#">{child?.name}</a>
@@ -824,7 +821,7 @@ const MegaMenu = () => {
             </div>
           </div>
           <div
-            className=" d-flex justify-content-end "
+            className=" d-flex justify-content-center "
             style={{ width: "78%" }}
           >
             <div className="frombar">
