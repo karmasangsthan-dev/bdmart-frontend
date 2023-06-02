@@ -13,7 +13,9 @@ const orderHistory = () => {
   const { data, isLoading: orderLoading } = useGetAllOrdersByEmailQuery(
     user.email
   );
-  console.log(data, "order history");
+  
+
+
 
   return (
     <Layout title="Order History - Bangladesh Mart">
@@ -48,6 +50,13 @@ const orderHistory = () => {
                             </thead>
                             <tbody>
                               {data?.map((order, index) => {
+                                console.log(order?.products,'pp');
+                                let totalAmount = 0;
+                                for (let i = 0; i < order?.products?.length; i++) {
+                                  totalAmount =
+                                    totalAmount + order?.products[i].quantity * order?.products[i].price;
+                                };
+
                                 return (
                                   <tr key={index}>
                                     <td>829D</td>
@@ -56,7 +65,7 @@ const orderHistory = () => {
                                       {order?.paymentMethod || "Not Found"}
                                     </td>
                                     <td>{order?.status}</td>
-                                    <td>41.21</td>
+                                    <td>${totalAmount}</td>
                                     <td>
                                       <button
                                         onClick={() =>

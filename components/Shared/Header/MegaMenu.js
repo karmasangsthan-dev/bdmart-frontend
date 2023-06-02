@@ -819,7 +819,7 @@ const MegaMenu = () => {
                                                             <header className="con-head">
                                                                 {category?.name}
                                                             </header>
-                                                            <ul className="pro-nav">
+                                                            <ul className="pro-nav ps-0">
                                                                 {
                                                                     category?.childCategories?.map(child => <li className="drop-nav-link">
                                                                         <a href="#">{child?.name}</a>
