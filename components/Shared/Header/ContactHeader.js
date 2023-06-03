@@ -60,8 +60,6 @@ export default function ContactHeader({ user }) {
 
   useEffect(() => {
     fetchCountries();
-    fetchCurrencies();
-
     let currency = localStorage.getItem("selectedCurrency");
     currency = currency?.replace(/"/g, "");
     const currencyRate = decryptCurrency();
@@ -238,7 +236,10 @@ export default function ContactHeader({ user }) {
                   </li>
                   <li>
                     <span className="ship-text">Currency</span>
-                    <div className="drop-down">
+                    <div
+                      className="drop-down"
+                      onClick={() => fetchCurrencies()}
+                    >
                       <select
                         className="English text-center"
                         onChange={(e) => handleCurrencySelect(e.target.value)}
