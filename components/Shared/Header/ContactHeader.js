@@ -25,7 +25,7 @@ export default function ContactHeader({ user }) {
   const [selectedCurrency, setSelectedCurrency] = useState(null);
   const [currency, setCurrency] = useState(null);
 
-  console.log({selectedCurrency,currency,selectedCountry,selectedState})
+  console.log({ selectedCurrency, currency, selectedCountry, selectedState })
 
 
   const handleChange = async (e) => {
@@ -34,32 +34,28 @@ export default function ContactHeader({ user }) {
     const currentRoute = router.asPath;
     router.push(currentRoute, currentRoute, { locale });
 
-    if(selectedCurrency === null){
+    if (selectedCurrency === null) {
       console.log('a')
       localStorage.setItem("selectedCurrency", JSON.stringify('USD'));
     }
-    if(selectedCurrency != null){
+    if (selectedCurrency != null) {
       localStorage.setItem("selectedCurrency", JSON.stringify(selectedCurrency));
     }
 
-    const response = await fetch(
-      `https://api.freecurrencyapi.com/v1/latest?apikey=${FREE_CURRENCY_API_KEY}`
-    );
-    const data = await response.json();
-    const currencyRate = data?.data[selectedCurrency];
-    console.log(`https://api.freecurrencyapi.com/v1/latest?apikey=${FREE_CURRENCY_API_KEY}`)
-
+    const currencyRate = currencies.find(item => item.code === selectedCurrency);
+    
+    
     localStorage.setItem("selectedCountry", JSON.stringify(selectedCountry));
-    encryptCurrency(currencyRate);
+    encryptCurrency(currencyRate.rate);
     setIsSaved(isSaved + 1);
-    dispatch(setUpCurrency({ currency: selectedCurrency, currencyRate }));
+    dispatch(setUpCurrency({ currency: selectedCurrency, currencyRate : currencyRate.rate }));
     setShowDropdown(false);
   };
 
   useEffect(() => {
     const selectedCountry = localStorage.getItem("selectedCountry");
     const selectedCurrency = localStorage.getItem("selectedCurrency");
-    
+
     if (selectedCountry === null) {
       localStorage.setItem("selectedCountry", JSON.stringify({
         name: {
@@ -74,10 +70,9 @@ export default function ContactHeader({ user }) {
     if (selectedCurrency === null) {
       localStorage.setItem("selectedCurrency", JSON.stringify("USD"));
       encryptCurrency(1);
-      dispatch(setUpCurrency({ currency: selectedCurrency ? selectedCurrency : 'USD', currencyRate : 1 }));
+      dispatch(setUpCurrency({ currency: selectedCurrency ? selectedCurrency : 'USD', currencyRate: 1 }));
     }
   }, [])
-
 
   useEffect(() => {
     const savedCountry = localStorage.getItem("selectedCountry");
@@ -91,48 +86,74 @@ export default function ContactHeader({ user }) {
   }, [isSaved]);
 
   useEffect(() => {
-    fetchCountries();
-    fetchCurrencies();
+    // countries 
+    const allCountriesData = localStorage.getItem("countries");
+    const allCountries = JSON.parse(allCountriesData);
+    setCountries(allCountries);
+    // courency 
+    const allCurrencyData = localStorage.getItem("currencyArray");
+    const allCurrency = JSON.parse(allCurrencyData);
+    setCurrencies(allCurrency);
+
 
     let currency = localStorage.getItem("selectedCurrency");
     currency = currency?.replace(/"/g, "");
     const currencyRate = decryptCurrency();
     dispatch(setUpCurrency({ currency: currency, currencyRate }));
+
   }, []);
 
-  const fetchCountries = async () => {
-    try {
-      const response = await fetch("https://restcountries.com/v3.1/all");
-      const data = await response.json();
 
-      // Sort countries alphabetically by name
-      const sortedCountries = data.sort((a, b) =>
-        a.name.common.localeCompare(b.name.common)
-      );
+  // data load after 12 hours 
+  useEffect(() => {
+    const fetchData = async () => {
+      // Check if data is already stored in localStorage
+      const countries = localStorage.getItem('countries');
+      const currencyArray = localStorage.getItem('currencyArray');
+      const storedTimestamp = localStorage.getItem('timestamp');
+      const currentTime = new Date().getTime();
+      
+      if (countries && currencyArray && storedTimestamp && currentTime - storedTimestamp < 12 * 60 * 60 * 1000) {
 
-      setCountries(sortedCountries);
-    } catch (error) {
-      console.log("Error fetching countries:", error);
-    }
-  };
-  const fetchCurrencies = async () => {
-    try {
-      const response = await fetch(
-        `https://api.freecurrencyapi.com/v1/latest?apikey=${FREE_CURRENCY_API_KEY}`
-      );
-      const data = await response.json();
+      } else {
+        const countriesResponse = await fetch('https://restcountries.com/v3.1/all');
+        
+        const countriesData = await countriesResponse.json();
+        const sortedCountries = countriesData?.sort((a, b) =>
+          a.name.common.localeCompare(b.name.common)
+        );
+        const currencyResponse = await fetch('https://api.freecurrencyapi.com/v1/latest?apikey=Zj1a2acVZJE3CP9TCiDpMXPLAmFIgV5MkZlGG4vk');
+        const currencyData = await currencyResponse.json();
+        console.log('tri2')
 
-      // Transform the currency data into an array of objects
-      const currencyArray = Object.entries(data.data).map(([code, rate]) => ({
-        code,
-        rate,
-      }));
+        const currencyArray = Object.entries(currencyData.data).map(([code, rate]) => ({
+          code,
+          rate,
+        }));
 
-      setCurrencies(currencyArray);
-    } catch (error) {
-      console.log("Error fetching currencies:", error);
-    }
-  };
+        localStorage.setItem('countries', JSON.stringify(sortedCountries));
+        localStorage.setItem('currencyArray', JSON.stringify(currencyArray));
+        localStorage.setItem('timestamp', currentTime);
+      }
+    };
+
+    fetchData();
+
+    const interval = setInterval(() => {
+      const now = new Date();
+      const hours = now.getHours();
+      const minutes = now.getMinutes();
+
+      if (hours === 0 && minutes === 0) {
+        fetchData();
+      }
+    }, 60000);
+
+    // Clean up the interval on component unmount
+    return () => clearInterval(interval);
+  }, []);
+
+
   const truncateName = (name) => {
     const maxLength = 20;
     if (name.length > maxLength) {
