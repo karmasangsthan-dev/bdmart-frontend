@@ -27,15 +27,31 @@ export default function ContactHeader({ user }) {
   const [selectedCurrency, setSelectedCurrency] = useState(null);
   const [currency, setCurrency] = useState(null);
 
+
+
   const handleChange = async (e) => {
     e.preventDefault();
 
     const locale = e.target.locale.value;
     const currentRoute = router.asPath;
-
     router.push(currentRoute, currentRoute, { locale });
 
-    localStorage.setItem("selectedCountry", JSON.stringify(selectedCountry));
+    if (selectedCountry === 'null') {
+      localStorage.setItem("selectedCountry", JSON.stringify({
+        name: {
+          common: 'United States'
+        },
+        flags: {
+          png: "https://flagcdn.com/w320/us.png"
+        }
+      }));
+      console.log('ok')
+    }
+    if (selectedCountry !== null) {
+      localStorage.setItem("selectedCountry", JSON.stringify(selectedCountry));
+      console.log('ok2')
+    }
+
     localStorage.setItem("selectedCurrency", JSON.stringify(selectedCurrency));
 
     const response = await fetch(
@@ -43,11 +59,16 @@ export default function ContactHeader({ user }) {
     );
     const data = await response.json();
     const currencyRate = data?.data[selectedCurrency];
+    console.log(`https://api.freecurrencyapi.com/v1/latest?apikey=${FREE_CURRENCY_API_KEY}`)
+
     encryptCurrency(currencyRate);
     setIsSaved(isSaved + 1);
     dispatch(setUpCurrency({ currency: selectedCurrency, currencyRate }));
     setShowDropdown(false);
   };
+
+  
+
 
   useEffect(() => {
     const savedCountry = localStorage.getItem("selectedCountry");
@@ -156,7 +177,7 @@ export default function ContactHeader({ user }) {
                 </span>
               </Dropdown.Toggle>
 
-              <Dropdown.Menu className="dropdown-menu" id="myDD">
+              <Dropdown.Menu style={{ zIndex: '99999' }} className="dropdown-menu" id="myDD">
                 <Form onSubmit={handleChange}>
                   <li>
                     <span className="ship-text">Ship to</span>

@@ -964,6 +964,9 @@ MGA CONTENT NAV
   left: 0;
   background: #fff;
 }
+.mega_content header{
+  border-bottom: 2px solid black;
+}
 
 #dropmenu {
   margin-left: 50px;
@@ -2230,7 +2233,7 @@ a.slide_btn {
 .shop-products {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  /* gap: 10px; */
+  gap: 10px;
 }
 
 .shop-product-details {
