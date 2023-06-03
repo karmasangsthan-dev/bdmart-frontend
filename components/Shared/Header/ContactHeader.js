@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { Button, Dropdown, Form } from "react-bootstrap";
-
 import { useDispatch } from "react-redux";
 import { setUpCurrency } from "../../../features/currency/currencySlice";
 import {
@@ -27,16 +25,42 @@ export default function ContactHeader({ user }) {
   const [selectedCurrency, setSelectedCurrency] = useState(null);
   const [currency, setCurrency] = useState(null);
 
+  console.log({selectedCurrency,currency,selectedCountry,selectedState})
 
 
   const handleChange = async (e) => {
     e.preventDefault();
-
     const locale = e.target.locale.value;
     const currentRoute = router.asPath;
     router.push(currentRoute, currentRoute, { locale });
 
-    if (selectedCountry === 'null') {
+    if(selectedCurrency === null){
+      console.log('a')
+      localStorage.setItem("selectedCurrency", JSON.stringify('USD'));
+    }
+    if(selectedCurrency != null){
+      localStorage.setItem("selectedCurrency", JSON.stringify(selectedCurrency));
+    }
+
+    const response = await fetch(
+      `https://api.freecurrencyapi.com/v1/latest?apikey=${FREE_CURRENCY_API_KEY}`
+    );
+    const data = await response.json();
+    const currencyRate = data?.data[selectedCurrency];
+    console.log(`https://api.freecurrencyapi.com/v1/latest?apikey=${FREE_CURRENCY_API_KEY}`)
+
+    localStorage.setItem("selectedCountry", JSON.stringify(selectedCountry));
+    encryptCurrency(currencyRate);
+    setIsSaved(isSaved + 1);
+    dispatch(setUpCurrency({ currency: selectedCurrency, currencyRate }));
+    setShowDropdown(false);
+  };
+
+  useEffect(() => {
+    const selectedCountry = localStorage.getItem("selectedCountry");
+    const selectedCurrency = localStorage.getItem("selectedCurrency");
+    
+    if (selectedCountry === null) {
       localStorage.setItem("selectedCountry", JSON.stringify({
         name: {
           common: 'United States'
@@ -47,27 +71,12 @@ export default function ContactHeader({ user }) {
       }));
       console.log('ok')
     }
-    if (selectedCountry !== null) {
-      localStorage.setItem("selectedCountry", JSON.stringify(selectedCountry));
-      console.log('ok2')
+    if (selectedCurrency === null) {
+      localStorage.setItem("selectedCurrency", JSON.stringify("USD"));
+      encryptCurrency(1);
+      dispatch(setUpCurrency({ currency: selectedCurrency ? selectedCurrency : 'USD', currencyRate : 1 }));
     }
-
-    localStorage.setItem("selectedCurrency", JSON.stringify(selectedCurrency));
-
-    const response = await fetch(
-      `https://api.freecurrencyapi.com/v1/latest?apikey=${FREE_CURRENCY_API_KEY}`
-    );
-    const data = await response.json();
-    const currencyRate = data?.data[selectedCurrency];
-    console.log(`https://api.freecurrencyapi.com/v1/latest?apikey=${FREE_CURRENCY_API_KEY}`)
-
-    encryptCurrency(currencyRate);
-    setIsSaved(isSaved + 1);
-    dispatch(setUpCurrency({ currency: selectedCurrency, currencyRate }));
-    setShowDropdown(false);
-  };
-
-  
+  }, [])
 
 
   useEffect(() => {
@@ -76,8 +85,10 @@ export default function ContactHeader({ user }) {
     const data = JSON.parse(savedCountry);
     const currency = JSON.parse(savedCurrency);
     setSelectedState(data);
+    setSelectedCountry(data)
     setCurrency(currency);
-  }, [selectedCountry, isSaved]);
+    setSelectedCurrency(currency)
+  }, [isSaved]);
 
   useEffect(() => {
     fetchCountries();
@@ -136,6 +147,7 @@ export default function ContactHeader({ user }) {
 
   const handleCountrySelect = (country) => {
     setSelectedCountry(country);
+    console.log('cc'.country)
     handleToggle();
   };
   const handleCurrencySelect = (currency) => {
