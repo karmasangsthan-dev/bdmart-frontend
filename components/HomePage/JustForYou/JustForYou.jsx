@@ -5,6 +5,7 @@ import Skeleton from "react-loading-skeleton";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useRouter } from "next/router";
 import DiscountProductCard from "../../Product/DiscountProductCard";
+import { useSelector } from "react-redux";
 
 const JustForYou = ({ t }) => {
   const router = useRouter();
@@ -12,6 +13,16 @@ const JustForYou = ({ t }) => {
   const { data, isLoading, refetch } = useGetAllProductsQuery({
     perPage: page,
   });
+
+  const { currency, currencyRate } = useSelector((state) => state.currency);
+
+  // let productPrice;
+  // if (currencyRate) {
+  //   productPrice = (
+  //     (product?.price - (product?.price * product?.discountPercentage) / 100) *
+  //     currencyRate
+  //   ).toFixed(2);
+  // }
 
   const fetchMoreData = () => {
     setPage(page + 6);
@@ -101,63 +112,7 @@ const JustForYou = ({ t }) => {
             <>
               {data?.data?.map((product) => {
                 return (
-                  <div className="mb-1 w-100" key={product?._id}>
-                    <div className="product-link bestselling-product-container  border p-3 rounded-3 shadow just-for-you-product">
-                      <div className="">
-                        <img
-                          onClick={() => router.push(`/productDetails/${product._id}`)}
-                          className="border"
-                          style={{ width: "100%", height: "139px" }}
-                          src={product?.thumbnail}
-                          alt=""
-                        />
-                      </div>
-                      <p
-                        onClick={() => router.push(`/productDetails/${product._id}`)}
-                        style={{ minHeight: "42px", cursor: "pointer" }}
-                        className="item-name mt-2 mb-0 text-capitalize"
-                      >
-                        {product?.title?.length > 30
-                          ? `${product?.title?.slice(0, 30)} ...`
-                          : product?.title}
-                      </p>
-
-                      <div className="d-flex justify-content-between align-items-center">
-                        <span className="item-price">
-                          $
-                          {(
-                            product?.price -
-                            (product?.price * product?.discountPercentage) / 100
-                          ).toFixed(2)}
-                        </span>
-                      </div>
-                      <div className="old-price">
-                        <del>{product.price} $</del>
-                        <span className="ms-2"> - {product?.discountPercentage}%</span>
-                      </div>
-                      <div className="d-flex align-items-center">
-                        <Rating
-                          style={{ fontSize: "15px", marginLeft: "-3px" }}
-                          name="read-only"
-                          value={parseInt(product?.rating || 5)}
-                          readOnly
-                        />
-                        <p className="mb-0 ms-1" style={{ fontSize: "13px" }}>
-                          ({parseInt(product?.rating || 5)})
-                        </p>
-                      </div>
-                      <div id="">
-                        <button
-                          className="cart-btn w-100 "
-                          onClick={() => handleAddToCart(product)}
-                        >
-                          Add to Cart
-                          <i className="far plus-ico fa-plus-square text-white"></i>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-
+                  <DiscountProductCard product={product} key={product?._id} />
                 );
               })}
               {loadedProducts === 0 && <p>No products found.</p>}

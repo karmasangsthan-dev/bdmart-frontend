@@ -1,6 +1,16 @@
 export const bn = {
   homePage: {
     header: {
+      contactHeader: {
+        signInTitle: "সাইন ইন",
+        singUpTitle: "সাইন আপ",
+        countryCurrency: "কান্ট্রি/কারেন্সী",
+      },
+      profileTitle: "প্রোফাইল",
+      ordersTitle: "আমার অর্ডারস",
+      adminPanel: "অ্যাডমিন প্যানেল",
+      settings: "সেটিংস",
+      logout: "লগ আউট",
       searchTitle: "আপনি কি খুঁজছেন ?",
       megaMenuTitle: "বিভাগসমূহ",
       nav: [

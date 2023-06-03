@@ -1,6 +1,16 @@
 export const en = {
   homePage: {
     header: {
+      contactHeader: {
+        signInTitle: "Sign in",
+        singUpTitle: "Sign up",
+        countryCurrency: "Country/Currency",
+      },
+      profileTitle: "Profile",
+      ordersTitle: "My Orders",
+      adminPanel: "Admin Panel",
+      settings: "Settings",
+      logout: "Logout",
       searchTitle: "What you are looking for ? ",
       megaMenuTitle: "Departments",
       nav: [

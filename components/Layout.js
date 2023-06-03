@@ -77,7 +77,7 @@ const Layout = ({ children, title = "Bangladesh Mart" }) => {
   // }, [user?.email, cartArray]);
 
   return (
-    <div>
+    <>
       <Head>
         <title>{title}</title>
       </Head>
@@ -89,7 +89,7 @@ const Layout = ({ children, title = "Bangladesh Mart" }) => {
       <Header />
 
       <main>{children}</main>
-    </div>
+    </>
   );
 };
 
