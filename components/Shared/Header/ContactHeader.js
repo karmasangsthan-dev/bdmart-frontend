@@ -112,7 +112,7 @@ export default function ContactHeader({ user }) {
       const currencyArray = localStorage.getItem('currencyArray');
       const storedTimestamp = localStorage.getItem('timestamp');
       const currentTime = new Date().getTime();
-      
+
       if (countries && currencyArray && storedTimestamp && currentTime - storedTimestamp < 12 * 60 * 60 * 1000) {
 
       } else {
@@ -298,7 +298,7 @@ export default function ContactHeader({ user }) {
                         onChange={(e) => handleCurrencySelect(e.target.value)}
                       >
                         <option value="">Select Currency</option>
-                        {currencies.map((curr) => (
+                        {currencies?.map((curr) => (
                           <option
                             key={curr.code}
                             value={curr.code}
