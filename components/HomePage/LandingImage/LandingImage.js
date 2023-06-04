@@ -4,7 +4,7 @@ import React from 'react';
 const LandingImage = () => {
     return (
         <>
-            <div className="landing-img my-4">
+            <div className="landing-img mt-3 mb-1">
                 <div style={{ width: '100%', height: 'auto', position: 'relative' }}>
                     <Image
                         className="d-block "
