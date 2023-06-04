@@ -95,8 +95,8 @@ const BestSelling = ({ t }) => {
 
       <div className="">
         <div className="col-lg-12 col-md-12 col-sm-12 w">
-          <div className="gal-head">
-            <h2>{t.homePage.bestSelling.title}</h2>
+          <div className="gal-head gal-head-best-selling">
+            <h2 className="mb-0">{t.homePage.bestSelling.title}</h2>
           </div>
         </div>
       </div>
