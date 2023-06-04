@@ -50,7 +50,6 @@ const orderHistory = () => {
                             </thead>
                             <tbody>
                               {data?.map((order, index) => {
-                                console.log(order?.products,'pp');
                                 let totalAmount = 0;
                                 for (let i = 0; i < order?.products?.length; i++) {
                                   totalAmount =

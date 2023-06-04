@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "slick-carousel/slick/slick.css";
 import "react-loading-skeleton/dist/skeleton.css";
 import "slick-carousel/slick/slick-theme.css";
+import 'cropperjs/dist/cropper.css';
 import "../styles/slider.css";
 import "../styles/nav.css";
 import "../styles/responsive.css";

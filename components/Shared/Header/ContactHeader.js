@@ -25,7 +25,6 @@ export default function ContactHeader({ user }) {
   const [selectedCurrency, setSelectedCurrency] = useState(null);
   const [currency, setCurrency] = useState(null);
 
-  console.log({ selectedCurrency, currency, selectedCountry, selectedState })
 
 
   const handleChange = async (e) => {
@@ -35,7 +34,6 @@ export default function ContactHeader({ user }) {
     router.push(currentRoute, currentRoute, { locale });
 
     if (selectedCurrency === null) {
-      console.log('a')
       localStorage.setItem("selectedCurrency", JSON.stringify('USD'));
     }
     if (selectedCurrency != null) {
@@ -65,7 +63,6 @@ export default function ContactHeader({ user }) {
           png: "https://flagcdn.com/w320/us.png"
         }
       }));
-      console.log('ok')
     }
     if (selectedCurrency === null) {
       localStorage.setItem("selectedCurrency", JSON.stringify("USD"));
@@ -124,7 +121,6 @@ export default function ContactHeader({ user }) {
         );
         const currencyResponse = await fetch('https://api.freecurrencyapi.com/v1/latest?apikey=Zj1a2acVZJE3CP9TCiDpMXPLAmFIgV5MkZlGG4vk');
         const currencyData = await currencyResponse.json();
-        console.log('tri2')
 
         const currencyArray = Object.entries(currencyData.data).map(([code, rate]) => ({
           code,
@@ -168,7 +164,6 @@ export default function ContactHeader({ user }) {
 
   const handleCountrySelect = (country) => {
     setSelectedCountry(country);
-    console.log('cc'.country)
     handleToggle();
   };
   const handleCurrencySelect = (currency) => {
