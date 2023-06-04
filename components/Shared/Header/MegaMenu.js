@@ -766,7 +766,7 @@ const MegaMenu = () => {
       <div className="container-fluid">
         <div className="row align-items-center">
           <div
-            style={{ minHeight: "67px" }}
+            style={{ minHeight: "56px" }}
             className="accordion w-auto"
             id="accordionPanelsStayOpenExample"
           >
@@ -803,7 +803,7 @@ const MegaMenu = () => {
                               <header className="con-head">
                                 {category?.name}
                               </header>
-                              <ul className="pro-nav ps-0">
+                              <ul className="pro-nav ps-0 ">
                                 {category?.childCategories?.map((child) => (
                                   <li className="drop-nav-link">
                                     <a href="#">{child?.name}</a>
@@ -825,7 +825,7 @@ const MegaMenu = () => {
             style={{ width: "78%" }}
           >
             <div className="frombar">
-              <ul>
+              <ul className="mb-0">
                 {t.homePage.header.nav.map((navItem) => (
                   <Link href={navItem?.link}>
                     <li className="inner-li">{navItem?.title}</li>
