@@ -151,7 +151,7 @@ const BestSelling = ({ t }) => {
           </Slider>
         </div>
       ) : (
-        <Slider className="mb- px-4 " {...settings}>
+        <Slider className=" px-4 " {...settings}>
           {data?.data?.map((product, index) => (
             <DiscountProductCard key={index} product={product} />
           ))}

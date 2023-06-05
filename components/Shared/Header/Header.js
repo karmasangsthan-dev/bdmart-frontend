@@ -88,7 +88,8 @@ const Header = () => {
                   <i className="fa fa-search"></i>
                 </button>
               </form>
-              {data?.data?.length && (
+              
+              {data?.data?.length > 0 && (
                 <form className="example">
                   <div
                     style={{

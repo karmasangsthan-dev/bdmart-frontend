@@ -96,8 +96,7 @@ CoMmOn CsS EnD
 
 .logo img {
   width: 190px;
-  /* margin-left: 50px; */
-  height: 70px;
+  height: 65px;
 }
 
 .main-header {
@@ -494,7 +493,7 @@ a .sign-text {
 .strip-2 {
   transition: all 0.4s ease;
 
-  margin-top: 20px;
+  margin-top: 7px;
   display: flex;
   justify-content: center;
   flex-direction: row;
@@ -789,12 +788,12 @@ Nav Bar End
 
 
 .accordion-button {
-  margin-top: 10px;
+  margin-top: 8px;
   border: 1px solid black !important;
   font-size: 14px;
   width: 140px;
   margin-left: 45px;
-  padding: 6px 9px !important;
+  padding: 5px 10px !important;
   border-radius: 15px !important;
   font-weight: bolder;
 }

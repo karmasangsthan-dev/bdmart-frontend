@@ -16,8 +16,65 @@ import NotFoundPage from "../404";
 import Loading from "../../components/Shared/Loading/Loading";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../features/cart/cartSlice";
+import Slider from "react-slick";
+
+const SampleNextArrow = (props) => {
+  const { onClick } = props;
+  return (
+    <div className="control-btn" onClick={onClick}>
+      <button style={{ width: '30px', height: '30px',top:'33%' }} className="next">
+        <i className="fa fa-long-arrow-alt-right"></i>
+      </button>
+    </div>
+  );
+};
+const SamplePrevArrow = (props) => {
+  const { onClick } = props;
+  return (
+    <div className="control-btn" onClick={onClick}>
+      <button style={{ width: '30px', height: '30px',top:'33%'  }} className="prev">
+        <i className="fa fa-long-arrow-alt-left"></i>
+      </button>
+    </div>
+  );
+};
 
 const productNo = () => {
+  const settings = {
+    dots: false,
+    infinite: false,
+    slidesToShow: 3,
+    slidesToScroll: 2,
+    initialSlide: 0,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
+  };
   const router = useRouter();
   const dispatch = useDispatch();
   const {
@@ -27,7 +84,7 @@ const productNo = () => {
   const { data: allData } = useGetAllProductsQuery();
   const { data, isLoading } = useGetProductDetailsQuery(productNo);
 
-
+  const [displayImage, setDisplayImage] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const product = data?.data || {};
   const products = allData?.data || [];
@@ -138,11 +195,22 @@ const productNo = () => {
               </Link>
             </Breadcrumbs>
           </div>
-          <div className="d-flex border p-3">
-            <div className="col-md-6 ">
-              <img src={product.thumbnail} alt="" />
+          <div className="d-flex flex-wrap mt-2 pt-3" style={{ borderTop: '1px solid #ddd' }}>
+            <div className="col-md-4">
+              <div className="product-thumbnail-image">
+                <img style={{ width: '330px', height: '330px', border: '1px solid #ddd' }} className="img-fluid" src={displayImage || product.thumbnail} alt="" />
+              </div>
+              <div className="product-others-images ">
+                <div style={{width:'280px'}}>
+                  <Slider className="w-auto px-5" {...settings}>
+                    {product?.images.map(img => <div style={{ width: '52px', height: '52px' }}><img onClick={() => setDisplayImage(img)} style={{ width: '52px', height: '50px', border: '1px solid #ddd', cursor: 'pointer' }} className="img-fluid me-3" src={img} alt="" /></div>)}
+                  </Slider>
+                </div>
+
+              </div>
             </div>
-            <div style={{ borderLeft: '1px solid #ddd' }} className="col-md-6 py-2 px-4">
+
+            <div className="col-md-8 py-2 px-4">
               <h3>Name: {product?.title}</h3>
               <div className="d-flex justiy-content-center">
                 <div className="ratings">

@@ -766,7 +766,7 @@ const MegaMenu = () => {
       <div className="container-fluid">
         <div className="row align-items-center">
           <div
-            style={{ minHeight: "56px" }}
+            style={{ minHeight: "50px" }}
             className="accordion w-auto"
             id="accordionPanelsStayOpenExample"
           >
