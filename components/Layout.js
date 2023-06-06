@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 import { useSetCartMutation } from "../features/auth/authApi";
 import { setCart, setCartProducts } from "../features/cart/cartSlice";
 import { useGetCartProductsMutation } from "../features/product/productApi";
+import axios from "axios";
 
 const Layout = ({ children, title = "Bangladesh Mart" }) => {
   const dispatch = useDispatch();

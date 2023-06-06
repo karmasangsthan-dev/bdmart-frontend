@@ -1,19 +1,15 @@
 import { useRouter } from "next/router";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { useDispatch, useSelector } from "react-redux";
-import auth from "../../../firebase.init";
-import { useEffect } from "react";
-import { fetchUser } from "../../../features/auth/authSlice";
 import Layout from "../../Layout";
-import Loading from "../Loading/Loading";
 
 const RequreAuth = (WrappedComponent) => {
 
 
   const AuthenticatedComponent = (props) => {
+
     const user = useSelector((state) => state.auth.user);
     const router = useRouter();
-    
+
     if (!user?.email) {
       return (
         <Layout>

@@ -16,8 +16,67 @@ import NotFoundPage from "../404";
 import Loading from "../../components/Shared/Loading/Loading";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../features/cart/cartSlice";
+import Slider from "react-slick";
+import ReactImageMagnify from "react-image-magnify";
+import ProductReviewSection from "../../components/ProductDescription/ProductReviewSection";
+
+const SampleNextArrow = (props) => {
+  const { onClick } = props;
+  return (
+    <div className="control-btn" onClick={onClick}>
+      <button style={{ width: '30px', height: '30px', top: '33%' }} className="next">
+        <i className="fa fa-long-arrow-alt-right"></i>
+      </button>
+    </div>
+  );
+};
+const SamplePrevArrow = (props) => {
+  const { onClick } = props;
+  return (
+    <div className="control-btn" onClick={onClick}>
+      <button style={{ width: '30px', height: '30px', top: '33%' }} className="prev">
+        <i className="fa fa-long-arrow-alt-left"></i>
+      </button>
+    </div>
+  );
+};
 
 const productNo = () => {
+  const settings = {
+    dots: false,
+    infinite: false,
+    slidesToShow: 3,
+    slidesToScroll: 2,
+    initialSlide: 0,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
+  };
   const router = useRouter();
   const dispatch = useDispatch();
   const {
@@ -27,7 +86,7 @@ const productNo = () => {
   const { data: allData } = useGetAllProductsQuery();
   const { data, isLoading } = useGetProductDetailsQuery(productNo);
 
-
+  const [displayImage, setDisplayImage] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const product = data?.data || {};
   const products = allData?.data || [];
@@ -138,11 +197,37 @@ const productNo = () => {
               </Link>
             </Breadcrumbs>
           </div>
-          <div className="d-flex border p-3">
-            <div className="col-md-6 ">
-              <img src={product.thumbnail} alt="" />
+          <div className="d-flex flex-wrap mt-2 pt-3" style={{ borderTop: '1px solid #ddd' }}>
+            <div className="col-md-4">
+              <div className="product-thumbnail-image">
+
+                <ReactImageMagnify {...{
+                  smallImage: {
+                    alt: product?.title,
+                    height: 330,
+                    width: 330,
+                    src: displayImage || product?.thumbnail
+                  },
+                  largeImage: {
+                    src: displayImage || product?.thumbnail,
+                    width: 1200,
+                    height: 1800
+                  }
+
+                }} />
+
+              </div>
+              <div className="product-others-images ">
+                <div style={{ width: '280px' }}>
+                  <Slider className="w-auto px-5" {...settings}>
+                    {product?.images.map(img => <div style={{ width: '52px', height: '52px' }}><img onClick={() => setDisplayImage(img)} style={{ width: '52px', height: '50px', border: '1px solid #ddd', cursor: 'pointer' }} className="img-fluid me-3" src={img} alt="" /></div>)}
+                  </Slider>
+                </div>
+
+              </div>
             </div>
-            <div style={{ borderLeft: '1px solid #ddd' }} className="col-md-6 py-2 px-4">
+
+            <div className="col-md-5 py-2 px-4">
               <h3>Name: {product?.title}</h3>
               <div className="d-flex justiy-content-center">
                 <div className="ratings">
@@ -157,8 +242,17 @@ const productNo = () => {
               <div>
                 <h5 className="my-2">Price: <span style={{ color: '#26d5fd' }} >${product?.price}</span></h5>
               </div>
-
               <p>{product?.description}</p>
+              <div className="d-flex align-items-center gap-2 mt-2">
+                <h6 style={{ minWidth: "50px" }}>Color:</h6>
+                <div>
+                  {
+                    ['#FF0000', '#49B2DB', '#3560D9'].map(color => <p style={{backgroundColor: color}} className="product-select-color " ></p>)
+                  }
+                </div>
+              </div>
+
+              
               {product?.color && <p>{product?.color}</p>}
               <div className="d-flex align-items-center gap-2">
                 <h6 style={{ minWidth: "50px" }}>Size:</h6>
@@ -174,6 +268,7 @@ const productNo = () => {
                   <option value="S">S</option>
                 </Form.Select>
               </div>
+              
               <div className="product-quantity d-flex align-items-center gap-2 mt-2">
                 <h6 style={{ minWidth: "50px" }}>Qty:</h6>
                 <div className="">
@@ -243,8 +338,78 @@ const productNo = () => {
                 </div>
               </div>
             </div>
+            <div className="col-md-3">
+              <div className="delivery-info">
+                <h5>Delivery</h5>
+                <div className="d-flex">
+                  <div className="me-2">
+                    <img width="20" height="20" src="https://img.icons8.com/color/48/marker--v1.png" alt="marker--v1" />
+                  </div>
+                  <div className="d-flex justify-content-between align-items-center gap-2 w-100">
+
+                    <p>Dhaka, Dhaka North, Banani Road No. 12 - 19 </p>
+                    <p className="text-info">CHANGE</p>
+                  </div>
+                </div>
+                <div className="d-flex">
+                  <div className="me-2">
+                    <img width="20" height="20" src="https://img.icons8.com/color/48/delivery--v1.png" alt="delivery--v1" />
+                  </div>
+                  <div className="d-flex justify-content-between align-items-center w-100">
+                    <div>
+                      <p><span style={{ fontWeight: 'bold' }}>Standard Delivery</span> 9 Jun - 12 Jun</p>
+                      <p>3 - 6 day(s)</p>
+                    </div>
+                    <p>$ 2</p>
+                  </div>
+                </div>
+                <div className="d-flex">
+                  <div className="me-2">
+                    <img width="20" height="20" src="https://img.icons8.com/color/48/cash-in-hand.png" alt="cash-in-hand" />
+                  </div>
+                  <div className="d-flex justify-content-between align-items-center w-100">
+                    <div>
+                      <p>Cash on Delivery Available</p>
+                    </div>
+                  </div>
+                </div>
+
+
+              </div>
+
+              <div className="service-info">
+                <h4>Service</h4>
+                <div className="d-flex">
+                  <div className="me-2">
+                    <img width="20" height="20" src="https://img.icons8.com/color/48/rollback.png" alt="rollback" />
+                  </div>
+                  <div className="d-flex justify-content-between align-items-center w-100">
+                    <div>
+                      <p>14 days easy return</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="d-flex">
+                  <div className="me-2">
+                    <img width="20" height="20" src="https://img.icons8.com/color/48/not-applicable.png" alt="not-applicable" />
+                  </div>
+                  <div className="d-flex justify-content-between align-items-center w-100">
+                    <div>
+                      <p>Warranty not available</p>
+                    </div>
+                  </div>
+                </div>
+                {/* <ul>
+                  <li>100% Authentic</li>
+                  <li>14 days easy return</li>
+                  <li>Change of Mind applicable</li>
+                  <li>Warranty not available</li>
+                </ul> */}
+              </div>
+            </div>
           </div>
           <ProductDescription product={product}></ProductDescription>
+          <ProductReviewSection product={product}></ProductReviewSection>
           <h4 className="text-center my-4">You May Also Like</h4>
 
           <div className="shop page-content">
