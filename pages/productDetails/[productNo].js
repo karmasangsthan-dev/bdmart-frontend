@@ -17,7 +17,6 @@ import Loading from "../../components/Shared/Loading/Loading";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../features/cart/cartSlice";
 import Slider from "react-slick";
-import ReactImageMagnify from "react-image-magnify";
 import ProductReviewSection from "../../components/ProductDescription/ProductReviewSection";
 
 const SampleNextArrow = (props) => {
