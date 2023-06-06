@@ -58,6 +58,19 @@ const authApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["User"],
     }),
+    updateVisitor: builder.mutation({
+      query: ({data}) => {
+        console.log(data,'dd'); // Log the data object
+        const query = {
+          url: `/visitor/visitor`,
+          method: "PATCH",
+          body: data,
+        };
+        
+        return query;
+      },
+      invalidatesTags: ["User"],
+    }),
   }),
 });
 
@@ -68,4 +81,5 @@ export const {
   useUpdateProfileImageMutation,
   useUpdateProfileMutation,
   useGetMeQuery,
+  useUpdateVisitorMutation,
 } = authApi;

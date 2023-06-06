@@ -41,12 +41,12 @@ export default function ContactHeader({ user }) {
     }
 
     const currencyRate = currencies.find(item => item.code === selectedCurrency);
-    
-    
+
+
     localStorage.setItem("selectedCountry", JSON.stringify(selectedCountry));
     encryptCurrency(currencyRate.rate);
     setIsSaved(isSaved + 1);
-    dispatch(setUpCurrency({ currency: selectedCurrency, currencyRate : currencyRate.rate }));
+    dispatch(setUpCurrency({ currency: selectedCurrency, currencyRate: currencyRate.rate }));
     setShowDropdown(false);
   };
 
@@ -114,11 +114,23 @@ export default function ContactHeader({ user }) {
 
       } else {
         const countriesResponse = await fetch('https://restcountries.com/v3.1/all');
-        
+
         const countriesData = await countriesResponse.json();
         const sortedCountries = countriesData?.sort((a, b) =>
           a.name.common.localeCompare(b.name.common)
         );
+        const filteredCountry = sortedCountries.filter(country => {
+          const commonName = country?.name?.common;
+          return (
+            commonName === 'United States' ||
+            commonName === 'Bangladesh' ||
+            commonName === 'United Arab Emirates' ||
+            commonName === 'Saudi Arabia' ||
+            commonName === 'India' ||
+            commonName === 'Canada'
+          );
+        })
+        console.log(filteredCountry,'filteredCountry')
         const currencyResponse = await fetch('https://api.freecurrencyapi.com/v1/latest?apikey=Zj1a2acVZJE3CP9TCiDpMXPLAmFIgV5MkZlGG4vk');
         const currencyData = await currencyResponse.json();
 
@@ -127,7 +139,7 @@ export default function ContactHeader({ user }) {
           rate,
         }));
 
-        localStorage.setItem('countries', JSON.stringify(sortedCountries));
+        localStorage.setItem('countries', JSON.stringify(filteredCountry));
         localStorage.setItem('currencyArray', JSON.stringify(currencyArray));
         localStorage.setItem('timestamp', currentTime);
       }
