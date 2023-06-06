@@ -9,7 +9,7 @@ const ProductReviewSection = ({ product }) => {
             <div className='review-statics '>
                 <div className="col-md-6 d-flex justify-content-between">
                     <div>
-                        <p>{product?.rating.toFixed(1)}/5</p>
+                        <p>{product?.rating?.toFixed(1)}/5</p>
                         <Rating
                             name="read-only"
                             value={parseInt(product?.rating)}

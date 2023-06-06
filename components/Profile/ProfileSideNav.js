@@ -24,6 +24,8 @@ export default function ProfileSideNav() {
     setToken(token);
   }, []);
 
+  
+
   const [updateProfile, { isSuccess, isLoading }] =
     useUpdateProfileImageMutation({
       onSettled: () => api.invalidateTags("User"),
