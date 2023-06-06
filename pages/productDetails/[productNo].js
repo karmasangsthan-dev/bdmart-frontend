@@ -200,21 +200,8 @@ const productNo = () => {
           <div className="d-flex flex-wrap mt-2 pt-3" style={{ borderTop: '1px solid #ddd' }}>
             <div className="col-md-4">
               <div className="product-thumbnail-image">
-
-                <ReactImageMagnify {...{
-                  smallImage: {
-                    alt: product?.title,
-                    height: 330,
-                    width: 330,
-                    src: displayImage || product?.thumbnail
-                  },
-                  largeImage: {
-                    src: displayImage || product?.thumbnail,
-                    width: 1200,
-                    height: 1800
-                  }
-
-                }} />
+              <img className="w-100 h-100" src={displayImage || product?.thumbnail} alt="" />
+                
 
               </div>
               <div className="product-others-images ">
