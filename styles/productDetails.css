@@ -8,7 +8,8 @@
 .product-description-size:focus {
     box-shadow: none !important;
 }
-.product-title{
+
+.product-title {
     cursor: pointer;
 }
 
@@ -57,7 +58,7 @@ a:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 7px ;
+    margin-right: 7px;
     width: 25px;
     height: 25px;
     border-radius: 50%;
@@ -94,6 +95,40 @@ a:hover {
     margin-top: 40px;
 }
 
+.product-thumbnail-image {
+    width: 330px;
+    height: 330px;
+    display: flex;
+    margin: auto;
+
+}
+
+.review-container-title {
+    margin-top: 10px;
+
+}
+
+.product-select-color {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    margin-right: 10px;
+    transition: transform 0.3s;
+}
+
+.product-select-color:hover {
+    cursor: pointer;
+    outline: red;
+    transform: scale(1.2);
+
+}
+
+.delivery-info,
+.service-info {
+    font-size: 14px;
+}
+
 #product-tabs {
     border-bottom: none;
 }
@@ -122,7 +157,8 @@ a:hover {
     padding-bottom: 15px;
     border-bottom: 1px solid #ebebeb;
 }
-.review-actions span{
+
+.review-actions span {
     cursor: pointer;
 }
 
@@ -162,6 +198,8 @@ a:hover {
 .far {
     color: #999;
 }
-.add-a-review-container input,textarea:focus{
+
+.add-a-review-container input,
+textarea:focus {
     box-shadow: none !important;
 }

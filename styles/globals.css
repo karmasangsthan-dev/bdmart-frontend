@@ -500,7 +500,7 @@ a .sign-text {
 }
 
 .strip-2-mar {
-  margin-top: 10px !important;
+  margin-top: 7px !important;
   transition: all 0.4s ease;
 }
 
@@ -767,6 +767,7 @@ Nav Bar End
 
 .sec_nav {
   position: relative;
+  margin-top: -10px;
   transition: all 0.3s ease;
 }
 
