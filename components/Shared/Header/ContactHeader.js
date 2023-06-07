@@ -36,11 +36,13 @@ export default function ContactHeader({ user }) {
     const locale = e.target.locale.value;
     const currentRoute = router.asPath;
     const currency = e.target.currency.value;
+
     router.push(currentRoute, currentRoute, { locale });
     setShowDropdown(false);
     const currencyWithRate = data?.data.find((cur) => cur.code === currency);
     dispatch(setUpCurrency(currencyWithRate));
     localStorage.setItem("shipTo", JSON.stringify(shipTo));
+    localStorage.setItem("locale", JSON.stringify(locale));
     localStorage.setItem("currency", JSON.stringify(currency));
   };
   const handleToggle = () => {
@@ -103,7 +105,9 @@ export default function ContactHeader({ user }) {
     const shipTo = JSON.parse(localStorage.getItem("shipTo"));
     setShipTo(shipTo);
     const currency = JSON.parse(localStorage.getItem("currency"));
-
+    const locale = JSON.parse(localStorage.getItem("locale"));
+    const currentRoute = router.asPath;
+    router.push(currentRoute, currentRoute, { locale });
     if (success && currency) {
       const currencyWithRate = data?.data?.find((cur) => cur.code === currency);
       console.log("codewith currency", currencyWithRate);
