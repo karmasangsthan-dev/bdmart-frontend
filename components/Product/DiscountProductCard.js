@@ -11,12 +11,11 @@ export default function DiscountProductCard({ product }) {
   const { currency, currencyRate } = useSelector((state) => state.currency);
 
   let productPrice;
+  console.log(productPrice, 'pp')
   if (currencyRate) {
-    productPrice = (
-      (product?.price - (product?.price * product?.discountPercentage) / 100) *
-      currencyRate
-    ).toFixed(2);
+    productPrice = (product?.price * currencyRate).toFixed(2);
   }
+  const discountPercentage = ((product?.oldPrice - product?.price) / product?.oldPrice) * 100;
   // const [token, setToken] = useState();
   // const [cartProduct, setCartProduct] = useState({});
   const dispatch = useDispatch();
@@ -81,7 +80,7 @@ export default function DiscountProductCard({ product }) {
   //     toast.success("Added to cart", { id: "addToCart" });
   //   }
   // }, [isSuccess, isLoading]);
-
+  console.log(product, 'product')
   return (
     <div className="mb-3 " key={product?._id}>
       <div className="product-link bestselling-product-container  border p-3 mx-2  rounded-3 shadow">
@@ -89,7 +88,7 @@ export default function DiscountProductCard({ product }) {
           <img
             onClick={() => router.push(`/productDetails/${product._id}`)}
             className="border"
-            style={{ width: "100%", height: "139px" }}
+            style={{ width: "100%", height: "100%" }}
             src={product?.thumbnail}
             alt=""
           />
@@ -108,17 +107,16 @@ export default function DiscountProductCard({ product }) {
           <span className="item-price">
             {/* {productPrice}
             {currency} */}
-            {`${productPrice} ${
-              currency ? currency : currency === "USD" ? "$" : $
-            }`}
+            {`${productPrice} ${currency ? currency : currency === "USD" ? "$" : $
+              }`}
           </span>
         </div>
         <div className="old-price">
           <del>
-            {(product.price * currencyRate).toFixed(2)}{" "}
+            {(product?.oldPrice * currencyRate).toFixed(2)}{" "}
             {currency || "USD" ? "$" : $}
           </del>
-          <span className="ms-2"> - {product?.discountPercentage}%</span>
+          <span className="ms-2"> - {discountPercentage?.toFixed(2)}%</span>
         </div>
         <div className="d-flex align-items-center">
           <Rating
