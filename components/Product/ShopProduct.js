@@ -10,8 +10,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../features/cart/cartSlice";
 
 export default function ShopProduct({ product }) {
-
-  const { currency, currencyRate } = useSelector((state) => state.currency);
+  const { code: currency, rate: currencyRate } = useSelector(
+    (state) => state.currency
+  );
 
   let productPrice;
   if (currencyRate) {
@@ -106,21 +107,17 @@ export default function ShopProduct({ product }) {
             ? `${product?.title?.slice(0, 30)} ...`
             : product?.title}
         </p>
-        {console.log(product,'product')}
-        
 
         <div className="d-flex justify-content-between align-items-center">
           <span className="item-price">
             {/* {productPrice}
             {currency} */}
-            {`${productPrice} ${
-              currency ? currency : currency === "USD" ? "$" : $
-            }`}
+            {`${productPrice} ${currency}`}
           </span>
         </div>
         <div className="old-price">
           <del>
-            {currency || "USD" ? "$" : $}mega_content
+            {currency ? currency : "USD" ? "$" : $}
             {(product.price * currencyRate).toFixed(2)}{" "}
           </del>
           <span className="ms-2"> - {product?.discountPercentage}%</span>
