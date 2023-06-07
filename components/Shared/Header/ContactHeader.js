@@ -110,7 +110,10 @@ export default function ContactHeader({ user }) {
     router.push(currentRoute, currentRoute, { locale });
     if (success && currency) {
       const currencyWithRate = data?.data?.find((cur) => cur.code === currency);
-      console.log("codewith currency", currencyWithRate);
+      console.log(
+        "Free api currency call hoiya geche with data : ",
+        currencyWithRate
+      );
       dispatch(setUpCurrency(currencyWithRate));
     }
   }, [data?.data, success]);

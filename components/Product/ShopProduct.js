@@ -107,7 +107,6 @@ export default function ShopProduct({ product }) {
             ? `${product?.title?.slice(0, 30)} ...`
             : product?.title}
         </p>
-        {console.log(product, "product")}
 
         <div className="d-flex justify-content-between align-items-center">
           <span className="item-price">
