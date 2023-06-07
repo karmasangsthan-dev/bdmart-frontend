@@ -41,9 +41,9 @@ export const googleLogin = createAsyncThunk(
 
     if (result?.status == 1) {
       localStorage.setItem("accessToken", result?.token);
-      return data;
+      return result?.data;
     }
-    return data;
+    // return data;
   }
 );
 

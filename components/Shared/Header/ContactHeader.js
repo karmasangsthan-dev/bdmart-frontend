@@ -2,185 +2,121 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { Button, Dropdown, Form } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUpCurrency } from "../../../features/currency/currencySlice";
 import {
   decryptCurrency,
   encryptCurrency,
 } from "../../../config/cryptingCurrency";
+import { countriesData } from "../../../utils/countryData";
+import {
+  useGetCurrencyQuery,
+  useUpdateCurrencyMutation,
+} from "../../../features/currency/currencyApi";
 
 require("dotenv").config();
 export default function ContactHeader({ user }) {
   const router = useRouter();
   const dispatch = useDispatch();
-  const FREE_CURRENCY_API_KEY = "Zj1a2acVZJE3CP9TCiDpMXPLAmFIgV5MkZlGG4vk";
   const { locale, locales, push } = router;
-  const [countries, setCountries] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedCountry, setSelectedCountry] = useState(null);
-  const [selectedState, setSelectedState] = useState(null);
-  const [isSaved, setIsSaved] = useState(1);
-  const [currencies, setCurrencies] = useState([]);
-  const [selectedCurrency, setSelectedCurrency] = useState(null);
-  const [currency, setCurrency] = useState(null);
+  const [shipTo, setShipTo] = useState(null);
 
+  const { code, rate } = useSelector((state) => state.currency);
 
+  // query to db
+  const { data, isSuccess: success } = useGetCurrencyQuery();
+  const [updateCurrency, { isSuccess, isError, isLoading }] =
+    useUpdateCurrencyMutation();
 
+  // save changes for currency shipping and language
   const handleChange = async (e) => {
     e.preventDefault();
     const locale = e.target.locale.value;
     const currentRoute = router.asPath;
+    const currency = e.target.currency.value;
+
     router.push(currentRoute, currentRoute, { locale });
-
-    if (selectedCurrency === null) {
-      localStorage.setItem("selectedCurrency", JSON.stringify('USD'));
-    }
-    if (selectedCurrency != null) {
-      localStorage.setItem("selectedCurrency", JSON.stringify(selectedCurrency));
-    }
-
-    const currencyRate = currencies.find(item => item.code === selectedCurrency);
-
-
-    localStorage.setItem("selectedCountry", JSON.stringify(selectedCountry));
-    encryptCurrency(currencyRate.rate);
-    setIsSaved(isSaved + 1);
-    dispatch(setUpCurrency({ currency: selectedCurrency, currencyRate: currencyRate.rate }));
     setShowDropdown(false);
+    const currencyWithRate = data?.data.find((cur) => cur.code === currency);
+    dispatch(setUpCurrency(currencyWithRate));
+    localStorage.setItem("shipTo", JSON.stringify(shipTo));
+    localStorage.setItem("locale", JSON.stringify(locale));
+    localStorage.setItem("currency", JSON.stringify(currency));
   };
-
-  useEffect(() => {
-    const selectedCountry = localStorage.getItem("selectedCountry");
-    const selectedCurrency = localStorage.getItem("selectedCurrency");
-
-    if (selectedCountry === null) {
-      localStorage.setItem("selectedCountry", JSON.stringify({
-        name: {
-          common: 'United States'
-        },
-        flags: {
-          png: "https://flagcdn.com/w320/us.png"
-        }
-      }));
-    }
-    if (selectedCurrency === null) {
-      localStorage.setItem("selectedCurrency", JSON.stringify("USD"));
-      encryptCurrency(1);
-      dispatch(setUpCurrency({ currency: selectedCurrency ? selectedCurrency : 'USD', currencyRate: 1 }));
-    }
-  }, [])
-
-  useEffect(() => {
-    const savedCountry = localStorage.getItem("selectedCountry");
-    const savedCurrency = localStorage.getItem("selectedCurrency");
-    const data = JSON.parse(savedCountry);
-    const currency = JSON.parse(savedCurrency);
-    setSelectedState(data);
-    setSelectedCountry(data)
-    setCurrency(currency);
-    setSelectedCurrency(currency)
-  }, [isSaved]);
-
-  useEffect(() => {
-    // countries 
-    const allCountriesData = localStorage.getItem("countries");
-    const allCountries = JSON.parse(allCountriesData);
-    setCountries(allCountries);
-    // courency 
-    const allCurrencyData = localStorage.getItem("currencyArray");
-    const allCurrency = JSON.parse(allCurrencyData);
-    setCurrencies(allCurrency);
-
-
-    let currency = localStorage.getItem("selectedCurrency");
-    currency = currency?.replace(/"/g, "");
-    const currencyRate = decryptCurrency();
-    dispatch(setUpCurrency({ currency: currency, currencyRate }));
-
-  }, []);
-
-
-  // data load after 12 hours 
-  useEffect(() => {
-    const fetchData = async () => {
-      // Check if data is already stored in localStorage
-      const countries = localStorage.getItem('countries');
-      const currencyArray = localStorage.getItem('currencyArray');
-      const storedTimestamp = localStorage.getItem('timestamp');
-      const currentTime = new Date().getTime();
-
-      if (countries && currencyArray && storedTimestamp && currentTime - storedTimestamp < 12 * 60 * 60 * 1000) {
-
-      } else {
-        const countriesResponse = await fetch('https://restcountries.com/v3.1/all');
-
-        const countriesData = await countriesResponse.json();
-        const sortedCountries = countriesData?.sort((a, b) =>
-          a.name.common.localeCompare(b.name.common)
-        );
-        const filteredCountry = sortedCountries.filter(country => {
-          const commonName = country?.name?.common;
-          return (
-            commonName === 'United States' ||
-            commonName === 'Bangladesh' ||
-            commonName === 'United Arab Emirates' ||
-            commonName === 'Saudi Arabia' ||
-            commonName === 'India' ||
-            commonName === 'Canada'
-          );
-        })
-        console.log(filteredCountry,'filteredCountry')
-        const currencyResponse = await fetch('https://api.freecurrencyapi.com/v1/latest?apikey=Zj1a2acVZJE3CP9TCiDpMXPLAmFIgV5MkZlGG4vk');
-        const currencyData = await currencyResponse.json();
-
-        const currencyArray = Object.entries(currencyData.data).map(([code, rate]) => ({
-          code,
-          rate,
-        }));
-
-        localStorage.setItem('countries', JSON.stringify(filteredCountry));
-        localStorage.setItem('currencyArray', JSON.stringify(currencyArray));
-        localStorage.setItem('timestamp', currentTime);
-      }
-    };
-
-    fetchData();
-
-    const interval = setInterval(() => {
-      const now = new Date();
-      const hours = now.getHours();
-      const minutes = now.getMinutes();
-
-      if (hours === 0 && minutes === 0) {
-        fetchData();
-      }
-    }, 60000);
-
-    // Clean up the interval on component unmount
-    return () => clearInterval(interval);
-  }, []);
-
-
-  const truncateName = (name) => {
-    const maxLength = 20;
-    if (name.length > maxLength) {
-      return name.substring(0, maxLength) + "...";
-    }
-    return name;
-  };
-
   const handleToggle = () => {
     setIsOpen(!isOpen);
   };
 
   const handleCountrySelect = (country) => {
-    setSelectedCountry(country);
+    setShipTo(country);
     handleToggle();
   };
-  const handleCurrencySelect = (currency) => {
-    setSelectedCurrency(currency);
-  };
+
+  // fetch the currency at 12 pm in every day
+  useEffect(() => {
+    async function callFunction() {
+      const now = new Date();
+      const currentHour = now.getHours();
+
+      // Check if the current hour is 12 PM (noon)
+      if (currentHour === 12) {
+        const currencyResponse = await fetch(
+          "https://api.freecurrencyapi.com/v1/latest?apikey=Zj1a2acVZJE3CP9TCiDpMXPLAmFIgV5MkZlGG4vk"
+        );
+        const currencyData = await currencyResponse.json();
+
+        const currencyArray = Object.entries(currencyData.data).map(
+          ([code, rate]) => ({
+            code,
+            rate,
+          })
+        );
+        console.log("currencyArray", currencyArray);
+        updateCurrency(currencyArray);
+      }
+    }
+
+    function scheduleDailyCall() {
+      const now = new Date();
+      const next12PM = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate(),
+        12,
+        0,
+        0
+      );
+      const timeUntilNext12PM = next12PM - now;
+
+      // Calculate the time until the next 12 PM and schedule the function to run
+      setTimeout(() => {
+        callFunction();
+        setInterval(callFunction, 24 * 60 * 60 * 1000); // 24 hours in milliseconds
+      }, timeUntilNext12PM);
+    }
+
+    scheduleDailyCall();
+  }, []);
+
+  // fetch data in page mount
+  useEffect(() => {
+    const shipTo = JSON.parse(localStorage.getItem("shipTo"));
+    setShipTo(shipTo);
+    const currency = JSON.parse(localStorage.getItem("currency"));
+    const locale = JSON.parse(localStorage.getItem("locale"));
+    const currentRoute = router.asPath;
+    router.push(currentRoute, currentRoute, { locale });
+    if (success && currency) {
+      const currencyWithRate = data?.data?.find((cur) => cur.code === currency);
+      console.log(
+        "Free api currency call hoiya geche with data : ",
+        currencyWithRate
+      );
+      dispatch(setUpCurrency(currencyWithRate));
+    }
+  }, [data?.data, success]);
 
   return (
     <>
@@ -205,7 +141,7 @@ export default function ContactHeader({ user }) {
               >
                 <img
                   className="flag-img mx-auto"
-                  src={selectedState?.flags?.png || "/images/flag.png"}
+                  src={shipTo?.flags?.png || "/images/flag.png"}
                   alt="country"
                   width={18}
                   height={14}
@@ -213,11 +149,15 @@ export default function ContactHeader({ user }) {
                 />
                 <span>
                   /{locale === "en" && "English"}
-                  {locale === "bn" && "বাংলা"}/{currency || "Currency"}
+                  {locale === "bn" && "বাংলা"}/{code || "Currency"}
                 </span>
               </Dropdown.Toggle>
 
-              <Dropdown.Menu style={{ zIndex: '99999' }} className="dropdown-menu" id="myDD">
+              <Dropdown.Menu
+                style={{ zIndex: "99999" }}
+                className="dropdown-menu"
+                id="myDD"
+              >
                 <Form onSubmit={handleChange}>
                   <li>
                     <span className="ship-text">Ship to</span>
@@ -227,24 +167,17 @@ export default function ContactHeader({ user }) {
                         type="button"
                         onClick={handleToggle}
                       >
-                        {selectedState ? (
+                        {shipTo ? (
                           <>
                             <img
                               className="flag-img"
-                              src={
-                                selectedCountry?.flags?.png ||
-                                selectedState?.flags?.png
-                              }
-                              alt={
-                                selectedCountry?.name?.common ||
-                                selectedState?.name?.common
-                              }
+                              src={shipTo?.flags?.png}
+                              alt={shipTo?.name?.common}
                               width={18}
                               height={14}
                               loading="eager"
                             />
-                            {selectedCountry?.name?.common ||
-                              selectedState?.name?.common}
+                            {shipTo?.name?.common}
                           </>
                         ) : (
                           <span>Select Country</span>
@@ -253,7 +186,7 @@ export default function ContactHeader({ user }) {
 
                       {isOpen && (
                         <ul className="dropdown-menu show country-ul-header">
-                          {countries?.map((country) => (
+                          {countriesData?.map((country) => (
                             <li
                               className="header-shipping-country-name px-2"
                               key={country.name.common}
@@ -300,16 +233,13 @@ export default function ContactHeader({ user }) {
                   <li>
                     <span className="ship-text">Currency</span>
                     <div className="drop-down">
-                      <select
-                        className="English text-center"
-                        onChange={(e) => handleCurrencySelect(e.target.value)}
-                      >
+                      <select className="English text-center" name="currency">
                         <option value="">Select Currency</option>
-                        {currencies?.map((curr) => (
+                        {data?.data?.map((curr) => (
                           <option
                             key={curr.code}
                             value={curr.code}
-                            selected={currency === curr.code}
+                            selected={code === curr.code}
                           >
                             {curr.code}
                           </option>

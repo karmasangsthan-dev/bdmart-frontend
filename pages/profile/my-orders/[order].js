@@ -28,7 +28,7 @@ const Order = () => {
       {orderLoading ? (
         <p>Loading...</p>
       ) : (
-        <div style={{ height: "100vh" }}>
+        <div style={{ height: "120vh" }}>
           <div id="invoice-content" ref={componentRef}>
             <div
               className="order-container mx-5 px-5 my-4 py-4 rounded-2"
