@@ -8,7 +8,9 @@ import { useEffect, useState } from "react";
 import { decryptCurrency } from "../../config/cryptingCurrency";
 
 export default function DiscountProductCard({ product }) {
-  const { currency, currencyRate } = useSelector((state) => state.currency);
+  const { code: currency, rate: currencyRate } = useSelector(
+    (state) => state.currency
+  );
 
   let productPrice;
   if (currencyRate) {
@@ -108,15 +110,12 @@ export default function DiscountProductCard({ product }) {
           <span className="item-price">
             {/* {productPrice}
             {currency} */}
-            {`${productPrice} ${
-              currency ? currency : currency === "USD" ? "$" : $
-            }`}
+            {`${productPrice} ${currency}`}
           </span>
         </div>
         <div className="old-price">
           <del>
-            {(product.price * currencyRate).toFixed(2)}{" "}
-            {currency || "USD" ? "$" : $}
+            {(product.price * currencyRate).toFixed(2)} {currency}
           </del>
           <span className="ms-2"> - {product?.discountPercentage}%</span>
         </div>

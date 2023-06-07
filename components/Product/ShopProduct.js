@@ -10,6 +10,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../features/cart/cartSlice";
 
 export default function ShopProduct({ product }) {
+  const { code: currency, rate: currencyRate } = useSelector(
+    (state) => state.currency
+  );
+
+  let productPrice;
+  if (currencyRate) {
+    productPrice = (
+      (product?.price - (product?.price * product?.discountPercentage) / 100) *
+      currencyRate
+    ).toFixed(2);
+  }
   // const [token, setToken] = useState();
   // const [cartProduct, setCartProduct] = useState({});
   const dispatch = useDispatch();
@@ -74,61 +85,63 @@ export default function ShopProduct({ product }) {
   //     toast.success("Added to cart", { id: "addToCart" });
   //   }
   // }, [isSuccess, isLoading]);
+
   return (
-    <div key={product?.id} className="shop-single-product">
-      <div className="product-media">
-        <span
-          className="position-absolute text-white px-2 text-capitalize "
-          style={{ backgroundColor: "#50b7db" }}
-        >
-          {product?.section}
-        </span>
-        <div style={{ width: "217px", height: "217px" }}>
-          <Image
+    <div className="mb-1 w-100" key={product?._id}>
+      <div className="product-link bestselling-product-container  border p-3 rounded-3 shadow">
+        <div className="">
+          <img
             onClick={() => router.push(`/productDetails/${product._id}`)}
-            width={217}
-            height={217}
+            className="border"
+            style={{ width: "100%", height: "139px" }}
             src={product?.thumbnail}
-            className=""
             alt=""
-            style={{ cursor: "pointer" }}
           />
         </div>
-        <button
-          onClick={() => handleAddToCart(product)}
-          className="shop-add-to-cart-button"
-        >
-          Add to Cart
-          <i
-            className="far plus-ico fa-plus-square text-white"
-            aria-hidden="true"
-          ></i>
-        </button>
-      </div>
-      <div className="product-body">
-        <div
+        <p
           onClick={() => router.push(`/productDetails/${product._id}`)}
-          className="product-title"
+          style={{ minHeight: "42px", cursor: "pointer" }}
+          className="item-name mt-2 mb-0 text-capitalize"
         >
-          <Link href="/shop/?category=fruit">{product?.title}</Link>
+          {product?.title?.length > 30
+            ? `${product?.title?.slice(0, 30)} ...`
+            : product?.title}
+        </p>
+        {console.log(product, "product")}
+
+        <div className="d-flex justify-content-between align-items-center">
+          <span className="item-price">
+            {/* {productPrice}
+            {currency} */}
+            {`${productPrice} ${currency}`}
+          </span>
         </div>
-        <div className="product-price d-flex gap-2 justify-content-center">
-          <div className="new-price">
-            <p>${product?.price}</p>
-          </div>
-          <div className="shop-old-price">
-            <p>$45</p>
-          </div>
+        <div className="old-price">
+          <del>
+            {currency ? currency : "USD" ? "$" : $}
+            {(product.price * currencyRate).toFixed(2)}{" "}
+          </del>
+          <span className="ms-2"> - {product?.discountPercentage}%</span>
         </div>
-        <div className="ratings-container mb-3">
-          <div className="ratings">
-            <Rating
-              name="read-only"
-              value={parseInt(product?.rating)}
-              readOnly
-            />
-          </div>
-          <div className="ratings-texts">( 2 Reviews )</div>
+        <div className="d-flex align-items-center">
+          <Rating
+            style={{ fontSize: "15px", marginLeft: "-3px" }}
+            name="read-only"
+            value={parseInt(product?.rating || 5)}
+            readOnly
+          />
+          <p className="mb-0 ms-1" style={{ fontSize: "13px" }}>
+            ({parseInt(product?.rating || 5)})
+          </p>
+        </div>
+        <div id="">
+          <button
+            className="cart-btn w-100 "
+            onClick={() => handleAddToCart(product)}
+          >
+            Add to Cart
+            <i className="far plus-ico fa-plus-square text-white"></i>
+          </button>
         </div>
       </div>
     </div>

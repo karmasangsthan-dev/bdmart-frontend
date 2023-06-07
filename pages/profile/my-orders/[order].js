@@ -76,7 +76,6 @@ const Order = () => {
                   <p>
                     {data?.userEmail}, {data?.phone}
                   </p>
-                  {console.log(data)}
                   <p>{data?.address}</p>
                   <p>
                     {data?.city}, {data?.country}, {data?.postcode}

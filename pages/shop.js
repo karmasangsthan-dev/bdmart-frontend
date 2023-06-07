@@ -56,6 +56,8 @@ const shop = () => {
     error,
   } = useGetProductsQuery({ sort, filter });
 
+
+
   return (
     <Layout title="Shop - Bangladesh Mart">
       <div className="shop page-content">
@@ -176,11 +178,8 @@ const shop = () => {
                     </div>
                   ) : (
                     <div className="shop-products">
-                      {products?.data?.map((product) => (
-                        <DiscountProductCard
-                          product={product}
-                          key={product?._id}
-                        />
+                      {products?.data?.map((product,index) => (
+                        <ShopProduct product={product} key={index}></ShopProduct>
                       ))}
                       {/* {loadedProducts === 0 && <p>No products found.</p>} */}
                     </div>

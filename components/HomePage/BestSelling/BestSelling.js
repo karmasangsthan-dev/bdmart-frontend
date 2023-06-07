@@ -91,18 +91,20 @@ const BestSelling = ({ t }) => {
 
   return (
     <div className="px-2">
-      <div className="card-header">
-        <h1
-          style={styles.bestsellingTitle}
-          className="text-center  bestselling-title"
-        >
-          {t.homePage.bestSelling.title}
-        </h1>
+      
+
+      <div className="">
+        <div className="col-lg-12 col-md-12 col-sm-12 w">
+          <div className="gal-head gal-head-best-selling">
+            <h2 className="mb-0">{t.homePage.bestSelling.title}</h2>
+          </div>
+        </div>
       </div>
+
       {isLoading ? (
         <div>
           <Slider {...settings}>
-            {[1, 2, 3, 4, 5,6].map((product, i) => {
+            {[1, 2, 3, 4, 5, 6].map((product, i) => {
               return (
                 <div key={i} className="mb-1">
                   <div className="product-link bestselling-product-container  border px-3 py-2 m-3  rounded-3 shadow">
@@ -149,7 +151,7 @@ const BestSelling = ({ t }) => {
           </Slider>
         </div>
       ) : (
-        <Slider className="mb- px-4 " {...settings}>
+        <Slider className=" px-4 " {...settings}>
           {data?.data?.map((product, index) => (
             <DiscountProductCard key={index} product={product} />
           ))}

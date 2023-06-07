@@ -7,25 +7,30 @@ import { AiFillCamera } from "react-icons/ai";
 import { fetchUser } from "../../features/auth/authSlice";
 import { toast } from "react-hot-toast";
 import Image from "next/image";
+import { Button, FormControl, Modal } from "react-bootstrap";
+import { Cropper } from "react-cropper";
+
 export default function ProfileSideNav() {
   const [token, setToken] = useState();
-  const inputFile = useRef(null);
   const router = useRouter();
   const dispatch = useDispatch();
+  const inputFileRef = useRef(null);
+  const cropperRef = useRef(null);
+  const [croppedImage, setCroppedImage] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
     setToken(token);
   }, []);
 
+  
+
   const [updateProfile, { isSuccess, isLoading }] =
     useUpdateProfileImageMutation({
       onSettled: () => api.invalidateTags("User"),
     });
-
-  /**--------------  get custom user from redux store-----------------*/
   const user = useSelector((state) => state.auth.user);
-
   useEffect(() => {
     if (isLoading) {
       toast.loading("Loading...", { id: "updateProfile" });
@@ -33,37 +38,61 @@ export default function ProfileSideNav() {
     if (isSuccess) {
       dispatch(fetchUser(token));
       toast.success("Updated successful !!", { id: "updateProfile" });
+      setShowModal(false);
     }
   }, [isSuccess]);
 
-  /**---------- open file by button click ----------*/
-  const updateProfilePhoto = () => {
-    inputFile.current.click();
-  };
   const handleFileChange = (event) => {
-    const id = user?._id;
-
     const fileObj = event.target.files && event.target.files[0];
-    if (!fileObj) {
+    if (fileObj) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setCroppedImage(reader.result);
+        setShowModal(true);
+      };
+      reader.readAsDataURL(fileObj);
+    }
+    console.log(fileObj, 'file obj')
+  };
+  const handleConfirmCrop = () => {
+    const id = user?._id;
+    if (!cropperRef.current || !cropperRef.current.cropper) {
       return;
     }
-    const data = new FormData();
-    data.append("image", fileObj);
-    updateProfile({ id, token, data });
+    const canvas = cropperRef.current.cropper.getCroppedCanvas();
+    if (canvas) {
+      canvas.toBlob((blob) => {
+        setCroppedImage(URL.createObjectURL(blob));
+
+        const data = new FormData();
+        data.append("image", blob);
+        updateProfile({ id, token, data });
+        setShowModal(false);
+      }, "image/jpeg");
+    }
   };
-  //
+  const handleCloseModal = () => {
+    setCroppedImage(null);
+    inputFileRef.current.value = null;
+    setShowModal(false);
+  };
+  const handleShowModal = () => {
+    inputFileRef.current.click();
+  };
+
+  const handleCancel = () => {
+    setCroppedImage(null);
+    inputFileRef.current.value = null;
+    setShowModal(false);
+  };
+
   return (
     <div className="profile-sidebar border border-1">
       <div
         style={{ flexDirection: "column" }}
         className="profile-userpic d-flex justify-content-center align-items-center"
       >
-        {/* <Image
-          className="profile-img"
-          style={{ borderRadius: "50%" }}
-          src={user?.profilePicture || "https://i.ibb.co/x258KZb/profile.jpg"}
-          alt=""
-        /> */}
+
 
         <div className="mt-4" style={{ width: '130px', height: '130px' }}>
           <Image
@@ -79,12 +108,13 @@ export default function ProfileSideNav() {
         <input
           type="file"
           id="file"
-          ref={inputFile}
           onChange={handleFileChange}
+          ref={inputFileRef}
           style={{ display: "none" }}
         />
+
         <AiFillCamera
-          onClick={updateProfilePhoto}
+          onClick={handleShowModal}
           style={{ fontSize: "2.2rem" }}
           className="profile-upload-img"
         ></AiFillCamera>
@@ -119,6 +149,34 @@ export default function ProfileSideNav() {
           </li>
         </ul>
       </div>
+      <Modal show={showModal} onHide={handleCloseModal} backdrop="static" keyboard={false}>
+        <Modal.Header closeButton>
+          <Modal.Title className="text-center mx-auto">Update Profile Picture</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          
+          {croppedImage ? (
+            <div>
+              <Cropper
+                src={croppedImage}
+                style={{ maxHeight: "100%", maxWidth: "100%" }}
+                aspectRatio={1}
+                guides={true}
+                zoomable={false}
+                autoCropArea={1}
+                viewMode={1}
+                ref={cropperRef}
+              />
+              <div className="d-flex justify-content-center gap-4 mt-2">
+                <Button className="btn btn-danger" onClick={handleCancel}>Cancel</Button>
+                <Button className="btn btn-success" onClick={handleConfirmCrop}>Save</Button>
+              </div>
+            </div>
+          ) : (
+            <Button onClick={() => inputFileRef.current.click()}>Select Image</Button>
+          )}
+        </Modal.Body>
+      </Modal>
     </div>
   );
 }
