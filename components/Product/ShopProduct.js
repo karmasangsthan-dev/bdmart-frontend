@@ -117,8 +117,7 @@ export default function ShopProduct({ product }) {
         </div>
         <div className="old-price">
           <del>
-            {currency ? currency : "USD" ? "$" : $}
-            {(product.price * currencyRate).toFixed(2)}{" "}
+            {currency} {(product.price * currencyRate).toFixed(2)}{" "}
           </del>
           <span className="ms-2"> - {product?.discountPercentage}%</span>
         </div>

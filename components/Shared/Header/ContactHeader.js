@@ -4,10 +4,6 @@ import Link from "next/link";
 import { Button, Dropdown, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { setUpCurrency } from "../../../features/currency/currencySlice";
-import {
-  decryptCurrency,
-  encryptCurrency,
-} from "../../../config/cryptingCurrency";
 import { countriesData } from "../../../utils/countryData";
 import {
   useGetCurrencyQuery,
@@ -54,52 +50,6 @@ export default function ContactHeader({ user }) {
     handleToggle();
   };
 
-  // fetch the currency at 12 pm in every day
-  useEffect(() => {
-    async function callFunction() {
-      const now = new Date();
-      const currentHour = now.getHours();
-
-      // Check if the current hour is 12 PM (noon)
-      if (currentHour === 12) {
-        const currencyResponse = await fetch(
-          "https://api.freecurrencyapi.com/v1/latest?apikey=Zj1a2acVZJE3CP9TCiDpMXPLAmFIgV5MkZlGG4vk"
-        );
-        const currencyData = await currencyResponse.json();
-
-        const currencyArray = Object.entries(currencyData.data).map(
-          ([code, rate]) => ({
-            code,
-            rate,
-          })
-        );
-        console.log("currencyArray", currencyArray);
-        updateCurrency(currencyArray);
-      }
-    }
-
-    function scheduleDailyCall() {
-      const now = new Date();
-      const next12PM = new Date(
-        now.getFullYear(),
-        now.getMonth(),
-        now.getDate(),
-        12,
-        0,
-        0
-      );
-      const timeUntilNext12PM = next12PM - now;
-
-      // Calculate the time until the next 12 PM and schedule the function to run
-      setTimeout(() => {
-        callFunction();
-        setInterval(callFunction, 24 * 60 * 60 * 1000); // 24 hours in milliseconds
-      }, timeUntilNext12PM);
-    }
-
-    scheduleDailyCall();
-  }, []);
-
   // fetch data in page mount
   useEffect(() => {
     const shipTo = JSON.parse(localStorage.getItem("shipTo"));
@@ -110,10 +60,6 @@ export default function ContactHeader({ user }) {
     router.push(currentRoute, currentRoute, { locale });
     if (success && currency) {
       const currencyWithRate = data?.data?.find((cur) => cur.code === currency);
-      console.log(
-        "Free api currency call hoiya geche with data : ",
-        currencyWithRate
-      );
       dispatch(setUpCurrency(currencyWithRate));
     }
   }, [data?.data, success]);
