@@ -13,7 +13,6 @@ export default function DiscountProductCard({ product }) {
   );
 
   let productPrice;
-  console.log(productPrice, "pp");
   if (currencyRate) {
     productPrice = (product?.price * currencyRate).toFixed(2);
   }
