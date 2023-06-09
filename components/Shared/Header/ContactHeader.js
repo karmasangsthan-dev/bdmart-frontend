@@ -50,7 +50,6 @@ export default function ContactHeader({ user }) {
     handleToggle();
   };
 
-  
   // fetch data in page mount
   useEffect(() => {
     const shipTo = JSON.parse(localStorage.getItem("shipTo"));
@@ -64,6 +63,16 @@ export default function ContactHeader({ user }) {
       dispatch(setUpCurrency(currencyWithRate));
     }
   }, [data?.data, success]);
+
+  console.log(router.isFallback);
+  // if (!router.isFallback) {
+
+  //   const locale = JSON.parse(localStorage.getItem("locale"));
+  //   const currentRoute = router.asPath;
+
+  //   // router.push(currentRoute, currentRoute, { locale });
+  //   router.push({ ...currentRoute, locale });
+  // }
 
   return (
     <>
