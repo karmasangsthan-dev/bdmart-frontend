@@ -13,7 +13,6 @@ export default function DiscountProductCard({ product }) {
   );
 
   let productPrice;
-  console.log(productPrice, "pp");
   if (currencyRate) {
     productPrice = (product?.price * currencyRate).toFixed(2);
   }
@@ -83,7 +82,7 @@ export default function DiscountProductCard({ product }) {
   //     toast.success("Added to cart", { id: "addToCart" });
   //   }
   // }, [isSuccess, isLoading]);
-  console.log(product, "product");
+
   return (
     <div className="mb-3 " key={product?._id}>
       <div className="product-link bestselling-product-container  border p-3 mx-2  rounded-3 shadow">
@@ -115,7 +114,6 @@ export default function DiscountProductCard({ product }) {
         </div>
         <div className="old-price">
           <del>
-            {console.log(product?.oldPrice)}
             {(product?.oldPrice * currencyRate).toFixed(2)} {currency}
           </del>
           <span className="ms-2"> - {discountPercentage?.toFixed(2)}%</span>
