@@ -139,7 +139,7 @@ const Review = () => {
                             className="order-container mx-5 px-5 my-4 py-4 rounded-2"
                             style={{ backgroundColor: "whitesmoke" }}
                         >
-                            <h4 className="text-center">My Products : {data.reduce((total, order) => total + order.products.length, 0)}</h4>
+                            <h4 className="text-center">My Products : {data?.reduce((total, order) => total + order?.products?.length, 0)}</h4>
 
                             <div className="mt-4 ">
                                 <Table
