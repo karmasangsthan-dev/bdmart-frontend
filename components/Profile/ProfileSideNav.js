@@ -18,13 +18,12 @@ export default function ProfileSideNav() {
   const cropperRef = useRef(null);
   const [croppedImage, setCroppedImage] = useState(null);
   const [showModal, setShowModal] = useState(false);
-
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
     setToken(token);
   }, []);
 
-  
+  console.log(cropperRef.current,'cropperRef')
 
   const [updateProfile, { isSuccess, isLoading }] =
     useUpdateProfileImageMutation({
@@ -66,7 +65,7 @@ export default function ProfileSideNav() {
 
         const data = new FormData();
         data.append("image", blob);
-        updateProfile({ id, token, data });
+        // updateProfile({ id, token, data });
         setShowModal(false);
       }, "image/jpeg");
     }
@@ -132,14 +131,14 @@ export default function ProfileSideNav() {
               Account Information
             </a>
           </li>
-          <li onClick={() => router.push('profile/order-history')} className="nav-item">
+          <li onClick={() => router.push('/profile/order-history')} className="nav-item">
             <a className="nav-link" href="#">
               Order History
             </a>
           </li>
-          <li className="nav-item">
+          <li onClick={() => router.push('/profile/my-review')} className="nav-item">
             <a className="nav-link" href="#">
-              Settings
+              My Review
             </a>
           </li>
           <li className="nav-item">

@@ -2,15 +2,15 @@ import { Rating } from '@mui/material';
 import React from 'react';
 
 const ProductReviewSection = ({ product }) => {
-    console.log(product, 'product')
     return (
-        <div className='review-section-container py-3 px-4 my-5' style={{ background: '#eff0f5' }}>
+        <div className='review-section-container  my-5  product-description-container' >
             <h5 className='review-container-title'>Ratings & Reviews of {product?.title}</h5>
-            <div className='review-statics '>
+            <div className='review-statics  px-4'>
                 <div className="col-md-6 d-flex justify-content-between">
                     <div>
-                        <p>{product?.rating?.toFixed(1)}/5</p>
+                        <h1>{product?.rating?.toFixed(1)}<span style={{ fontSize: '30px', color: '#9e9e9e' }}>/5</span></h1>
                         <Rating
+                            style={{ fontSize: '33px' }}
                             name="read-only"
                             value={parseInt(product?.rating)}
                             readOnly
@@ -61,8 +61,10 @@ const ProductReviewSection = ({ product }) => {
                     </div>
                 </div>
             </div>
-            <div className="product-reviews">
-                <p>Product Reviews : </p>
+            <div className="product-reviews px-4">
+                <div style={{borderTop:'1px solid #eff0f5',borderBottom:'1px solid #eff0f5'}}>
+                    <p>Product Reviews : </p>
+                </div>
                 <div className='all-reviews'>
                     {
                         [1, 2, 3, 4, 5].map(review => <div className="review-card border card px-3 py-2 mb-3">
