@@ -174,10 +174,6 @@ CoMmOn CsS EnD
   color: white !important;
 }
 
-.navbar-nav {
-  margin-left: 10px;
-  margin-right: 10px;
-}
 
 .landing-img img {
   width: 100%;
@@ -1117,7 +1113,7 @@ MGA CONTENT NAV
 }
 
 .inner-li {
-  margin-left: 10px !important;
+  margin-left: 10px;
   margin-right: 10px;
   cursor: pointer;
 }
@@ -2219,6 +2215,7 @@ a.slide_btn {
 
 .bestselling-product-container img:hover {
   cursor: pointer;
+  
 }
 
 .main-detail .item-name:hover {

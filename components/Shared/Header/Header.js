@@ -10,7 +10,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { Container, Nav, NavDropdown, Navbar } from "react-bootstrap";
 import { setCart } from "../../../features/auth/authSlice";
-import { Badge, Tooltip } from "@mui/material";
+import { Avatar, Badge, Tooltip } from "@mui/material";
 import { useGetSearchProductQuery } from "../../../features/product/productApi";
 import ContactHeader from "./ContactHeader";
 import { en } from "../../../locales/en";
@@ -72,7 +72,7 @@ const Header = () => {
                   <i className="fa fa-search"></i>
                 </button>
               </form>
-              
+
               {data?.data?.length > 0 && (
                 <form className="example">
                   <div
@@ -159,6 +159,9 @@ const Header = () => {
             variant="light"
           >
             <Container>
+              <div className="toogler-button">
+                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+              </div>
               <div className="logo">
                 <Link href="/">
                   <Image
@@ -170,10 +173,26 @@ const Header = () => {
                   />
                 </Link>
               </div>
-              <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+              <div className="cart-item">
+                <Tooltip title="Cart">
+                  <Link href="/cart">
+                    <Badge badgeContent={totalProductQuantity} color="error">
+                      <Image
+                        className="flag-img"
+                        src="/images/cart.png"
+                        alt="country"
+                        width={45}
+                        height={40}
+                        loading="eager"
+                      />
+                    </Badge>
+                  </Link>
+                </Tooltip>
+              </div>
+
               <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav>
-                  <div className="search-box">
+                  <div className="search-box search-box-mobile">
                     <form className="example">
                       <input
                         type="text"
@@ -186,6 +205,31 @@ const Header = () => {
                       </button>
                     </form>
                   </div>
+                </Nav>
+                <Nav>
+                  {t.homePage.header.nav.map((navItem) => (
+                    <Link className="nav-item-mobile" href={navItem?.link}>
+                      <li className="inner-li">{navItem?.title}</li>
+                    </Link>
+                  ))}
+                </Nav>
+                <Nav className="nav-item-mobile">
+                  {user?.email &&
+                    <div className="d-flex align-items-center my-2">
+                      <Avatar sx={{ width: 25, height: 25 }} >
+
+                        <Image
+                          onClick={() => router.push('/profile')}
+                          layout="responsive"
+                          width={100}
+                          height={100}
+                          src={user?.profilePicture}
+                          className=" "
+                          alt=""
+                        />
+                      </Avatar>
+                      <p onClick={() => router.push('/profile')} className="ms-1">{user?.fullName}</p>
+                    </div>}
                 </Nav>
               </Navbar.Collapse>
             </Container>

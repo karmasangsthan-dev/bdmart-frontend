@@ -25,7 +25,7 @@ const cart = () => {
     <Layout title="Cart - Bangladesh Mart">
       <div style={{ minHeight: "120vh" }}>
         <div className="container">
-          <div className="row">
+          <div className="row cart-container">
             <div className="col-lg-9">
               {
                 cart.length <1 ? (
@@ -119,7 +119,7 @@ const cart = () => {
               </div>
               <button
                 onClick={() => router.push('/checkout')}
-                className="mt-3 btn bg-dark border border-dark border-2 py-2 px-5 text-white text-decoration-none"
+                className="btn px-5  place-order-btn"
               >
                 Proceed to checkout
               </button>

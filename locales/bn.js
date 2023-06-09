@@ -23,7 +23,7 @@ export const bn = {
       ],
     },
     bestSelling: {
-      title: "রোলব্যাকে বেস্ট সেলিং আইটেম",
+      title: "বেস্ট সেলিং আইটেম",
     },
     shopDepartments: {
       title: "শপ বিভাগ সমূহ",

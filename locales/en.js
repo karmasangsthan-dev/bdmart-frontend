@@ -23,7 +23,7 @@ export const en = {
       ],
     },
     bestSelling: {
-      title: "Best Selling Items on RollBack",
+      title: "Best Selling Items",
     },
     shopDepartments: {
       title: "Shop Departments",
