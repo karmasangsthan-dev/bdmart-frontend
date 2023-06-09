@@ -14,7 +14,7 @@ import ProductDescription from "../../components/ProductDescription/ProductDescr
 import Footer from "../../components/Shared/Footer/Footer";
 import NotFoundPage from "../404";
 import Loading from "../../components/Shared/Loading/Loading";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../features/cart/cartSlice";
 import Slider from "react-slick";
 import ProductReviewSection from "../../components/ProductDescription/ProductReviewSection";
@@ -79,12 +79,14 @@ const productNo = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const {
-    query: { productNo },
+    query: { productNo = '648106e4461f21c48500d099' },
   } = router;
 
   const { data: allData } = useGetAllProductsQuery();
   const { data, isLoading } = useGetProductDetailsQuery(productNo);
-
+  const { code: currency, rate: currencyRate } = useSelector(
+    (state) => state.currency
+  );
   const [displayImage, setDisplayImage] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const product = data?.data || {};
@@ -94,6 +96,12 @@ const productNo = () => {
     event.preventDefault();
   }
 
+  let productPrice;
+  if (currencyRate) {
+    productPrice = (product?.price * currencyRate).toFixed(2);
+  }
+  const discountPercentage =
+    ((product?.oldPrice - product?.price) / product?.oldPrice) * 100;
   const handleAddToCart = (product) => {
     //   const alreadyAdded = !!user?.cart?.find(
     //     (item) => item?.product?._id === product?._id
@@ -199,8 +207,8 @@ const productNo = () => {
           <div className="d-flex flex-wrap mt-2 pt-3" style={{ borderTop: '1px solid #ddd' }}>
             <div className="col-md-4">
               <div className="product-thumbnail-image">
-              <img className="w-100 h-100" src={displayImage || product?.thumbnail} alt="" />
-                
+                <img className="w-100 h-100" src={displayImage || product?.thumbnail} alt="" />
+
 
               </div>
               <div className="product-others-images ">
@@ -226,19 +234,24 @@ const productNo = () => {
                 <div className="ratings-texts">( 2 Reviews )</div>
               </div>
               <div>
-                <h5 className="my-2">Price: <span style={{ color: '#26d5fd' }} >${product?.price}</span></h5>
+                <h4 className="my-2">Price: <span style={{ color: '#f85606' }} >{productPrice} {currency}</span> </h4>
+                <div className="old-price">
+                  <del>
+                    {(product?.oldPrice * currencyRate).toFixed(2)} {currency}
+                  </del>
+                  <span className="ms-2"> - {discountPercentage?.toFixed(2)}%</span>
+                </div>
               </div>
-              <p>{product?.description}</p>
+
               <div className="d-flex align-items-center gap-2 mt-2">
                 <h6 style={{ minWidth: "50px" }}>Color:</h6>
                 <div>
                   {
-                    ['#FF0000', '#49B2DB', '#3560D9'].map(color => <p style={{backgroundColor: color}} className="product-select-color " ></p>)
+                    ['#FF0000', '#49B2DB', '#3560D9'].map(color => <p style={{ backgroundColor: color }} className="product-select-color " ></p>)
                   }
                 </div>
               </div>
 
-              
               {product?.color && <p>{product?.color}</p>}
               <div className="d-flex align-items-center gap-2">
                 <h6 style={{ minWidth: "50px" }}>Size:</h6>
@@ -254,7 +267,7 @@ const productNo = () => {
                   <option value="S">S</option>
                 </Form.Select>
               </div>
-              
+
               <div className="product-quantity d-flex align-items-center gap-2 mt-2">
                 <h6 style={{ minWidth: "50px" }}>Qty:</h6>
                 <div className="">

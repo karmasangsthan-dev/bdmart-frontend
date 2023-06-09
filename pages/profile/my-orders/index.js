@@ -46,6 +46,7 @@ const orderHistory = () => {
                                 <th scope="col">Status</th>
                                 <th scope="col">Total</th>
                                 <th scope="col">Action</th>
+                                <th scope="col">Review</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -76,6 +77,18 @@ const orderHistory = () => {
                                       >
                                         Details
                                       </button>
+                                    </td>
+                                    <td>
+                                      {order?.status === 'successful' ? <button
+                                      onClick={() =>
+                                        router.push(
+                                          `/profile/my-review`
+                                        )
+                                      }
+                                        className="btn btn-info "
+                                      >
+                                        Review
+                                      </button> : <></>}
                                     </td>
                                   </tr>
                                 );

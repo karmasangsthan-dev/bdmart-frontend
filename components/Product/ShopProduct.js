@@ -15,12 +15,13 @@ export default function ShopProduct({ product }) {
   );
 
   let productPrice;
+  console.log(productPrice, "pp");
   if (currencyRate) {
-    productPrice = (
-      (product?.price - (product?.price * product?.discountPercentage) / 100) *
-      currencyRate
-    ).toFixed(2);
+    productPrice = (product?.price * currencyRate).toFixed(2);
   }
+
+  const discountPercentage =
+    ((product?.oldPrice - product?.price) / product?.oldPrice) * 100;
   // const [token, setToken] = useState();
   // const [cartProduct, setCartProduct] = useState({});
   const dispatch = useDispatch();
@@ -93,7 +94,7 @@ export default function ShopProduct({ product }) {
           <img
             onClick={() => router.push(`/productDetails/${product._id}`)}
             className="border"
-            style={{ width: "100%", height: "139px" }}
+            style={{ width: "100%", height: "100%" }}
             src={product?.thumbnail}
             alt=""
           />
@@ -117,10 +118,9 @@ export default function ShopProduct({ product }) {
         </div>
         <div className="old-price">
           <del>
-            {currency ? currency : "USD" ? "$" : $}
-            {(product.price * currencyRate).toFixed(2)}{" "}
+          {(product?.oldPrice * currencyRate).toFixed(2)} {currency}
           </del>
-          <span className="ms-2"> - {product?.discountPercentage}%</span>
+          <span className="ms-2"> - {discountPercentage?.toFixed(2)}%</span>
         </div>
         <div className="d-flex align-items-center">
           <Rating
