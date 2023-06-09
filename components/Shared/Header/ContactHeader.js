@@ -181,7 +181,7 @@ export default function ContactHeader({ user }) {
                     <span className="ship-text">Currency</span>
                     <div className="drop-down">
                       <select className="English text-center" name="currency">
-                        <option value="">Select Currency</option>
+                        <option value="USD">Select Currency</option>
                         {data?.data?.map((curr) => (
                           <option
                             key={curr.code}

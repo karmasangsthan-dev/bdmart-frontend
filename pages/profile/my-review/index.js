@@ -8,6 +8,7 @@ import { Cropper } from "react-cropper";
 import { toast } from "react-hot-toast";
 import { useGetSuccessfulOrdersByEmailQuery } from "../../../features/product/productApi";
 import Layout from "../../../components/Layout";
+import { Rating } from "@mui/material";
 
 const Review = () => {
     const router = useRouter();
@@ -20,6 +21,7 @@ const Review = () => {
     const [selectedImages, setSelectedImages] = useState([]);
     const [finalImages, setFinalImages] = useState([]);
     const [reviewText, setReviewText] = useState("");
+    const [value, setValue] = useState(0);
     const cropperRefs = useRef([]);
 
     const { user, isLoading } = useSelector((state) => state.auth);
@@ -129,7 +131,7 @@ const Review = () => {
     };
 
     return (
-        <Layout title="Invoice - Bangladesh Mart">
+        <Layout title="My Reviews - Bangladesh Mart">
             {orderLoading ? (
                 <p>Loading...</p>
             ) : (
@@ -225,7 +227,21 @@ const Review = () => {
 
                                 </Form.Group>
                                 <Form.Group
-                                    className="mb-3"
+                                    className="mb-3 d-flex align-items-center"
+                                    controlId="exampleForm.ControlTextarea1"
+                                >
+                                    <Form.Label className="mb-0">Select your rating : </Form.Label>
+                                    <Rating
+                                        className='ms-2'
+                                        name="simple-controlled"
+                                        value={value}
+                                        onChange={(event, newValue) => {
+                                            setValue(newValue);
+                                        }}
+                                    />
+                                </Form.Group>
+                                <Form.Group
+                                    className="mb-3 "
                                     controlId="exampleForm.ControlTextarea1"
                                 >
                                     <Form.Label>Enter your review</Form.Label>
@@ -243,7 +259,7 @@ const Review = () => {
 
                     <Modal show={showCropeModal} onHide={handleCloseCropeModal} backdrop="static" keyboard={false}>
                         <Modal.Header closeButton>
-                            <Modal.Title className="text-center mx-auto">Update Profile Picture</Modal.Title>
+                            <Modal.Title className="text-center mx-auto">Select Image Size</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
                             {selectedImages.length > 0 && (

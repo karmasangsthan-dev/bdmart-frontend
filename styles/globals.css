@@ -2242,7 +2242,7 @@ a.slide_btn {
 .shop-products {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 10px;
+  gap: 20px;
 }
 
 .shop-product-details {
