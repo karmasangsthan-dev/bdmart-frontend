@@ -30,22 +30,6 @@ const Header = () => {
     refetch();
   }, [searchText]);
 
-  // useEffect(() => {
-  //   window.addEventListener("scroll", function () {
-  //     let header = this.document.querySelector("#strip2");
-  //     let bar = this.document.querySelector("#nav_Bar");
-  //     let strip = this.document.querySelector("#strip");
-  //     let bod = document.querySelector("#accordion_body");
-  //     let stick = this.document.querySelector("#sec_bar");
-
-  //     bar?.classList.toggle("removeBar", window.scrollY > 50);
-
-  //     header?.classList.toggle("sticky", window.scrollY > 50);
-  //     stick?.classList.toggle("stic", window.scrollY > 50);
-  //     bod?.classList.toggle("main-bod", window.scrollY > 50);
-  //     strip?.classList.toggle("strip-2-mar", window.scrollY > 50);
-  //   });
-  // }, []);
 
   let totalProductQuantity = 0;
 

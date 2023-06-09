@@ -82,7 +82,6 @@ export default function DiscountProductCard({ product }) {
   //     toast.success("Added to cart", { id: "addToCart" });
   //   }
   // }, [isSuccess, isLoading]);
-  console.log(product, "product");
   return (
     <div className="mb-3 " key={product?._id}>
       <div className="product-link bestselling-product-container  border p-3 mx-2  rounded-3 shadow">

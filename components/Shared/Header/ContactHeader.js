@@ -58,7 +58,7 @@ export default function ContactHeader({ user }) {
     const currency = JSON.parse(localStorage.getItem("currency"));
     const locale = JSON.parse(localStorage.getItem("locale"));
     const currentRoute = router.asPath;
-    router.push(currentRoute, currentRoute, { locale });
+    // router.push(currentRoute, currentRoute, { locale });
     if (success && currency) {
       const currencyWithRate = data?.data?.find((cur) => cur.code === currency);
       dispatch(setUpCurrency(currencyWithRate));
