@@ -64,15 +64,7 @@ export default function ContactHeader({ user }) {
     }
   }, [data?.data, success]);
 
-  console.log(router.isFallback);
-  // if (!router.isFallback) {
-
-  //   const locale = JSON.parse(localStorage.getItem("locale"));
-  //   const currentRoute = router.asPath;
-
-  //   // router.push(currentRoute, currentRoute, { locale });
-  //   router.push({ ...currentRoute, locale });
-  // }
+  
 
   return (
     <>
@@ -142,10 +134,10 @@ export default function ContactHeader({ user }) {
 
                       {isOpen && (
                         <ul className="dropdown-menu show country-ul-header">
-                          {countriesData?.map((country) => (
+                          {countriesData?.map((country,index) => (
                             <li
                               className="header-shipping-country-name px-2"
-                              key={country.name.common}
+                              key={index}
                               onClick={() => handleCountrySelect(country)}
                             >
                               <img

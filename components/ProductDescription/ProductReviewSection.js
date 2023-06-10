@@ -8,7 +8,6 @@ import { useSelector } from "react-redux";
 const ProductReviewSection = ({ product }) => {
   const user = useSelector((state) => state?.auth?.user);
   const [reviewReply,setReviewReply] = useState('');
-  console.log(product?.reviews);
   return (
     <div className="review-section-container  my-5 pb-5 product-description-container">
       <h5 className="review-container-title">
@@ -63,8 +62,8 @@ const ProductReviewSection = ({ product }) => {
           <h5 className="fs-6 mt-2">Product Reviews : </h5>
         </div>
         <div className="all-reviews">
-          {product?.reviews?.map((review) => (
-            <div className="review-card border card px-3 py-2 mb-3 shadow">
+          {product?.reviews?.map((review,index) => (
+            <div key={index} className="review-card border card px-3 py-2 mb-3 shadow">
               <Rating name="read-only" value={review?.ratings} readOnly />
 
               <p>
@@ -80,8 +79,8 @@ const ProductReviewSection = ({ product }) => {
               </p>
               <p>{review?.review}</p>
               <div>
-                {review?.images?.map((imgUrl) => (
-                  <img
+                {review?.images?.map((imgUrl,index) => (
+                  <img key={index}
                     width="100"
                     height="100"
                     src={imgUrl}
@@ -95,7 +94,8 @@ const ProductReviewSection = ({ product }) => {
 
               </div>
               {
-                review?.replies && review?.replies?.map(reply => <div
+                review?.replies && review?.replies?.map((reply,index) => <div
+                key={index}
                   className="seller-reply-wrapper"
                   data-spm-anchor-id="a2a0e.pdp.ratings_reviews.i3.1b4cW6q4W6q46N"
                 >
@@ -124,8 +124,8 @@ const ProductReviewSection = ({ product }) => {
               {
                 review?.replies.length === 0 && user?.role === 'admin' ?
                   <div className="review-replay-form p-3 border mt-4">
-                    <label for="message-text" class="col-form-label">Admin Reply :</label>
-                    <textarea onChange={(e)=> setReviewReply(e.target.value)} placeholder="Type here reply" class="form-control" id="message-text"></textarea>
+                    <label for="message-text" className="col-form-label">Admin Reply :</label>
+                    <textarea onChange={(e)=> setReviewReply(e.target.value)} placeholder="Type here reply" className="form-control" id="message-text"></textarea>
                     <button onClick={()=>{
                       toast.success(reviewReply)
                     }} className="btn btn-info text-white mt-2">Submit</button>

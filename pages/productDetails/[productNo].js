@@ -214,7 +214,7 @@ const productNo = () => {
               <div className="product-others-images ">
                 <div style={{ width: '280px' }}>
                   <Slider className="w-auto px-5" {...settings}>
-                    {product?.images.map(img => <div style={{ width: '52px', height: '52px' }}><img onClick={() => setDisplayImage(img)} style={{ width: '52px', height: '50px', border: '1px solid #ddd', cursor: 'pointer' }} className="img-fluid me-3" src={img} alt="" /></div>)}
+                    {product?.images.map((img,index) => <div key={index} style={{ width: '52px', height: '52px' }}><img onClick={() => setDisplayImage(img)} style={{ width: '52px', height: '50px', border: '1px solid #ddd', cursor: 'pointer' }} className="img-fluid me-3" src={img} alt="" /></div>)}
                   </Slider>
                 </div>
 
@@ -247,7 +247,7 @@ const productNo = () => {
                 <h6 style={{ minWidth: "50px" }}>Color:</h6>
                 <div>
                   {
-                    ['#FF0000', '#49B2DB', '#3560D9'].map(color => <p style={{ backgroundColor: color }} className="product-select-color " ></p>)
+                    ['#FF0000', '#49B2DB', '#3560D9'].map((color,index) => <p key={index} style={{ backgroundColor: color }} className="product-select-color " ></p>)
                   }
                 </div>
               </div>

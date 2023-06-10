@@ -180,7 +180,9 @@
     width: 60px;
     height: 60px;
 }
-
+.billing-address-title{
+    margin-bottom: 1rem;
+}
 @media screen and (max-width: 682px) {
     .cart-container {
         padding: 0 20px;
@@ -200,6 +202,21 @@
     }
 
     .cart-table::-webkit-scrollbar-thumb {
+        background-color: #faa72c;
+    }
+
+    .cart-table::-webkit-scrollbar-track {
+        background-color: #f1f1f1;
+    }
+    .order-table {
+        overflow-x: scroll;
+    }
+
+    .order-table::-webkit-scrollbar {
+        width: 12px;
+    }
+
+    .order-table::-webkit-scrollbar-thumb {
         background-color: #faa72c;
     }
 
@@ -226,6 +243,34 @@
         margin-left: 10px;
         display: flex;
         align-items: center;
+    }
+
+    .checkout-discount {
+        display: none;
+    }
+
+    .billing-address .name {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    .checkout-content {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .second-input-group {
+        padding-right: calc(1.5rem * .5);
+        padding-left: calc(1.5rem * .5);
+    }
+
+    .billing-address-title{
+        text-align: center;
+    }
+    .your-cart-title{
+        text-align: center;
+        margin-top: 5px;
+        margin-bottom: -15px;
     }
 
 }

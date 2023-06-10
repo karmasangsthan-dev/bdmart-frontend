@@ -152,7 +152,7 @@ const Header = () => {
         {/* for mobile */}
         <div className="main-strip-2 d-sm-block d-lg-none">
           <Navbar
-            Navbar
+           
             collapseOnSelect
             expand="lg"
             bg="light"
@@ -207,8 +207,8 @@ const Header = () => {
                   </div>
                 </Nav>
                 <Nav>
-                  {t.homePage.header.nav.map((navItem) => (
-                    <Link className="nav-item-mobile" href={navItem?.link}>
+                  {t.homePage.header.nav.map((navItem,index) => (
+                    <Link key={index} className="nav-item-mobile" href={navItem?.link}>
                       <li className="inner-li">{navItem?.title}</li>
                     </Link>
                   ))}

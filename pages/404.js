@@ -7,7 +7,6 @@ import Footer from "../components/Shared/Footer/Footer";
 const NotFoundPage = () => {
   const router = useRouter();
 
-  console.log(router);
   return (
     <div style={{ minHeight: "120vh" }}>
       <Layout>

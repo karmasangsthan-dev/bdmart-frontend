@@ -64,7 +64,6 @@ const Review = () => {
     const handleImageChange = (event) => {
         const files = event.target.files;
         const imageArray = [];
-        console.log(files);
 
         for (let i = 0; i < files.length; i++) {
             const reader = new FileReader();
@@ -197,7 +196,7 @@ const Review = () => {
                                     <tbody>
                                         {data?.map((order, index) =>
                                             order?.products.map((product, i) => (
-                                                <tr>
+                                                <tr key={i}>
                                                     <td>{i + 1}</td>
                                                     <td>
                                                         <img
@@ -250,7 +249,6 @@ const Review = () => {
                                     className="mb-3"
                                     controlId="exampleForm.ControlInput1"
                                 >
-                                    {console.log(selectedImages.length)}
                                     {selectedImages.length <= 0 ? (
                                         <>
                                             <ul

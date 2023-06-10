@@ -791,21 +791,21 @@ const MegaMenu = () => {
             >
               <div id="accordion_body" className="accordion-body p-0">
                 <ul className="m-0 p-0">
-                  {megaMenuData?.map((menu) => (
-                    <li className={menu?.parentClassName}>
+                  {megaMenuData?.map((menu,index) => (
+                    <li key={index} className={menu?.parentClassName}>
                       <a href="#base" className="main-cata">
                         {menu?.mainCategoryName}
                       </a>
                       <div className={menu?.childClassName} id={menu?.htmlId}>
                         <div className="content">
-                          {menu?.subCategories?.map((category) => (
-                            <div className="dropmenu">
+                          {menu?.subCategories?.map((category,index) => (
+                            <div key={index} className="dropmenu">
                               <header className="con-head">
                                 {category?.name}
                               </header>
                               <ul className="pro-nav ps-0 ">
-                                {category?.childCategories?.map((child) => (
-                                  <li className="drop-nav-link">
+                                {category?.childCategories?.map((child,index) => (
+                                  <li key={index} className="drop-nav-link">
                                     <a href="#">{child?.name}</a>
                                   </li>
                                 ))}
@@ -826,8 +826,8 @@ const MegaMenu = () => {
           >
             <div className="frombar">
               <ul className="mb-0">
-                {t.homePage.header.nav.map((navItem) => (
-                  <Link href={navItem?.link}>
+                {t.homePage.header.nav.map((navItem,index) => (
+                  <Link key={index} href={navItem?.link}>
                     <li className="inner-li">{navItem?.title}</li>
                   </Link>
                 ))}
