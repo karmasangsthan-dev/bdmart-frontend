@@ -39,17 +39,31 @@ const Order = () => {
                   <h4>INVOICE</h4>
                   <span style={{ fontWeight: "bold" }}>
                     STATUS{" "}
-                    <span
-                      style={{
-                        borderRadius: "9999px",
-                        backgroundColor: "rgb(227 216 106)",
-                        color: "rgba(194,120,3,1)",
-                        fontSize: ".75rem",
-                      }}
-                      className="ms-2 px-2 "
-                    >
-                      Pending
-                    </span>
+                    {
+                      data?.status === 'successful' && <span
+                        style={{
+                          borderRadius: "9999px",
+                          color: "white",
+                          fontSize: ".75rem",
+                        }}
+                        className="ms-2 px-2 bg-success"
+                      >
+                        Successfull
+                      </span>
+                    }
+                    {
+                      data?.status !== 'successful' && <span
+                        style={{
+                          borderRadius: "9999px",
+                          backgroundColor: "rgb(227 216 106)",
+                          color: "rgba(194,120,3,1)",
+                          fontSize: ".75rem",
+                        }}
+                        className="ms-2 px-2 "
+                      >
+                        {data?.status}
+                      </span>
+                    }
                   </span>
                 </div>
                 <div>
@@ -101,7 +115,7 @@ const Order = () => {
                   </thead>
                   <tbody>
                     {data?.products.map((product, i) => (
-                      <tr>
+                      <tr key={i}>
                         <td>{i + 1}</td>
                         <td>{product?.title}</td>
                         <td>{product?.quantity}</td>

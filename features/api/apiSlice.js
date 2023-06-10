@@ -5,7 +5,7 @@ const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: `${process.env.NEXT_PUBLIC_BACKEND_SITE_LINK}/api/v1`,
   }),
-  tagTypes: ["User", "Products", "Product", "Currency"],
+  tagTypes: ["User", "Products", "Product", "Currency", "Review"],
   endpoints: () => ({}),
 });
 

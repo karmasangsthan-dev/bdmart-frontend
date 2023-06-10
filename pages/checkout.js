@@ -124,28 +124,28 @@ const checkout = () => {
     <Layout title="Checkout - Bangladesh Mart">
       <div style={{ minHeight: "120vh" }}>
         <div className="container checkout-container">
-          <div class="checkout-discount">
+          <div className="checkout-discount">
             <form onSubmit={handleCouponSubmit} id="checkout-discount-form">
               <input
                 onChange={(e) => setCoupon(e.target.value)}
                 type="text"
-                class="form-control"
+                className="form-control"
                 required=""
                 id="checkout-discount-input"
                 name="coupon"
               />
               {!coupon && (
-                <label for="checkout-discount-input" class="text-truncate">
+                <label for="checkout-discount-input" className="text-truncate">
                   Have a coupon? <span>Click here to enter your code</span>
                 </label>
               )}
             </form>
           </div>
           <form onSubmit={handleCreateOrder}>
-            <div className="row">
-              <div className="col-md-4 order-md-2 mb-4">
-                <h4 className="d-flex justify-content-between align-items-center mb-3">
-                  <span className="text-muted">Your Cart</span>
+            <div className="row checkout-content">
+              <div className="col-md-4 mb-4 order-2 order-md-2">
+                <h4 className="your-cart-title">
+                  Your Cart
                 </h4>
                 <ul
                   style={{ marginTop: "2.5rem " }}
@@ -164,26 +164,29 @@ const checkout = () => {
                     <span style={{ fontWeight: "bold" }}>Total (USD)</span>
                     <strong>${calculateTotal()}</strong>
                   </li>
-                  <PaymentMethodRadio
-                    method="Credit Card"
-                    isSelected={selectedMethod === "Credit Card"}
-                    onChange={handleMethodChange}
-                  />
-                  <PaymentMethodRadio
-                    method="PayPal"
-                    isSelected={selectedMethod === "PayPal"}
-                    onChange={handleMethodChange}
-                  />
-                  <PaymentMethodRadio
-                    method="Apple Pay"
-                    isSelected={selectedMethod === "Apple Pay"}
-                    onChange={handleMethodChange}
-                  />
-                  <PaymentMethodRadio
-                    method="Cash On Delivery"
-                    isSelected={selectedMethod === "Cash On Delivery"}
-                    onChange={handleMethodChange}
-                  />
+                  <div className="select-payment-method mt-3">
+                  <label className="fw-bold mb-2" for="">Select Your Payment Method : </label>
+                    <PaymentMethodRadio
+                      method="Credit Card"
+                      isSelected={selectedMethod === "Credit Card"}
+                      onChange={handleMethodChange}
+                    />
+                    <PaymentMethodRadio
+                      method="PayPal"
+                      isSelected={selectedMethod === "PayPal"}
+                      onChange={handleMethodChange}
+                    />
+                    <PaymentMethodRadio
+                      method="Apple Pay"
+                      isSelected={selectedMethod === "Apple Pay"}
+                      onChange={handleMethodChange}
+                    />
+                    <PaymentMethodRadio
+                      method="Cash On Delivery"
+                      isSelected={selectedMethod === "Cash On Delivery"}
+                      onChange={handleMethodChange}
+                    />
+                  </div>
                 </ul>
 
                 {selectedMethod === "" && (
@@ -205,9 +208,9 @@ const checkout = () => {
                   <></>
                 )}
               </div>
-              <div className="col-md-8 order-md-1">
-                <h4 className="mb-3">Billing address</h4>
-                <div className="row">
+              <div className="col-md-8 order-1 order-md-1 billing-address">
+                <h4 className="billing-address-title">Billing address</h4>
+                <div className="row name">
                   <div className="col-md-6 mb-3">
                     <label for="firstName">First name *</label>
                     <input
@@ -260,7 +263,7 @@ const checkout = () => {
                   ></textarea>
                 </div>
 
-                <div className="row">
+                <div className="row second-input-group">
                   <div className="col-md-6 ">
                     <div className="">
                       <label for="city">Town / City *</label>
@@ -286,7 +289,7 @@ const checkout = () => {
                     </div>
                   </div>
                 </div>
-                <div className="row">
+                <div className="row second-input-group">
                   <div className="col-md-6 ">
                     <div className="mb-2">
                       <label for="postcode">Postcode / ZIP *</label>

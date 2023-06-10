@@ -23,7 +23,10 @@ const SampleNextArrow = (props) => {
   const { onClick } = props;
   return (
     <div className="control-btn" onClick={onClick}>
-      <button style={{ width: '30px', height: '30px', top: '33%' }} className="next">
+      <button
+        style={{ width: "30px", height: "30px", top: "33%" }}
+        className="next"
+      >
         <i className="fa fa-long-arrow-alt-right"></i>
       </button>
     </div>
@@ -33,7 +36,10 @@ const SamplePrevArrow = (props) => {
   const { onClick } = props;
   return (
     <div className="control-btn" onClick={onClick}>
-      <button style={{ width: '30px', height: '30px', top: '33%' }} className="prev">
+      <button
+        style={{ width: "30px", height: "30px", top: "33%" }}
+        className="prev"
+      >
         <i className="fa fa-long-arrow-alt-left"></i>
       </button>
     </div>
@@ -56,30 +62,30 @@ const productNo = () => {
           slidesToShow: 3,
           slidesToScroll: 3,
           infinite: true,
-          dots: true
-        }
+          dots: true,
+        },
       },
       {
         breakpoint: 600,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
-          initialSlide: 2
-        }
+          initialSlide: 2,
+        },
       },
       {
         breakpoint: 480,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ]
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
   const router = useRouter();
   const dispatch = useDispatch();
   const {
-    query: { productNo = '648106e4461f21c48500d099' },
+    query: { productNo = "648106e4461f21c48500d099" },
   } = router;
 
   const { data: allData } = useGetAllProductsQuery();
@@ -145,19 +151,17 @@ const productNo = () => {
     dispatch(addToCart({ id: product?._id }));
   };
 
-
   const buttonStyle = {
     backgroundColor: "rgb(179 48 61)",
-    borderColor: 'rgb(179 48 61)',
-    color: '#ffffff',
-    padding: '0.375rem 0.75rem',
-    fontSize: '1rem',
+    borderColor: "rgb(179 48 61)",
+    color: "#ffffff",
+    padding: "0.375rem 0.75rem",
+    fontSize: "1rem",
     minWidth: "214px ",
-    height: '38px',
-    borderRadius: '0.25rem',
-    cursor: 'not-allowed',
-    opacity: '0.65',
-
+    height: "38px",
+    borderRadius: "0.25rem",
+    cursor: "not-allowed",
+    opacity: "0.65",
   };
   const handleQunatityIncrement = (id) => {
     setQuantity(quantity + 1);
@@ -168,18 +172,25 @@ const productNo = () => {
     }
   };
   if (isLoading) {
-    return <Loading></Loading>
+    return <Loading></Loading>;
   }
 
   if (!data?.status) {
-    return <NotFoundPage></NotFoundPage>
+    return <NotFoundPage></NotFoundPage>;
   }
 
   return (
-    <Layout title={`${product?.title ? product?.title : ''} Bangladesh Mart`}>
-      {
-        data?.status && <div style={{ minHeight: "120vh", maxWidth: '1200px' }} className="container">
-          <div style={{ marginTop: '-15px', marginBottom: '5px' }} role="presentation" onClick={handleClick}>
+    <Layout title={`${product?.title ? product?.title : ""} Bangladesh Mart`}>
+      {data?.status && (
+        <div
+          style={{ minHeight: "120vh", maxWidth: "1200px" }}
+          className="container"
+        >
+          <div
+            style={{ marginTop: "-15px", marginBottom: "5px" }}
+            role="presentation"
+            onClick={handleClick}
+          >
             <Breadcrumbs aria-label="breadcrumb">
               <Link
                 onClick={() => router.push("/")}
@@ -190,34 +201,52 @@ const productNo = () => {
                 Home
               </Link>
               <Link
-                style={{ cursor: 'default', textDecoration: 'none' }}
+                style={{ cursor: "default", textDecoration: "none" }}
                 color="inherit"
-
               >
                 Details
               </Link>
               <Link
-                style={{ cursor: 'default', textDecoration: 'none' }}
+                style={{ cursor: "default", textDecoration: "none" }}
                 color="inherit"
               >
                 {product?.title}
               </Link>
             </Breadcrumbs>
           </div>
-          <div className="d-flex flex-wrap mt-2 pt-3" style={{ borderTop: '1px solid #ddd' }}>
+          <div
+            className="d-flex flex-wrap mt-2 pt-3"
+            style={{ borderTop: "1px solid #ddd" }}
+          >
             <div className="col-md-4">
               <div className="product-thumbnail-image">
-                <img className="w-100 h-100" src={displayImage || product?.thumbnail} alt="" />
-
-
+                <img
+                  className="w-100 h-100"
+                  src={displayImage || product?.thumbnail}
+                  alt=""
+                />
               </div>
               <div className="product-others-images ">
-                <div style={{ width: '280px' }}>
+                <div style={{ width: "280px" }}>
                   <Slider className="w-auto px-5" {...settings}>
-                    {product?.images.map(img => <div style={{ width: '52px', height: '52px' }}><img onClick={() => setDisplayImage(img)} style={{ width: '52px', height: '50px', border: '1px solid #ddd', cursor: 'pointer' }} className="img-fluid me-3" src={img} alt="" /></div>)}
+                    {product?.images.map((img) => (
+                      <div style={{ width: "52px", height: "52px" }}>
+                        <img
+                          onClick={() => setDisplayImage(img)}
+                          style={{
+                            width: "52px",
+                            height: "50px",
+                            border: "1px solid #ddd",
+                            cursor: "pointer",
+                          }}
+                          className="img-fluid me-3"
+                          src={img}
+                          alt=""
+                        />
+                      </div>
+                    ))}
                   </Slider>
                 </div>
-
               </div>
             </div>
 
@@ -234,21 +263,32 @@ const productNo = () => {
                 <div className="ratings-texts">( 2 Reviews )</div>
               </div>
               <div>
-                <h4 className="my-2">Price: <span style={{ color: '#f85606' }} >{productPrice} {currency}</span> </h4>
+                <h4 className="my-2">
+                  Price:{" "}
+                  <span style={{ color: "#f85606" }}>
+                    {productPrice} {currency}
+                  </span>{" "}
+                </h4>
                 <div className="old-price">
                   <del>
                     {(product?.oldPrice * currencyRate).toFixed(2)} {currency}
                   </del>
-                  <span className="ms-2"> - {discountPercentage?.toFixed(2)}%</span>
+                  <span className="ms-2">
+                    {" "}
+                    - {discountPercentage?.toFixed(2)}%
+                  </span>
                 </div>
               </div>
 
               <div className="d-flex align-items-center gap-2 mt-2">
                 <h6 style={{ minWidth: "50px" }}>Color:</h6>
                 <div>
-                  {
-                    ['#FF0000', '#49B2DB', '#3560D9'].map(color => <p style={{ backgroundColor: color }} className="product-select-color " ></p>)
-                  }
+                  {["#FF0000", "#49B2DB", "#3560D9"].map((color) => (
+                    <p
+                      style={{ backgroundColor: color }}
+                      className="product-select-color "
+                    ></p>
+                  ))}
                 </div>
               </div>
 
@@ -297,17 +337,26 @@ const productNo = () => {
               </div>
               <div className="mt-2">
                 <div id="cart-btn">
-                  {
-                    product?.stock >= 1 ? <button
+                  {product?.stock >= 1 ? (
+                    <button
                       onClick={() => handleAddToCart(product)}
-                      style={{ minWidth: "214px ", height: '38px' }}
+                      style={{ minWidth: "214px ", height: "38px" }}
                       className="cart-btn px-3 py-1"
                     >
-                      Add to Cart<i className="far plus-ico fa-plus-square text-white"></i>
-                    </button> : <button title="Out of Stock" type="button" className="btn" style={buttonStyle} disabled>
+                      Add to Cart
+                      <i className="far plus-ico fa-plus-square text-white"></i>
+                    </button>
+                  ) : (
+                    <button
+                      title="Out of Stock"
+                      type="button"
+                      className="btn"
+                      style={buttonStyle}
+                      disabled
+                    >
                       Out of Stock
                     </button>
-                  }
+                  )}
                 </div>
               </div>
 
@@ -342,21 +391,35 @@ const productNo = () => {
                 <h5>Delivery</h5>
                 <div className="d-flex">
                   <div className="me-2">
-                    <img width="20" height="20" src="https://img.icons8.com/color/48/marker--v1.png" alt="marker--v1" />
+                    <img
+                      width="20"
+                      height="20"
+                      src="https://img.icons8.com/color/48/marker--v1.png"
+                      alt="marker--v1"
+                    />
                   </div>
                   <div className="d-flex justify-content-between align-items-center gap-2 w-100">
-
                     <p>Dhaka, Dhaka North, Banani Road No. 12 - 19 </p>
                     <p className="text-info">CHANGE</p>
                   </div>
                 </div>
                 <div className="d-flex">
                   <div className="me-2">
-                    <img width="20" height="20" src="https://img.icons8.com/color/48/delivery--v1.png" alt="delivery--v1" />
+                    <img
+                      width="20"
+                      height="20"
+                      src="https://img.icons8.com/color/48/delivery--v1.png"
+                      alt="delivery--v1"
+                    />
                   </div>
                   <div className="d-flex justify-content-between align-items-center w-100">
                     <div>
-                      <p><span style={{ fontWeight: 'bold' }}>Standard Delivery</span> 9 Jun - 12 Jun</p>
+                      <p>
+                        <span style={{ fontWeight: "bold" }}>
+                          Standard Delivery
+                        </span>{" "}
+                        9 Jun - 12 Jun
+                      </p>
                       <p>3 - 6 day(s)</p>
                     </div>
                     <p>$ 2</p>
@@ -364,7 +427,12 @@ const productNo = () => {
                 </div>
                 <div className="d-flex">
                   <div className="me-2">
-                    <img width="20" height="20" src="https://img.icons8.com/color/48/cash-in-hand.png" alt="cash-in-hand" />
+                    <img
+                      width="20"
+                      height="20"
+                      src="https://img.icons8.com/color/48/cash-in-hand.png"
+                      alt="cash-in-hand"
+                    />
                   </div>
                   <div className="d-flex justify-content-between align-items-center w-100">
                     <div>
@@ -372,15 +440,18 @@ const productNo = () => {
                     </div>
                   </div>
                 </div>
-
-
               </div>
 
               <div className="service-info">
                 <h4>Service</h4>
                 <div className="d-flex">
                   <div className="me-2">
-                    <img width="20" height="20" src="https://img.icons8.com/color/48/rollback.png" alt="rollback" />
+                    <img
+                      width="20"
+                      height="20"
+                      src="https://img.icons8.com/color/48/rollback.png"
+                      alt="rollback"
+                    />
                   </div>
                   <div className="d-flex justify-content-between align-items-center w-100">
                     <div>
@@ -390,7 +461,12 @@ const productNo = () => {
                 </div>
                 <div className="d-flex">
                   <div className="me-2">
-                    <img width="20" height="20" src="https://img.icons8.com/color/48/not-applicable.png" alt="not-applicable" />
+                    <img
+                      width="20"
+                      height="20"
+                      src="https://img.icons8.com/color/48/not-applicable.png"
+                      alt="not-applicable"
+                    />
                   </div>
                   <div className="d-flex justify-content-between align-items-center w-100">
                     <div>
@@ -407,8 +483,8 @@ const productNo = () => {
               </div>
             </div>
           </div>
-          <ProductDescription product={product}></ProductDescription>
-          <ProductReviewSection product={product}></ProductReviewSection>
+          <ProductDescription product={product} />
+          <ProductReviewSection product={product} />
           <h4 className="text-center my-4">You May Also Like</h4>
 
           <div className="shop page-content">
@@ -418,17 +494,26 @@ const productNo = () => {
                   <div className="products ">
                     <div className="shop-product-details ">
                       {products
-                        ?.filter((d) => d.category === `${product?.category}`).slice(0, 5).map((d) => {
+                        ?.filter((d) => d.category === `${product?.category}`)
+                        .slice(0, 5)
+                        .map((d) => {
                           return (
-                            <div
-                              key={d?._id}
-                              className="shop-single-product">
+                            <div key={d?._id} className="shop-single-product">
                               <figure className="product-media">
-                                <span className="product-label label-top">Top</span>
-                                <Link style={{ marginTop: "-21px" }} href="/shop">
-                                  <div style={{ width: "217px", height: "217px" }}>
+                                <span className="product-label label-top">
+                                  Top
+                                </span>
+                                <Link
+                                  style={{ marginTop: "-21px" }}
+                                  href="/shop"
+                                >
+                                  <div
+                                    style={{ width: "217px", height: "217px" }}
+                                  >
                                     <Image
-                                      onClick={() => router.push(`/productDetails/${d._id}`)}
+                                      onClick={() =>
+                                        router.push(`/productDetails/${d._id}`)
+                                      }
                                       width={217}
                                       height={217}
                                       src={d?.thumbnail}
@@ -444,7 +529,10 @@ const productNo = () => {
                                       className="shop-add-to-cart-button"
                                     >
                                       Add to Cart
-                                      <i className="far plus-ico fa-plus-square" aria-hidden="true"></i>
+                                      <i
+                                        className="far plus-ico fa-plus-square"
+                                        aria-hidden="true"
+                                      ></i>
                                     </button>
                                   </div>
                                 </Link>
@@ -453,8 +541,15 @@ const productNo = () => {
                                 <div className="product-cat">
                                   <Link href="#">{d?.category}</Link>
                                 </div>
-                                <div onClick={() => router.push(`/productDetails/${d._id}`)} className="product-title">
-                                  <Link href="/shop/?category=fruit">{d?.title}</Link>
+                                <div
+                                  onClick={() =>
+                                    router.push(`/productDetails/${d._id}`)
+                                  }
+                                  className="product-title"
+                                >
+                                  <Link href="/shop/?category=fruit">
+                                    {d?.title}
+                                  </Link>
                                 </div>
                                 <div className="product-price d-flex gap-2 justify-content-center">
                                   <div className="new-price">
@@ -472,7 +567,9 @@ const productNo = () => {
                                       readOnly
                                     />
                                   </div>
-                                  <div className="ratings-texts">( 2 Reviews )</div>
+                                  <div className="ratings-texts">
+                                    ( 2 Reviews )
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -485,24 +582,12 @@ const productNo = () => {
             </div>
           </div>
         </div>
-      }
+      )}
       <Footer></Footer>
     </Layout>
   );
 };
 
-// export async function getServerSideProps(context) {
-//     const productNo = context.query.productNo;
-//     const res = await fetch(`https://dummyjson.com/products/${productNo}`);
-//     const resProducts = await fetch(`https://dummyjson.com/products`);
-//     const data = await res.json();
-//     const dataProducts = await resProducts.json();
-//     return {
-//         props: {
-//             data,
-//             products: dataProducts,
-//         }
-//     };
-// }
+
 
 export default productNo;
