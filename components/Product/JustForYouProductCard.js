@@ -7,7 +7,7 @@ import { toast } from "react-hot-toast";
 import { useEffect, useState } from "react";
 import { decryptCurrency } from "../../config/cryptingCurrency";
 
-export default function DiscountProductCard({ product }) {
+export default function JustForYouProductCard({ product }) {
   const { code: currency, rate: currencyRate } = useSelector(
     (state) => state.currency
   );
@@ -83,7 +83,7 @@ export default function DiscountProductCard({ product }) {
   //   }
   // }, [isSuccess, isLoading]);
   return (
-    <div className="mb-3 mobile-product-card" key={product?._id}>
+    <div className="mb-3" key={product?._id}>
       <div className="product-link bestselling-product-container product-card-shop border p-3 rounded-3 shadow">
         <div className="">
           <img

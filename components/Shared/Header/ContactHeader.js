@@ -50,7 +50,6 @@ export default function ContactHeader({ user }) {
     handleToggle();
   };
 
-  
   // fetch data in page mount
   useEffect(() => {
     const shipTo = JSON.parse(localStorage.getItem("shipTo"));
@@ -64,6 +63,8 @@ export default function ContactHeader({ user }) {
       dispatch(setUpCurrency(currencyWithRate));
     }
   }, [data?.data, success]);
+
+  
 
   return (
     <>
@@ -133,10 +134,10 @@ export default function ContactHeader({ user }) {
 
                       {isOpen && (
                         <ul className="dropdown-menu show country-ul-header">
-                          {countriesData?.map((country) => (
+                          {countriesData?.map((country,index) => (
                             <li
                               className="header-shipping-country-name px-2"
-                              key={country.name.common}
+                              key={index}
                               onClick={() => handleCountrySelect(country)}
                             >
                               <img
@@ -181,7 +182,7 @@ export default function ContactHeader({ user }) {
                     <span className="ship-text">Currency</span>
                     <div className="drop-down">
                       <select className="English text-center" name="currency">
-                        <option value="">Select Currency</option>
+                        <option value="USD">Select Currency</option>
                         {data?.data?.map((curr) => (
                           <option
                             key={curr.code}

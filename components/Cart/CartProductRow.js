@@ -11,9 +11,17 @@ import { toast } from "react-hot-toast";
 
 export default function CartProductRow({ product }) {
   const { cart } = useSelector((state) => state.cart);
+  const { code: currency, rate: currencyRate } = useSelector(
+    (state) => state.currency
+  );
   const rowProduct = cart?.find((item) => item.id == product?._id);
   const dispatch = useDispatch();
   const router = useRouter();
+
+  let productPrice;
+  if (currencyRate) {
+    productPrice = (product?.price * currencyRate).toFixed(2);
+  }
 
   const handleQuantityIncrement = (item) => {
     const cart = JSON.parse(localStorage.getItem("cartProducts"));
@@ -57,27 +65,19 @@ export default function CartProductRow({ product }) {
     dispatch(removeFromCart(product?._id));
     dispatch(removeFromCartProducts(product?._id));
 
-    // removeCartProductMutation({ token, productId, userId });
+
   };
-  // useEffect(() => {
-  //   if (isLoading) {
-  //     toast.loading("Loading...", { id: "cartClear" });
-  //   }
-  //   if (isSuccess) {
-  //     dispatch(removeCartProduct(item));
-  //     toast.success("Successfully removed.", { id: "cartClear" });
-  //   }
-  // }, [isLoading, isSuccess]);
+
 
   return (
     <tr key={product?._id}>
       <td className="product-col ">
         <div className="d-flex align-items-center">
-          <img width={60} height={60} src={product?.thumbnail} alt="product" />
+          <img className="cart-image" src={product?.thumbnail} alt="product" />
           <p
             title={product?.title}
             onClick={() => router.push(`/productDetails/${product._id}`)}
-            className="product-title mb-0 ms-3"
+            className="product-title cart-product-title mb-0 ms-3"
           >
             {product?.title.length > 30
               ? `${product?.title.slice(0, 35)}...`
@@ -85,11 +85,7 @@ export default function CartProductRow({ product }) {
           </p>
         </div>
       </td>
-      <td className="cart-price-col">
-        <p style={{ height: "60px" }} className="d-flex align-items-center">
-          ${product?.price}
-        </p>
-      </td>
+
       <td className="quantity-col">
         <div
           style={{ height: "60px" }}
@@ -107,7 +103,7 @@ export default function CartProductRow({ product }) {
               type="text"
               name="qty"
               value={rowProduct?.quantity}
-              className="input-qty"
+              className="input-qty cart-input-qty"
             />
             <button
               onClick={() => handleQuantityIncrement(product)}
@@ -119,12 +115,17 @@ export default function CartProductRow({ product }) {
           </div>
         </div>
       </td>
+      <td className="cart-price-col">
+        <p style={{ height: "60px" }} className=" cart-product-price">
+          {productPrice} {currency}
+        </p>
+      </td>
       <td className="total-col">
         <p
-          className="mb-0 d-flex align-items-center"
+          className=" mb-0  cart-product-price"
           style={{ height: "60px" }}
         >
-          ${product?.price * rowProduct?.quantity}
+          {productPrice * rowProduct?.quantity} {currency}
         </p>
       </td>
       <td className="remove-col">

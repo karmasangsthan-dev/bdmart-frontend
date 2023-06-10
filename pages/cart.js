@@ -10,6 +10,7 @@ const cart = () => {
   const dispatch = useDispatch();
   const { cart } = useSelector((state) => state?.cart);
   const { cartProducts } = useSelector((state) => state?.cart);
+  
   const calculateTotal = () => {
     let total = 0;
     cart.forEach((cartItem) => {
@@ -25,82 +26,84 @@ const cart = () => {
     <Layout title="Cart - Bangladesh Mart">
       <div style={{ minHeight: "120vh" }}>
         <div className="container">
-          <div className="row">
+          <div className="row cart-container">
             <div className="col-lg-9">
               {
-                cart.length <1 ? (
+                cart.length < 1 ? (
                   <div>
                     <p>Your Cart Is Empty. Please add cart at first</p>
                   </div>
                 ) : (
-                  <table className="table table-cart table-mobile">
-                    <thead>
-                      <tr>
-                        <th>Product</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Total</th>
-                        <th>Remove</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {
-                        !cartProducts ? (
-                          <>
-                            <tr>
-                              <td className="product-col ">
-                                <div className="d-flex align-items-center">
-                                  <Skeleton style={{ width: '60px', height: '60px' }}></Skeleton>
-                                  <p
-                                    className="product-title mb-0 ms-3"
-                                  >
-                                    <Skeleton style={{ width: '50px' }}></Skeleton>
-                                  </p>
-                                </div>
-                              </td>
-                              <td className="cart-price-col">
-                                <p style={{ height: "60px" }} className="d-flex align-items-center">
-                                  <Skeleton style={{ width: "50px" }} ></Skeleton>
-                                </p>
-                              </td>
-                              <td className="quantity-col">
-                                <div
-                                  style={{ height: "60px" }}
-                                  className="product-quantity  d-flex align-items-center"
-                                >
-                                  <div className="qty-container">
-                                    <Skeleton style={{ width: "80px" }} ></Skeleton>
+                  <div className="cart-table table-responsive">
+                    <table className="table table-cart table-mobile ">
+                      <thead>
+                        <tr>
+                          <th>Product</th>
+                          <th>Quantity</th>
+                          <th>Price</th>
+                          <th>Total</th>
+                          <th>Remove</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {
+                          !cartProducts ? (
+                            <>
+                              <tr>
+                                <td className="product-col ">
+                                  <div className="d-flex align-items-center">
+                                    <Skeleton style={{ width: '60px', height: '60px' }}></Skeleton>
+                                    <p
+                                      className="product-title mb-0 ms-3"
+                                    >
+                                      <Skeleton style={{ width: '50px' }}></Skeleton>
+                                    </p>
                                   </div>
-                                </div>
-                              </td>
-                              <td className="total-col">
-                                <p
-                                  className="mb-0 d-flex align-items-center"
-                                  style={{ height: "60px" }}
-                                >
-                                  <Skeleton style={{ width: '40px' }}></Skeleton>
-                                </p>
-                              </td>
-                              <td className="remove-col">
-                                <div
-                                  style={{ height: "60px" }}
-                                  className="d-flex  align-items-center"
-                                >
-                                  <Skeleton style={{ width: "50px" }} ></Skeleton>
-                                </div>
-                              </td>
-                            </tr>
-                          </>
-                        ) : (
-                          cartProducts?.map((product, index) => {
-                            return (
-                              <CartProductRow product={product} key={index}></CartProductRow>
-                            )
-                          })
-                        )
-                      }
-                    </tbody>
-                  </table>
+                                </td>
+                                <td className="cart-price-col">
+                                  <p style={{ height: "60px" }} className="d-flex align-items-center">
+                                    <Skeleton style={{ width: "50px" }} ></Skeleton>
+                                  </p>
+                                </td>
+                                <td className="quantity-col">
+                                  <div
+                                    style={{ height: "60px" }}
+                                    className="product-quantity  d-flex align-items-center"
+                                  >
+                                    <div className="qty-container">
+                                      <Skeleton style={{ width: "80px" }} ></Skeleton>
+                                    </div>
+                                  </div>
+                                </td>
+                                <td className="total-col">
+                                  <p
+                                    className="mb-0 d-flex align-items-center"
+                                    style={{ height: "60px" }}
+                                  >
+                                    <Skeleton style={{ width: '40px' }}></Skeleton>
+                                  </p>
+                                </td>
+                                <td className="remove-col">
+                                  <div
+                                    style={{ height: "60px" }}
+                                    className="d-flex  align-items-center"
+                                  >
+                                    <Skeleton style={{ width: "50px" }} ></Skeleton>
+                                  </div>
+                                </td>
+                              </tr>
+                            </>
+                          ) : (
+                            cartProducts?.map((product, index) => {
+                              return (
+                                <CartProductRow product={product} key={index}></CartProductRow>
+                              )
+                            })
+                          )
+                        }
+                      </tbody>
+                    </table>
+                  </div>
                 )
               }
 
@@ -118,8 +121,14 @@ const cart = () => {
                 </table>
               </div>
               <button
+                onClick={() => router.push('/')}
+                className="btn px-5 py-2 continue-shopping"
+              >
+                Continue Shopping
+              </button>
+              <button
                 onClick={() => router.push('/checkout')}
-                className="mt-3 btn bg-dark border border-dark border-2 py-2 px-5 text-white text-decoration-none"
+                className="btn px-5 py-2 place-order-btn mt-2"
               >
                 Proceed to checkout
               </button>

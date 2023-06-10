@@ -69,7 +69,11 @@
     color: white;
     text-decoration: none;
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
 .place-order-btn-not-available {
     background-color: rgb(218, 51, 51);
     border: 2px solid white;
@@ -77,6 +81,7 @@
     text-decoration: none;
     width: 100%;
 }
+
 .place-order-btn-not-available:hover {
     background-color: red;
     color: white;
@@ -89,6 +94,25 @@
     background-color: white;
     border: 2px solid black;
     color: black;
+    text-decoration: none;
+    width: 100%;
+}
+
+.continue-shopping {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border: 2px solid black;
+    color: black;
+    text-decoration: none;
+    width: 100%;
+}
+
+.continue-shopping:hover {
+    background-color: black;
+    border: 2px solid white;
+    color: white;
     text-decoration: none;
     width: 100%;
 }
@@ -137,6 +161,116 @@
     margin-left: 8px;
     /* Adjust the margin as needed */
 }
-.checkout-email-input{
+
+.checkout-email-input {
     pointer-events: none;
+}
+
+.cart-chekcout-button {
+    background-color: black;
+    border: 1px solid black;
+    color: white;
+    text-decoration: none;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.cart-image {
+    width: 60px;
+    height: 60px;
+}
+.billing-address-title{
+    margin-bottom: 1rem;
+}
+@media screen and (max-width: 682px) {
+    .cart-container {
+        padding: 0 20px;
+    }
+
+    .cart-chekcout-button {
+        display: flex;
+        margin: 1rem auto;
+    }
+
+    .cart-table {
+        overflow-x: scroll;
+    }
+
+    .cart-table::-webkit-scrollbar {
+        width: 12px;
+    }
+
+    .cart-table::-webkit-scrollbar-thumb {
+        background-color: #faa72c;
+    }
+
+    .cart-table::-webkit-scrollbar-track {
+        background-color: #f1f1f1;
+    }
+    .order-table {
+        overflow-x: scroll;
+    }
+
+    .order-table::-webkit-scrollbar {
+        width: 12px;
+    }
+
+    .order-table::-webkit-scrollbar-thumb {
+        background-color: #faa72c;
+    }
+
+    .cart-table::-webkit-scrollbar-track {
+        background-color: #f1f1f1;
+    }
+
+    .cart-image {
+        width: 50px;
+        height: 50px;
+    }
+
+    .cart-product-title {
+        min-width: 170px;
+    }
+
+    .cart-input-qty {
+        max-width: 38px !important;
+    }
+
+    .cart-product-price {
+        min-width: 85px;
+        margin-bottom: 0;
+        margin-left: 10px;
+        display: flex;
+        align-items: center;
+    }
+
+    .checkout-discount {
+        display: none;
+    }
+
+    .billing-address .name {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    .checkout-content {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .second-input-group {
+        padding-right: calc(1.5rem * .5);
+        padding-left: calc(1.5rem * .5);
+    }
+
+    .billing-address-title{
+        text-align: center;
+    }
+    .your-cart-title{
+        text-align: center;
+        margin-top: 5px;
+        margin-bottom: -15px;
+    }
+
 }

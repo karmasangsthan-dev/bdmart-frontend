@@ -130,6 +130,40 @@ a:hover {
     font-size: 16px;
     font-family: 'Roboto', sans-serif;
 }
+.review-like-container{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.review-like-container img{
+    opacity: 0.8;
+}
+.review-like-container img:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+/* admin review reply  */
+
+.seller-reply-wrapper {
+    position: relative;
+    background-color: #f8f8f8;
+    padding: 15px 15px 15px 48px;
+    margin-top: 20px;
+}
+.seller-reply-wrapper:before {
+    content: " ";
+    position: absolute;
+    top: -15px;
+    left: 30px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 16px solid #f8f8f8;
+}
+
+/* admin review reply end  */
 
 .product-select-color {
     display: inline-block;

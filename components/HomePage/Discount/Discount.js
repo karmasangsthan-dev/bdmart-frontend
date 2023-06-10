@@ -129,7 +129,7 @@ const Discount = ({ t }) => {
             </div>
           ) : (
             <div>
-              <Slider {...settings}>
+              <Slider className="px-4" {...settings}>
                 {data?.data?.map((product) => (
                   <DiscountProductCard product={product} key={product?._id} />
                 ))}

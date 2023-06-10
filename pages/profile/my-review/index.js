@@ -1,13 +1,15 @@
 import { useRouter } from "next/router";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Form, Modal, Table } from "react-bootstrap";
+import { Button, Col, Form, Modal, Row, Table } from "react-bootstrap";
 
 import ReactToPrint from "react-to-print";
 import { Cropper } from "react-cropper";
 import { toast } from "react-hot-toast";
 import { useGetSuccessfulOrdersByEmailQuery } from "../../../features/product/productApi";
 import Layout from "../../../components/Layout";
+import { useCreateReviewMutation } from "../../../features/review/reviewApi";
+import { Rating } from "@mui/material";
 
 const Review = () => {
     const router = useRouter();
@@ -17,6 +19,7 @@ const Review = () => {
     const [show, setShow] = useState(false);
     const [showCropeModal, setShowCropeModal] = useState(false);
     const [reviewProduct, setReviewProduct] = useState({});
+    const [ratings, setRatings] = useState(0);
     const [selectedImages, setSelectedImages] = useState([]);
     const [finalImages, setFinalImages] = useState([]);
     const [reviewText, setReviewText] = useState("");
@@ -24,28 +27,43 @@ const Review = () => {
 
     const { user, isLoading } = useSelector((state) => state.auth);
     const { data, isLoading: orderLoading } = useGetSuccessfulOrdersByEmailQuery(
-        user.email
+        user?.email
     );
+    const [createReview, { isSuccess, isLoading: createLoading, isError }] =
+        useCreateReviewMutation();
+
+    useEffect(() => {
+        if (createLoading) {
+            toast.loading("Loading...");
+        }
+        if (isSuccess) {
+            toast.success("Review added successfully...!!");
+            setShow(false);
+            setSelectedImages([]);
+            setReviewText("");
+            setFinalImages([]);
+        }
+    }, [isSuccess]);
+
 
     const handleClose = () => {
         setShow(false);
         setSelectedImages([]);
-        setReviewText('');
+        setReviewText("");
         setFinalImages([]);
     };
     const handleCloseCropeModal = () => {
         setSelectedImages([]);
         setShowCropeModal(false);
-        setShow(true)
-    }
+        setShow(true);
+    };
     const handleOpenReviewModal = (product) => {
         setReviewProduct(product);
         setShow(true);
-    }
+    };
     const handleImageChange = (event) => {
         const files = event.target.files;
         const imageArray = [];
-        console.log(files)
 
         for (let i = 0; i < files.length; i++) {
             const reader = new FileReader();
@@ -55,15 +73,14 @@ const Review = () => {
                 if (imageArray.length === files.length) {
                     if (files?.length <= 3) {
                         setShow(false);
-                        setShowCropeModal(true)
+                        setShowCropeModal(true);
                         setSelectedImages(imageArray);
-                    }
-                    else {
+                    } else {
                         setShow(true);
                         setSelectedImages([]);
-                        toast.error('You can select only maximum 3 images')
+                        toast.error("You can select only maximum 3 images");
                         if (fileInputRef.current) {
-                            fileInputRef.current.value = '';
+                            fileInputRef.current.value = "";
                         }
                     }
                 }
@@ -76,29 +93,42 @@ const Review = () => {
         setReviewText(event.target.value);
     };
 
-    // handle review submit 
+    // handle review submit
     const handleSubmit = () => {
         if (finalImages.length < 1 && !reviewText) {
-            toast.error('Please select images and enter your review details')
+            toast.error("Please select images and enter your review details");
         }
         if (finalImages.length >= 1 && !reviewText) {
-            toast.error('Please add a review details')
+            toast.error("Please add a review details");
         }
         if (reviewText && finalImages.length < 1) {
-            toast.error('Please select at least 1 image')
+            toast.error("Please select at least 1 image");
+        }
+        if (!ratings) {
+            toast.error("Please rate your experience with us !!!");
         }
 
-        console.log(finalImages, 'images');
-        console.log(reviewText, 'text')
+        // const data = new
+        const reviewedBy = user?._id;
+        const productId = reviewProduct?._id;
+        const data = new FormData();
+        finalImages?.forEach((file, index) => {
+            data.append("images", file);
+        });
+        data.append("review", reviewText);
+        data.append("ratings", ratings);
+        data.append("reviewedBy", reviewedBy);
+
+        createReview({ data, productId });
     };
 
-    // crop confirm handler 
+    // crop confirm handler
     const handleConfirmCrop = () => {
         let croppedImagesArray = [];
         let croppedImagesFile = [];
         const promises = [];
 
-        selectedImages.forEach((image, index) => {
+        selectedImages?.forEach((image, index) => {
             const cropper = cropperRefs.current[index];
             if (!cropper) {
                 return;
@@ -125,7 +155,7 @@ const Review = () => {
         });
 
         setShowCropeModal(false);
-        setShow(true)
+        setShow(true);
     };
 
     return (
@@ -139,7 +169,13 @@ const Review = () => {
                             className="order-container mx-5 px-5 my-4 py-4 rounded-2"
                             style={{ backgroundColor: "whitesmoke" }}
                         >
-                            <h4 className="text-center">My Products : {data?.reduce((total, order) => total + order?.products?.length, 0)}</h4>
+                            <h4 className="text-center">
+                                My Products :{" "}
+                                {data.reduce(
+                                    (total, order) => total + order.products.length,
+                                    0
+                                )}
+                            </h4>
 
                             <div className="mt-4 ">
                                 <Table
@@ -158,78 +194,132 @@ const Review = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {data?.map((order, index) => (
+                                        {data?.map((order, index) =>
                                             order?.products.map((product, i) => (
-                                                <tr>
+                                                <tr key={i}>
                                                     <td>{i + 1}</td>
-                                                    <td><img width={40} height={40} src={product?.thumbnail} alt="" /></td>
+                                                    <td>
+                                                        <img
+                                                            width={40}
+                                                            height={40}
+                                                            src={product?.thumbnail}
+                                                            alt=""
+                                                        />
+                                                    </td>
                                                     <td>{product?.title}</td>
 
-                                                    <td><button onClick={() => handleOpenReviewModal(product)} className="btn btn-info text-white d-flex mx-auto">+</button></td>
+                                                    <td>
+                                                        <button
+                                                            onClick={() => handleOpenReviewModal(product)}
+                                                            className="btn btn-info text-white d-flex mx-auto"
+                                                        >
+                                                            +
+                                                        </button>
+                                                    </td>
                                                 </tr>
                                             ))
-                                        ))}
+                                        )}
                                     </tbody>
                                 </Table>
                             </div>
-
                         </div>
                     </div>
                     <Modal
+                    style={{zIndex:'10001'}}
                         show={show}
+                        size="lg"
                         onHide={handleClose}
                         backdrop="static"
                         keyboard={false}
+                        centered
                     >
                         <Modal.Header closeButton>
-                            <Modal.Title>Add Review for <span className="text-info">{reviewProduct?.title?.length < 21 ? reviewProduct?.title : `${reviewProduct?.title?.slice(0, 19)}...`}</span></Modal.Title>
-
+                            <Modal.Title>
+                                Add Review for{" "}
+                                <span className="text-info">
+                                    {reviewProduct?.title?.length < 21
+                                        ? reviewProduct?.title
+                                        : `${reviewProduct?.title?.slice(0, 19)}...`}
+                                </span>
+                            </Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                            <Form >
-                                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                    {console.log(selectedImages.length)}
-                                    {
-                                        selectedImages.length <= 0 ? (
-                                            <>
-                                                <ul className="text-danger" style={{ listStyleType: 'initial' }}>
-                                                    <li> You can add multiple images</li>
-                                                    <li> Maximum you can upload 3 images</li>
-                                                </ul>
-                                                <Form.Label>Select Image</Form.Label>
+                            <Form>
+                                <Form.Group
+                                    className="mb-3"
+                                    controlId="exampleForm.ControlInput1"
+                                >
+                                    {selectedImages.length <= 0 ? (
+                                        <>
+                                            <ul
+                                                className="text-danger"
+                                                style={{ listStyleType: "initial" }}
+                                            >
+                                                <li> You can add multiple images</li>
+                                                <li> Maximum you can upload 3 images</li>
+                                            </ul>
+                                            <Form.Label>Select Image</Form.Label>
 
-                                                <Form.Control
-                                                    type="file"
-                                                    accept="image/*"
-                                                    placeholder=""
-                                                    autoFocus
-                                                    multiple
-                                                    onChange={handleImageChange}
-                                                    ref={fileInputRef}
+                                            <Form.Control
+                                                type="file"
+                                                accept="image/*"
+                                                placeholder=""
+                                                autoFocus
+                                                multiple
+                                                onChange={handleImageChange}
+                                                ref={fileInputRef}
+                                            />
+                                        </>
+                                    ) : (
+                                        <div
+                                            style={{ marginTop: "-10px" }}
+                                            className="d-flex justify-content-center flex-wrap"
+                                        >
+                                            {selectedImages.map((image, index) => (
+                                                <img
+                                                    className="border"
+                                                    key={index}
+                                                    src={image}
+                                                    alt={`Selected Image ${index + 1}`}
+                                                    style={{
+                                                        width: "200px",
+                                                        height: "auto",
+                                                        marginRight: "10px",
+                                                        marginTop: "10px",
+                                                    }}
                                                 />
-                                            </>
-                                        ) : (
-                                            <div style={{ marginTop: '-10px' }} className="d-flex justify-content-center flex-wrap">
-                                                {selectedImages.map((image, index) => (
-                                                    <img
-                                                        className="border"
-                                                        key={index}
-                                                        src={image}
-                                                        alt={`Selected Image ${index + 1}`}
-                                                        style={{ width: "200px", height: "auto", marginRight: "10px", marginTop: '10px' }}
-                                                    />
-                                                ))}
-                                            </div>
-                                        )
-                                    }
-
+                                            ))}
+                                        </div>
+                                    )}
                                 </Form.Group>
                                 <Form.Group
                                     className="mb-3"
                                     controlId="exampleForm.ControlTextarea1"
                                 >
                                     <Form.Label>Enter your review</Form.Label>
-                                    <Form.Control placeholder="Type here" defaultValue={reviewText} onChange={handleReviewChange} as="textarea" rows={3} />
+                                    <Form.Control
+                                        placeholder="Type here"
+                                        defaultValue={reviewText}
+                                        onChange={handleReviewChange}
+                                        as="textarea"
+                                        rows={3}
+                                    />
+                                </Form.Group>
+                                <Form.Group
+                                    className="mb-3 d-flex align-items-center"
+                                    controlId="exampleForm.ControlTextarea1"
+                                >
+                                    <Form.Label className="mb-0">
+                                        Select your rating :{" "}
+                                    </Form.Label>
+                                    <Rating
+                                        className="ms-2 d-block"
+                                        name="simple-controlled"
+                                        value={ratings}
+                                        onChange={(event, newValue) => {
+                                            setRatings(newValue);
+                                        }}
+                                    />
                                 </Form.Group>
                             </Form>
                         </Modal.Body>
@@ -237,44 +327,66 @@ const Review = () => {
                             <Button className="btn btn-danger" onClick={handleClose}>
                                 Cancel
                             </Button>
-                            <Button onClick={handleSubmit} className="btn btn-success">Post A Review</Button>
+                            <Button onClick={handleSubmit} className="btn btn-success">
+                                Post A Review
+                            </Button>
                         </Modal.Footer>
                     </Modal>
-
-                    <Modal show={showCropeModal} onHide={handleCloseCropeModal} backdrop="static" keyboard={false}>
+                    <Modal
+                        show={showCropeModal}
+                        onHide={handleCloseCropeModal}
+                        backdrop="static"
+                        keyboard={false}
+                        size="lg"
+                        centered
+                    >
                         <Modal.Header closeButton>
-                            <Modal.Title className="text-center mx-auto">Update Profile Picture</Modal.Title>
+                            <Modal.Title className="">Resize the images</Modal.Title>
                         </Modal.Header>
-                        <Modal.Body>
+                        <Modal.Body className="mx-auto ">
                             {selectedImages.length > 0 && (
                                 <>
-                                    <div className="d-flex flex-wrap">
-                                        {selectedImages.map((image, index) => (
-                                            <div key={index}>
-                                                <Cropper
-                                                    className="mb-3"
-                                                    src={image}
-                                                    style={{ maxHeight: "100%", maxWidth: "100%" }}
-                                                    aspectRatio={1}
-                                                    guides={true}
-                                                    zoomable={false}
-                                                    autoCropArea={1}
-                                                    viewMode={1}
-                                                    ref={(cropper) => (cropperRefs.current[index] = cropper)}
-                                                />
-                                            </div>
-                                        ))}
+                                    <div className="d-flex justify-content-center">
+                                        <Row className="g-5 mx-auto" style={{ gap: "15px" }}>
+                                            {selectedImages.map((image, index) => (
+                                                <Col lg="4" sm="1" xl="3" md="1">
+                                                    <div>
+                                                        <Cropper
+                                                            className="mb-3"
+                                                            src={image}
+                                                            style={{ maxHeight: "100%", maxWidth: "100%" }}
+                                                            aspectRatio={1}
+                                                            guides={true}
+                                                            zoomable={false}
+                                                            autoCropArea={1}
+                                                            viewMode={1}
+                                                            ref={(cropper) =>
+                                                                (cropperRefs.current[index] = cropper)
+                                                            }
+                                                        />
+                                                    </div>
+                                                </Col>
+                                            ))}
+                                        </Row>
                                     </div>
                                     <div className="d-flex justify-content-center gap-4 mt-2">
-                                        <Button className="btn btn-danger" onClick={handleCloseCropeModal}>Cancel</Button>
-                                        <Button className="btn btn-success" onClick={handleConfirmCrop}>Save</Button>
+                                        <Button
+                                            className="btn btn-danger"
+                                            onClick={handleCloseCropeModal}
+                                        >
+                                            Cancel
+                                        </Button>
+                                        <Button
+                                            className="btn btn-success"
+                                            onClick={handleConfirmCrop}
+                                        >
+                                            Save
+                                        </Button>
                                     </div>
                                 </>
                             )}
-
                         </Modal.Body>
                     </Modal>
-
                 </div>
             )}
         </Layout>
