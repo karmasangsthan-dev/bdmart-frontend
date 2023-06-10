@@ -136,7 +136,7 @@ export default function Review({ review }) {
 
       {review?.replies?.map((rep) => (
         <div
-          className="seller-reply-wrapper  ms-5 mb-2"
+          className="seller-reply-wrapper  ms-5 mb-3 "
           data-spm-anchor-id="a2a0e.pdp.ratings_reviews.i3.1b4cW6q4W6q46N"
         >
           <div className="item-content item-content--seller-reply">
