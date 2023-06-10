@@ -1,12 +1,16 @@
 import { Rating } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
+import { toast } from "react-hot-toast";
 import { BsTicket } from "react-icons/bs";
 import { MdVerifiedUser } from "react-icons/md";
+import { useSelector } from "react-redux";
 
 const ProductReviewSection = ({ product }) => {
+  const user = useSelector((state) => state?.auth?.user);
+  const [reviewReply,setReviewReply] = useState('');
   console.log(product?.reviews);
   return (
-    <div className="review-section-container  my-5  product-description-container">
+    <div className="review-section-container  my-5 pb-5 product-description-container">
       <h5 className="review-container-title">
         Ratings & Reviews of {product?.title}
       </h5>
@@ -60,13 +64,13 @@ const ProductReviewSection = ({ product }) => {
         </div>
         <div className="all-reviews">
           {product?.reviews?.map((review) => (
-            <div className="review-card border card px-3 py-2 mb-3">
+            <div className="review-card border card px-3 py-2 mb-3 shadow">
               <Rating name="read-only" value={review?.ratings} readOnly />
 
               <p>
                 By{" "}
                 <span className="fw-medium text-capitalize">
-                  {review?.reviewedBy.fullName}
+                  {review?.reviewedBy?.fullName}
                 </span>
                 .{" "}
                 <span className="text-success ">
@@ -76,7 +80,7 @@ const ProductReviewSection = ({ product }) => {
               </p>
               <p>{review?.review}</p>
               <div>
-                {review?.images.map((imgUrl) => (
+                {review?.images?.map((imgUrl) => (
                   <img
                     width="100"
                     height="100"
@@ -86,6 +90,75 @@ const ProductReviewSection = ({ product }) => {
                   />
                 ))}
               </div>
+              <div className="review-like-container">
+                <img width="25" height="25" src="https://img.icons8.com/color/48/facebook-like--v1.png" alt="facebook-like--v1" /> <span>(12)</span>
+
+              </div>
+              {
+                review?.replies && review?.replies?.map(reply => <div
+                  className="seller-reply-wrapper"
+                  data-spm-anchor-id="a2a0e.pdp.ratings_reviews.i3.1b4cW6q4W6q46N"
+                >
+                  <div className="item-content item-content--seller-reply">
+                    <div className="item-title">
+                      <img
+                        className="seller-reply-badge"
+                        src="//laz-img-cdn.alicdn.com/tfs/TB1dNTKpqQoBKNjSZJnXXaw9VXa-24-24.png"
+                      />
+                      <span>Respond from store - 4 weeks ago</span>
+                    </div>
+                    <div
+                      className=""
+
+                    >
+                      {reply?.reply}
+                    </div>
+                    <div className="review-like-container">
+                      <img width="25" height="25" src="https://img.icons8.com/color/48/facebook-like--v1.png" alt="facebook-like--v1" /> <span>(5)</span>
+
+                    </div>
+
+                  </div>
+                </div>)
+              }
+              {
+                review?.replies.length === 0 && user?.role === 'admin' ?
+                  <div className="review-replay-form p-3 border mt-4">
+                    <label for="message-text" class="col-form-label">Admin Reply :</label>
+                    <textarea onChange={(e)=> setReviewReply(e.target.value)} placeholder="Type here reply" class="form-control" id="message-text"></textarea>
+                    <button onClick={()=>{
+                      toast.success(reviewReply)
+                    }} className="btn btn-info text-white mt-2">Submit</button>
+                  </div> : <></>
+              }
+              {/* {
+                review?.replies.length === 0 && <div
+                  className="seller-reply-wrapper"
+                  data-spm-anchor-id="a2a0e.pdp.ratings_reviews.i3.1b4cW6q4W6q46N"
+                >
+                  <div className="item-content item-content--seller-reply">
+                    <div className="item-title">
+                      <img
+                        className="seller-reply-badge"
+                        src="//laz-img-cdn.alicdn.com/tfs/TB1dNTKpqQoBKNjSZJnXXaw9VXa-24-24.png"
+                      />
+                      <span>Respond from store - 4 weeks ago</span>
+                    </div>
+                    <div
+                      className=""
+
+                    >
+                      মূল্যবান মতামতের জন্য অনেক অনেক ধন্যবাদ। 'Bangladesh Mart' এর পক্ষ থেকে আপনাক অভিনন্দন
+                    </div>
+                    <div className="review-like-container">
+                      <img width="25" height="25" src="https://img.icons8.com/color/48/facebook-like--v1.png" alt="facebook-like--v1" /> <span>(5)</span>
+
+                    </div>
+
+                  </div>
+                </div>
+              } */}
+
             </div>
           ))}
         </div>

@@ -90,7 +90,7 @@ const BestSelling = ({ t }) => {
   };
 
   return (
-    <div className="px-2">
+    <div className="px-2 ">
       
 
       <div className="">
@@ -102,7 +102,7 @@ const BestSelling = ({ t }) => {
       </div>
 
       {isLoading ? (
-        <div>
+        <div className="">
           <Slider {...settings}>
             {[1, 2, 3, 4, 5, 6].map((product, i) => {
               return (
@@ -151,11 +151,13 @@ const BestSelling = ({ t }) => {
           </Slider>
         </div>
       ) : (
-        <Slider className=" px-4 " {...settings}>
+        <div className="">
+          <Slider className=" px-4 " {...settings}>
           {data?.data?.map((product, index) => (
             <DiscountProductCard key={index} product={product} />
           ))}
         </Slider>
+        </div>
       )}
     </div>
   );

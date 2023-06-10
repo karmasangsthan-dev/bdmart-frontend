@@ -226,6 +226,7 @@ const Review = () => {
                         </div>
                     </div>
                     <Modal
+                    style={{zIndex:'10001'}}
                         show={show}
                         size="lg"
                         onHide={handleClose}
