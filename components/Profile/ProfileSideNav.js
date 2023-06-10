@@ -62,7 +62,7 @@ export default function ProfileSideNav() {
 
         const data = new FormData();
         data.append("image", blob);
-        // updateProfile({ id, token, data });
+        updateProfile({ id, token, data });
         setShowModal(false);
       }, "image/jpeg");
     }

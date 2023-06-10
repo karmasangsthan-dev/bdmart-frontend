@@ -90,9 +90,7 @@ const BestSelling = ({ t }) => {
   };
 
   return (
-    <div className="px-2 ">
-      
-
+    <div className="px-2">
       <div className="">
         <div className="col-lg-12 col-md-12 col-sm-12 w">
           <div className="gal-head gal-head-best-selling">
