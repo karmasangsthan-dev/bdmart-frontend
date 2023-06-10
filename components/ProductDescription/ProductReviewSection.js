@@ -1,12 +1,15 @@
 import { Rating } from "@mui/material";
-import React from "react";
-import { BsTicket } from "react-icons/bs";
+import React, { useState } from "react";
+import { toast } from "react-hot-toast";
+import { FaRegThumbsUp, FaThumbsUp } from "react-icons/fa";
+
 import { MdVerifiedUser } from "react-icons/md";
+import { useSelector } from "react-redux";
+import Review from "./Review";
 
 const ProductReviewSection = ({ product }) => {
-  console.log(product?.reviews);
   return (
-    <div className="review-section-container  my-5  product-description-container">
+    <div className="review-section-container  my-5 pb-5 product-description-container">
       <h5 className="review-container-title">
         Ratings & Reviews of {product?.title}
       </h5>
@@ -60,33 +63,7 @@ const ProductReviewSection = ({ product }) => {
         </div>
         <div className="all-reviews">
           {product?.reviews?.map((review) => (
-            <div className="review-card border card px-3 py-2 mb-3">
-              <Rating name="read-only" value={review?.ratings} readOnly />
-
-              <p>
-                By{" "}
-                <span className="fw-medium text-capitalize">
-                  {review?.reviewedBy.fullName}
-                </span>
-                .{" "}
-                <span className="text-success ">
-                  <MdVerifiedUser className="text-success fs-5" />
-                  Verified Purchase
-                </span>
-              </p>
-              <p>{review?.review}</p>
-              <div>
-                {review?.images.map((imgUrl) => (
-                  <img
-                    width="100"
-                    height="100"
-                    src={imgUrl}
-                    alt="facebook-like--v1"
-                    className="mx-2 mt-3 border"
-                  />
-                ))}
-              </div>
-            </div>
+            <Review review={review} key={review?._id} />
           ))}
         </div>
       </div>

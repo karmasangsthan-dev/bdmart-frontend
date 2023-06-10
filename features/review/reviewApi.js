@@ -8,9 +8,17 @@ const reviewApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["Review"],
+      invalidatesTags: ["Review", "Product"],
+    }),
+    makeReply: builder.mutation({
+      query: ({ reviewId, ...data }) => ({
+        url: `/review/reply/${reviewId}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["Review", "Product"],
     }),
   }),
 });
 
-export const { useCreateReviewMutation } = reviewApi;
+export const { useCreateReviewMutation, useMakeReplyMutation } = reviewApi;
