@@ -6,6 +6,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { useRouter } from "next/router";
 import DiscountProductCard from "../../Product/DiscountProductCard";
 import { useSelector } from "react-redux";
+import JustForYouProductCard from "../../Product/JustForYouProductCard";
 
 const JustForYou = ({ t }) => {
   const router = useRouter();
@@ -112,7 +113,7 @@ const JustForYou = ({ t }) => {
             <>
               {data?.data?.map((product) => {
                 return (
-                  <DiscountProductCard product={product} key={product?._id} />
+                  <JustForYouProductCard product={product} key={product?._id} />
                 );
               })}
               {loadedProducts === 0 && <p>No products found.</p>}

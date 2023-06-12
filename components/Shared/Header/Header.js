@@ -10,7 +10,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { Container, Nav, NavDropdown, Navbar } from "react-bootstrap";
 import { setCart } from "../../../features/auth/authSlice";
-import { Badge, Tooltip } from "@mui/material";
+import { Avatar, Badge, Tooltip } from "@mui/material";
 import { useGetSearchProductQuery } from "../../../features/product/productApi";
 import ContactHeader from "./ContactHeader";
 import { en } from "../../../locales/en";
@@ -30,22 +30,6 @@ const Header = () => {
     refetch();
   }, [searchText]);
 
-  // useEffect(() => {
-  //   window.addEventListener("scroll", function () {
-  //     let header = this.document.querySelector("#strip2");
-  //     let bar = this.document.querySelector("#nav_Bar");
-  //     let strip = this.document.querySelector("#strip");
-  //     let bod = document.querySelector("#accordion_body");
-  //     let stick = this.document.querySelector("#sec_bar");
-
-  //     bar?.classList.toggle("removeBar", window.scrollY > 50);
-
-  //     header?.classList.toggle("sticky", window.scrollY > 50);
-  //     stick?.classList.toggle("stic", window.scrollY > 50);
-  //     bod?.classList.toggle("main-bod", window.scrollY > 50);
-  //     strip?.classList.toggle("strip-2-mar", window.scrollY > 50);
-  //   });
-  // }, []);
 
   let totalProductQuantity = 0;
 
@@ -88,7 +72,7 @@ const Header = () => {
                   <i className="fa fa-search"></i>
                 </button>
               </form>
-              
+
               {data?.data?.length > 0 && (
                 <form className="example">
                   <div
@@ -168,13 +152,16 @@ const Header = () => {
         {/* for mobile */}
         <div className="main-strip-2 d-sm-block d-lg-none">
           <Navbar
-            Navbar
+           
             collapseOnSelect
             expand="lg"
             bg="light"
             variant="light"
           >
             <Container>
+              <div className="toogler-button">
+                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+              </div>
               <div className="logo">
                 <Link href="/">
                   <Image
@@ -186,10 +173,26 @@ const Header = () => {
                   />
                 </Link>
               </div>
-              <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+              <div className="cart-item">
+                <Tooltip title="Cart">
+                  <Link href="/cart">
+                    <Badge badgeContent={totalProductQuantity} color="error">
+                      <Image
+                        className="flag-img"
+                        src="/images/cart.png"
+                        alt="country"
+                        width={45}
+                        height={40}
+                        loading="eager"
+                      />
+                    </Badge>
+                  </Link>
+                </Tooltip>
+              </div>
+
               <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav>
-                  <div className="search-box">
+                  <div className="search-box search-box-mobile">
                     <form className="example">
                       <input
                         type="text"
@@ -202,6 +205,31 @@ const Header = () => {
                       </button>
                     </form>
                   </div>
+                </Nav>
+                <Nav>
+                  {t.homePage.header.nav.map((navItem,index) => (
+                    <Link key={index} className="nav-item-mobile" href={navItem?.link}>
+                      <li className="inner-li">{navItem?.title}</li>
+                    </Link>
+                  ))}
+                </Nav>
+                <Nav className="nav-item-mobile">
+                  {user?.email &&
+                    <div className="d-flex align-items-center my-2">
+                      <Avatar sx={{ width: 25, height: 25 }} >
+
+                        <Image
+                          onClick={() => router.push('/profile')}
+                          layout="responsive"
+                          width={100}
+                          height={100}
+                          src={user?.profilePicture}
+                          className=" "
+                          alt=""
+                        />
+                      </Avatar>
+                      <p onClick={() => router.push('/profile')} className="ms-1">{user?.fullName}</p>
+                    </div>}
                 </Nav>
               </Navbar.Collapse>
             </Container>

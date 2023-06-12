@@ -16,14 +16,14 @@ export const en = {
       nav: [
         { title: "Home", link: "/" },
         { title: "Shop", link: "/shop" },
-        { title: "Track Your Order", link: "/order" },
+        { title: "Track Your Order", link: "/profile/my-orders" },
         { title: "Submit RFQ", link: "/submit-rfq" },
         { title: "My Account", link: "/profile" },
         { title: "Contact Us", link: "/" },
       ],
     },
     bestSelling: {
-      title: "Best Selling Items on RollBack",
+      title: "Best Selling Items",
     },
     shopDepartments: {
       title: "Shop Departments",

@@ -9,8 +9,8 @@ const Footer = () => {
     <footer className="footer-section ">
       <div className="footer-main">
         <div className="footer-1">
-          {[1, 2, 3, 4, 5, 6].map((item) => (
-            <div key={item} className="footer-icons">
+          {[1, 2, 3, 4, 5, 6].map((item,index) => (
+            <div key={index} className="footer-icons">
               <div className="footer-icon round-icon">
                 <BiDollar className="fs-2" />
               </div>

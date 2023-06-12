@@ -23,8 +23,6 @@ export default function ProfileSideNav() {
     setToken(token);
   }, []);
 
-  console.log(cropperRef.current,'cropperRef')
-
   const [updateProfile, { isSuccess, isLoading }] =
     useUpdateProfileImageMutation({
       onSettled: () => api.invalidateTags("User"),
@@ -51,7 +49,6 @@ export default function ProfileSideNav() {
       };
       reader.readAsDataURL(fileObj);
     }
-    console.log(fileObj, 'file obj')
   };
   const handleConfirmCrop = () => {
     const id = user?._id;
@@ -65,7 +62,7 @@ export default function ProfileSideNav() {
 
         const data = new FormData();
         data.append("image", blob);
-        // updateProfile({ id, token, data });
+        updateProfile({ id, token, data });
         setShowModal(false);
       }, "image/jpeg");
     }
@@ -131,9 +128,9 @@ export default function ProfileSideNav() {
               Account Information
             </a>
           </li>
-          <li onClick={() => router.push('/profile/order-history')} className="nav-item">
+          <li onClick={() => router.push('/profile/my-orders')} className="nav-item">
             <a className="nav-link" href="#">
-              Order History
+              My Orders
             </a>
           </li>
           <li onClick={() => router.push('/profile/my-review')} className="nav-item">

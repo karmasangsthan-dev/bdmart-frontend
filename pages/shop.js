@@ -61,7 +61,7 @@ const shop = () => {
   return (
     <Layout title="Shop - Bangladesh Mart">
       <div className="shop page-content">
-        <div className="container">
+        <div style={{maxWidth:'1240px'}} className="container">
           <div className="row ">
             <aside className="col-lg-2 order-lg-first">
               <ShopSideBar
@@ -78,7 +78,7 @@ const shop = () => {
                   <p className="fs-6">
                     {t.shopPage.allProducts.productsCountTitle}: {data?.total}
                   </p>
-                  <div className="d-flex gap-4">
+                  <div className="d-flex">
                     <div className="d-flex py-1">
                       <span>{t.shopPage.allProducts.perPageTitle}: </span>
                       <select

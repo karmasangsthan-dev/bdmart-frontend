@@ -588,18 +588,6 @@ const productNo = () => {
   );
 };
 
-// export async function getServerSideProps(context) {
-//     const productNo = context.query.productNo;
-//     const res = await fetch(`https://dummyjson.com/products/${productNo}`);
-//     const resProducts = await fetch(`https://dummyjson.com/products`);
-//     const data = await res.json();
-//     const dataProducts = await resProducts.json();
-//     return {
-//         props: {
-//             data,
-//             products: dataProducts,
-//         }
-//     };
-// }
+
 
 export default productNo;

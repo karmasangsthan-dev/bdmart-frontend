@@ -60,7 +60,6 @@ const authApi = apiSlice.injectEndpoints({
     }),
     updateVisitor: builder.mutation({
       query: ({data}) => {
-        console.log(data,'dd'); // Log the data object
         const query = {
           url: `/visitor/visitor`,
           method: "PATCH",
