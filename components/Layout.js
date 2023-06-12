@@ -50,7 +50,9 @@ const Layout = ({ children, title = "Bangladesh Mart" }) => {
       <Header />
 
       <main>{children}</main>
-      <MobileBottomNav />
+      <div style={{position:'relative', zIndex:'99999'}}>
+        <MobileBottomNav />
+      </div>
     </>
   );
 };

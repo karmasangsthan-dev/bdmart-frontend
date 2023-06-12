@@ -73,15 +73,7 @@ export default function JustForYouProductCard({ product }) {
 
     dispatch(addToCart({ id: product?._id }));
   };
-  // useEffect(() => {
-  //   if (isLoading) {
-  //     toast.loading("Loading...", { id: "addToCart" });
-  //   }
-  //   if (isSuccess) {
-  //     dispatch(addToCart(cartProduct));
-  //     toast.success("Added to cart", { id: "addToCart" });
-  //   }
-  // }, [isSuccess, isLoading]);
+  
   return (
     <div className="mb-3" key={product?._id}>
       <div className="product-link bestselling-product-container product-card-shop border p-3 rounded-3 shadow">

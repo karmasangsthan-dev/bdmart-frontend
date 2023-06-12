@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import Layout from "../../components/Layout";
 import { Breadcrumbs, Link, Rating } from "@mui/material";
-import { Form, Tab, Tabs } from "react-bootstrap";
+import { Breadcrumb, Form, Tab, Tabs } from "react-bootstrap";
 import { toast } from "react-hot-toast";
 import { useEffect, useState } from "react";
 import { FaFacebookF } from "react-icons/fa";
@@ -27,7 +27,6 @@ const SampleNextArrow = (props) => {
         style={{ width: "30px", height: "30px", top: "33%" }}
         className="next"
       >
-        <i className="fa fa-long-arrow-alt-right"></i>
       </button>
     </div>
   );
@@ -40,7 +39,6 @@ const SamplePrevArrow = (props) => {
         style={{ width: "30px", height: "30px", top: "33%" }}
         className="prev"
       >
-        <i className="fa fa-long-arrow-alt-left"></i>
       </button>
     </div>
   );
@@ -68,15 +66,15 @@ const productNo = () => {
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          initialSlide: 0,
         },
       },
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 3,
           slidesToScroll: 1,
         },
       },
@@ -191,34 +189,21 @@ const productNo = () => {
             role="presentation"
             onClick={handleClick}
           >
-            <Breadcrumbs aria-label="breadcrumb">
-              <Link
-                onClick={() => router.push("/")}
-                color="inherit"
-                underline="hover"
-                href="/"
-              >
-                Home
-              </Link>
-              <Link
-                style={{ cursor: "default", textDecoration: "none" }}
-                color="inherit"
-              >
-                Details
-              </Link>
-              <Link
-                style={{ cursor: "default", textDecoration: "none" }}
-                color="inherit"
-              >
-                {product?.title}
-              </Link>
-            </Breadcrumbs>
+
+            <Breadcrumb className="breadcrumb-container">
+              <Breadcrumb.Item onClick={() => router.push('/')}>Home</Breadcrumb.Item>
+              <Breadcrumb.Item href="">
+                Description
+              </Breadcrumb.Item>
+              <Breadcrumb.Item className="d-lg-block d-sm-none" >{product?.title}</Breadcrumb.Item>
+              <Breadcrumb.Item className="d-lg-none d-sm-block">{product?.title?.length < 20 ? product?.title : `${product?.title?.slice(0, 20)}...`}</Breadcrumb.Item>
+            </Breadcrumb>
           </div>
           <div
             className="d-flex flex-wrap mt-2 pt-3"
             style={{ borderTop: "1px solid #ddd" }}
           >
-            <div className="col-md-4">
+            <div className="col-lg-4 col-md-5 col-sm-12">
               <div className="product-thumbnail-image">
                 <img
                   className="w-100 h-100"
@@ -226,7 +211,7 @@ const productNo = () => {
                   alt=""
                 />
               </div>
-              <div className="product-others-images ">
+              <div className="product-others-images d-flex justify-content-center">
                 <div style={{ width: "280px" }}>
                   <Slider className="w-auto px-5" {...settings}>
                     {product?.images.map((img) => (
@@ -250,7 +235,7 @@ const productNo = () => {
               </div>
             </div>
 
-            <div className="col-md-5 py-2 px-4">
+            <div className="col-lg-5 col-md-5 col-sm-12 product-details-information">
               <h3>Name: {product?.title}</h3>
               <div className="d-flex justiy-content-center">
                 <div className="ratings">
@@ -335,8 +320,8 @@ const productNo = () => {
                   </div>
                 </div>
               </div>
-              <div className="mt-2">
-                <div id="cart-btn">
+              <div className="mt-2 d-lg-block d-sm-none">
+                <div id="cart-btn d-flex align-items-center justify-content-center ">
                   {product?.stock >= 1 ? (
                     <button
                       onClick={() => handleAddToCart(product)}
@@ -356,11 +341,52 @@ const productNo = () => {
                     >
                       Out of Stock
                     </button>
+
                   )}
+                  <button
+
+                    style={{ height: "38px" }}
+                    className="desktop-buy-now-button"
+                  >
+                    Buy Now
+                    <i className="far plus-ico fa-plus-square text-white"></i>
+                  </button>
+                </div>
+              </div>
+              {/* mobile add to cart button  */}
+              <div className="mt-2 d-lg-none d-sm-block">
+                <div className="cart-btn-mobile ">
+                  {product?.stock >= 1 ? (
+                    <button
+                      onClick={() => handleAddToCart(product)}
+                      className="mobile-add-to-cart-button"
+                    >
+                      Add to Cart
+                      <i className="far plus-ico fa-plus-square text-white"></i>
+                    </button>
+                  ) : (
+                    <button
+                      title="Out of Stock"
+                      type="button"
+                      className="btn"
+                      style={buttonStyle}
+                      disabled
+                    >
+                      Out of Stock
+                    </button>
+                  )}
+                  <button
+                    style={{ height: "38px" }}
+                    className="mobile-buy-now-button"
+                  >
+                    Buy Now
+                    <i className="far plus-ico fa-plus-square text-white"></i>
+                  </button>
+
                 </div>
               </div>
 
-              <div className="share mt-2">
+              <div className="share mt-2 d-lg-block d-sm-none">
                 <div className="d-flex align-items-center">
                   <h6 className="mt-1">Share:</h6>
                   <div className="share-buttons ms-2">
@@ -480,6 +506,31 @@ const productNo = () => {
                   <li>Change of Mind applicable</li>
                   <li>Warranty not available</li>
                 </ul> */}
+              </div>
+            </div>
+            <div className="share mt-4 d-lg-none d-sm-block">
+              <div className="d-flex align-items-center">
+                <h6 className="mt-1">Share:</h6>
+                <div className="share-buttons ms-2">
+                  <a
+                    href="https://www.facebook.com/sharer/sharer.php?u=https://example.com"
+                    target="_blank"
+                  >
+                    <i className="fab fa-facebook"></i>
+                  </a>
+                  <a
+                    href="https://twitter.com/intent/tweet?url=https://example.com"
+                    target="_blank"
+                  >
+                    <i className="fab fa-twitter"></i>
+                  </a>
+                  <a
+                    href="https://pinterest.com/pin/create/button/?url=https://example.com&media=https://example.com/image.jpg&description=Description%20here"
+                    target="_blank"
+                  >
+                    <i className="fab fa-pinterest"></i>
+                  </a>
+                </div>
               </div>
             </div>
           </div>

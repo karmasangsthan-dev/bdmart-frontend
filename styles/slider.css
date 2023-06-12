@@ -262,22 +262,24 @@ p.star {
   width: 50px;
   height: 50px;
   line-height: 60px;
-  background: orange;
-  border: none;
-  border-radius: 50%;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 50px;
   transform: 0.5s;
   z-index: 5;
 }
 
 .control-btn .prev {
+  background: url('https://www.jiomart.com/assets/version1685987373/ds2web/jds-icons/angle-left-primary-icon.svg') center no-repeat !important;
   left: 5px;
   display: flex;
-  color: white;
+  color: black;
   justify-content: center;
   align-items: center;
 }
 
 .control-btn .next {
+  background: url('https://www.jiomart.com/assets/version1685987373/ds2web/jds-icons/angle-right-primary-icon.svg') center no-repeat !important;
   right: 5px;
   display: flex;
   justify-content: center;
@@ -288,13 +290,13 @@ p.star {
 .control-btn .next i {
   font-size: 20px;
   transition: 0.5s;
-  color: #fff;
+  color: black;
   margin-top: 4px;
 }
 
-.control-btn .prev:hover,
+/* .control-btn .prev:hover,
 .control-btn .next:hover {
   background: #ffa500;
   color: white;
   cursor: pointer;
-}
+} */

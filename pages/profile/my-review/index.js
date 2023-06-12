@@ -97,15 +97,19 @@ const Review = () => {
     const handleSubmit = () => {
         if (finalImages.length < 1 && !reviewText) {
             toast.error("Please select images and enter your review details");
+            return;
         }
         if (finalImages.length >= 1 && !reviewText) {
             toast.error("Please add a review details");
+            return;
         }
         if (reviewText && finalImages.length < 1) {
             toast.error("Please select at least 1 image");
+            return;
         }
         if (!ratings) {
             toast.error("Please rate your experience with us !!!");
+            return;
         }
 
         // const data = new
@@ -163,16 +167,16 @@ const Review = () => {
             {orderLoading ? (
                 <p>Loading...</p>
             ) : (
-                <div style={{ height: "120vh" }}>
+                <div className="" style={{ height: "120vh" }}>
                     <div id="invoice-content" ref={componentRef}>
                         <div
-                            className="order-container mx-5 px-5 my-4 py-4 rounded-2"
+                            className="order-container rounded-2"
                             style={{ backgroundColor: "whitesmoke" }}
                         >
                             <h4 className="text-center">
                                 My Products :{" "}
-                                {data.reduce(
-                                    (total, order) => total + order.products.length,
+                                {data?.reduce(
+                                    (total, order) => total + order?.products?.length,
                                     0
                                 )}
                             </h4>
@@ -196,8 +200,8 @@ const Review = () => {
                                     <tbody>
                                         {data?.map((order, index) =>
                                             order?.products.map((product, i) => (
-                                                <tr key={i}>
-                                                    <td>{i + 1}</td>
+                                                <tr key={index}>
+                                                    <td>{index + 1}</td>
                                                     <td>
                                                         <img
                                                             width={40}
@@ -206,12 +210,13 @@ const Review = () => {
                                                             alt=""
                                                         />
                                                     </td>
-                                                    <td>{product?.title}</td>
+                                                    <td className="d-sm-block d-lg-none" style={{ minWidth: '130px', minHeight: '65px' }}>{product?.title?.length < 40 ? product?.title : `${product?.title?.slice(0, 40)}...`}</td>
+                                                    <td className="d-lg-block d-sm-none" style={{ minWidth: '130px', minHeight: '57px' }}>{product?.title}</td>
 
                                                     <td>
                                                         <button
                                                             onClick={() => handleOpenReviewModal(product)}
-                                                            className="btn btn-info text-white d-flex mx-auto"
+                                                            className="btn btn-info text-white d-flex align-items-center mx-auto"
                                                         >
                                                             +
                                                         </button>
@@ -224,8 +229,8 @@ const Review = () => {
                             </div>
                         </div>
                     </div>
-                    <Modal
-                    style={{zIndex:'10001'}}
+                    <Modal className="pb-5"
+                        style={{ zIndex: '10001' }}
                         show={show}
                         size="lg"
                         onHide={handleClose}
@@ -333,6 +338,7 @@ const Review = () => {
                         </Modal.Footer>
                     </Modal>
                     <Modal
+                        className="pb-5 "
                         show={showCropeModal}
                         onHide={handleCloseCropeModal}
                         backdrop="static"
@@ -349,7 +355,7 @@ const Review = () => {
                                     <div className="d-flex justify-content-center">
                                         <Row className="g-5 mx-auto" style={{ gap: "15px" }}>
                                             {selectedImages.map((image, index) => (
-                                                <Col lg="4" sm="1" xl="3" md="1">
+                                                <Col lg="4" sm="1" xl="4" md="1">
                                                     <div>
                                                         <Cropper
                                                             className="mb-3"

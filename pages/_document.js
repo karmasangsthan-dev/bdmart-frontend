@@ -1,5 +1,6 @@
 import { Html, Head, Main, NextScript } from "next/document";
 import Script from "next/script";
+import MobileBottomNav from "../components/Shared/Header/MobileBottomNav";
 
 export default function Document() {
   return (
@@ -18,6 +19,7 @@ export default function Document() {
         ></script>
       </Head>
       <body>
+        
         <Main />
         <NextScript />
       </body>
