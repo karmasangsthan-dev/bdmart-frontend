@@ -32,10 +32,16 @@ export default function MobileBottomNav() {
     setValue(route);
   }, []);
   return (
-    <Box sx={{ pb: 7 }} className="d-lg-none d-xl-none d-xxl-none d-inline">
+    <Box sx={{ pb: 2 }} className="d-lg-none d-xl-none d-xxl-none d-inline">
       <CssBaseline />
       <Paper
-        sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
+        sx={{
+          position: "fixed",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          padding: "5px 0",
+        }}
         elevation={3}
       >
         <BottomNavigation
