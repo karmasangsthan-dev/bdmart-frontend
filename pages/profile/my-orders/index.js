@@ -22,7 +22,7 @@ const orderHistory = () => {
       {isLoading || orderLoading ? (
         <p>Loading..</p>
       ) : (
-        <div className="container" style={{ minHeight: "120vh" }}>
+        <div className="container mb-3" style={{ minHeight: "120vh" }}>
           <div className="row">
             <div className="col-md-3 orders-side-nav">
               <ProfileSideNav />

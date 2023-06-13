@@ -13,7 +13,7 @@ const cart = () => {
   
   const calculateTotal = () => {
     let total = 0;
-    cart.forEach((cartItem) => {
+    cart?.forEach((cartItem) => {
       const quantity = cartItem?.quantity;
       const product = cartProducts?.find((p) => p?._id === cartItem?.id);
       if (product?.price && quantity) {

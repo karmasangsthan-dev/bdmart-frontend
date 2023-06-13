@@ -41,7 +41,7 @@ const JustForYou = ({ t }) => {
   }, [totalProducts]);
 
   return (
-    <div>
+    <div className="mb-5">
       <div className="">
         <div className="col-lg-12 col-md-12 col-sm-12 w">
           <div className="gal-head">
@@ -61,7 +61,7 @@ const JustForYou = ({ t }) => {
                       key={i}
                       className="border shadow "
                       style={{
-                        width: "189px",
+                        width: "auto",
                         minHeight: "189px",
                         background: "#fff",
                         height: "100%",
@@ -128,7 +128,7 @@ const JustForYou = ({ t }) => {
         loader={<h4 className="text-center">Loading...</h4>}
         endMessage={
           data?.data && (
-            <p style={{ textAlign: "center" }}>
+            <p className="mb-4" style={{ textAlign: "center" }}>
               <b>
                 To see more products click{" "}
                 <span onClick={() => router.push("/shop")}>here</span>
