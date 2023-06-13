@@ -59,7 +59,7 @@ const ProductReviewSection = ({ product }) => {
             borderBottom: "1px solid #eff0f5",
           }}
         >
-          <h5 className="fs-6 mt-2">Product Reviews : </h5>
+          {product?.reviews.length > 0 && <h5 className="fs-6 mt-2">Product Reviews : </h5>}
         </div>
         <div className="all-reviews">
           {product?.reviews?.map((review) => (

@@ -1,21 +1,23 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { toast } from "react-hot-toast";
-import { useDispatch, useSelector } from "react-redux";
-import auth from "../../../firebase.init";
+
+import { useSelector } from "react-redux";
+
 import NavMenu from "../NavMenu/NavMenu";
-import Loading from "../Loading/Loading";
+
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { Container, Nav, NavDropdown, Navbar } from "react-bootstrap";
-import { setCart } from "../../../features/auth/authSlice";
-import { Avatar, Badge, Tooltip } from "@mui/material";
+import { Dropdown, Nav, Navbar } from "react-bootstrap";
+import SearchIcon from "@mui/icons-material/Search";
+
+import { Avatar, Badge, TextField, Tooltip } from "@mui/material";
 import { useGetSearchProductQuery } from "../../../features/product/productApi";
 import ContactHeader from "./ContactHeader";
 import { en } from "../../../locales/en";
 import { bn } from "../../../locales/bn";
 import MegaMenu from "./MegaMenu";
+
+import { AiOutlineMenu } from "react-icons/ai";
 const Header = () => {
   const router = useRouter();
   const { locale } = router;
@@ -29,7 +31,6 @@ const Header = () => {
   useEffect(() => {
     refetch();
   }, [searchText]);
-
 
   let totalProductQuantity = 0;
 
@@ -151,89 +152,73 @@ const Header = () => {
 
         {/* for mobile */}
         <div className="main-strip-2 d-sm-block d-lg-none">
-          <Navbar
-           
-            collapseOnSelect
-            expand="lg"
-            bg="light"
-            variant="light"
-          >
-            <Container>
-              <div className="toogler-button">
-                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-              </div>
-              <div className="logo">
-                <Link href="/">
-                  <Image
-                    className="flag-img"
-                    src="/images/logo2.jpg"
-                    alt="country"
-                    width={190}
-                    height={70}
-                  />
-                </Link>
-              </div>
-              <div className="cart-item">
-                <Tooltip title="Cart">
-                  <Link href="/cart">
-                    <Badge badgeContent={totalProductQuantity} color="error">
-                      <Image
-                        className="flag-img"
-                        src="/images/cart.png"
-                        alt="country"
-                        width={45}
-                        height={40}
-                        loading="eager"
-                      />
-                    </Badge>
-                  </Link>
-                </Tooltip>
-              </div>
+          <div className="">
+            
+            <form className="example col-12 p-2">
+              <input
+                style={{borderTopRightRadius:'5px',borderBottomRightRadius:'5px'}}
+                type="text"
+                autoComplete="off"
+                onChange={(e) => setSearchText(e.target.value)}
+                placeholder=" What are you looking for?"
+                name="search"
+              />
 
-              <Navbar.Collapse id="responsive-navbar-nav">
-                <Nav>
-                  <div className="search-box search-box-mobile">
-                    <form className="example">
-                      <input
-                        type="text"
-                        placeholder="What are you looking for?"
-                        name="search"
-                      />
 
-                      <button type="submit">
-                        <i className="fa fa-search"></i>
-                      </button>
-                    </form>
+            </form>
+
+            {data?.data?.length > 0 && (
+              <form className="example justify-content-center">
+                <div
+                  style={{
+                    display: "block",
+                    zIndex: "999",
+                  }}
+                  className="dropdown-menu search-content-box shadow px-2 w-100"
+                >
+                  <div className="search-details">
+                    <div>
+                      {data?.data?.map((product, i) => {
+                        return (
+                          <div
+                            onClick={() =>
+                              router.push(`/productDetails/${product._id}`)
+                            }
+                            key={i}
+                            className="search-item-header d-flex align-items-center border-bottom py-2"
+                          >
+                            <div className="image">
+                              <img
+                                width={60}
+                                height={60}
+                                src={product?.thumbnail}
+                              />
+                            </div>
+                            <div className="ms-3">
+                              <div className="name">{product?.title}</div>
+                              <div className="price">
+                                <span
+                                  style={{ fontWeight: "600" }}
+                                  className="text-danger"
+                                >
+                                  ${product?.price}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                    <div className="d-flex justify-content-center my-3">
+                      <span className="btn btn-info text-center ">
+                        See All Results
+                      </span>
+                    </div>
                   </div>
-                </Nav>
-                <Nav>
-                  {t.homePage.header.nav.map((navItem,index) => (
-                    <Link key={index} className="nav-item-mobile" href={navItem?.link}>
-                      <li className="inner-li">{navItem?.title}</li>
-                    </Link>
-                  ))}
-                </Nav>
-                <Nav className="nav-item-mobile">
-                  {user?.email &&
-                    <div className="d-flex align-items-center my-2">
-                      <Avatar sx={{ width: 25, height: 25 }} >
-
-                        <Image
-                          onClick={() => router.push('/profile')}
-                          layout="responsive"
-                          width={100}
-                          height={100}
-                          src={user?.profilePicture}
-                          className=" "
-                          alt=""
-                        />
-                      </Avatar>
-                      <p onClick={() => router.push('/profile')} className="ms-1">{user?.fullName}</p>
-                    </div>}
-                </Nav>
-              </Navbar.Collapse>
-            </Container>
-          </Navbar>
+                </div>
+              </form>
+            )}
+          </div>
         </div>
 
         {/* header start from here  */}
