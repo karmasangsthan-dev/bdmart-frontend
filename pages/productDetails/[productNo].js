@@ -18,6 +18,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../features/cart/cartSlice";
 import Slider from "react-slick";
 import ProductReviewSection from "../../components/ProductDescription/ProductReviewSection";
+import ShareProduct from "../../components/ProductDescription/ShareProduct";
+import DeleveryAndService from "../../components/ProductDescription/DeleveryAndService";
+import MobileShareProduct from "../../components/ProductDescription/MobileShareProduct";
+import YouMayAlsoLike from "../../components/ProductDescription/YouMayAlsoLike";
 
 const SampleNextArrow = (props) => {
   const { onClick } = props;
@@ -49,7 +53,7 @@ const productNo = () => {
     dots: false,
     infinite: false,
     slidesToShow: 3,
-    slidesToScroll: 2,
+    slidesToScroll: 1,
     initialSlide: 0,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
@@ -58,7 +62,7 @@ const productNo = () => {
         breakpoint: 1024,
         settings: {
           slidesToShow: 3,
-          slidesToScroll: 3,
+          slidesToScroll: 1,
           infinite: true,
           dots: true,
         },
@@ -86,7 +90,7 @@ const productNo = () => {
     query: { productNo = "648106e4461f21c48500d099" },
   } = router;
 
-  const { data: allData } = useGetAllProductsQuery();
+  const { data: allData ,isLoading : allDataLoading} = useGetAllProductsQuery();
   const { data, isLoading } = useGetProductDetailsQuery(productNo);
   const { code: currency, rate: currencyRate } = useSelector(
     (state) => state.currency
@@ -148,6 +152,17 @@ const productNo = () => {
 
     dispatch(addToCart({ id: product?._id }));
   };
+  const scrollToReviews = () => {
+    const productReviewSection = document.getElementById("productReviewSection");
+    const offset = 157;
+
+    const targetScrollTop = productReviewSection.offsetTop - offset;
+
+    window.scrollTo({
+      top: targetScrollTop,
+      behavior: "smooth",
+    });
+  };
 
   const buttonStyle = {
     backgroundColor: "rgb(179 48 61)",
@@ -203,7 +218,7 @@ const productNo = () => {
             className="d-flex flex-wrap mt-2 pt-3"
             style={{ borderTop: "1px solid #ddd" }}
           >
-            <div className="col-lg-4 col-md-5 col-sm-12">
+            <div style={{ display: 'flex', flexDirection: 'column', margin: 'auto' }} className="col-lg-4 col-md-5 col-sm-12 ">
               <div className="product-thumbnail-image">
                 <img
                   className="w-100 h-100"
@@ -213,9 +228,9 @@ const productNo = () => {
               </div>
               <div className="product-others-images d-flex justify-content-center">
                 <div style={{ width: "280px" }}>
-                  <Slider className="w-auto px-5" {...settings}>
+                  <Slider className=" w-auto px-5" {...settings}>
                     {product?.images.map((img) => (
-                      <div style={{ width: "52px", height: "52px" }}>
+                      <div className="images-slider" style={{ width: "52px", height: "52px" }}>
                         <img
                           onClick={() => setDisplayImage(img)}
                           style={{
@@ -245,7 +260,7 @@ const productNo = () => {
                     readOnly
                   />
                 </div>
-                <div className="ratings-texts">( 2 Reviews )</div>
+                <div onClick={scrollToReviews} className="">( <span className="ratings-texts">{product?.reviews.length} Reviews</span> )</div>
               </div>
               <div>
                 <h4 className="my-2">
@@ -385,253 +400,23 @@ const productNo = () => {
 
                 </div>
               </div>
-
-              <div className="share mt-2 d-lg-block d-sm-none">
-                <div className="d-flex align-items-center">
-                  <h6 className="mt-1">Share:</h6>
-                  <div className="share-buttons ms-2">
-                    <a
-                      href="https://www.facebook.com/sharer/sharer.php?u=https://example.com"
-                      target="_blank"
-                    >
-                      <i className="fab fa-facebook"></i>
-                    </a>
-                    <a
-                      href="https://twitter.com/intent/tweet?url=https://example.com"
-                      target="_blank"
-                    >
-                      <i className="fab fa-twitter"></i>
-                    </a>
-                    <a
-                      href="https://pinterest.com/pin/create/button/?url=https://example.com&media=https://example.com/image.jpg&description=Description%20here"
-                      target="_blank"
-                    >
-                      <i className="fab fa-pinterest"></i>
-                    </a>
-                  </div>
-                </div>
-              </div>
+              <ShareProduct></ShareProduct>
             </div>
             <div className="col-md-3">
-              <div className="delivery-info">
-                <h5>Delivery</h5>
-                <div className="d-flex">
-                  <div className="me-2">
-                    <img
-                      width="20"
-                      height="20"
-                      src="https://img.icons8.com/color/48/marker--v1.png"
-                      alt="marker--v1"
-                    />
-                  </div>
-                  <div className="d-flex justify-content-between align-items-center gap-2 w-100">
-                    <p>Dhaka, Dhaka North, Banani Road No. 12 - 19 </p>
-                    <p className="text-info">CHANGE</p>
-                  </div>
-                </div>
-                <div className="d-flex">
-                  <div className="me-2">
-                    <img
-                      width="20"
-                      height="20"
-                      src="https://img.icons8.com/color/48/delivery--v1.png"
-                      alt="delivery--v1"
-                    />
-                  </div>
-                  <div className="d-flex justify-content-between align-items-center w-100">
-                    <div>
-                      <p>
-                        <span style={{ fontWeight: "bold" }}>
-                          Standard Delivery
-                        </span>{" "}
-                        9 Jun - 12 Jun
-                      </p>
-                      <p>3 - 6 day(s)</p>
-                    </div>
-                    <p>$ 2</p>
-                  </div>
-                </div>
-                <div className="d-flex">
-                  <div className="me-2">
-                    <img
-                      width="20"
-                      height="20"
-                      src="https://img.icons8.com/color/48/cash-in-hand.png"
-                      alt="cash-in-hand"
-                    />
-                  </div>
-                  <div className="d-flex justify-content-between align-items-center w-100">
-                    <div>
-                      <p>Cash on Delivery Available</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <DeleveryAndService></DeleveryAndService>
 
-              <div className="service-info">
-                <h4>Service</h4>
-                <div className="d-flex">
-                  <div className="me-2">
-                    <img
-                      width="20"
-                      height="20"
-                      src="https://img.icons8.com/color/48/rollback.png"
-                      alt="rollback"
-                    />
-                  </div>
-                  <div className="d-flex justify-content-between align-items-center w-100">
-                    <div>
-                      <p>14 days easy return</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="d-flex">
-                  <div className="me-2">
-                    <img
-                      width="20"
-                      height="20"
-                      src="https://img.icons8.com/color/48/not-applicable.png"
-                      alt="not-applicable"
-                    />
-                  </div>
-                  <div className="d-flex justify-content-between align-items-center w-100">
-                    <div>
-                      <p>Warranty not available</p>
-                    </div>
-                  </div>
-                </div>
-                {/* <ul>
-                  <li>100% Authentic</li>
-                  <li>14 days easy return</li>
-                  <li>Change of Mind applicable</li>
-                  <li>Warranty not available</li>
-                </ul> */}
-              </div>
+
             </div>
-            <div className="share mt-4 d-lg-none d-sm-block">
-              <div className="d-flex align-items-center">
-                <h6 className="mt-1">Share:</h6>
-                <div className="share-buttons ms-2">
-                  <a
-                    href="https://www.facebook.com/sharer/sharer.php?u=https://example.com"
-                    target="_blank"
-                  >
-                    <i className="fab fa-facebook"></i>
-                  </a>
-                  <a
-                    href="https://twitter.com/intent/tweet?url=https://example.com"
-                    target="_blank"
-                  >
-                    <i className="fab fa-twitter"></i>
-                  </a>
-                  <a
-                    href="https://pinterest.com/pin/create/button/?url=https://example.com&media=https://example.com/image.jpg&description=Description%20here"
-                    target="_blank"
-                  >
-                    <i className="fab fa-pinterest"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
+            <MobileShareProduct></MobileShareProduct>
           </div>
-          <ProductDescription product={product} />
-          <ProductReviewSection product={product} />
-          <h4 className="text-center my-4">You May Also Like</h4>
+          <div id="">
+            <ProductDescription product={product} />
 
-          <div className="shop page-content">
-            <div className="container">
-              <div className="row gap-4">
-                <div className="col-lg-9">
-                  <div className="products ">
-                    <div className="shop-product-details ">
-                      {products
-                        ?.filter((d) => d.category === `${product?.category}`)
-                        .slice(0, 5)
-                        .map((d) => {
-                          return (
-                            <div key={d?._id} className="shop-single-product">
-                              <figure className="product-media">
-                                <span className="product-label label-top">
-                                  Top
-                                </span>
-                                <Link
-                                  style={{ marginTop: "-21px" }}
-                                  href="/shop"
-                                >
-                                  <div
-                                    style={{ width: "217px", height: "217px" }}
-                                  >
-                                    <Image
-                                      onClick={() =>
-                                        router.push(`/productDetails/${d._id}`)
-                                      }
-                                      width={217}
-                                      height={217}
-                                      src={d?.thumbnail}
-                                      className=""
-                                      alt=""
-                                    />
-
-                                    <button
-                                      onClick={(e) => {
-                                        e.preventDefault();
-                                        toast.success("product added in cart");
-                                      }}
-                                      className="shop-add-to-cart-button"
-                                    >
-                                      Add to Cart
-                                      <i
-                                        className="far plus-ico fa-plus-square"
-                                        aria-hidden="true"
-                                      ></i>
-                                    </button>
-                                  </div>
-                                </Link>
-                              </figure>
-                              <div className="product-body">
-                                <div className="product-cat">
-                                  <Link href="#">{d?.category}</Link>
-                                </div>
-                                <div
-                                  onClick={() =>
-                                    router.push(`/productDetails/${d._id}`)
-                                  }
-                                  className="product-title"
-                                >
-                                  <Link href="/shop/?category=fruit">
-                                    {d?.title}
-                                  </Link>
-                                </div>
-                                <div className="product-price d-flex gap-2 justify-content-center">
-                                  <div className="new-price">
-                                    <p>${d?.price}</p>
-                                  </div>
-                                  <div className="shop-old-price">
-                                    <p>$45</p>
-                                  </div>
-                                </div>
-                                <div className="ratings-container mb-3">
-                                  <div className="ratings">
-                                    <Rating
-                                      name="read-only"
-                                      value={parseInt(d?.rating)}
-                                      readOnly
-                                    />
-                                  </div>
-                                  <div className="ratings-texts">
-                                    ( 2 Reviews )
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          );
-                        })}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
+          <div id="productReviewSection">
+            <ProductReviewSection product={product} />
+          </div>
+          <YouMayAlsoLike allDataLoading={allDataLoading} product={product} products={products}></YouMayAlsoLike>
         </div>
       )}
       <Footer></Footer>

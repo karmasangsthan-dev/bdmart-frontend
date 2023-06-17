@@ -13,6 +13,7 @@ const PaymentMethodRadio = ({ method, isSelected, onChange }) => {
     onChange(method);
   };
 
+
   return (
     <div className="payment-method-radio">
       <label>
@@ -37,6 +38,11 @@ const checkout = () => {
   const { cart } = useSelector((state) => state?.cart);
   const { cartProducts } = useSelector((state) => state?.cart);
   const [selectedMethod, setSelectedMethod] = useState("");
+  const { code: currency, rate: currencyRate } = useSelector(
+    (state) => state.currency
+  );
+
+  
 
   const handleMethodChange = (method) => {
     setSelectedMethod(method);
@@ -47,11 +53,12 @@ const checkout = () => {
     cart?.forEach((cartItem) => {
       const quantity = cartItem?.quantity;
       const product = cartProducts?.find((p) => p?._id === cartItem?.id);
+
       if (product?.price && quantity) {
         total += product.price * quantity;
       }
     });
-    return total.toFixed(2);
+    return total * currencyRate?.toFixed(2);
   };
   const handleCouponSubmit = (event) => {
     event.preventDefault();
@@ -100,6 +107,8 @@ const checkout = () => {
         userEmail: user?.email,
         products: productsWithQuantity,
         paymentMethod: selectedMethod,
+        currency,
+        currencyRate
       };
 
       getCreateOrder(orderData);
@@ -161,11 +170,11 @@ const checkout = () => {
                   })}
 
                   <li className="list-group-item d-flex justify-content-between">
-                    <span style={{ fontWeight: "bold" }}>Total (USD)</span>
-                    <strong>${calculateTotal()}</strong>
+                    <span style={{ fontWeight: "bold" }}>Total:</span>
+                    <strong>{calculateTotal()}  {currency}</strong>
                   </li>
                   <div className="select-payment-method mt-3">
-                  <label className="fw-bold mb-2" for="">Select Your Payment Method : </label>
+                    <label className="fw-bold mb-2" for="">Select Your Payment Method : </label>
                     <PaymentMethodRadio
                       method="Credit Card"
                       isSelected={selectedMethod === "Credit Card"}
@@ -190,18 +199,18 @@ const checkout = () => {
                 </ul>
 
                 {selectedMethod === "" && (
-                  <button type="submit" className="place-order-btn btn">
+                  <button type="submit" className="place-order-btn btn mb-5">
                     Place Order
                   </button>
                 )}
                 {selectedMethod === "Cash On Delivery" && (
-                  <button type="submit" className="place-order-btn btn">
+                  <button type="submit" className="place-order-btn btn mb-5">
                     Place Order
                   </button>
                 )}
                 {selectedMethod !== "" &&
                   selectedMethod !== "Cash On Delivery" ? (
-                  <button type="submit" className=" btn btn-danger" disabled>
+                  <button type="submit" className=" btn btn-danger mb-5" disabled>
                     Not available. Please select another method...
                   </button>
                 ) : (
