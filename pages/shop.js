@@ -61,7 +61,7 @@ const shop = () => {
   return (
     <Layout title="Shop - Bangladesh Mart">
       <div className="shop page-content">
-        <div style={{maxWidth:'1240px'}} className="container">
+        <div style={{ maxWidth: '1240px' }} className="container">
           <div className="row ">
             <aside className="col-lg-2 order-lg-first">
               <ShopSideBar
@@ -74,11 +74,12 @@ const shop = () => {
             </aside>
             <div className="col-lg-10 pl-lg-5">
               <div className="">
+                
                 <div className="widget w-100 widget-clean d-flex justify-content-between align-items-center">
-                  <p className="fs-6">
+                  <p className="fs-6 d-sm-none d-lg-block">
                     {t.shopPage.allProducts.productsCountTitle}: {data?.total}
                   </p>
-                  <div className="d-flex">
+                  <div className="d-flex shop-extra-filter">
                     <div className="d-flex py-1">
                       <span>{t.shopPage.allProducts.perPageTitle}: </span>
                       <select
@@ -126,13 +127,8 @@ const shop = () => {
                         return (
                           <div
                             key={i}
-                            className="border shadow "
-                            style={{
-                              width: "217px",
-                              minHeight: "217px",
-                              background: "#fff",
-                              height: "100%",
-                            }}
+                            className="border shadow rounded loading-card-content"
+
                           >
                             <Skeleton
                               className="d-flex mx-auto mt-2"
@@ -178,7 +174,7 @@ const shop = () => {
                     </div>
                   ) : (
                     <div className="shop-products">
-                      {products?.data?.map((product,index) => (
+                      {products?.data?.map((product, index) => (
                         <ShopProduct product={product} key={index}></ShopProduct>
                       ))}
                       {/* {loadedProducts === 0 && <p>No products found.</p>} */}
@@ -186,14 +182,14 @@ const shop = () => {
                   )}
                 </div>
               </div>
-              <div className="my-5">
+              {!loading && <div className=" shop-pagination">
                 <ShopPagination
                   setSort={setSort}
                   sort={sort}
                   pageFound={products?.pageFound}
                   data
                 />
-              </div>
+              </div>}
             </div>
           </div>
         </div>

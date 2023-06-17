@@ -48,7 +48,7 @@ export default function Home({ data }) {
       <ShopDepartments t={t} />
       <Discount t={t} />
       <JustForYou t={t} />
-
+      <Footer></Footer>
     </Layout>
   );
 }

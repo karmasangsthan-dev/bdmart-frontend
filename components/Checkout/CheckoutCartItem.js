@@ -3,6 +3,9 @@ import { useSelector } from "react-redux";
 
 const CheckoutCartItem = ({ product }) => {
   const { cart } = useSelector((state) => state?.cart);
+  const { code: currency, rate: currencyRate } = useSelector(
+    (state) => state.currency
+  );
 
   const rowProduct = cart?.find((item) => item.id == product?._id);
   return (
@@ -13,7 +16,7 @@ const CheckoutCartItem = ({ product }) => {
           <small className="text-muted">Description</small>
         </div>
         <span className="text-muted">
-          ${product?.price * rowProduct?.quantity}
+          {product?.price * currencyRate?.toFixed(2) * rowProduct?.quantity} {currency}
         </span>
       </li>
     </>

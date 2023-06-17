@@ -110,6 +110,7 @@ const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
     };
   }, []);
 
+
   return (
     <div className="sticky-content">
       <aside className="sidebar sidebar-shop">
@@ -257,7 +258,7 @@ const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
 
           <div
             style={{ borderBottom: "0.1rem solid #ebebeb" }}
-            className="mb-3 pb-2"
+            className=" "
           >
             <div
               onClick={() => setPriceOpen(!priceOpen)}
