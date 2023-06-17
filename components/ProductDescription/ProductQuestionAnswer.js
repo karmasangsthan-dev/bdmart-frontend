@@ -164,7 +164,9 @@ const ProductQuestionAnswer = () => {
                     )
                 })}
             </div>
-            
+            <div className='questions-pagination'>
+                <Pagination count={10} variant="outlined" color="primary" shape="rounded" />
+            </div>
 
         </div>
     );
