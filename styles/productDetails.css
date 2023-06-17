@@ -98,6 +98,7 @@ a:hover {
     background-color: #fafafa;
     padding: 0px 20px;
     line-height: 52px;
+    border-top-left-radius: 10px;
     font-size: 16px;
     font-family: 'Roboto', sans-serif;
 }
@@ -314,7 +315,6 @@ textarea:focus {
     grid-template-columns: repeat(5, 1fr);
     gap: 20px;
 }
-
 
 
 @media screen and (max-width: 682px) {

@@ -9,11 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@emotion/react": "^11.10.6",
-    "@emotion/styled": "^11.10.6",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@fontsource/roboto": "^4.5.8",
     "@mui/icons-material": "^5.11.11",
-    "@mui/material": "^5.11.14",
+    "@mui/material": "^5.13.5",
+    "@mui/styled-engine-sc": "^5.12.0",
     "@next/font": "13.2.3",
     "@reduxjs/toolkit": "^1.9.3",
     "axios": "^1.4.0",
@@ -40,7 +41,8 @@
     "react-router-dom": "^6.10.0",
     "react-slick": "^0.29.0",
     "react-to-print": "^2.14.12",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
+    "styled-components": "^5.3.11"
   },
   "devDependencies": {
     "eslint-plugin-next": "^0.0.0"
