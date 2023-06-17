@@ -57,7 +57,7 @@ const orderHistory = () => {
 
                             return (
                               <tr key={index}>
-                                <td>829D</td>
+                                <td><span className={`${order?.invoiceId ? `text-success` : `text-danger`}`}>#{order?.invoiceId ? order?.invoiceId : 'Not Found' }</span></td>
                                 <td style={{ minWidth: '112px' }}>May 28, 2023</td>
                                 <td>
                                   {order?.paymentMethod || "Not Found"}

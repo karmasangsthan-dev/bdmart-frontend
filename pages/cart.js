@@ -10,7 +10,10 @@ const cart = () => {
   const dispatch = useDispatch();
   const { cart } = useSelector((state) => state?.cart);
   const { cartProducts } = useSelector((state) => state?.cart);
-  
+  const { code: currency, rate: currencyRate } = useSelector(
+    (state) => state.currency
+  );
+
   const calculateTotal = () => {
     let total = 0;
     cart?.forEach((cartItem) => {
@@ -115,7 +118,7 @@ const cart = () => {
                   <tbody>
                     <tr className="summary-total">
                       <td>Total:</td>
-                      <td>${calculateTotal()}</td>
+                      <td>{calculateTotal()} {currency}</td>
                     </tr>
                   </tbody>
                 </table>

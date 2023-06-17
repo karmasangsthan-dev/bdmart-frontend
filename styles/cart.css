@@ -22,6 +22,7 @@
     width: 120px;
 }
 
+
 .table-cart td {
     min-height: 60px;
     max-height: 60px;
@@ -180,9 +181,17 @@
     width: 60px;
     height: 60px;
 }
-.billing-address-title{
+
+.billing-address-title {
     margin-bottom: 1rem;
 }
+
+.cart-product-price {
+
+    display: flex;
+    align-items: center;
+}
+
 @media screen and (max-width: 682px) {
     .cart-container {
         padding: 0 20px;
@@ -208,6 +217,7 @@
     .cart-table::-webkit-scrollbar-track {
         background-color: #f1f1f1;
     }
+
     .order-table {
         overflow-x: scroll;
     }
@@ -238,7 +248,8 @@
     }
 
     .cart-product-price {
-        min-width: 85px;
+
+        min-width: 95px;
         margin-bottom: 0;
         margin-left: 10px;
         display: flex;
@@ -264,10 +275,11 @@
         padding-left: calc(1.5rem * .5);
     }
 
-    .billing-address-title{
+    .billing-address-title {
         text-align: center;
     }
-    .your-cart-title{
+
+    .your-cart-title {
         text-align: center;
         margin-top: 5px;
         margin-bottom: -15px;

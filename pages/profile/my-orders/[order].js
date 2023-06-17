@@ -23,6 +23,30 @@ const Order = () => {
       totalAmount + data.products[i].quantity * data.products[i].price;
   }
 
+  const formatDate = (dateString) => {
+    if (!dateString) {
+      return ""; // Fallback value when the date string is undefined or falsy
+    }
+    try {
+
+      const dateObject = new Date(dateString);
+      const options = {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+        hour12: true,
+      };
+      const formattedDate = new Intl.DateTimeFormat("en-US", options).format(dateObject);
+
+      return formattedDate;
+    } catch (error) {
+      console.error("Invalid date string:", dateString);
+      return ""; // Fallback value if the date string is invalid
+    }
+  }
+
   return (
     <Layout title="Invoice - Bangladesh Mart">
       {orderLoading ? (
@@ -78,11 +102,11 @@ const Order = () => {
               <div className="d-flex justify-content-between mt-5 align-items-start">
                 <div>
                   <h6>DATE</h6>
-                  <p>May 1, 2023</p>
+                  <p>{formatDate(data?.createdAt)}</p>
                 </div>
                 <div>
                   <h6>INVOICE NO</h6>
-                  <p>#15454</p>
+                  <p>#{data?.invoiceId}</p>
                 </div>
                 <div className="text-end">
                   <h6>INVOICE TO</h6>
@@ -119,8 +143,8 @@ const Order = () => {
                         <td>{i + 1}</td>
                         <td>{product?.title}</td>
                         <td>{product?.quantity}</td>
-                        <td>{product?.price}</td>
-                        <td>{product?.price * product?.quantity}</td>
+                        <td>{product?.price} {data?.currency}</td>
+                        <td>{product?.price * product?.quantity} {data?.currency}</td>
                       </tr>
                     ))}
                   </tbody>

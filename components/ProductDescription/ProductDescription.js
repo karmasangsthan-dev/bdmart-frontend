@@ -45,15 +45,25 @@ const ProductDescription = ({ product }) => {
                     <h5 className='heading-description'>Specifications of {product?.title}</h5>
                     <div className='d-flex justify-content-between'>
                         <ul style={{ listStyleType: 'initial' }} className='w-50'>
-                        <li>Brand : {product?.brand} </li>
+                            {
+                                product?.brand && <li>Brand : {product?.brand} </li>
+                            }
+                            {
+                                !product?.brand && <li>Brand : <span className='text-danger'>Not Found</span> </li>
+                            }
 
                         </ul>
                         <ul style={{ listStyleType: 'initial' }} className='w-50'>
-                        <li>SKU : {product?.sku} </li>
+                            {
+                                product?.sku && <li>SKU : {product?.sku} </li>
+                            }
+                            {
+                                !product?.sku && <li>SKU : <span className='text-danger'>Not Found</span> </li>
+                            }
                         </ul>
                     </div>
                     <div className='mt-3'>
-                        <p className='what-in-box'><span style={{fontWeight:'bold'}}>What’s in the box:</span> <span className='ms-5'>{product?.whatInTheBox ? whatInTheBox : 'BUY 1 GET 1, Square LED Digital Sports Watch , Water Resistance LED Wrist Watch, COMBO OFFER' }</span></p>
+                        <p className='what-in-box'><span style={{ fontWeight: 'bold' }}>What’s in the box:</span> <span className='ms-5'>{product?.whatInTheBox ? whatInTheBox : 'BUY 1 GET 1, Square LED Digital Sports Watch , Water Resistance LED Wrist Watch, COMBO OFFER'}</span></p>
                     </div>
                 </div>
             </div>
