@@ -52,7 +52,7 @@ const JustForYou = ({ t }) => {
       <div style={{ maxWidth: "1240px" }} className="mx-auto ">
 
         {isLoading ? (
-          <div className="mb-3" style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: '20px' }} >
+          <div className="mb-3 just-for-you-loading-container" >
             {Array(6)
               .fill()
               .map((p, i) => {

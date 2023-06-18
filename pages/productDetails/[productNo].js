@@ -22,6 +22,7 @@ import ShareProduct from "../../components/ProductDescription/ShareProduct";
 import DeleveryAndService from "../../components/ProductDescription/DeleveryAndService";
 import MobileShareProduct from "../../components/ProductDescription/MobileShareProduct";
 import YouMayAlsoLike from "../../components/ProductDescription/YouMayAlsoLike";
+import ProductQuestionAnswer from "../../components/ProductDescription/ProductQuestionAnswer";
 
 const SampleNextArrow = (props) => {
   const { onClick } = props;
@@ -416,6 +417,7 @@ const productNo = () => {
           <div id="productReviewSection">
             <ProductReviewSection product={product} />
           </div>
+          <ProductQuestionAnswer></ProductQuestionAnswer>
           <YouMayAlsoLike allDataLoading={allDataLoading} product={product} products={products}></YouMayAlsoLike>
         </div>
       )}
