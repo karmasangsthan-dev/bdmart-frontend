@@ -357,7 +357,7 @@ const Review = () => {
                                             <div className="d-flex justify-content-center">
                                                 <Row className="g-5 mx-auto" style={{ gap: "15px" }}>
                                                     {selectedImages.map((image, index) => (
-                                                        <Col lg="4" sm="1" xl="4" md="1">
+                                                        <Col key={index} lg="4" sm="1" xl="4" md="1">
                                                             <div>
                                                                 <Cropper
                                                                     className="mb-3"

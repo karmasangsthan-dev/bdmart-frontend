@@ -105,7 +105,7 @@ const ProductQuestionAnswer = () => {
                                     <p>My Questions</p>
                                     <div className="product-question">
                                         {
-                                            dataArray?.map((data, index) => <div key={index} className="product-question">
+                                            dataArray?.slice().reverse().map((data, index) => <div key={index} className="product-question">
                                                 <div className="product-qna ">
                                                     <span><img width="20" height="20" src="https://img.icons8.com/ios-filled/50/FA5252/circled-q.png" alt="circled-q" /></span>
                                                     <div>
@@ -153,7 +153,7 @@ const ProductQuestionAnswer = () => {
             <div className='all-qna product-questions'>
                 {questionData?.slice(0, 3)?.map((question, index) => {
                     return (
-                        <div className="product-question">
+                        <div key={index} className="product-question">
                             <div className="product-qna ">
                                 <span><img width="20" height="20" src="https://img.icons8.com/ios-filled/50/FA5252/circled-q.png" alt="circled-q" /></span>
                                 <div>
@@ -181,7 +181,7 @@ const ProductQuestionAnswer = () => {
                     )
                 })}
             </div>
-            <div className='questions-pagination'>
+            <div className='questions-pagination '>
                 <Pagination count={10} variant="outlined" color="primary" shape="rounded" />
             </div>
 

@@ -62,7 +62,7 @@ const signup = () => {
               >
                 <div className="left w-50 p-4">
                   <div>
-                    <label htmlFor="email">Enter Your Name*</label> <br />
+                    <label htmlhtmlFor="email">Enter Your Name*</label> <br />
                     <input
                       name="fullName"
                       style={{
@@ -77,7 +77,7 @@ const signup = () => {
                   </div>
 
                   <div className="mt-3">
-                    <label htmlFor="email">Phone Number or Email*</label> <br />
+                    <label htmlhtmlFor="email">Phone Number or Email*</label> <br />
                     <input
                       name="email"
                       style={{
@@ -91,7 +91,7 @@ const signup = () => {
                     />
                   </div>
                   <div className="mt-3">
-                    <label htmlFor="email">Password*</label>
+                    <label htmlhtmlFor="email">Password*</label>
                     <br />
                     <input
                       name="password"
