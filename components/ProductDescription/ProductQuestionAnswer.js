@@ -1,13 +1,15 @@
 import { Pagination, Stack } from '@mui/material';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { useSelector } from 'react-redux';
 
 
 
 const ProductQuestionAnswer = () => {
     const user = useSelector((state) => state?.auth?.user);
-    console.log(user, 'user')
+    const [dataArray, setDataArray] = useState([]);
+    const [question, setQuestion] = useState('');
     const router = useRouter();
     const questionData = [
         {
@@ -71,6 +73,21 @@ const ProductQuestionAnswer = () => {
             adminReply: 'Absolutely! These sunglasses are designed to be unisex, making them suitable for both men and women.'
         }
     ];
+    const handleCreateQuestion = () => {
+        const elem = document.getElementById('question-input');
+        const dataArray = [];
+        const myQuestionData = { userName: user?.fullName, userEmail: user?.email, userQuestion: question, adminReply: '' }
+        if (!question) {
+            toast.error('Please write your question at first...!!')
+        }
+        else {
+            setDataArray(prevDataArray => [...prevDataArray, myQuestionData]);
+            elem.value = '';
+        }
+    }
+    useEffect(() => {
+        console.log(dataArray, 'data array');
+    }, [dataArray]);
     return (
         <div className='product-description-container product-question-container shadow'>
             <h6 className='heading'>Question About This Product (81)</h6>
@@ -80,47 +97,47 @@ const ProductQuestionAnswer = () => {
                     !user?.email ? <p className='question-login'><span onClick={() => router.push('/signin')} className='question-answer-login-btn'>Login</span> or <span onClick={() => router.push('/signup')} className='question-answer-login-btn'>Register</span> to ask questions to seller.</p> : (
                         <div>
                             <div className='question-post-container'>
-                                <input type="text" placeholder='Ask seller a question' />
-                                <button>Ask Question</button>
+                                <input id='question-input' onChange={(e) => setQuestion(e.target.value)} type="text" placeholder='Ask seller a question' />
+                                <button onClick={handleCreateQuestion}>Ask Question</button>
                             </div>
                             {
-                                user?.email && <div>
+                                user?.email && dataArray.length > 0 && <div>
                                     <p>My Questions</p>
                                     <div className="product-question">
-                                        <div className="product-qna ">
-                                            <span><img width="20" height="20" src="https://img.icons8.com/ios-filled/50/FA5252/circled-q.png" alt="circled-q" /></span>
-                                            <div>
-                                                <div className='qna-text'>
-                                                    eita ki glass er na ki plastic?
-                                                </div>
-                                                <div className='question-desc'>
-                                                    Md Altaf. - 1 second ago
-                                                </div>
-                                            </div>
-                                        </div>
                                         {
-                                            !1 == 1 ? (
+                                            dataArray?.map((data, index) => <div key={index} className="product-question">
                                                 <div className="product-qna ">
-                                                    <span><img width="20" height="20" src="https://img.icons8.com/ios-filled/50/40C057/xbox-a.png" alt="xbox-a" /></span>
+                                                    <span><img width="20" height="20" src="https://img.icons8.com/ios-filled/50/FA5252/circled-q.png" alt="circled-q" /></span>
                                                     <div>
                                                         <div className='qna-text'>
-                                                            original poly owala polorized sunglass.
+                                                            {data?.userQuestion}
                                                         </div>
                                                         <div className='question-desc'>
-                                                            Faysal Optics - answered within 1 hours
+                                                            {data?.userName} - 1 second ago
                                                         </div>
                                                     </div>
-                                                </div>
-                                            ) : (
-                                                <div className="product-qna ">
-                                                    <span style={{ width: '20px', height: '20px' }}></span>
-                                                    <div className='question-desc'>
-                                                        No answer yet
-                                                    </div>
-                                                </div>
-                                            )
-                                        }
 
+                                                </div>
+                                                {
+                                                    data?.adminReply === '' ? <div className="product-qna ">
+                                                        <span style={{ width: '20px', height: '20px' }}></span>
+                                                        <div className='question-desc'>
+                                                            No answer yet
+                                                        </div>
+                                                    </div> : <div className="product-qna ">
+                                                        <span><img width="20" height="20" src="https://img.icons8.com/ios-filled/50/40C057/xbox-a.png" alt="xbox-a" /></span>
+                                                        <div>
+                                                            <div className='qna-text'>
+                                                                {data?.adminReply}
+                                                            </div>
+                                                            <div className='question-desc'>
+                                                                Faysal Optics - answered within 1 hours
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>)
+                                        }
 
                                     </div>
                                 </div>
