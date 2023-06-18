@@ -10,6 +10,12 @@ export default function Document() {
           rel="icon"
           href="https://images.emojiterra.com/google/android-12l/512px/1f171.png"
         />
+        <meta property="og:title" content="Bangladesh Mart" />
+        <meta property="og:description" content="Discover a wide range of products at competitive prices on BangladeshMart, your one-stop online shopping destination. Browse through our extensive collection of electronics, fashion, home appliances, beauty products, and much more. Enjoy a seamless shopping experience with secure payments, fast delivery, and excellent customer service. Start shopping today and find great deals on your favorite brands at BangladeshMart." />
+        <meta property="og:image" content="https://bangladeshmart.com.bd/_ipx/w_256,q_75/%2Fimages%2Flogo2.jpg?url=%2Fimages%2Flogo2.jpg&w=256&q=75" />
+        <meta property="og:url" content="https://bangladeshmart.com.bd" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Bangladesh Mart" />
 
         <script
           src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
@@ -19,7 +25,7 @@ export default function Document() {
         ></script>
       </Head>
       <body>
-        
+
         <Main />
         <NextScript />
       </body>
