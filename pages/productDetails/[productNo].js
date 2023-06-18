@@ -230,8 +230,8 @@ const productNo = () => {
               <div className="product-others-images d-flex justify-content-center">
                 <div style={{ width: "280px" }}>
                   <Slider className=" w-auto px-5" {...settings}>
-                    {product?.images.map((img) => (
-                      <div className="images-slider" style={{ width: "52px", height: "52px" }}>
+                    {product?.images.map((img,index) => (
+                      <div key={index} className="images-slider" style={{ width: "52px", height: "52px" }}>
                         <img
                           onClick={() => setDisplayImage(img)}
                           style={{
@@ -284,8 +284,9 @@ const productNo = () => {
               <div className="d-flex align-items-center gap-2 mt-2">
                 <h6 style={{ minWidth: "50px" }}>Color:</h6>
                 <div>
-                  {["#FF0000", "#49B2DB", "#3560D9"].map((color) => (
+                  {["#FF0000", "#49B2DB", "#3560D9"].map((color,index) => (
                     <p
+                    key={index}
                       style={{ backgroundColor: color }}
                       className="product-select-color "
                     ></p>
