@@ -59,8 +59,8 @@ const Discount = ({ t }) => {
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
-          infinite : true,
-          dots:false,
+          infinite: true,
+          dots: false,
           autoplay: true,
         },
       },
@@ -131,9 +131,11 @@ const Discount = ({ t }) => {
           ) : (
             <div>
               <Slider className="px-4" {...settings}>
-                {data?.data?.map((product) => (
+                {[...data?.data].sort(() => Math.random() - 0.5).map((product) => (
                   <DiscountProductCard product={product} key={product?._id} />
                 ))}
+
+                
               </Slider>
             </div>
           )}

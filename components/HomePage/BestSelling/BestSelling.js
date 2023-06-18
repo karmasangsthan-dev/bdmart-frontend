@@ -156,7 +156,7 @@ const BestSelling = ({ t }) => {
       ) : (
         <div className="">
           <Slider className=" px-4 " {...settings}>
-            {data?.data?.map((product, index) => (
+            {[...data?.data].sort(() => Math.random() - 0.5).map((product, index) => (
               <DiscountProductCard key={index} product={product} />
             ))}
           </Slider>
