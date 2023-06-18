@@ -1,4 +1,4 @@
-import { Rating } from "@mui/material";
+import { Pagination, Rating } from "@mui/material";
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
 import { FaRegThumbsUp, FaThumbsUp } from "react-icons/fa";
@@ -9,7 +9,7 @@ import Review from "./Review";
 
 const ProductReviewSection = ({ product }) => {
   return (
-    <div className="review-section-container  my-5 pb-5 product-description-container">
+    <div className="review-section-container  my-5  product-description-container">
       <h5 className="review-container-title">
         Ratings & Reviews of {product?.title}
       </h5>
@@ -17,16 +17,16 @@ const ProductReviewSection = ({ product }) => {
         <div className="col-md-6 d-flex justify-content-between">
           <div>
             <h1>
-              {product?.rating?.toFixed(1)}
+              {product?.rating ? product?.rating?.toFixed(1) : '4.5'}
               <span style={{ fontSize: "30px", color: "#9e9e9e" }}>/5</span>
             </h1>
             <Rating
               style={{ fontSize: "33px" }}
               name="read-only"
-              value={parseInt(product?.rating)}
+              value={parseInt(product?.rating ? product?.rating : '5')}
               readOnly
             />
-            <p>677 Ratings </p>
+            <p>45 Ratings </p>
           </div>
           <div>
             <div className="d-flex">
@@ -55,17 +55,21 @@ const ProductReviewSection = ({ product }) => {
       <div className="product-reviews px-4">
         <div
           style={{
-            borderTop: "1px solid #eff0f5",
-            borderBottom: "1px solid #eff0f5",
+
+
           }}
         >
-          {product?.reviews.length > 0 && <h5 className="fs-6 mt-2">Product Reviews : </h5>}
+          {product?.reviews.length > 0 && <h5 className="fs-6 mt-2">Product Reviews : ({product?.reviews.length}) </h5>}
         </div>
-        <div className="all-reviews">
-          {product?.reviews?.map((review) => (
-            <Review review={review} key={review?._id} />
-          ))}
-        </div>
+
+      </div>
+      <div className="all-reviews">
+        {product?.reviews?.slice(0,5).reverse().map((review) => (
+          <Review review={review} key={review?._id} />
+        ))}
+      </div>
+      <div className='questions-pagination review-pagination py-4'>
+        <Pagination count={10} variant="outlined" color="primary" shape="rounded" />
       </div>
     </div>
   );

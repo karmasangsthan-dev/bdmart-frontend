@@ -144,7 +144,7 @@ const checkout = () => {
                 name="coupon"
               />
               {!coupon && (
-                <label for="checkout-discount-input" className="text-truncate">
+                <label htmlFor="checkout-discount-input" className="text-truncate">
                   Have a coupon? <span>Click here to enter your code</span>
                 </label>
               )}
@@ -174,7 +174,7 @@ const checkout = () => {
                     <strong>{calculateTotal()}  {currency}</strong>
                   </li>
                   <div className="select-payment-method mt-3">
-                    <label className="fw-bold mb-2" for="">Select Your Payment Method : </label>
+                    <label className="fw-bold mb-2" htmlFor="">Select Your Payment Method : </label>
                     <PaymentMethodRadio
                       method="Credit Card"
                       isSelected={selectedMethod === "Credit Card"}
@@ -221,7 +221,7 @@ const checkout = () => {
                 <h4 className="billing-address-title">Billing address</h4>
                 <div className="row name">
                   <div className="col-md-6 mb-3">
-                    <label for="firstName">First name *</label>
+                    <label htmlFor="firstName">First name *</label>
                     <input
                       type="text"
                       className="form-control"
@@ -231,7 +231,7 @@ const checkout = () => {
                     />
                   </div>
                   <div className="col-md-6 mb-3">
-                    <label for="lastName">Last name *</label>
+                    <label htmlFor="lastName">Last name *</label>
                     <input
                       type="text"
                       className="form-control"
@@ -260,7 +260,7 @@ const checkout = () => {
                 </div>
 
                 <div className="mb-3">
-                  <label for="address">Street Address *</label>
+                  <label htmlFor="address">Street Address *</label>
                   <textarea
                     name="address"
                     type="text"
@@ -275,7 +275,7 @@ const checkout = () => {
                 <div className="row second-input-group">
                   <div className="col-md-6 ">
                     <div className="">
-                      <label for="city">Town / City *</label>
+                      <label htmlFor="city">Town / City *</label>
                       <input
                         id="city"
                         name="city"
@@ -301,7 +301,7 @@ const checkout = () => {
                 <div className="row second-input-group">
                   <div className="col-md-6 ">
                     <div className="mb-2">
-                      <label for="postcode">Postcode / ZIP *</label>
+                      <label htmlFor="postcode">Postcode / ZIP *</label>
                       <input
                         name="postcode"
                         type="text"
@@ -312,7 +312,7 @@ const checkout = () => {
                   </div>
                   <div className="col-md-6 ">
                     <div className="">
-                      <label for="phone">Phone *</label>
+                      <label htmlFor="phone">Phone *</label>
                       <input
                         name="phone"
                         type="text"
@@ -323,7 +323,7 @@ const checkout = () => {
                   </div>
                 </div>
                 <div className="mb-3">
-                  <label for="email">Email Address*</label>
+                  <label htmlFor="email">Email Address*</label>
                   <input
                     readOnly
                     disabled

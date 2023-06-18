@@ -67,7 +67,7 @@ const signin = () => {
             >
               <div className="left w-50 p-4">
                 <div>
-                  <label htmlFor="email">Phone Number or Email*</label> <br />
+                  <label htmlhtmlFor="email">Phone Number or Email*</label> <br />
                   <input
                     onChange={(e) => setEmail(e.target.value)}
                     style={{
@@ -82,7 +82,7 @@ const signin = () => {
                 </div>
 
                 <div className="mt-3">
-                  <label htmlFor="email">Password*</label>
+                  <label htmlhtmlFor="email">Password*</label>
                   <br />
                   <input
                     onChange={(e) => setPassword(e.target.value)}

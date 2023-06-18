@@ -23,6 +23,9 @@ const Header = () => {
   const { locale } = router;
   const t = locale === "en" ? en : bn;
   const user = useSelector((state) => state?.auth?.user);
+  const { code: currency, rate: currencyRate } = useSelector(
+    (state) => state.currency
+  );
   const [searchText, setSearchText] = useState("");
   const { cart } = useSelector((state) => state?.cart);
   const { data, isLoading, isError, error, refetch } =
@@ -109,7 +112,7 @@ const Header = () => {
                                     style={{ fontWeight: "600" }}
                                     className="text-danger"
                                   >
-                                    ${product?.price}
+                                    {(product?.price * currencyRate).toFixed(2)} <span> {currency}</span>
                                   </span>
                                 </div>
                               </div>
@@ -153,10 +156,10 @@ const Header = () => {
         {/* for mobile */}
         <div className="main-strip-2 d-sm-block d-lg-none">
           <div className="">
-            
+
             <form className="example col-12 p-2">
               <input
-                style={{borderTopRightRadius:'5px',borderBottomRightRadius:'5px'}}
+                style={{ borderTopRightRadius: '5px', borderBottomRightRadius: '5px' }}
                 type="text"
                 autoComplete="off"
                 onChange={(e) => setSearchText(e.target.value)}
@@ -201,7 +204,7 @@ const Header = () => {
                                   style={{ fontWeight: "600" }}
                                   className="text-danger"
                                 >
-                                  ${product?.price}
+                                  {(product?.price * currencyRate).toFixed(2)} <span> {currency}</span>
                                 </span>
                               </div>
                             </div>
