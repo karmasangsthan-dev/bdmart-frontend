@@ -79,10 +79,11 @@ const ProductQuestionAnswer = ({ product }) => {
 
             {user?.email && product?.questionsAndAnswers.filter((qus) => qus.qusBy.email === user.email).length > 0 && (
               <div>
-                <p>My Questions</p>
-                <div className="product-question">
+                <p>My Questions ({product?.questionsAndAnswers
+                    .filter((qus) => qus.qusBy.email === user.email).length})</p>
+                <div className="">
                   {product?.questionsAndAnswers
-                    .filter((qus) => qus.qusBy.email === user.email).slice().reverse().map((question, index) => (
+                    .filter((qus) => qus.qusBy.email === user.email).slice(-3).reverse().map((question, index) => (
                       <QuesAndAnswer
                         user={user}
                         question={question}
