@@ -76,7 +76,7 @@ const profile = () => {
                 <hr />
                 <div className="row">
                   <div className="col-md-6">
-                    <label htmlFor="name">Full Name:</label>
+                    <label htmlhtmlFor="name">Full Name:</label>
                     <input
                       className="w-100 px-3 py-2 mb-3 border-0 "
                       style={{
@@ -89,7 +89,7 @@ const profile = () => {
                       placeholder="Enter Your Full Name"
                     />
 
-                    <label htmlFor="name">Email:</label>
+                    <label htmlhtmlFor="name">Email:</label>
                     <input
                       className="w-100 px-3 py-2 mb-3 border-0 "
                       name="email"
@@ -103,7 +103,7 @@ const profile = () => {
                       readOnly
                     />
 
-                    <label htmlFor="name">Contact Number:</label>
+                    <label htmlhtmlFor="name">Contact Number:</label>
                     <input
                       className="w-100 px-3 py-2 mb-3 border-0"
                       name="contactNumber"
@@ -117,7 +117,7 @@ const profile = () => {
                     />
                   </div>
                   <div className="col-md-6">
-                    <label htmlFor="name">Gender:</label>
+                    <label htmlhtmlFor="name">Gender:</label>
                     <div className="d-flex mt-2 mb-4">
                       <input
                         type="radio"
@@ -144,7 +144,7 @@ const profile = () => {
                       />{" "}
                       <span>Custom</span>
                     </div>
-                    <label htmlFor="name">Address:</label>
+                    <label htmlhtmlFor="name">Address:</label>
                     <input
                       className="w-100 px-3 py-2 mb-3 border-0 text-capitalize"
                       style={{
@@ -156,7 +156,7 @@ const profile = () => {
                       name="address"
                       placeholder="Enter Your Address"
                     />
-                    <label htmlFor="name">Payment Method:</label>
+                    <label htmlhtmlFor="name">Payment Method:</label>
                     <input
                       className="w-100 px-3 py-2 border-0"
                       style={{

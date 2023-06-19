@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import Layout from "../../components/Layout";
 import { Breadcrumbs, Link, Rating } from "@mui/material";
-import { Form, Tab, Tabs } from "react-bootstrap";
+import { Breadcrumb, Form, Tab, Tabs } from "react-bootstrap";
 import { toast } from "react-hot-toast";
 import { useEffect, useState } from "react";
 import { FaFacebookF } from "react-icons/fa";
@@ -18,6 +18,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../features/cart/cartSlice";
 import Slider from "react-slick";
 import ProductReviewSection from "../../components/ProductDescription/ProductReviewSection";
+import ShareProduct from "../../components/ProductDescription/ShareProduct";
+import DeleveryAndService from "../../components/ProductDescription/DeleveryAndService";
+import MobileShareProduct from "../../components/ProductDescription/MobileShareProduct";
+import YouMayAlsoLike from "../../components/ProductDescription/YouMayAlsoLike";
+import ProductQuestionAnswer from "../../components/ProductDescription/ProductQuestionAnswer";
 
 const SampleNextArrow = (props) => {
   const { onClick } = props;
@@ -26,9 +31,7 @@ const SampleNextArrow = (props) => {
       <button
         style={{ width: "30px", height: "30px", top: "33%" }}
         className="next"
-      >
-        <i className="fa fa-long-arrow-alt-right"></i>
-      </button>
+      ></button>
     </div>
   );
 };
@@ -39,9 +42,7 @@ const SamplePrevArrow = (props) => {
       <button
         style={{ width: "30px", height: "30px", top: "33%" }}
         className="prev"
-      >
-        <i className="fa fa-long-arrow-alt-left"></i>
-      </button>
+      ></button>
     </div>
   );
 };
@@ -51,7 +52,7 @@ const productNo = () => {
     dots: false,
     infinite: false,
     slidesToShow: 3,
-    slidesToScroll: 2,
+    slidesToScroll: 1,
     initialSlide: 0,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
@@ -60,7 +61,7 @@ const productNo = () => {
         breakpoint: 1024,
         settings: {
           slidesToShow: 3,
-          slidesToScroll: 3,
+          slidesToScroll: 1,
           infinite: true,
           dots: true,
         },
@@ -68,15 +69,15 @@ const productNo = () => {
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          initialSlide: 0,
         },
       },
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 3,
           slidesToScroll: 1,
         },
       },
@@ -88,7 +89,7 @@ const productNo = () => {
     query: { productNo = "648106e4461f21c48500d099" },
   } = router;
 
-  const { data: allData } = useGetAllProductsQuery();
+  const { data: allData, isLoading: allDataLoading } = useGetAllProductsQuery();
   const { data, isLoading } = useGetProductDetailsQuery(productNo);
   const { code: currency, rate: currencyRate } = useSelector(
     (state) => state.currency
@@ -150,6 +151,19 @@ const productNo = () => {
 
     dispatch(addToCart({ id: product?._id }));
   };
+  const scrollToReviews = () => {
+    const productReviewSection = document.getElementById(
+      "productReviewSection"
+    );
+    const offset = 157;
+
+    const targetScrollTop = productReviewSection.offsetTop - offset;
+
+    window.scrollTo({
+      top: targetScrollTop,
+      behavior: "smooth",
+    });
+  };
 
   const buttonStyle = {
     backgroundColor: "rgb(179 48 61)",
@@ -191,34 +205,33 @@ const productNo = () => {
             role="presentation"
             onClick={handleClick}
           >
-            <Breadcrumbs aria-label="breadcrumb">
-              <Link
-                onClick={() => router.push("/")}
-                color="inherit"
-                underline="hover"
-                href="/"
-              >
+            <Breadcrumb className="breadcrumb-container">
+              <Breadcrumb.Item onClick={() => router.push("/")}>
                 Home
-              </Link>
-              <Link
-                style={{ cursor: "default", textDecoration: "none" }}
-                color="inherit"
-              >
-                Details
-              </Link>
-              <Link
-                style={{ cursor: "default", textDecoration: "none" }}
-                color="inherit"
-              >
+              </Breadcrumb.Item>
+              <Breadcrumb.Item href="">Description</Breadcrumb.Item>
+              <Breadcrumb.Item className="d-lg-block d-sm-none">
                 {product?.title}
-              </Link>
-            </Breadcrumbs>
+              </Breadcrumb.Item>
+              <Breadcrumb.Item className="d-lg-none d-sm-block">
+                {product?.title?.length < 20
+                  ? product?.title
+                  : `${product?.title?.slice(0, 20)}...`}
+              </Breadcrumb.Item>
+            </Breadcrumb>
           </div>
           <div
             className="d-flex flex-wrap mt-2 pt-3"
             style={{ borderTop: "1px solid #ddd" }}
           >
-            <div className="col-md-4">
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                margin: "auto",
+              }}
+              className="col-lg-4 col-md-5 col-sm-12 "
+            >
               <div className="product-thumbnail-image">
                 <img
                   className="w-100 h-100"
@@ -226,11 +239,15 @@ const productNo = () => {
                   alt=""
                 />
               </div>
-              <div className="product-others-images ">
+              <div className="product-others-images d-flex justify-content-center">
                 <div style={{ width: "280px" }}>
-                  <Slider className="w-auto px-5" {...settings}>
-                    {product?.images.map((img) => (
-                      <div style={{ width: "52px", height: "52px" }}>
+                  <Slider className=" w-auto px-5" {...settings}>
+                    {product?.images.map((img, index) => (
+                      <div
+                        key={index}
+                        className="images-slider"
+                        style={{ width: "52px", height: "52px" }}
+                      >
                         <img
                           onClick={() => setDisplayImage(img)}
                           style={{
@@ -250,7 +267,7 @@ const productNo = () => {
               </div>
             </div>
 
-            <div className="col-md-5 py-2 px-4">
+            <div className="col-lg-5 col-md-5 col-sm-12 product-details-information">
               <h3>Name: {product?.title}</h3>
               <div className="d-flex justiy-content-center">
                 <div className="ratings">
@@ -260,7 +277,13 @@ const productNo = () => {
                     readOnly
                   />
                 </div>
-                <div className="ratings-texts">( 2 Reviews )</div>
+                <div onClick={scrollToReviews} className="">
+                  ({" "}
+                  <span className="ratings-texts">
+                    {product?.reviews.length} Reviews
+                  </span>{" "}
+                  )
+                </div>
               </div>
               <div>
                 <h4 className="my-2">
@@ -283,8 +306,9 @@ const productNo = () => {
               <div className="d-flex align-items-center gap-2 mt-2">
                 <h6 style={{ minWidth: "50px" }}>Color:</h6>
                 <div>
-                  {["#FF0000", "#49B2DB", "#3560D9"].map((color) => (
+                  {["#FF0000", "#49B2DB", "#3560D9"].map((color, index) => (
                     <p
+                      key={index}
                       style={{ backgroundColor: color }}
                       className="product-select-color "
                     ></p>
@@ -335,8 +359,8 @@ const productNo = () => {
                   </div>
                 </div>
               </div>
-              <div className="mt-2">
-                <div id="cart-btn">
+              <div className="mt-2 d-lg-block d-sm-none">
+                <div id="cart-btn d-flex align-items-center justify-content-center ">
                   {product?.stock >= 1 ? (
                     <button
                       onClick={() => handleAddToCart(product)}
@@ -357,237 +381,70 @@ const productNo = () => {
                       Out of Stock
                     </button>
                   )}
+                  <button
+                    style={{ height: "38px" }}
+                    className="desktop-buy-now-button"
+                  >
+                    Buy Now
+                    <i className="far plus-ico fa-plus-square text-white"></i>
+                  </button>
                 </div>
               </div>
-
-              <div className="share mt-2">
-                <div className="d-flex align-items-center">
-                  <h6 className="mt-1">Share:</h6>
-                  <div className="share-buttons ms-2">
-                    <a
-                      href="https://www.facebook.com/sharer/sharer.php?u=https://example.com"
-                      target="_blank"
+              {/* mobile add to cart button  */}
+              <div className="mt-2 d-lg-none d-sm-block">
+                <div className="cart-btn-mobile ">
+                  {product?.stock >= 1 ? (
+                    <button
+                      onClick={() => handleAddToCart(product)}
+                      className="mobile-add-to-cart-button"
                     >
-                      <i className="fab fa-facebook"></i>
-                    </a>
-                    <a
-                      href="https://twitter.com/intent/tweet?url=https://example.com"
-                      target="_blank"
+                      Add to Cart
+                      <i className="far plus-ico fa-plus-square text-white"></i>
+                    </button>
+                  ) : (
+                    <button
+                      title="Out of Stock"
+                      type="button"
+                      className="btn"
+                      style={buttonStyle}
+                      disabled
                     >
-                      <i className="fab fa-twitter"></i>
-                    </a>
-                    <a
-                      href="https://pinterest.com/pin/create/button/?url=https://example.com&media=https://example.com/image.jpg&description=Description%20here"
-                      target="_blank"
-                    >
-                      <i className="fab fa-pinterest"></i>
-                    </a>
-                  </div>
+                      Out of Stock
+                    </button>
+                  )}
+                  <button
+                    style={{ height: "38px" }}
+                    className="mobile-buy-now-button"
+                  >
+                    Buy Now
+                    <i className="far plus-ico fa-plus-square text-white"></i>
+                  </button>
                 </div>
               </div>
+              <ShareProduct />
             </div>
             <div className="col-md-3">
-              <div className="delivery-info">
-                <h5>Delivery</h5>
-                <div className="d-flex">
-                  <div className="me-2">
-                    <img
-                      width="20"
-                      height="20"
-                      src="https://img.icons8.com/color/48/marker--v1.png"
-                      alt="marker--v1"
-                    />
-                  </div>
-                  <div className="d-flex justify-content-between align-items-center gap-2 w-100">
-                    <p>Dhaka, Dhaka North, Banani Road No. 12 - 19 </p>
-                    <p className="text-info">CHANGE</p>
-                  </div>
-                </div>
-                <div className="d-flex">
-                  <div className="me-2">
-                    <img
-                      width="20"
-                      height="20"
-                      src="https://img.icons8.com/color/48/delivery--v1.png"
-                      alt="delivery--v1"
-                    />
-                  </div>
-                  <div className="d-flex justify-content-between align-items-center w-100">
-                    <div>
-                      <p>
-                        <span style={{ fontWeight: "bold" }}>
-                          Standard Delivery
-                        </span>{" "}
-                        9 Jun - 12 Jun
-                      </p>
-                      <p>3 - 6 day(s)</p>
-                    </div>
-                    <p>$ 2</p>
-                  </div>
-                </div>
-                <div className="d-flex">
-                  <div className="me-2">
-                    <img
-                      width="20"
-                      height="20"
-                      src="https://img.icons8.com/color/48/cash-in-hand.png"
-                      alt="cash-in-hand"
-                    />
-                  </div>
-                  <div className="d-flex justify-content-between align-items-center w-100">
-                    <div>
-                      <p>Cash on Delivery Available</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="service-info">
-                <h4>Service</h4>
-                <div className="d-flex">
-                  <div className="me-2">
-                    <img
-                      width="20"
-                      height="20"
-                      src="https://img.icons8.com/color/48/rollback.png"
-                      alt="rollback"
-                    />
-                  </div>
-                  <div className="d-flex justify-content-between align-items-center w-100">
-                    <div>
-                      <p>14 days easy return</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="d-flex">
-                  <div className="me-2">
-                    <img
-                      width="20"
-                      height="20"
-                      src="https://img.icons8.com/color/48/not-applicable.png"
-                      alt="not-applicable"
-                    />
-                  </div>
-                  <div className="d-flex justify-content-between align-items-center w-100">
-                    <div>
-                      <p>Warranty not available</p>
-                    </div>
-                  </div>
-                </div>
-                {/* <ul>
-                  <li>100% Authentic</li>
-                  <li>14 days easy return</li>
-                  <li>Change of Mind applicable</li>
-                  <li>Warranty not available</li>
-                </ul> */}
-              </div>
+              <DeleveryAndService />
             </div>
+            <MobileShareProduct />
           </div>
-          <ProductDescription product={product} />
-          <ProductReviewSection product={product} />
-          <h4 className="text-center my-4">You May Also Like</h4>
-
-          <div className="shop page-content">
-            <div className="container">
-              <div className="row gap-4">
-                <div className="col-lg-9">
-                  <div className="products ">
-                    <div className="shop-product-details ">
-                      {products
-                        ?.filter((d) => d.category === `${product?.category}`)
-                        .slice(0, 5)
-                        .map((d) => {
-                          return (
-                            <div key={d?._id} className="shop-single-product">
-                              <figure className="product-media">
-                                <span className="product-label label-top">
-                                  Top
-                                </span>
-                                <Link
-                                  style={{ marginTop: "-21px" }}
-                                  href="/shop"
-                                >
-                                  <div
-                                    style={{ width: "217px", height: "217px" }}
-                                  >
-                                    <Image
-                                      onClick={() =>
-                                        router.push(`/productDetails/${d._id}`)
-                                      }
-                                      width={217}
-                                      height={217}
-                                      src={d?.thumbnail}
-                                      className=""
-                                      alt=""
-                                    />
-
-                                    <button
-                                      onClick={(e) => {
-                                        e.preventDefault();
-                                        toast.success("product added in cart");
-                                      }}
-                                      className="shop-add-to-cart-button"
-                                    >
-                                      Add to Cart
-                                      <i
-                                        className="far plus-ico fa-plus-square"
-                                        aria-hidden="true"
-                                      ></i>
-                                    </button>
-                                  </div>
-                                </Link>
-                              </figure>
-                              <div className="product-body">
-                                <div className="product-cat">
-                                  <Link href="#">{d?.category}</Link>
-                                </div>
-                                <div
-                                  onClick={() =>
-                                    router.push(`/productDetails/${d._id}`)
-                                  }
-                                  className="product-title"
-                                >
-                                  <Link href="/shop/?category=fruit">
-                                    {d?.title}
-                                  </Link>
-                                </div>
-                                <div className="product-price d-flex gap-2 justify-content-center">
-                                  <div className="new-price">
-                                    <p>${d?.price}</p>
-                                  </div>
-                                  <div className="shop-old-price">
-                                    <p>$45</p>
-                                  </div>
-                                </div>
-                                <div className="ratings-container mb-3">
-                                  <div className="ratings">
-                                    <Rating
-                                      name="read-only"
-                                      value={parseInt(d?.rating)}
-                                      readOnly
-                                    />
-                                  </div>
-                                  <div className="ratings-texts">
-                                    ( 2 Reviews )
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          );
-                        })}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div id="">
+            <ProductDescription product={product} />
           </div>
+          <div id="productReviewSection">
+            <ProductReviewSection product={product} />
+          </div>
+          <ProductQuestionAnswer product={product} />
+          <YouMayAlsoLike
+            allDataLoading={allDataLoading}
+            product={product}
+            products={products}
+          ></YouMayAlsoLike>
         </div>
       )}
-      <Footer></Footer>
+      <Footer />
     </Layout>
   );
 };
-
-
 
 export default productNo;

@@ -15,7 +15,7 @@ const SampleNextArrow = (props) => {
   return (
     <div className="control-btn" onClick={onClick}>
       <button className="next">
-        <i className="fa fa-long-arrow-alt-right"></i>
+
       </button>
     </div>
   );
@@ -25,7 +25,7 @@ const SamplePrevArrow = (props) => {
   return (
     <div className="control-btn" onClick={onClick}>
       <button className="prev">
-        <i className="fa fa-long-arrow-alt-left"></i>
+
       </button>
     </div>
   );
@@ -49,7 +49,7 @@ const BestSelling = ({ t }) => {
     infinite: true,
     slidesToShow: 6,
     slidesToScroll: 1,
-    autoplay: false,
+    autoplay: true,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
     responsive: [
@@ -59,7 +59,7 @@ const BestSelling = ({ t }) => {
           slidesToShow: 3,
           slidesToScroll: 3,
           infinite: true,
-          dots: true,
+          dots: false,
         },
       },
       {
@@ -68,7 +68,7 @@ const BestSelling = ({ t }) => {
           slidesToShow: 3,
           slidesToScroll: 3,
           infinite: true,
-          dots: true,
+          dots: false,
         },
       },
       {
@@ -77,6 +77,8 @@ const BestSelling = ({ t }) => {
           slidesToShow: 2,
           slidesToScroll: 2,
           initialSlide: 2,
+          infinite: true,
+          dots: false,
         },
       },
       {
@@ -84,6 +86,9 @@ const BestSelling = ({ t }) => {
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
+          infinite: true,
+          dots: false,
+          autoplay: true,
         },
       },
     ],
@@ -150,11 +155,11 @@ const BestSelling = ({ t }) => {
         </div>
       ) : (
         <div className="">
-          <Slider className=" px-4 " {...settings}>
-          {data?.data?.map((product, index) => (
-            <DiscountProductCard key={index} product={product} />
-          ))}
-        </Slider>
+          <Slider className=" " {...settings}>
+            {[...data?.data].sort(() => Math.random() - 0.5).map((product, index) => (
+              <DiscountProductCard key={index} product={product} />
+            ))}
+          </Slider>
         </div>
       )}
     </div>

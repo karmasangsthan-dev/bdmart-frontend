@@ -47,7 +47,7 @@ export default function Home({ data }) {
       <ShopDepartments t={t} />
       <Discount t={t} />
       <JustForYou t={t} />
-      <MobileBottomNav/>
+      <Footer />
     </Layout>
   );
 }

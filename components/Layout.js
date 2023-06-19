@@ -50,11 +50,9 @@ const Layout = ({ children, title = "Bangladesh Mart" }) => {
       <Header />
 
       <main>{children}</main>
-      {router?.pathname !== "/" && (
-        <div>
-          <MobileBottomNav />
-        </div>
-      )}
+      <div style={{ position: "relative", zIndex: "99999" }}>
+        <MobileBottomNav />
+      </div>
     </>
   );
 };

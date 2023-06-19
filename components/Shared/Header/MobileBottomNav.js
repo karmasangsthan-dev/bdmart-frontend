@@ -32,7 +32,7 @@ export default function MobileBottomNav() {
     setValue(route);
   }, []);
   return (
-    <Box sx={{ pb: 2 }} className="d-lg-none d-xl-none d-xxl-none d-inline">
+    <Box className="d-lg-none d-xl-none d-xxl-none d-inline">
       <CssBaseline />
       <Paper
         sx={{
@@ -40,25 +40,28 @@ export default function MobileBottomNav() {
           bottom: 0,
           left: 0,
           right: 0,
-          padding: "5px 0",
+          padding: "px 0",
         }}
         elevation={3}
       >
         <BottomNavigation
+          style={{ height: 'auto' }}
           showLabels
           value={value}
           onChange={(event, newValue) => {
             handleRouteChange(newValue);
           }}
         >
-          <BottomNavigationAction label="Home" icon={<Home />} value="/" />
-          <BottomNavigationAction label="Shop" icon={<Shop />} value="/shop" />
+          <BottomNavigationAction className="my-2" label="Home" icon={<Home />} value="/" />
+          <BottomNavigationAction className="my-2" label="Shop" icon={<Shop />} value="/shop" />
           <BottomNavigationAction
+            className="my-2"
             label="Profile"
             value="/profile"
             icon={<CgProfile className="fs-1" />}
           />
           <BottomNavigationAction
+            className="my-2"
             label="Cart"
             value="/cart"
             icon={

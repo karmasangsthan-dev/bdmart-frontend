@@ -43,7 +43,7 @@ const AddReview = () => {
                 </div>
                 <div className="form-checkbox d-flex align-items-start my-3">
                     <input style={{ height: '24px' }} type="checkbox" className="custom-checkbox " id="signin-remember" name="signin-remember" />
-                    <label className="form-control-label ms-2" for="signin-remember">Save my name, email, and website in this browser for the next time I comment.</label>
+                    <label className="form-control-label ms-2" htmlFor="signin-remember">Save my name, email, and website in this browser for the next time I comment.</label>
                 </div>
                 <button style={{ background: '#92b25a', borderColor: '#92b25a' }} type="submit" className="btn text-white px-5">Submit</button>
             </form>

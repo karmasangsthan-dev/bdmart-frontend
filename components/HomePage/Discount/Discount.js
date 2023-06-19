@@ -11,7 +11,6 @@ const SampleNextArrow = (props) => {
   return (
     <div className="control-btn" onClick={onClick}>
       <button className="next">
-        <i className="fa fa-long-arrow-alt-right"></i>
       </button>
     </div>
   );
@@ -21,7 +20,6 @@ const SamplePrevArrow = (props) => {
   return (
     <div className="control-btn" onClick={onClick}>
       <button className="prev">
-        <i className="fa fa-long-arrow-alt-left"></i>
       </button>
     </div>
   );
@@ -35,7 +33,7 @@ const Discount = ({ t }) => {
     infinite: true,
     slidesToShow: 6,
     slidesToScroll: 1,
-    autoplay: false,
+    autoplay: true,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
     responsive: [
@@ -45,7 +43,7 @@ const Discount = ({ t }) => {
           slidesToShow: 3,
           slidesToScroll: 3,
           infinite: true,
-          dots: true,
+          dots: false,
         },
       },
       {
@@ -59,8 +57,11 @@ const Discount = ({ t }) => {
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          infinite: true,
+          dots: false,
+          autoplay: true,
         },
       },
     ],
@@ -130,9 +131,11 @@ const Discount = ({ t }) => {
           ) : (
             <div>
               <Slider className="px-4" {...settings}>
-                {data?.data?.map((product) => (
+                {[...data?.data].sort(() => Math.random() - 0.5).map((product) => (
                   <DiscountProductCard product={product} key={product?._id} />
                 ))}
+
+                
               </Slider>
             </div>
           )}
