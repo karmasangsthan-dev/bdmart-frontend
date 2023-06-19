@@ -23,7 +23,7 @@ export default function GoogleLogin() {
       const providerId = "firebase";
       const profilePicture = user?.user?.photoURL;
       dispatch(googleLogin({ email, fullName, providerId, profilePicture }));
-      router.push(redirect);
+      router.push(redirect || '/');
     }
   }, [user]);
 

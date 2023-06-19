@@ -31,8 +31,7 @@ const SampleNextArrow = (props) => {
       <button
         style={{ width: "30px", height: "30px", top: "33%" }}
         className="next"
-      >
-      </button>
+      ></button>
     </div>
   );
 };
@@ -43,8 +42,7 @@ const SamplePrevArrow = (props) => {
       <button
         style={{ width: "30px", height: "30px", top: "33%" }}
         className="prev"
-      >
-      </button>
+      ></button>
     </div>
   );
 };
@@ -137,7 +135,9 @@ const productNo = () => {
     dispatch(addToCart({ id: product?._id }));
   };
   const scrollToReviews = () => {
-    const productReviewSection = document.getElementById("productReviewSection");
+    const productReviewSection = document.getElementById(
+      "productReviewSection"
+    );
     const offset = 157;
 
     const targetScrollTop = productReviewSection.offsetTop - offset;
@@ -403,7 +403,7 @@ const productNo = () => {
             <div id="productReviewSection">
               <ProductReviewSection product={product} />
             </div>
-            <ProductQuestionAnswer></ProductQuestionAnswer>
+            <ProductQuestionAnswer product={product}></ProductQuestionAnswer>
             <YouMayAlsoLike allDataLoading={allDataLoading} product={product} products={products}></YouMayAlsoLike>
           </div>
         )}
@@ -412,7 +412,5 @@ const productNo = () => {
     </Layout>
   );
 };
-
-
 
 export default productNo;

@@ -43,14 +43,17 @@
     font-size: 12px;
     color: #9e9e9e;
 }
-.verified-purchage{
+
+.verified-purchage {
     font-size: 12px;
 }
-.review-card{
+
+.review-card {
     border-top: 1px solid #eff0f5;
 }
-.review-card .rating-time-container{
-    display: flex ;
+
+.review-card .rating-time-container {
+    display: flex;
     align-items: center;
     justify-content: space-between;
 }
@@ -93,17 +96,50 @@
     justify-content: flex-end;
     padding-right: 20px;
 }
-.review-pagination{
-    border-top:1px solid #eff0f5;
-    
+
+.review-pagination {
+    border-top: 1px solid #eff0f5;
+
 }
-.review-three-dots{
+
+.review-three-dots {
     position: absolute;
     top: 0;
     right: 0;
 }
-.review-three-dots:hover{
+
+.review-three-dots:hover {
     cursor: pointer;
+}
+
+.question-admin-answer-button {
+    cursor: pointer;
+    margin-left: 38px;
+    margin-bottom: 10px;
+}
+
+.question-admin-answer-button:hover {
+    color: green;
+}
+
+.answer-admin-input {
+    margin-left: 38px;
+    width: 94% !important;
+}
+
+.question-admin-reply-button {
+    cursor: pointer;
+    margin-left: 38px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: flex-end;
+    user-select: none;
+}
+
+.product-qna-admin-reply {
+    display: flex;
+    gap: 20px;
+    margin: 10px 0;
 }
 
 @media screen and (max-width: 682px) {}
