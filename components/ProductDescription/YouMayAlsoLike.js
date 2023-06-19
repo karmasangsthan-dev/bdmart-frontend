@@ -81,7 +81,7 @@ const YouMayAlsoLike = ({ allDataLoading, product, products }) => {
     const productsLimit = isLargeDevice ? 5 : 6;
 
     return (
-        <div>
+        <div className='pb-5'>
             <h4 className="text-center my-4">You May Also Like</h4>
 
             <div className="shop page-content">
@@ -147,7 +147,7 @@ const YouMayAlsoLike = ({ allDataLoading, product, products }) => {
                                                 .map((d, index) => {
                                                     return (
                                                         <div className="mb-3 " key={index}>
-                                                            <div className="product-link bestselling-product-container  border p-3 rounded shadow">
+                                                            <div className="product-link bestselling-product-container  border p-3 rounded shadow bg-white">
                                                                 <div className="">
                                                                     <img
                                                                         onClick={() => router.push(`/productDetails/${d._id}`)}

@@ -92,6 +92,7 @@ a:hover {
     border: 1px solid #ddd;
     border-radius: 5px;
     margin-top: 40px;
+    background: #fff;
 }
 
 .product-description-container .heading {

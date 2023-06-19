@@ -19,7 +19,7 @@ export const bn = {
         { title: "আপনার অর্ডার ট্র্যাক", link: "/profile/my-orders" },
         { title: "আরএফকিউ জমা দিন", link: "/submit-rfq" },
         { title: "আমার অ্যাকাউন্ট", link: "/profile" },
-        { title: "যোগাযোগ করুন", link: "/" },
+        { title: "যোগাযোগ করুন", link: "/contact" },
       ],
     },
     bestSelling: {

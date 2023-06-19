@@ -50,7 +50,7 @@ const Layout = ({ children, title = "Bangladesh Mart" }) => {
       <Header />
 
       <main>{children}</main>
-      <div style={{position:'relative', zIndex:'99999'}}>
+      <div style={{ position: "relative", zIndex: "99999" }}>
         <MobileBottomNav />
       </div>
     </>

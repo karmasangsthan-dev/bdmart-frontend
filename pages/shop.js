@@ -75,7 +75,7 @@ const shop = () => {
             <div className="col-lg-10 pl-lg-5">
               <div className="">
                 
-                <div className="widget w-100 widget-clean d-flex justify-content-between align-items-center">
+                <div className="widget w-100 pb-3 d-flex justify-content-between align-items-center">
                   <p className="fs-6 d-sm-none d-lg-block">
                     {t.shopPage.allProducts.productsCountTitle}: {data?.total}
                   </p>

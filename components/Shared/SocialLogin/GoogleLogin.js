@@ -8,6 +8,8 @@ import { googleLogin } from "../../../features/auth/authSlice";
 
 export default function GoogleLogin() {
   const router = useRouter();
+  const { query } = router;
+  const { redirect } = query;
   const dispatch = useDispatch();
   const [signInWithGoogle, user, loading, errorGoogle] =
     useSignInWithGoogle(auth);
@@ -21,7 +23,7 @@ export default function GoogleLogin() {
       const providerId = "firebase";
       const profilePicture = user?.user?.photoURL;
       dispatch(googleLogin({ email, fullName, providerId, profilePicture }));
-      router.push("/");
+      router.push(redirect || '/');
     }
   }, [user]);
 

@@ -1,11 +1,17 @@
-.contact-container {
+.contact-main {
+  background: rgb(239, 240, 245);
+  min-height: 120vh;
 }
+
 .contact-container .contain {
-  background-color: #ddd;
+  background-color: #fff;
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
   padding: 1em;
+  border: 1px solid rgb(221, 221, 221);
+  border-radius: 4px;
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
 }
 
 .contact-container div.form {
@@ -63,7 +69,7 @@ textarea {
   border-radius: 5px;
 }
 
-.contact-container .wrapper > * {
+.contact-container .wrapper>* {
   padding: 1em;
 }
 
@@ -73,7 +79,7 @@ textarea {
     grid-template-columns: 2fr 1fr;
   }
 
-  .contact-container .wrapper > * {
+  .contact-container .wrapper>* {
     padding: 2em 2em;
   }
 }
@@ -122,6 +128,12 @@ textarea {
   padding: 5px 20px;
   text-transform: uppercase;
 }
+
+.contact-main .submit-btn{
+  color: white;
+  font-weight: 400;
+  background-color: #00c93e;
+}
 .reset-btn {
   background-color: #f53d3d;
   border: none;
@@ -129,6 +141,7 @@ textarea {
   padding: 11px 25px;
   border-radius: 5px;
 }
+
 .reset-btn:hover {
   background-color: #af1b1b;
 }

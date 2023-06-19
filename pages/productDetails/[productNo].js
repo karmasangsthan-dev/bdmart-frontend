@@ -31,8 +31,7 @@ const SampleNextArrow = (props) => {
       <button
         style={{ width: "30px", height: "30px", top: "33%" }}
         className="next"
-      >
-      </button>
+      ></button>
     </div>
   );
 };
@@ -43,8 +42,7 @@ const SamplePrevArrow = (props) => {
       <button
         style={{ width: "30px", height: "30px", top: "33%" }}
         className="prev"
-      >
-      </button>
+      ></button>
     </div>
   );
 };
@@ -91,7 +89,7 @@ const productNo = () => {
     query: { productNo = "648106e4461f21c48500d099" },
   } = router;
 
-  const { data: allData ,isLoading : allDataLoading} = useGetAllProductsQuery();
+  const { data: allData, isLoading: allDataLoading } = useGetAllProductsQuery();
   const { data, isLoading } = useGetProductDetailsQuery(productNo);
   const { code: currency, rate: currencyRate } = useSelector(
     (state) => state.currency
@@ -112,23 +110,6 @@ const productNo = () => {
   const discountPercentage =
     ((product?.oldPrice - product?.price) / product?.oldPrice) * 100;
   const handleAddToCart = (product) => {
-    //   const alreadyAdded = !!user?.cart?.find(
-    //     (item) => item?.product?._id === product?._id
-    //   );
-    //   if (user?.email) {
-    //     if (alreadyAdded) {
-    //       return toast.error("Product already added to cart!!!", {
-    //         id: "addToCart",
-    //       });
-    //     }
-    //     setCartProduct(product);
-    //     addProductToCart({ token, userId: user?._id, product: product?._id });
-    //   }
-    //   if (!user?.email) {
-    //     toast.error("Please, Login first !!!", { id: "addToCart" });
-    //   }
-
-    //   ----------------------------------------------------------
 
     const cartProducts = localStorage.getItem("cartProducts");
     if (cartProducts) {
@@ -154,7 +135,9 @@ const productNo = () => {
     dispatch(addToCart({ id: product?._id }));
   };
   const scrollToReviews = () => {
-    const productReviewSection = document.getElementById("productReviewSection");
+    const productReviewSection = document.getElementById(
+      "productReviewSection"
+    );
     const offset = 157;
 
     const targetScrollTop = productReviewSection.offsetTop - offset;
@@ -195,238 +178,239 @@ const productNo = () => {
 
   return (
     <Layout title={`${product?.title ? product?.title : ""} Bangladesh Mart`}>
-      {data?.status && (
-        <div
-          style={{ minHeight: "120vh", maxWidth: "1200px" }}
-          className="container"
-        >
+      <main className="mainnnnn" style={{background: '#eff0f5'}}>
+        {data?.status && (
           <div
-            style={{ marginTop: "-15px", marginBottom: "5px" }}
-            role="presentation"
-            onClick={handleClick}
+            style={{ minHeight: "120vh", maxWidth: "1200px" }}
+            className="container px-0"
           >
+            <div
+            
+              style={{ marginTop: "-15px", marginBottom: "5px" }}
+              role="presentation"
+              onClick={handleClick}
+            >
 
-            <Breadcrumb className="breadcrumb-container">
-              <Breadcrumb.Item onClick={() => router.push('/')}>Home</Breadcrumb.Item>
-              <Breadcrumb.Item href="">
-                Description
-              </Breadcrumb.Item>
-              <Breadcrumb.Item className="d-lg-block d-sm-none" >{product?.title}</Breadcrumb.Item>
-              <Breadcrumb.Item className="d-lg-none d-sm-block">{product?.title?.length < 20 ? product?.title : `${product?.title?.slice(0, 20)}...`}</Breadcrumb.Item>
-            </Breadcrumb>
-          </div>
-          <div
-            className="d-flex flex-wrap mt-2 pt-3"
-            style={{ borderTop: "1px solid #ddd" }}
-          >
-            <div style={{ display: 'flex', flexDirection: 'column', margin: 'auto' }} className="col-lg-4 col-md-5 col-sm-12 ">
-              <div className="product-thumbnail-image">
-                <img
-                  className="w-100 h-100"
-                  src={displayImage || product?.thumbnail}
-                  alt=""
-                />
-              </div>
-              <div className="product-others-images d-flex justify-content-center">
-                <div style={{ width: "280px" }}>
-                  <Slider className=" w-auto px-5" {...settings}>
-                    {product?.images.map((img,index) => (
-                      <div key={index} className="images-slider" style={{ width: "52px", height: "52px" }}>
-                        <img
-                          onClick={() => setDisplayImage(img)}
-                          style={{
-                            width: "52px",
-                            height: "50px",
-                            border: "1px solid #ddd",
-                            cursor: "pointer",
-                          }}
-                          className="img-fluid me-3"
-                          src={img}
-                          alt=""
-                        />
-                      </div>
-                    ))}
-                  </Slider>
-                </div>
-              </div>
+              <Breadcrumb className="breadcrumb-container">
+                <Breadcrumb.Item onClick={() => router.push('/')}>Home</Breadcrumb.Item>
+                <Breadcrumb.Item href="">
+                  Description
+                </Breadcrumb.Item>
+                <Breadcrumb.Item className="d-lg-block d-sm-none" >{product?.title}</Breadcrumb.Item>
+                <Breadcrumb.Item className="d-lg-none d-sm-block">{product?.title?.length < 20 ? product?.title : `${product?.title?.slice(0, 20)}...`}</Breadcrumb.Item>
+              </Breadcrumb>
             </div>
-
-            <div className="col-lg-5 col-md-5 col-sm-12 product-details-information">
-              <h3>Name: {product?.title}</h3>
-              <div className="d-flex justiy-content-center">
-                <div className="ratings">
-                  <Rating
-                    name="read-only"
-                    value={parseInt(product?.rating)}
-                    readOnly
+            <div
+              className="d-flex flex-wrap mt-2 pt-3 bg-white"
+              style={{ border: "1px solid #ddd" }}
+            >
+              <div style={{ display: 'flex', flexDirection: 'column', margin: 'auto' }} className="col-lg-4 col-md-5 col-sm-12 ">
+                <div className="product-thumbnail-image">
+                  <img
+                    className="w-100 h-100"
+                    src={displayImage || product?.thumbnail}
+                    alt=""
                   />
                 </div>
-                <div onClick={scrollToReviews} className="">( <span className="ratings-texts">{product?.reviews.length} Reviews</span> )</div>
-              </div>
-              <div>
-                <h4 className="my-2">
-                  Price:{" "}
-                  <span style={{ color: "#f85606" }}>
-                    {productPrice} {currency}
-                  </span>{" "}
-                </h4>
-                <div className="old-price">
-                  <del>
-                    {(product?.oldPrice * currencyRate).toFixed(2)} {currency}
-                  </del>
-                  <span className="ms-2">
-                    {" "}
-                    - {discountPercentage?.toFixed(2)}%
-                  </span>
-                </div>
-              </div>
-
-              <div className="d-flex align-items-center gap-2 mt-2">
-                <h6 style={{ minWidth: "50px" }}>Color:</h6>
-                <div>
-                  {["#FF0000", "#49B2DB", "#3560D9"].map((color,index) => (
-                    <p
-                    key={index}
-                      style={{ backgroundColor: color }}
-                      className="product-select-color "
-                    ></p>
-                  ))}
-                </div>
-              </div>
-
-              {product?.color && <p>{product?.color}</p>}
-              <div className="d-flex align-items-center gap-2">
-                <h6 style={{ minWidth: "50px" }}>Size:</h6>
-                <Form.Select
-                  className="product-description-size"
-                  style={{ minWidth: "156px", maxWidth: "156px" }}
-                  aria-label="Default select example"
-                >
-                  <option>Select Size</option>
-                  <option value="XL">XL</option>
-                  <option value="L">L</option>
-                  <option value="M">M</option>
-                  <option value="S">S</option>
-                </Form.Select>
-              </div>
-
-              <div className="product-quantity d-flex align-items-center gap-2 mt-2">
-                <h6 style={{ minWidth: "50px" }}>Qty:</h6>
-                <div className="">
-                  <div className="qty-container">
-                    <button
-                      onClick={() => handleQunatityDecrement(product?.id)}
-                      className="qty-btn-minus btn-light"
-                      type="button"
-                    >
-                      <i className="fa fa-minus"></i>
-                    </button>
-                    <input
-                      type="text"
-                      name="qty"
-                      value={quantity}
-                      className="input-qty"
-                    />
-                    <button
-                      onClick={() => handleQunatityIncrement(product?.id)}
-                      className="qty-btn-plus btn-light"
-                      type="button"
-                    >
-                      <i className="fa fa-plus"></i>
-                    </button>
+                <div className="product-others-images d-flex justify-content-center">
+                  <div style={{ width: "280px" }}>
+                    <Slider className=" w-auto px-5" {...settings}>
+                      {product?.images.map((img, index) => (
+                        <div key={index} className="images-slider" style={{ width: "52px", height: "52px" }}>
+                          <img
+                            onClick={() => setDisplayImage(img)}
+                            style={{
+                              width: "52px",
+                              height: "50px",
+                              border: "1px solid #ddd",
+                              cursor: "pointer",
+                            }}
+                            className="img-fluid me-3"
+                            src={img}
+                            alt=""
+                          />
+                        </div>
+                      ))}
+                    </Slider>
                   </div>
                 </div>
               </div>
-              <div className="mt-2 d-lg-block d-sm-none">
-                <div id="cart-btn d-flex align-items-center justify-content-center ">
-                  {product?.stock >= 1 ? (
+
+              <div className="col-lg-5 col-md-5 col-sm-12 product-details-information">
+                <h3>Name: {product?.title}</h3>
+                <div className="d-flex justiy-content-center">
+                  <div className="ratings">
+                    <Rating
+                      name="read-only"
+                      value={parseInt(product?.rating)}
+                      readOnly
+                    />
+                  </div>
+                  <div onClick={scrollToReviews} className="">( <span className="ratings-texts">{product?.reviews.length} Reviews</span> )</div>
+                </div>
+                <div>
+                  <h4 className="my-2">
+                    Price:{" "}
+                    <span style={{ color: "#f85606" }}>
+                      {productPrice} {currency}
+                    </span>{" "}
+                  </h4>
+                  <div className="old-price">
+                    <del>
+                      {(product?.oldPrice * currencyRate).toFixed(2)} {currency}
+                    </del>
+                    <span className="ms-2">
+                      {" "}
+                      - {discountPercentage?.toFixed(2)}%
+                    </span>
+                  </div>
+                </div>
+
+                <div className="d-flex align-items-center gap-2 mt-2">
+                  <h6 style={{ minWidth: "50px" }}>Color:</h6>
+                  <div>
+                    {["#FF0000", "#49B2DB", "#3560D9"].map((color, index) => (
+                      <p
+                        key={index}
+                        style={{ backgroundColor: color }}
+                        className="product-select-color "
+                      ></p>
+                    ))}
+                  </div>
+                </div>
+
+                {product?.color && <p>{product?.color}</p>}
+                <div className="d-flex align-items-center gap-2">
+                  <h6 style={{ minWidth: "50px" }}>Size:</h6>
+                  <Form.Select
+                    className="product-description-size"
+                    style={{ minWidth: "156px", maxWidth: "156px" }}
+                    aria-label="Default select example"
+                  >
+                    <option>Select Size</option>
+                    <option value="XL">XL</option>
+                    <option value="L">L</option>
+                    <option value="M">M</option>
+                    <option value="S">S</option>
+                  </Form.Select>
+                </div>
+
+                <div className="product-quantity d-flex align-items-center gap-2 mt-2">
+                  <h6 style={{ minWidth: "50px" }}>Qty:</h6>
+                  <div className="">
+                    <div className="qty-container">
+                      <button
+                        onClick={() => handleQunatityDecrement(product)}
+                        className="qty-btn-minus btn-light"
+                        type="button"
+                      >
+                        <i className="fa fa-minus"></i>
+                      </button>
+                      <input
+                        type="text"
+                        name="qty"
+                        value={quantity}
+                        className="input-qty"
+                      />
+                      <button
+                        onClick={() => handleQunatityIncrement(product)}
+                        className="qty-btn-plus btn-light"
+                        type="button"
+                      >
+                        <i className="fa fa-plus"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-2 d-lg-block d-sm-none">
+                  <div id="cart-btn d-flex align-items-center justify-content-center ">
+                    {product?.stock >= 1 ? (
+                      <button
+                        onClick={() => handleAddToCart(product)}
+                        style={{ minWidth: "214px ", height: "38px" }}
+                        className="cart-btn px-3 py-1"
+                      >
+                        Add to Cart
+                        <i className="far plus-ico fa-plus-square text-white"></i>
+                      </button>
+                    ) : (
+                      <button
+                        title="Out of Stock"
+                        type="button"
+                        className="btn"
+                        style={buttonStyle}
+                        disabled
+                      >
+                        Out of Stock
+                      </button>
+
+                    )}
                     <button
-                      onClick={() => handleAddToCart(product)}
-                      style={{ minWidth: "214px ", height: "38px" }}
-                      className="cart-btn px-3 py-1"
+
+                      style={{ height: "38px" }}
+                      className="desktop-buy-now-button"
                     >
-                      Add to Cart
+                      Buy Now
                       <i className="far plus-ico fa-plus-square text-white"></i>
                     </button>
-                  ) : (
-                    <button
-                      title="Out of Stock"
-                      type="button"
-                      className="btn"
-                      style={buttonStyle}
-                      disabled
-                    >
-                      Out of Stock
-                    </button>
-
-                  )}
-                  <button
-
-                    style={{ height: "38px" }}
-                    className="desktop-buy-now-button"
-                  >
-                    Buy Now
-                    <i className="far plus-ico fa-plus-square text-white"></i>
-                  </button>
+                  </div>
                 </div>
-              </div>
-              {/* mobile add to cart button  */}
-              <div className="mt-2 d-lg-none d-sm-block">
-                <div className="cart-btn-mobile ">
-                  {product?.stock >= 1 ? (
+                {/* mobile add to cart button  */}
+                <div className="mt-2 d-lg-none d-sm-block">
+                  <div className="cart-btn-mobile ">
+                    {product?.stock >= 1 ? (
+                      <button
+                        onClick={() => handleAddToCart(product)}
+                        className="mobile-add-to-cart-button"
+                      >
+                        Add to Cart
+                        <i className="far plus-ico fa-plus-square text-white"></i>
+                      </button>
+                    ) : (
+                      <button
+                        title="Out of Stock"
+                        type="button"
+                        className="btn"
+                        style={buttonStyle}
+                        disabled
+                      >
+                        Out of Stock
+                      </button>
+                    )}
                     <button
-                      onClick={() => handleAddToCart(product)}
-                      className="mobile-add-to-cart-button"
+                      style={{ height: "38px" }}
+                      className="mobile-buy-now-button"
                     >
-                      Add to Cart
+                      Buy Now
                       <i className="far plus-ico fa-plus-square text-white"></i>
                     </button>
-                  ) : (
-                    <button
-                      title="Out of Stock"
-                      type="button"
-                      className="btn"
-                      style={buttonStyle}
-                      disabled
-                    >
-                      Out of Stock
-                    </button>
-                  )}
-                  <button
-                    style={{ height: "38px" }}
-                    className="mobile-buy-now-button"
-                  >
-                    Buy Now
-                    <i className="far plus-ico fa-plus-square text-white"></i>
-                  </button>
 
+                  </div>
                 </div>
+                <ShareProduct></ShareProduct>
               </div>
-              <ShareProduct></ShareProduct>
+              <div className="col-md-3">
+                <DeleveryAndService></DeleveryAndService>
+
+
+              </div>
+              <MobileShareProduct></MobileShareProduct>
             </div>
-            <div className="col-md-3">
-              <DeleveryAndService></DeleveryAndService>
-
+            <div id="">
+              <ProductDescription product={product} />
 
             </div>
-            <MobileShareProduct></MobileShareProduct>
+            <div id="productReviewSection">
+              <ProductReviewSection product={product} />
+            </div>
+            <ProductQuestionAnswer product={product}></ProductQuestionAnswer>
+            <YouMayAlsoLike allDataLoading={allDataLoading} product={product} products={products}></YouMayAlsoLike>
           </div>
-          <div id="">
-            <ProductDescription product={product} />
-
-          </div>
-          <div id="productReviewSection">
-            <ProductReviewSection product={product} />
-          </div>
-          <ProductQuestionAnswer></ProductQuestionAnswer>
-          <YouMayAlsoLike allDataLoading={allDataLoading} product={product} products={products}></YouMayAlsoLike>
-        </div>
-      )}
+        )}
+      </main>
       <Footer></Footer>
     </Layout>
   );
 };
-
-
 
 export default productNo;

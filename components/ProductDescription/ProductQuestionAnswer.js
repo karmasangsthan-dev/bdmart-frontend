@@ -1,192 +1,120 @@
-import { Pagination, Stack } from '@mui/material';
-import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
-import { toast } from 'react-hot-toast';
-import { useSelector } from 'react-redux';
+import { Pagination, Stack } from "@mui/material";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
+import { useSelector } from "react-redux";
+import { useCreateQuestionMutation } from "../../features/questionAndAnswer/questionAndAnswerApi";
+import QuesAndAnswer from "./QuesAndAnswer";
 
+const ProductQuestionAnswer = ({ product }) => {
+  const user = useSelector((state) => state?.auth?.user);
+  const [question, setQuestion] = useState("");
+  const router = useRouter();
+  const [createQus, { isSuccess, isError, error }] =
+    useCreateQuestionMutation();
+  const handleCreateQuestion = () => {
+    const elem = document.getElementById("question-input");
 
-
-const ProductQuestionAnswer = () => {
-    const user = useSelector((state) => state?.auth?.user);
-    const [dataArray, setDataArray] = useState([]);
-    const [question, setQuestion] = useState('');
-    const router = useRouter();
-    const questionData = [
-        {
-            userName: 'Emily Johnson',
-            userEmail: 'emily.johnson@example.com',
-            userQuestion: 'Are these sunglasses polarized?',
-            adminReply: 'Yes, these sunglasses are polarized, providing enhanced glare reduction and improved clarity.'
-        },
-        {
-            userName: 'John Smith',
-            userEmail: 'johnsmith@example.com',
-            userQuestion: 'What is the UV protection level of these sunglasses?',
-            adminReply: 'These sunglasses offer 100% UV protection, shielding your eyes from harmful UVA and UVB rays.'
-        },
-        {
-            userName: 'Sophia Lee',
-            userEmail: 'sophia.lee@example.com',
-            userQuestion: 'Do these sunglasses come with a case?',
-            adminReply: 'Yes, these sunglasses come with a protective case to keep them safe when not in use.'
-        },
-        {
-            userName: 'Robert Davis',
-            userEmail: 'robert.davis@example.com',
-            userQuestion: 'Are these sunglasses suitable for sports activities?',
-            adminReply: 'Absolutely! These sunglasses are designed for sports, providing a secure and comfortable fit during physical activities.'
-        },
-        {
-            userName: 'Alexandra Moore',
-            userEmail: 'alexandra.moore@example.com',
-            userQuestion: 'Can the lenses be replaced with prescription lenses?',
-            adminReply: 'Yes, these sunglasses can be fitted with prescription lenses. You can take them to an optician for customization.'
-        },
-        {
-            userName: 'Liam Wilson',
-            userEmail: 'liam.wilson@example.com',
-            userQuestion: 'Do these sunglasses have adjustable nose pads?',
-            adminReply: 'Yes, these sunglasses feature adjustable nose pads for a personalized and comfortable fit on different face shapes.'
-        },
-        {
-            userName: 'Emma Thompson',
-            userEmail: 'emma.thompson@example.com',
-            userQuestion: 'Are these sunglasses suitable for driving?',
-            adminReply: 'Certainly! These sunglasses are designed to reduce glare and enhance visibility, making them ideal for driving.'
-        },
-        {
-            userName: 'Olivia Garcia',
-            userEmail: 'olivia.garcia@example.com',
-            userQuestion: 'What is the frame material of these sunglasses?',
-            adminReply: 'These sunglasses have a durable and lightweight frame made of high-quality acetate for long-lasting comfort.'
-        },
-        {
-            userName: 'Daniel Wilson',
-            userEmail: 'daniel.wilson@example.com',
-            userQuestion: 'Do these sunglasses have a warranty?',
-            adminReply: 'Yes, these sunglasses come with a manufacturers warranty of 2 years against any manufacturing defects.'
-        },
-        {
-            userName: 'Ava Robinson',
-            userEmail: 'ava.robinson@example.com',
-            userQuestion: 'Are these sunglasses suitable for both men and women?',
-            adminReply: 'Absolutely! These sunglasses are designed to be unisex, making them suitable for both men and women.'
-        }
-    ];
-    const handleCreateQuestion = () => {
-        const elem = document.getElementById('question-input');
-        const dataArray = [];
-        const myQuestionData = { userName: user?.fullName, userEmail: user?.email, userQuestion: question, adminReply: '' }
-        if (!question) {
-            toast.error('Please write your question at first...!!')
-        }
-        else {
-            setDataArray(prevDataArray => [...prevDataArray, myQuestionData]);
-            elem.value = '';
-        }
+    const myQuestionData = {
+      qus: question,
+      qusBy: {
+        fullName: user?.fullName,
+        email: user?.email,
+      },
+      productId: product?._id,
+    };
+    if (!question) {
+      toast.error("Please write your question at first...!!");
+    } else {
+      console.log({ product })
+      createQus(myQuestionData);
+      elem.value = "";
     }
-    useEffect(() => {
-        console.log(dataArray, 'data array');
-    }, [dataArray]);
-    return (
-        <div className='product-description-container product-question-container shadow'>
-            <h6 className='heading'>Question About This Product (81)</h6>
+  };
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Success", { id: "createQus" });
+    }
+  }, [isSuccess]);
+  return (
+    <div className="product-description-container product-question-container shadow">
+      <h6 className="heading">Question About This Product ({product?.questionsAndAnswers
+        ?.length})</h6>
 
-            <div className="product-questions-header">
-                {
-                    !user?.email ? <p className='question-login'><span onClick={() => router.push('/signin')} className='question-answer-login-btn'>Login</span> or <span onClick={() => router.push('/signup')} className='question-answer-login-btn'>Register</span> to ask questions to seller.</p> : (
-                        <div>
-                            <div className='question-post-container'>
-                                <input id='question-input' onChange={(e) => setQuestion(e.target.value)} type="text" placeholder='Ask seller a question' />
-                                <button onClick={handleCreateQuestion}>Ask Question</button>
-                            </div>
-                            {
-                                user?.email && dataArray.length > 0 && <div>
-                                    <p>My Questions</p>
-                                    <div className="product-question">
-                                        {
-                                            dataArray?.slice().reverse().map((data, index) => <div key={index} className="product-question">
-                                                <div className="product-qna ">
-                                                    <span><img width="20" height="20" src="https://img.icons8.com/ios-filled/50/FA5252/circled-q.png" alt="circled-q" /></span>
-                                                    <div>
-                                                        <div className='qna-text'>
-                                                            {data?.userQuestion}
-                                                        </div>
-                                                        <div className='question-desc'>
-                                                            {data?.userName} - 1 second ago
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                                {
-                                                    data?.adminReply === '' ? <div className="product-qna ">
-                                                        <span style={{ width: '20px', height: '20px' }}></span>
-                                                        <div className='question-desc'>
-                                                            No answer yet
-                                                        </div>
-                                                    </div> : <div className="product-qna ">
-                                                        <span><img width="20" height="20" src="https://img.icons8.com/ios-filled/50/40C057/xbox-a.png" alt="xbox-a" /></span>
-                                                        <div>
-                                                            <div className='qna-text'>
-                                                                {data?.adminReply}
-                                                            </div>
-                                                            <div className='question-desc'>
-                                                                Faysal Optics - answered within 1 hours
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                }
-                                            </div>)
-                                        }
-
-                                    </div>
-                                </div>
-                            }
-
-                        </div>
-                    )
-                }
-                <p>Other questions answered by Bangladesh Mart (81)</p>
-
+      <div className="product-questions-header">
+        {!user?.email ? (
+          <p className="question-login">
+            <span
+              onClick={() => router.push({
+                pathname: "/signin",
+                query: { redirect: router.asPath },
+              })}
+              className="question-answer-login-btn"
+            >
+              Login
+            </span>{" "}
+            or{" "}
+            <span
+              onClick={() => router.push({
+                pathname: "/signup",
+                query: { redirect: router.asPath },
+              })}
+              className="question-answer-login-btn"
+            >
+              Register
+            </span>{" "}
+            to ask questions to seller.
+          </p>
+        ) : (
+          <div>
+            <div className="question-post-container">
+              <input
+                id="question-input"
+                onChange={(e) => setQuestion(e.target.value)}
+                type="text"
+                placeholder="Ask seller a question"
+              />
+              <button onClick={handleCreateQuestion}>Ask Question</button>
             </div>
 
-            <div className='all-qna product-questions'>
-                {questionData?.slice(0, 3)?.map((question, index) => {
-                    return (
-                        <div key={index} className="product-question">
-                            <div className="product-qna ">
-                                <span><img width="20" height="20" src="https://img.icons8.com/ios-filled/50/FA5252/circled-q.png" alt="circled-q" /></span>
-                                <div>
-                                    <div className='qna-text'>
-                                        {question?.userQuestion}
-                                    </div>
-                                    <div className='question-desc'>
-                                        {question?.userName} - 4 days ago
-                                    </div>
-                                </div>
+            {user?.email && product?.questionsAndAnswers.filter((qus) => qus.qusBy.email === user.email).length > 0 && (
+              <div>
+                <p>My Questions</p>
+                <div className="product-question">
+                  {product?.questionsAndAnswers
+                    .filter((qus) => qus.qusBy.email === user.email).slice().reverse().map((question, index) => (
+                      <QuesAndAnswer
+                        user={user}
+                        question={question}
+                        key={index}
+                        index={index}
+                      />
+                    ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+        <p>Other questions answered by Bangladesh Mart ({product?.questionsAndAnswers
+          ?.filter((qus) => qus.qusBy.email !== user.email).length})</p>
+      </div>
 
-                            </div>
-                            <div className="product-qna ">
-                                <span><img width="20" height="20" src="https://img.icons8.com/ios-filled/50/40C057/xbox-a.png" alt="xbox-a" /></span>
-                                <div>
-                                    <div className='qna-text'>
-                                        {question?.adminReply}
-                                    </div>
-                                    <div className='question-desc'>
-                                        Faysal Optics - answered within 1 hours
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    )
-                })}
-            </div>
-            <div className='questions-pagination '>
-                <Pagination count={10} variant="outlined" color="primary" shape="rounded" />
-            </div>
-
-        </div>
-    );
+      <div className="all-qna product-questions">
+        {product?.questionsAndAnswers
+          ?.filter((qus) => qus.qusBy.email !== user.email).slice().reverse().map((question, index) => {
+            return <QuesAndAnswer user={user} question={question} key={index} />;
+          })}
+      </div>
+      <div className="questions-pagination ">
+        <Pagination
+          count={10}
+          variant="outlined"
+          color="primary"
+          shape="rounded"
+        />
+      </div>
+    </div>
+  );
 };
 
 export default ProductQuestionAnswer;

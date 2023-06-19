@@ -3,7 +3,7 @@ import React from 'react';
 const DeleveryAndService = () => {
     return (
         <div>
-            <div className="delivery-info">
+            <div style={{padding:'0px 16px 5px 0px'}} className="delivery-info">
                 <h5>Delivery</h5>
                 <div className="d-flex">
                     <div className="me-2">
@@ -57,7 +57,7 @@ const DeleveryAndService = () => {
                     </div>
                 </div>
             </div>
-            <div className="service-info mt-3">
+            <div style={{padding:'0px 16px 5px 0px'}} className="service-info mt-3">
                 <h4>Service</h4>
                 <div className="d-flex">
                     <div className="me-2">
