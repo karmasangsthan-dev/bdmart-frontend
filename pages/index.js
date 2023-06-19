@@ -41,14 +41,13 @@ export default function Home({ data }) {
 
   return (
     <Layout>
-      
       <Banner />
       <LandingImage />
       <BestSelling t={t} />
       <ShopDepartments t={t} />
       <Discount t={t} />
       <JustForYou t={t} />
-      <Footer></Footer>
+      <Footer />
     </Layout>
   );
 }

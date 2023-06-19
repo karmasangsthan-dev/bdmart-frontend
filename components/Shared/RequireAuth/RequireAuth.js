@@ -15,7 +15,10 @@ const RequreAuth = (WrappedComponent) => {
         <Layout>
           <div className="text-center w-full d-flex justify-content-center  align-items-center h-50">
             <p style={{ cursor: 'pointer' }}
-              onClick={() => router.push("/signin")}
+              onClick={() => router.push({
+                pathname: "/signin",
+                query: { redirect: router.asPath },
+              })}
               className=" border-0 bg-warning d-inline-block px-3 py-2 rounded"
             >
               Please Login
