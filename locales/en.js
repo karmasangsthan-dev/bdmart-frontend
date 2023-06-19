@@ -19,7 +19,7 @@ export const en = {
         { title: "Track Your Order", link: "/profile/my-orders" },
         { title: "Submit RFQ", link: "/submit-rfq" },
         { title: "My Account", link: "/profile" },
-        { title: "Contact Us", link: "/" },
+        { title: "Contact Us", link: "/contact" },
       ],
     },
     bestSelling: {

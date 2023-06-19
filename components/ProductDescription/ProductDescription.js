@@ -24,7 +24,7 @@ const ProductDescription = ({ product }) => {
     var rightSide = liData.slice(Math.ceil(liData.length / 2));
 
     return (
-        <div className='product-description-container'>
+        <div className='product-description-container '>
             <h6 className='heading'>Product details of {product?.title}</h6>
 
             <div className="product-description">
