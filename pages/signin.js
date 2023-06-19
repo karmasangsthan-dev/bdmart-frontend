@@ -23,6 +23,8 @@ const signin = () => {
   const [password, setPassword] = useState("");
   const [showPass, setShowPass] = useState(false);
   const router = useRouter();
+  const { query } = router;
+  const { redirect } = query;
   const dispatch = useDispatch();
   const [login, { data, isSuccess, isLoading, isError, error }] =
     useLoginMutation();
@@ -32,6 +34,7 @@ const signin = () => {
 
     login({ email, password });
   };
+  console.log({query,redirect})
 
   useEffect(() => {
     if (isLoading) {
@@ -40,7 +43,7 @@ const signin = () => {
     if (isSuccess) {
       localStorage.setItem("accessToken", data.token);
       toast.success("Success", { id: "login" });
-      router.push("/");
+      router.push(redirect);
       dispatch(setUser(data?.data));
     }
     if (isError) {
