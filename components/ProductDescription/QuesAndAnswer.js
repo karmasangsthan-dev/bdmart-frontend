@@ -36,6 +36,29 @@ export default function QuesAndAnswer({ question, user }) {
 
     return timeAgoString;
   }
+  function getAnsweredWithin(createdTimestamp, updatedTimestamp) {
+    const createdDate = new Date(createdTimestamp);
+    const updatedDate = new Date(updatedTimestamp);
+    const timeDiff = updatedDate - createdDate;
+
+    const seconds = Math.floor(timeDiff / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+    const months = Math.floor(days / 30);
+
+    if (months > 0) {
+      return `Answered within ${months} month${months !== 1 ? 's' : ''}`;
+    } else if (days > 0) {
+      return `Answered within ${days} day${days !== 1 ? 's' : ''}`;
+    } else if (hours > 0) {
+      return `Answered within ${hours} hour${hours !== 1 ? 's' : ''}`;
+    } else if (minutes > 0) {
+      return `Answered within ${minutes} minute${minutes !== 1 ? 's' : ''}`;
+    } else {
+      return `Answered within ${seconds} second${seconds !== 1 ? 's' : ''}`;
+    }
+  }
 
   const handleAnswerSubmit = async () => {
     const myQuestionData = {
@@ -118,9 +141,12 @@ export default function QuesAndAnswer({ question, user }) {
                     alt="xbox-a"
                   />
                 </span>
+                {
+                  console.log(question, 'qq')
+                }
                 <div>
                   <div className="qna-text">{answer?.ans}</div>
-                  <div className="question-desc">{answer.ansBy} - {answer?.createdAt ? getTimeAgo(answer?.createdAt) : 'Answered within 2 hours'}</div>
+                  <div className="question-desc">{answer.ansBy} - {getAnsweredWithin(question?.createdAt, question?.updatedAt)}</div>
                 </div>
               </div>
             ))}
