@@ -43,8 +43,15 @@ export default function QuesAndAnswer({ question, user }) {
       ansBy: "Bangladesh Mart",
       questionId: question?._id,
     };
-    makeAnswer(myQuestionData);
+    if (!replyAnswer) {
+      toast.error("Please add a reply at first...!!")
+    }
+
+    else {
+      makeAnswer(myQuestionData);
+    }
   }
+
 
   return (
     <>
