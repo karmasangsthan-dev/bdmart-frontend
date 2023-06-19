@@ -50,7 +50,11 @@ const Layout = ({ children, title = "Bangladesh Mart" }) => {
       <Header />
 
       <main>{children}</main>
-      <MobileBottomNav />
+      {router?.pathname !== "/" && (
+        <div>
+          <MobileBottomNav />
+        </div>
+      )}
     </>
   );
 };

@@ -13,6 +13,7 @@ import { bn } from "../locales/bn";
 import axios from "axios";
 import { useUpdateVisitorMutation } from "../features/auth/authApi";
 import FixedBottomNavigation from "../components/Shared/Header/MobileBottomNav";
+import MobileBottomNav from "../components/Shared/Header/MobileBottomNav";
 
 export default function Home({ data }) {
   const { locale } = useRouter();
@@ -46,6 +47,7 @@ export default function Home({ data }) {
       <ShopDepartments t={t} />
       <Discount t={t} />
       <JustForYou t={t} />
+      <MobileBottomNav/>
     </Layout>
   );
 }
