@@ -4,9 +4,8 @@ import { useMakeAnswerMutation } from "../../features/questionAndAnswer/question
 
 export default function QuesAndAnswer({ question, user }) {
   const [showReplyInput, setShowReplyInput] = useState(false);
-  const [replyAnswer, setReplyAnswer] = useState('');
-  const [makeAnswer, { isSuccess, isError, error }] =
-    useMakeAnswerMutation();
+  const [replyAnswer, setReplyAnswer] = useState("");
+  const [makeAnswer, { isSuccess, isError, error }] = useMakeAnswerMutation();
 
   function getTimeAgo(timestamp) {
     const dbTimestamp = new Date(timestamp);
@@ -20,16 +19,16 @@ export default function QuesAndAnswer({ question, user }) {
     const months = Math.floor(days / 30);
     const years = Math.floor(months / 12);
 
-    const labels = ['years', 'months', 'days', 'hours', 'minutes', 'seconds'];
+    const labels = ["years", "months", "days", "hours", "minutes", "seconds"];
     const timeAgoValues = [years, months, days, hours, minutes, seconds];
 
-    const index = timeAgoValues.findIndex(value => value > 0);
+    const index = timeAgoValues.findIndex((value) => value > 0);
 
     let timeAgoString;
     if (index === -1) {
-      timeAgoString = 'just now';
+      timeAgoString = "just now";
     } else if (index === 3 && days === 1) {
-      timeAgoString = 'yesterday';
+      timeAgoString = "yesterday";
     } else {
       timeAgoString = `${timeAgoValues[index]} ${labels[index]} ago`;
     }
@@ -48,15 +47,15 @@ export default function QuesAndAnswer({ question, user }) {
     const months = Math.floor(days / 30);
 
     if (months > 0) {
-      return `Answered within ${months} month${months !== 1 ? 's' : ''}`;
+      return `Answered within ${months} month${months !== 1 ? "s" : ""}`;
     } else if (days > 0) {
-      return `Answered within ${days} day${days !== 1 ? 's' : ''}`;
+      return `Answered within ${days} day${days !== 1 ? "s" : ""}`;
     } else if (hours > 0) {
-      return `Answered within ${hours} hour${hours !== 1 ? 's' : ''}`;
+      return `Answered within ${hours} hour${hours !== 1 ? "s" : ""}`;
     } else if (minutes > 0) {
-      return `Answered within ${minutes} minute${minutes !== 1 ? 's' : ''}`;
+      return `Answered within ${minutes} minute${minutes !== 1 ? "s" : ""}`;
     } else {
-      return `Answered within ${seconds} second${seconds !== 1 ? 's' : ''}`;
+      return `Answered within ${seconds} second${seconds !== 1 ? "s" : ""}`;
     }
   }
 
@@ -67,14 +66,11 @@ export default function QuesAndAnswer({ question, user }) {
       questionId: question?._id,
     };
     if (!replyAnswer) {
-      toast.error("Please add a reply at first...!!")
-    }
-
-    else {
+      toast.error("Please add a reply at first...!!");
+    } else {
       makeAnswer(myQuestionData);
     }
-  }
-
+  };
 
   return (
     <>
@@ -100,7 +96,6 @@ export default function QuesAndAnswer({ question, user }) {
             <div className="product-qna-admin-reply ">
               <span style={{ width: "20px", height: "20px" }}></span>
               <div className="question-desc">No answer yet</div>
-
             </div>
             <div>
               {user?.role === "admin" && question?.answers.length == 0 && (
@@ -111,20 +106,23 @@ export default function QuesAndAnswer({ question, user }) {
                       className="question-admin-reply-button "
                       onClick={() => setShowReplyInput(!showReplyInput)}
                     >
-                      {showReplyInput ? 'Close Answer' : 'Make a Answer'}
+                      {showReplyInput ? "Close Answer" : "Make a Answer"}
                     </label>
-
                   </div>
-                  {showReplyInput && <div className="question-post-container">
-                    <input
-                      className="answer-admin-input"
-                      id="answer-input"
-                      type="text"
-                      placeholder="Enter your answer"
-                      onChange={(e) => setReplyAnswer(e.target.value)}
-                    />
-                    <button onClick={handleAnswerSubmit} className="">Submit Answer</button>
-                  </div>}
+                  {showReplyInput && (
+                    <div className="question-post-container">
+                      <input
+                        className="answer-admin-input"
+                        id="answer-input"
+                        type="text"
+                        placeholder="Enter your answer"
+                        onChange={(e) => setReplyAnswer(e.target.value)}
+                      />
+                      <button onClick={handleAnswerSubmit} className="">
+                        Submit Answer
+                      </button>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
@@ -141,12 +139,16 @@ export default function QuesAndAnswer({ question, user }) {
                     alt="xbox-a"
                   />
                 </span>
-                {
-                  console.log(question, 'qq')
-                }
+
                 <div>
                   <div className="qna-text-reply">{answer?.ans}</div>
-                  <div className="question-desc">{answer.ansBy} - {getAnsweredWithin(question?.createdAt, question?.updatedAt)}</div>
+                  <div className="question-desc">
+                    {answer.ansBy} -{" "}
+                    {getAnsweredWithin(
+                      question?.createdAt,
+                      question?.updatedAt
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
