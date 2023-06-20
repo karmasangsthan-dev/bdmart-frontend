@@ -1,4 +1,11 @@
-import { IconButton, Menu, MenuItem, Paper, Popper, Rating } from "@mui/material";
+import {
+  IconButton,
+  Menu,
+  MenuItem,
+  Paper,
+  Popper,
+  Rating,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import {
@@ -9,8 +16,13 @@ import {
 } from "react-icons/fa";
 import { MdVerifiedUser } from "react-icons/md";
 import { useSelector } from "react-redux";
-import { useMakeReplyMutation } from "../../features/review/reviewApi";
+import {
+  useLikeOnReviewMutation,
+  useMakeReplyMutation,
+  useUnLikeReviewMutation,
+} from "../../features/review/reviewApi";
 import { MoreVert } from "@mui/icons-material";
+import { useRouter } from "next/router";
 
 export default function Review({ review }) {
   const user = useSelector((state) => state?.auth?.user);
@@ -18,9 +30,15 @@ export default function Review({ review }) {
   const [showReplyInput, setShowReplyInput] = useState(null);
   const [like, setLike] = useState(false);
   const [unlike, setUnlike] = useState(false);
-
+  const router = useRouter();
 
   const [makeReply, { isSuccess, isLoading }] = useMakeReplyMutation();
+
+  const [likeOnReview, { isSuccess: success, isError: isErr }] =
+    useLikeOnReviewMutation();
+  const [unLikeReview] = useUnLikeReviewMutation();
+  useLikeOnReviewMutation();
+
   const formattedDate = (createdAt) => {
     const date = new Date(createdAt);
     const formatted = date.toLocaleDateString("en-US", {
@@ -39,6 +57,16 @@ export default function Review({ review }) {
     const reviewId = review?._id;
     makeReply({ repliedBy, reply: reviewReply, reviewId });
   };
+
+  const handleLike = () => {
+    setLike(!like);
+    likeOnReview({ reviewId: review?._id, email: user?.email });
+  };
+  const handleUnlike = () => {
+    setLike(!like);
+    unLikeReview({ reviewId: review?._id, email: user?.email });
+  };
+
   useEffect(() => {
     if (isSuccess) {
       toast.success("Success");
@@ -54,15 +82,13 @@ export default function Review({ review }) {
           readOnly
           className="fs-5"
         />
-        <span className="verified-purchage">{formattedDate(review.createdAt)}</span>
+        <span className="verified-purchage">
+          {formattedDate(review.createdAt)}
+        </span>
       </div>
 
-      <p style={{ color: 'gray' }} className="verified-purchage my-2">
-        by {" "}
-        <span className="">
-          {review?.reviewedBy?.fullName}
-        </span>
-
+      <p style={{ color: "gray" }} className="verified-purchage my-2">
+        by <span className="">{review?.reviewedBy?.fullName}</span>
         <span className="text-success verified-purchage">
           <MdVerifiedUser className="text-success fs-6 ms-2 me-1" />
           Verified Purchase
@@ -83,18 +109,31 @@ export default function Review({ review }) {
       </div>
       <div className="review-like-container ms-1 mt-2 d-flex gap-5 align-items-center">
         <div className="d-flex align-items-center gap-2">
-          {!like ? (
-            <FaRegThumbsUp className="fs-6" onClick={() => setLike(!like)} />
+          {user?.email ? (
+            <span>
+              {review.likes.likedBy.find((email) => email === user.email) ? (
+                <FaThumbsUp
+                  className="fs-6 text-primary review-like-btn"
+                  onClick={handleUnlike}
+                />
+              ) : (
+                <FaRegThumbsUp className="fs-6 review-like-btn" onClick={handleLike} />
+              )}
+            </span>
           ) : (
-            <FaThumbsUp
-              className="fs-6 text-primary"
-              onClick={() => setLike(!like)}
+            <FaRegThumbsUp
+
+              className="fs-6 review-like-btn"
+              onClick={() => router.push({
+                pathname: "/signup",
+                query: { redirect: router.asPath },
+              })}
             />
           )}
-          <span className="verified-purchage">{like ? "(1)" : "(0)"}</span>
+          <span className="verified-purchage">
+            ({review?.likes?.totalLikes || 0})
+          </span>
         </div>
-
-
       </div>
 
       {user?.role === "admin" && (
@@ -149,16 +188,16 @@ export default function Review({ review }) {
           </div>
         </div>
       ))}
-      <div className="pb-3" style={{ position: 'relative' }}>
-        <p className="review-three-dots"><IconButton
-          aria-label="more"
-          aria-controls="dots-menu"
-          aria-haspopup="true"
-        >
-          <MoreVert />
-        </IconButton>
+      <div className="pb-3" style={{ position: "relative" }}>
+        <p className="review-three-dots">
+          <IconButton
+            aria-label="more"
+            aria-controls="dots-menu"
+            aria-haspopup="true"
+          >
+            <MoreVert />
+          </IconButton>
         </p>
-
       </div>
     </div>
   );

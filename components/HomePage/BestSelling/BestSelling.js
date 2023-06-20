@@ -14,9 +14,7 @@ const SampleNextArrow = (props) => {
   const { onClick } = props;
   return (
     <div className="control-btn" onClick={onClick}>
-      <button className="next">
-
-      </button>
+      <button className="next"></button>
     </div>
   );
 };
@@ -24,9 +22,7 @@ const SamplePrevArrow = (props) => {
   const { onClick } = props;
   return (
     <div className="control-btn" onClick={onClick}>
-      <button className="prev">
-
-      </button>
+      <button className="prev"></button>
     </div>
   );
 };
