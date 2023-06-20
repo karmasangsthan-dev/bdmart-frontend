@@ -38,10 +38,10 @@ console.log(ratingsSum,'product rev')
         Ratings & Reviews of {product?.title}
       </h5>
       <div className="review-statics  px-4">
-        <div className="col-md-6 d-flex justify-content-between">
+        <div className="col-md-6 all-ratings-count">
           <div>
             <h1>
-              {averageRating ? averageRating?.toFixed(0) : '4.5'}
+              {averageRating ? averageRating?.toFixed(0) : '0'}
               <span style={{ fontSize: "25px", color: "#9e9e9e" }}>/5</span>
             </h1>
             <Rating
@@ -93,7 +93,7 @@ console.log(ratingsSum,'product rev')
         ))}
       </div>
       <div className='questions-pagination review-pagination py-4'>
-        <Pagination count={10} variant="outlined" color="primary" shape="rounded" />
+        <Pagination count={100} siblingCount={0}  boundaryCount={2} variant="outlined" color="primary" shape="rounded" />
       </div>
     </div>
   );

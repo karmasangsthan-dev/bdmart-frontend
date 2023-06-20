@@ -118,6 +118,7 @@ a:hover {
     margin-top: 20px;
 }
 
+
 .product-description {
     padding: 20px;
 
@@ -131,6 +132,11 @@ a:hover {
 
 }
 
+.review-statics .all-ratings-count {
+    display: flex;
+    justify-content: space-between;
+}
+
 .review-container-title {
     margin-top: 10px;
     padding: 0px 20px;
@@ -138,6 +144,8 @@ a:hover {
     font-size: 16px;
     font-family: 'Roboto', sans-serif;
 }
+
+
 
 .review-like-container {
     display: flex;
@@ -336,10 +344,11 @@ textarea:focus {
 
 
 @media screen and (max-width: 682px) {
-    .product-description-container{
+    .product-description-container {
         /* margin-left: 10px;
         margin-right: 10px; */
     }
+
     .margin-mobile-10px-x {
         /* margin-left: 10px;
         margin-right: 10px; */
@@ -408,4 +417,13 @@ textarea:focus {
     .product-description-container ul {
         padding-left: 1rem;
     }
+}
+
+@media screen and (max-width: 375px) {
+    .review-statics .all-ratings-count{
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
 }

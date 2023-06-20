@@ -92,10 +92,12 @@
     color: red;
     font-size: 14px;
 }
+
 .qna-text-review {
     color: black;
     font-size: 14px;
 }
+
 .qna-text-reply {
     color: #40c057;
     font-size: 14px;
@@ -149,7 +151,32 @@
 .product-qna-admin-reply {
     display: flex;
     gap: 20px;
-    margin-top: 10px ;
+    margin-top: 10px;
 }
 
-@media screen and (max-width: 682px) {}
+@media screen and (max-width: 682px) {
+    .question-post-container input {
+        border: 1px solid #dadada;
+        border-top-left-radius: 3px;
+        border-bottom-left-radius: 3px;
+
+        outline: none;
+        width:100%;
+        padding: 10px 10px;
+    }
+
+    .question-post-container button {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: auto;
+        padding: 0 10px;
+        height: 100%;
+        background-color: #faa72c;
+        color: white;
+        text-decoration: none;
+        border-color: transparent;
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+    }
+}
