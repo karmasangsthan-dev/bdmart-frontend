@@ -46,7 +46,7 @@ const NavMenu = () => {
           dispatch(logOut());
           toast.success("Logout successful", { id: "logout" });
         });
-      } catch (error) {}
+      } catch (error) { }
     }
   };
   const handleClose = () => {
@@ -177,10 +177,23 @@ const NavMenu = () => {
             />{" "}
             {t.homePage.header.ordersTitle}
           </MenuItem>
-          <MenuItem
+          <MenuItem>
+            <img
+              className="me-2"
+              style={{
+                width: "32px",
+                height: "32px",
+                borderRadius: "50%",
+                marginLeft: "-10px",
+              }}
+              src="https://img.icons8.com/color/48/popular-topic.png"
+            />
+            {t.homePage.header.reviews}
+          </MenuItem>
+          {user?.role && user?.role !== 'customer' && <MenuItem
             onClick={() =>
-              (window.location.href =
-                "https://bangladesh-mart-admin.netlify.app")
+            (window.location.href =
+              "https://bangladesh-mart-admin.netlify.app")
             }
           >
             <img
@@ -194,20 +207,8 @@ const NavMenu = () => {
               src="https://img.icons8.com/color/48/null/administrative-tools.png"
             />{" "}
             {t.homePage.header.adminPanel}
-          </MenuItem>
-          <MenuItem>
-            <img
-              className="me-2"
-              style={{
-                width: "32px",
-                height: "32px",
-                borderRadius: "50%",
-                marginLeft: "-10px",
-              }}
-              src="https://img.icons8.com/color/48/null/settings--v1.png"
-            />
-            {t.homePage.header.settings}
-          </MenuItem>
+          </MenuItem>}
+
           <MenuItem onClick={handleLogout}>
             <img
               className="me-2"

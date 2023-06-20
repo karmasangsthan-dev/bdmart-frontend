@@ -68,7 +68,7 @@ export default function Review({ review }) {
           Verified Purchase
         </span>
       </p>
-      <p className="qna-text my-2">{review?.review}</p>
+      <p className="qna-text-review my-2">{review?.review}</p>
       <div>
         {review?.images?.map((imgUrl, index) => (
           <img
@@ -91,7 +91,7 @@ export default function Review({ review }) {
               onClick={() => setLike(!like)}
             />
           )}
-          <span className="verified-purchage">(1)</span>
+          <span className="verified-purchage">{like ? "(1)" : "(0)"}</span>
         </div>
 
 

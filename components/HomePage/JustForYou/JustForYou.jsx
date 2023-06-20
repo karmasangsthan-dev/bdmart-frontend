@@ -112,7 +112,7 @@ const JustForYou = ({ t }) => {
         ) : (
           <div className=" all-products-container ">
             <>
-              {data?.data?.map((product) => {
+              {data?.allResult?.map((product) => {
                 return (
                   <JustForYouProductCard product={product} key={product?._id} />
                 );

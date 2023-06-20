@@ -156,9 +156,13 @@ const BestSelling = ({ t }) => {
       ) : (
         <div className="">
           <Slider className=" " {...settings}>
-            {[...data?.data].sort(() => Math.random() - 0.5).map((product, index) => (
-              <DiscountProductCard key={index} product={product} />
-            ))}
+            {[...data?.allResult].sort(() => Math.random() - 0.5).map((product, index) => {
+              
+
+              return (
+                <DiscountProductCard key={index} product={product} />
+              )
+            })}
           </Slider>
         </div>
       )}

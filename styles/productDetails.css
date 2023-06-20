@@ -93,6 +93,8 @@ a:hover {
     border-radius: 5px;
     margin-top: 40px;
     background: #fff;
+    margin-left: 0px;
+    margin-right: 0px;
 }
 
 .product-description-container .heading {
@@ -141,6 +143,11 @@ a:hover {
     display: flex;
     align-items: center;
     gap: 5px;
+    user-select: none;
+}
+
+.review-replay-form label {
+    user-select: none;
 }
 
 .review-like-container img {
@@ -317,8 +324,37 @@ textarea:focus {
     gap: 20px;
 }
 
+.delevery-service-container .delivery-info {
+    padding: 0px 16px 5px 0px;
+}
+
+.delevery-service-container .service-info {
+    padding: 0px 16px 5px 0px;
+    margin-top: 1rem;
+}
+
+
 
 @media screen and (max-width: 682px) {
+    .product-description-container{
+        /* margin-left: 10px;
+        margin-right: 10px; */
+    }
+    .margin-mobile-10px-x {
+        /* margin-left: 10px;
+        margin-right: 10px; */
+    }
+
+    .delevery-service-container .delivery-info {
+        padding: 16px;
+    }
+
+    .delevery-service-container .service-info {
+        padding: 16px;
+        margin-top: 0;
+    }
+
+
     .you-may-also-like-loading-container {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -328,11 +364,13 @@ textarea:focus {
 
     .product-details-information {
         padding-right: 0px;
+        width: 100%;
+        padding: 16px;
     }
 
     .cart-btn-mobile {
         display: flex;
-        justify-content: space-evenly;
+        justify-content: space-between;
         align-items: center;
         gap: 10px;
         margin-bottom: 20px;
@@ -349,6 +387,11 @@ textarea:focus {
         align-items: center;
         height: 38px;
     }
+
+    .delevery-service-container {
+        width: 100%;
+    }
+
 
     .mobile-buy-now-button {
         width: 45%;

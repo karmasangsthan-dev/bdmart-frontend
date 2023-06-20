@@ -9,7 +9,7 @@ export const bn = {
       profileTitle: "প্রোফাইল",
       ordersTitle: "আমার অর্ডারস",
       adminPanel: "অ্যাডমিন প্যানেল",
-      settings: "সেটিংস",
+      reviews: "আমার রিভিউ",
       logout: "লগ আউট",
       searchTitle: "আপনি কি খুঁজছেন ?",
       megaMenuTitle: "বিভাগসমূহ",

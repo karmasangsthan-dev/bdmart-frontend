@@ -141,9 +141,7 @@ export default function QuesAndAnswer({ question, user }) {
                     alt="xbox-a"
                   />
                 </span>
-                {
-                  console.log(question, 'qq')
-                }
+                
                 <div>
                   <div className="qna-text-reply">{answer?.ans}</div>
                   <div className="question-desc">{answer.ansBy} - {getAnsweredWithin(question?.createdAt, question?.updatedAt)}</div>

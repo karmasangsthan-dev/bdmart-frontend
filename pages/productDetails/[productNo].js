@@ -182,7 +182,7 @@ const productNo = () => {
         {data?.status && (
           <div
             style={{ minHeight: "120vh", maxWidth: "1200px" }}
-            className="container px-0"
+            className="container "
           >
             <div
             
@@ -201,7 +201,7 @@ const productNo = () => {
               </Breadcrumb>
             </div>
             <div
-              className="d-flex flex-wrap mt-2 pt-3 bg-white"
+              className="d-flex flex-wrap mt-2 pt-3 bg-white margin-mobile-10px-x"
               style={{ border: "1px solid #ddd" }}
             >
               <div style={{ display: 'flex', flexDirection: 'column', margin: 'auto' }} className="col-lg-4 col-md-5 col-sm-12 ">
@@ -389,7 +389,7 @@ const productNo = () => {
                 </div>
                 <ShareProduct></ShareProduct>
               </div>
-              <div className="col-md-3">
+              <div className="col-md-3 delevery-service-container">
                 <DeleveryAndService></DeleveryAndService>
 
 
