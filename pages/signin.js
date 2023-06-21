@@ -34,7 +34,7 @@ const signin = () => {
 
     login({ email, password });
   };
-  console.log({ query, redirect })
+  
 
   useEffect(() => {
     if (isLoading) {
