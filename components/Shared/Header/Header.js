@@ -27,6 +27,8 @@ const Header = () => {
     (state) => state.currency
   );
   const [searchText, setSearchText] = useState("");
+  const [mobileSearchInput, setMobileSearchInput] = useState(null);
+  const [desktopSearchInput, setDesktopSearchInput] = useState(null);
   const { cart } = useSelector((state) => state?.cart);
   const { data, isLoading, isError, error, refetch } =
     useGetSearchProductQuery(searchText);
@@ -40,7 +42,21 @@ const Header = () => {
   for (const item of cart) {
     totalProductQuantity += item.quantity;
   }
+  useEffect(() => {
+    setMobileSearchInput(document.getElementById('mobile-search-input'));
+    setDesktopSearchInput(document.getElementById('desktop-search-input'));
 
+  }, [])
+
+  const handleClearInput = () => {
+    setSearchText('');
+    if (mobileSearchInput) {
+      mobileSearchInput.value = '';
+    }
+    if (desktopSearchInput) {
+      desktopSearchInput.value = '';
+    }
+  }
   return (
     <div id="strip2">
       <div id="nav_Bar" className="navBar ">
@@ -65,12 +81,18 @@ const Header = () => {
             <div className="search-box">
               <form className="example">
                 <input
+                  id="desktop-search-input"
                   onChange={(e) => setSearchText(e.target.value)}
                   type="text"
                   placeholder={t.homePage.header.searchTitle}
                   name="search"
                   autoComplete="off"
                 />
+                <div style={{ position: 'relative' }} className="d-flex align-items-center">
+                  {searchText.length > 0 && <span title="Clear" onClick={() => handleClearInput()} className="px-1 text-danger" style={{ position: 'absolute', right: '15px', fontSize: '20px', cursor: 'pointer' }}>x</span>
+                  }
+
+                </div>
 
                 <button type="submit">
                   <i className="fa fa-search"></i>
@@ -159,13 +181,21 @@ const Header = () => {
 
             <form className="example col-12 p-2">
               <input
-                style={{ borderTopRightRadius: '5px', borderBottomRightRadius: '5px' }}
+                id="mobile-search-input"
+                style={{ borderTopRightRadius: '5px' }}
                 type="text"
                 autoComplete="off"
                 onChange={(e) => setSearchText(e.target.value)}
                 placeholder=" What are you looking for?"
                 name="search"
               />
+              <div style={{ position: 'relative' }} className="d-flex align-items-center">
+                {searchText.length > 0 && <span onClick={() => handleClearInput()} className="px-1 text-danger" style={{ position: 'absolute', right: '70px', fontSize: '20px' }}>x</span>
+                }
+                <button type="submit" style={{ position: 'absolute', right: '0px', fontSize: '14px', padding: '0 25px', height: '100%' }}>
+                  <i className="fa fa-search"></i>
+                </button>
+              </div>
 
 
             </form>
