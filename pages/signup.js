@@ -78,7 +78,7 @@ const signup = () => {
   }, []);
 
   return (
-    <div style={{minHeight: deviceHeight < 650 ? "120vh" : 'auto'}} className="">
+    <div style={{ minHeight: deviceHeight < 650 ? "120vh" : 'auto' }} className="">
       <Header></Header>
       <div className="d-sm-none d-lg-block" style={{ backgroundColor: "#fff !important", minHeight: "120vh" }}>
         <div className="mx-auto" style={{ width: "60%" }}>
