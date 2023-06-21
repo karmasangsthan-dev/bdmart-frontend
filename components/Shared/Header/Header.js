@@ -28,6 +28,7 @@ const Header = () => {
   );
   const [searchText, setSearchText] = useState("");
   const [mobileSearchInput, setMobileSearchInput] = useState(null);
+  const [desktopSearchInput, setDesktopSearchInput] = useState(null);
   const { cart } = useSelector((state) => state?.cart);
   const { data, isLoading, isError, error, refetch } =
     useGetSearchProductQuery(searchText);
@@ -43,6 +44,7 @@ const Header = () => {
   }
   useEffect(() => {
     setMobileSearchInput(document.getElementById('mobile-search-input'));
+    setDesktopSearchInput(document.getElementById('desktop-search-input'));
 
   }, [])
 
@@ -50,6 +52,9 @@ const Header = () => {
     setSearchText('');
     if (mobileSearchInput) {
       mobileSearchInput.value = '';
+    }
+    if (desktopSearchInput) {
+      desktopSearchInput.value = '';
     }
   }
   return (
@@ -76,12 +81,18 @@ const Header = () => {
             <div className="search-box">
               <form className="example">
                 <input
+                  id="desktop-search-input"
                   onChange={(e) => setSearchText(e.target.value)}
                   type="text"
                   placeholder={t.homePage.header.searchTitle}
                   name="search"
                   autoComplete="off"
                 />
+                <div style={{ position: 'relative' }} className="d-flex align-items-center">
+                  {searchText.length > 0 && <span title="Clear" onClick={() => handleClearInput()} className="px-1 text-danger" style={{ position: 'absolute', right: '15px', fontSize: '20px', cursor: 'pointer' }}>x</span>
+                  }
+
+                </div>
 
                 <button type="submit">
                   <i className="fa fa-search"></i>
