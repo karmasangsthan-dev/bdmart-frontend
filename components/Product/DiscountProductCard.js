@@ -18,37 +18,13 @@ export default function DiscountProductCard({ product }) {
   }
   const discountPercentage =
     ((product?.oldPrice - product?.price) / product?.oldPrice) * 100;
-  // const [token, setToken] = useState();
-  // const [cartProduct, setCartProduct] = useState({});
+
   const dispatch = useDispatch();
-  // const user = useSelector((state) => state.auth?.user);
+
   const router = useRouter();
-  // useEffect(() => {
-  //   const token = localStorage.getItem("accessToken");
-  //   setToken(token);
-  // }, []);
 
-  // const [addProductToCart, { data, isSuccess, isLoading }] =
-  //   useAddToCartMutation();
   const handleAddToCart = (product) => {
-    //   const alreadyAdded = !!user?.cart?.find(
-    //     (item) => item?.product?._id === product?._id
-    //   );
-    //   console.log(alreadyAdded);
-    //   if (user?.email) {
-    //     if (alreadyAdded) {
-    //       return toast.error("Product already added to cart!!!", {
-    //         id: "addToCart",
-    //       });
-    //     }
-    //     setCartProduct(product);
-    //     addProductToCart({ token, userId: user?._id, product: product?._id });
-    //   }
-    //   if (!user?.email) {
-    //     toast.error("Please, Login first !!!", { id: "addToCart" });
-    //   }
 
-    //   ----------------------------------------------------------
 
     const cartProducts = localStorage.getItem("cartProducts");
     if (cartProducts) {
@@ -73,15 +49,11 @@ export default function DiscountProductCard({ product }) {
 
     dispatch(addToCart({ id: product?._id }));
   };
-  // useEffect(() => {
-  //   if (isLoading) {
-  //     toast.loading("Loading...", { id: "addToCart" });
-  //   }
-  //   if (isSuccess) {
-  //     dispatch(addToCart(cartProduct));
-  //     toast.success("Added to cart", { id: "addToCart" });
-  //   }
-  // }, [isSuccess, isLoading]);
+  const { reviews } = product;
+  const totalReviews = reviews.length;
+  const ratingsSum = reviews.reduce((sum, review) => sum + review.ratings, 0);
+  const averageRating = totalReviews ? ratingsSum / totalReviews : 0;
+  const sanitizedAverageRating = isNaN(averageRating) ? 0 : averageRating;
   return (
     <div className="mb-3 mobile-product-card" key={product?._id}>
       <div className="product-link bestselling-product-container product-card-shop border p-3 rounded shadow">
@@ -121,11 +93,11 @@ export default function DiscountProductCard({ product }) {
           <Rating
             style={{ fontSize: "15px", marginLeft: "-3px" }}
             name="read-only"
-            value={parseInt(product?.rating || 5)}
+            value={parseInt(sanitizedAverageRating)}
             readOnly
           />
           <p className="mb-0 ms-1" style={{ fontSize: "13px" }}>
-            ({parseInt(product?.rating || 5)})
+            ({parseInt(totalReviews)})
           </p>
         </div>
         <div id="">

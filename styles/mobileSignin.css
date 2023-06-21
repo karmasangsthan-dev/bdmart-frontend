@@ -1,0 +1,73 @@
+.mobile-login-container {
+    /* padding: 0 15px; */
+}
+
+.mobile-contact-header h4 {
+    text-align: center;
+}
+
+.mobile-contact-header .mark {
+    color: #faa72c;
+    background-color: transparent;
+}
+
+.mobile-login-content {
+    padding: 10px 15px;
+}
+
+.mobile-login-content .input-email,
+.input-password {
+    border: 2px solid #959595;
+    width: 100%;
+    padding-top: 0.40rem !important;
+    padding-bottom: 0.40rem !important;
+    padding-right: 0.7rem !important;
+    padding-left: 0.7rem !important;
+    background-color: #eff0f5;
+    border-radius: 5px;
+}
+.mobile-signin-divider{
+    text-align: center;
+    padding: 10px 0px;
+}
+
+.mobile-sign-in-btn {
+    user-select: none;
+    border: 1px solid transparent;
+    border-radius: 0.375rem;
+    background-color: #faa72c;
+    width: 100%;
+    color: white;
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+    padding-right: 0.5rem !important;
+    padding-left: 0.5rem !important;
+    margin-top: 1rem;
+}
+
+.mobile-facebook-signin-btn {
+    background-color: #3b5998;
+    width: 100%;
+    color: white;
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+    padding-right: 0.5rem !important;
+    padding-left: 0.5rem !important;
+    margin-top: 1rem !important;
+}
+.icon-container{
+    position: relative;
+}
+.mobile-signup-password-show-button{
+    position: absolute;
+    right: 8px;
+    top: -28px;
+}
+.login-br-sm{
+    display: none;
+}
+@media screen and (max-width: 320px) {
+    .login-br-sm{
+        display: block;
+    }
+}

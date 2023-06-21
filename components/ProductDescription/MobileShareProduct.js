@@ -3,7 +3,7 @@ import React from 'react';
 const MobileShareProduct = () => {
     return (
         <div className="share mt-4 d-lg-none d-sm-block">
-            <div className="d-flex align-items-center">
+            <div className="d-flex align-items-center" style={{marginLeft:'20px',marginBottom:'20px'}}>
                 <h6 className="mt-1">Share:</h6>
                 <div className="share-buttons ms-2">
                     <a

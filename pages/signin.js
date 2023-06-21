@@ -34,7 +34,7 @@ const signin = () => {
 
     login({ email, password });
   };
-  console.log({query,redirect})
+  console.log({ query, redirect })
 
   useEffect(() => {
     if (isLoading) {
@@ -53,10 +53,10 @@ const signin = () => {
   return (
     <div className="">
       <Header></Header>
-      <div style={{ backgroundColor: "#fff !important" }}>
-        <div className="mx-auto" style={{ width: "60% " }}>
-          <div className=" d-flex justify-content-between">
-            <h4 style={{ color: "#424242" }}>
+      <div className="sign-in-container d-sm-none d-lg-block">
+        <div className="sign-in-content" >
+          <div className="login-header">
+            <h4 className="title-text">
               Welcome to BD Mart! Please login.
             </h4>
             <span>
@@ -65,20 +65,15 @@ const signin = () => {
           </div>
           <div>
             <div
-              style={{ backgroundColor: "#eff0f5" }}
-              className="form-container  d-flex"
+              className="form-container"
             >
-              <div className="left w-50 p-4">
+              <div className="left-content">
                 <div>
                   <label htmlhtmlFor="email">Phone Number or Email*</label> <br />
                   <input
                     onChange={(e) => setEmail(e.target.value)}
-                    style={{
-                      backgroundColor: "#eff0f5",
-                      borderRadius: "5px",
-                    }}
                     required
-                    className="w-100 px-2 py-1"
+                    className="input-email"
                     type="text"
                     placeholder="Please Enter your Email"
                   />
@@ -89,25 +84,23 @@ const signin = () => {
                   <br />
                   <input
                     onChange={(e) => setPassword(e.target.value)}
-                    style={{
-                      backgroundColor: "#eff0f5",
-                      borderRadius: "5px",
-                    }}
-                    className="w-100 px-2 py-1"
+                    className="input-password"
                     type={showPass ? "text" : "password"}
                     placeholder="Please Enter your Password"
                   />
-                  {showPass ? (
-                    <AiFillEye
-                      onClick={() => setShowPass(!showPass)}
-                      className="fs-5 signup-password-show-button"
-                    />
-                  ) : (
-                    <AiFillEyeInvisible
-                      onClick={() => setShowPass(!showPass)}
-                      className="fs-5 signup-password-show-button"
-                    />
-                  )}
+                  <div className="desktop-icon-container">
+                    {showPass ? (
+                      <AiFillEye
+                        onClick={() => setShowPass(!showPass)}
+                        className="fs-5 signup-password-show-button"
+                      />
+                    ) : (
+                      <AiFillEyeInvisible
+                        onClick={() => setShowPass(!showPass)}
+                        className="fs-5 signup-password-show-button"
+                      />
+                    )}
+                  </div>
                 </div>
               </div>
               <div className="right w-50 mb-4 p-4">
@@ -127,6 +120,70 @@ const signin = () => {
                   <FaFacebookF></FaFacebookF> Facebook
                 </button>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="d-sm-block d-lg-none">
+        <div className="mobile-login-container" >
+          <div className="mobile-contact-header">
+            <h4 className="">
+              Welcome to <span className="mark">BD Mart!</span><br className="login-br-sm" /> Please login.
+            </h4>
+            {/* <span>
+              New member? <Link href="/signup"> Register here.</Link>
+            </span> */}
+          </div>
+          <div className="mobile-login-content">
+            <div>
+              <label htmlhtmlFor="email">Phone Number or Email*</label> <br />
+              <input
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="input-email"
+                type="text"
+                placeholder="Please Enter your Email"
+              />
+            </div>
+            <div className="mt-2">
+              <label htmlhtmlFor="email">Password*</label>
+              <br />
+              <input
+                onChange={(e) => setPassword(e.target.value)}
+                className="input-password"
+                type={showPass ? "text" : "password"}
+                placeholder="Please Enter your Password"
+              />
+              <div className="icon-container">
+                {showPass ? (
+                  <AiFillEye
+
+                    onClick={() => setShowPass(!showPass)}
+                    className="fs-5 mobile-signup-password-show-button"
+                  />
+                ) : (
+                  <AiFillEyeInvisible
+                    onClick={() => setShowPass(!showPass)}
+                    className="fs-5 mobile-signup-password-show-button"
+                  />
+                )}
+              </div>
+            </div>
+            <div className="">
+              <button
+                className="mobile-sign-in-btn "
+                onClick={handleSignIn}
+              >
+                Signin
+              </button>
+              <p className="mobile-signin-divider">or sign in with</p>
+              <GoogleLogin />
+              <button
+                style={{ backgroundColor: "#3b5998" }}
+                className="btn mobile-facebook-signin-btn"
+              >
+                <FaFacebookF></FaFacebookF> Facebook
+              </button>
             </div>
           </div>
         </div>

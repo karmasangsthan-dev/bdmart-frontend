@@ -96,8 +96,8 @@
   transition: 0.5s;
 }
 
-.inputBox input:valid ~ span,
-.inputBox input:focus ~ span {
+.inputBox input:valid~span,
+.inputBox input:focus~span {
   color: #45f3ff;
   transform: translateX(0px) translateY(-34px);
   font-size: 0.75em;
@@ -116,8 +116,8 @@
   z-index: 9;
 }
 
-.inputBox input:valid ~ i,
-.inputBox input:focus ~ i {
+.inputBox input:valid~i,
+.inputBox input:focus~i {
   height: 44px;
 }
 
@@ -158,9 +158,69 @@ input[type="submit"]:active {
   cursor: pointer;
 }
 
-.signup-password-show-button {
+
+.sign-in-container {
+  background-color: #fff;
+}
+
+.sign-in-content {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.login-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.login-header .title-text {
+  color: #424242;
+}
+
+.form-container {
+  display: flex;
+  background-color: #eff0f5;
+}
+
+.form-container .left-content {
+  width: 50%;
+  padding: 1.5rem;
+}
+
+.left-content .input-email,
+.input-password {
+  /* w-100 px-2 py-1 */
+  width: 100%;
+  padding-top: 0.25rem !important;
+  padding-bottom: 0.25rem !important;
+  padding-right: 0.5rem !important;
+  padding-left: 0.5rem !important;
+  background-color: #eff0f5;
+  border-radius: 5px;
+}
+
+.google-login-btn {
+  margin-top: 1rem;
+}
+
+.desktop-icon-container {
   position: relative;
-  left: 327px;
-  bottom: 31px;
+}
+
+.signup-password-show-button {
+  position: absolute;
+  right: 8px;
+  top: -30px;
   cursor: pointer;
+}
+
+@media screen and (max-width: 682px) {
+  .google-login-btn {
+    margin-top: 0rem;
+  }
+
+  .sign-in-content {
+    width: 100%;
+    margin: 0 auto;
+  }
 }

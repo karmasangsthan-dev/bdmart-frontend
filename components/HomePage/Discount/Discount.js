@@ -131,7 +131,7 @@ const Discount = ({ t }) => {
           ) : (
             <div>
               <Slider className="px-4" {...settings}>
-                {[...data?.data].sort(() => Math.random() - 0.5).map((product) => (
+                {[...data?.allResult].sort(() => Math.random() - 0.5).map((product) => (
                   <DiscountProductCard product={product} key={product?._id} />
                 ))}
 
