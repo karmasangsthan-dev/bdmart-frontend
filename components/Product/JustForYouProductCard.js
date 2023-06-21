@@ -18,38 +18,13 @@ export default function JustForYouProductCard({ product }) {
   }
   const discountPercentage =
     ((product?.oldPrice - product?.price) / product?.oldPrice) * 100;
-  // const [token, setToken] = useState();
-  // const [cartProduct, setCartProduct] = useState({});
+
   const dispatch = useDispatch();
-  // const user = useSelector((state) => state.auth?.user);
+
   const router = useRouter();
-  // useEffect(() => {
-  //   const token = localStorage.getItem("accessToken");
-  //   setToken(token);
-  // }, []);
 
-  // const [addProductToCart, { data, isSuccess, isLoading }] =
-  //   useAddToCartMutation();
+
   const handleAddToCart = (product) => {
-    //   const alreadyAdded = !!user?.cart?.find(
-    //     (item) => item?.product?._id === product?._id
-    //   );
-    //   console.log(alreadyAdded);
-    //   if (user?.email) {
-    //     if (alreadyAdded) {
-    //       return toast.error("Product already added to cart!!!", {
-    //         id: "addToCart",
-    //       });
-    //     }
-    //     setCartProduct(product);
-    //     addProductToCart({ token, userId: user?._id, product: product?._id });
-    //   }
-    //   if (!user?.email) {
-    //     toast.error("Please, Login first !!!", { id: "addToCart" });
-    //   }
-
-    //   ----------------------------------------------------------
-
     const cartProducts = localStorage.getItem("cartProducts");
     if (cartProducts) {
       const cart = JSON.parse(localStorage.getItem("cartProducts"));
@@ -73,7 +48,13 @@ export default function JustForYouProductCard({ product }) {
 
     dispatch(addToCart({ id: product?._id }));
   };
-  
+
+  const { reviews } = product;
+  const totalReviews = reviews.length;
+  const ratingsSum = reviews.reduce((sum, review) => sum + review.ratings, 0);
+  const averageRating = totalReviews ? ratingsSum / totalReviews : 0;
+  const sanitizedAverageRating = isNaN(averageRating) ? 0 : averageRating;
+
   return (
     <div className="mb-3" key={product?._id}>
       <div className="product-link bestselling-product-container product-card-shop border p-3 rounded-3 shadow">
@@ -113,11 +94,11 @@ export default function JustForYouProductCard({ product }) {
           <Rating
             style={{ fontSize: "15px", marginLeft: "-3px" }}
             name="read-only"
-            value={parseInt(product?.rating || 5)}
+            value={parseInt(sanitizedAverageRating)}
             readOnly
           />
           <p className="mb-0 ms-1" style={{ fontSize: "13px" }}>
-            ({parseInt(product?.rating || 5)})
+            ({parseInt(totalReviews)})
           </p>
         </div>
         <div id="">

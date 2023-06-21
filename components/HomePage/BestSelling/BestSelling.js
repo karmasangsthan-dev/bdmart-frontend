@@ -14,9 +14,7 @@ const SampleNextArrow = (props) => {
   const { onClick } = props;
   return (
     <div className="control-btn" onClick={onClick}>
-      <button className="next">
-
-      </button>
+      <button className="next"></button>
     </div>
   );
 };
@@ -24,9 +22,7 @@ const SamplePrevArrow = (props) => {
   const { onClick } = props;
   return (
     <div className="control-btn" onClick={onClick}>
-      <button className="prev">
-
-      </button>
+      <button className="prev"></button>
     </div>
   );
 };
@@ -156,9 +152,13 @@ const BestSelling = ({ t }) => {
       ) : (
         <div className="">
           <Slider className=" " {...settings}>
-            {[...data?.data].sort(() => Math.random() - 0.5).map((product, index) => (
-              <DiscountProductCard key={index} product={product} />
-            ))}
+            {[...data?.allResult].sort(() => Math.random() - 0.5).map((product, index) => {
+              
+
+              return (
+                <DiscountProductCard key={index} product={product} />
+              )
+            })}
           </Slider>
         </div>
       )}

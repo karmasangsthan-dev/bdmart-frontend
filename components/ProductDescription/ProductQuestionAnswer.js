@@ -26,7 +26,7 @@ const ProductQuestionAnswer = ({ product }) => {
     if (!question) {
       toast.error("Please write your question at first...!!");
     } else {
-      console.log({ product })
+      console.log({ product });
       createQus(myQuestionData);
       elem.value = "";
     }
@@ -37,28 +37,33 @@ const ProductQuestionAnswer = ({ product }) => {
     }
   }, [isSuccess]);
   return (
-    <div className="product-description-container product-question-container shadow">
-      <h6 className="heading">Question About This Product ({product?.questionsAndAnswers
-        ?.length})</h6>
+    <div className="product-description-container product-question-container ">
+      <h6 className="heading">
+        Question About This Product ({product?.questionsAndAnswers?.length})
+      </h6>
 
       <div className="product-questions-header">
         {!user?.email ? (
           <p className="question-login">
             <span
-              onClick={() => router.push({
-                pathname: "/signin",
-                query: { redirect: router.asPath },
-              })}
+              onClick={() =>
+                router.push({
+                  pathname: "/signin",
+                  query: { redirect: router.asPath },
+                })
+              }
               className="question-answer-login-btn"
             >
               Login
             </span>{" "}
             or{" "}
             <span
-              onClick={() => router.push({
-                pathname: "/signup",
-                query: { redirect: router.asPath },
-              })}
+              onClick={() =>
+                router.push({
+                  pathname: "/signup",
+                  query: { redirect: router.asPath },
+                })
+              }
               className="question-answer-login-btn"
             >
               Register
@@ -77,33 +82,58 @@ const ProductQuestionAnswer = ({ product }) => {
               <button onClick={handleCreateQuestion}>Ask Question</button>
             </div>
 
-            {user?.email && product?.questionsAndAnswers.filter((qus) => qus.qusBy.email === user.email).length > 0 && (
-              <div>
-                <p>My Questions ({product?.questionsAndAnswers
-                    .filter((qus) => qus.qusBy.email === user.email).length})</p>
-                <div className="">
-                  {product?.questionsAndAnswers
-                    .filter((qus) => qus.qusBy.email === user.email).slice(-3).reverse().map((question, index) => (
-                      <QuesAndAnswer
-                        user={user}
-                        question={question}
-                        key={index}
-                        index={index}
-                      />
-                    ))}
+            {user?.email &&
+              product?.questionsAndAnswers.filter(
+                (qus) => qus.qusBy.email === user.email
+              ).length > 0 && (
+                <div>
+                  <p>
+                    My Questions (
+                    {
+                      product?.questionsAndAnswers.filter(
+                        (qus) => qus.qusBy.email === user.email
+                      ).length
+                    }
+                    )
+                  </p>
+                  <div className="">
+                    {product?.questionsAndAnswers
+                      .filter((qus) => qus.qusBy.email === user.email)
+                      .slice(-3)
+                      .reverse()
+                      .map((question, index) => (
+                        <QuesAndAnswer
+                          user={user}
+                          question={question}
+                          key={index}
+                          index={index}
+                        />
+                      ))}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
           </div>
         )}
-        <p>Other questions answered by Bangladesh Mart ({product?.questionsAndAnswers
-          ?.filter((qus) => qus.qusBy.email !== user.email).length})</p>
+        <p>
+          Other questions answered by Bangladesh Mart (
+          {
+            product?.questionsAndAnswers?.filter(
+              (qus) => qus.qusBy.email !== user.email
+            ).length
+          }
+          )
+        </p>
       </div>
 
       <div className="all-qna product-questions">
         {product?.questionsAndAnswers
-          ?.filter((qus) => qus.qusBy.email !== user.email).slice().reverse().map((question, index) => {
-            return <QuesAndAnswer user={user} question={question} key={index} />;
+          ?.filter((qus) => qus.qusBy.email !== user.email)
+          .slice()
+          .reverse()
+          .map((question, index) => {
+            return (
+              <QuesAndAnswer user={user} question={question} key={index} />
+            );
           })}
       </div>
       <div className="questions-pagination ">

@@ -9,7 +9,7 @@ export const en = {
       profileTitle: "Profile",
       ordersTitle: "My Orders",
       adminPanel: "Admin Panel",
-      settings: "Settings",
+      reviews: "My Reviews",
       logout: "Logout",
       searchTitle: "What you are looking for ? ",
       megaMenuTitle: "Departments",
