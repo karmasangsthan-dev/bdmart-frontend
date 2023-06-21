@@ -3,7 +3,7 @@ import { toast } from "react-hot-toast";
 import Slider from "react-slick";
 
 import Product from "../../Product/Product";
-import { useGetAllProductsQuery } from "../../../features/product/productApi";
+import { useGetAllProductsQuery, useGetSectionBasedProductsQuery } from "../../../features/product/productApi";
 import Skeleton from "react-loading-skeleton";
 import { useRouter } from "next/router";
 import { en } from "../../../locales/en";
@@ -38,7 +38,7 @@ const styles = {
 };
 
 const BestSelling = ({ t }) => {
-  const { data, isLoading } = useGetAllProductsQuery();
+  const { data, isLoading } = useGetSectionBasedProductsQuery({ section: 'bestSelling' });
 
   const settings = {
     dots: false,
@@ -90,7 +90,7 @@ const BestSelling = ({ t }) => {
     ],
   };
 
-  
+
   return (
     <div className="px-2">
       <div className="">
@@ -153,7 +153,7 @@ const BestSelling = ({ t }) => {
       ) : (
         <div className="">
           <Slider className=" " {...settings}>
-            {data?.allResult?.map((product, index) => {
+            {data?.data?.map((product, index) => {
 
 
               return (

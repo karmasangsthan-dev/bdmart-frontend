@@ -1,5 +1,5 @@
 import React from "react";
-import { useGetAllProductsQuery } from "../../../features/product/productApi";
+import { useGetAllProductsQuery, useGetSectionBasedProductsQuery } from "../../../features/product/productApi";
 import Slider from "react-slick";
 import { Rating } from "@mui/material";
 import Skeleton from "react-loading-skeleton";
@@ -27,7 +27,7 @@ const SamplePrevArrow = (props) => {
 
 const Discount = ({ t }) => {
   const router = useRouter();
-  const { data, isLoading } = useGetAllProductsQuery();
+  const { data, isLoading } = useGetSectionBasedProductsQuery({ section: 'discount' });
   const settings = {
     dots: false,
     infinite: true,
@@ -131,11 +131,11 @@ const Discount = ({ t }) => {
           ) : (
             <div>
               <Slider className="px-4" {...settings}>
-                {data?.allResult?.map((product) => (
+                {data?.data?.map((product) => (
                   <DiscountProductCard product={product} key={product?._id} />
                 ))}
 
-                
+
               </Slider>
             </div>
           )}

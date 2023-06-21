@@ -16,6 +16,16 @@ const productApi = apiSlice.injectEndpoints({
       },
       providesTags: ["Products"],
     }),
+    getSectionBasedProducts: builder.query({
+      query: ({ section }) => {
+        console.log('section',section)
+        return {
+          url: `/products/section?section=${section}`,
+          method: "GET",
+        };
+      },
+      providesTags: ["Products"],
+    }),
     getAllProducts: builder.query({
       query: (params = {}) => {
         const { pageNumber, perPage, ...restParams } = params;
@@ -103,6 +113,7 @@ export const {
   useGetProductsQuery,
   useGetAllProductsQuery,
   useGetSearchProductQuery,
+  useGetSectionBasedProductsQuery,
   useGetProductDetailsQuery,
   useGetAllOrdersByEmailQuery,
   useGetSuccessfulOrdersByEmailQuery,

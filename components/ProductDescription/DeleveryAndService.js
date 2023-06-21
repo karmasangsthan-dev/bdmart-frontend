@@ -14,7 +14,7 @@ const DeleveryAndService = () => {
                             alt="marker--v1"
                         />
                     </div>
-                    <div className="d-flex justify-content-between align-items-center gap-2 w-100">
+                    <div className="d-flex justify-content-between  gap-2 w-100">
                         <p>Dhaka, Dhaka North, Banani Road No. 12 - 19 </p>
                         <p className="text-info">CHANGE</p>
                     </div>
