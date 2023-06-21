@@ -1,14 +1,14 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { useUpdateProfileImageMutation } from "../../features/auth/authApi";
 import { AiFillCamera } from "react-icons/ai";
-import { fetchUser } from "../../features/auth/authSlice";
+import { fetchUser, logOut } from "../../features/auth/authSlice";
 import { toast } from "react-hot-toast";
 import Image from "next/image";
 import { Button, FormControl, Modal } from "react-bootstrap";
 import { Cropper } from "react-cropper";
+
 
 export default function ProfileSideNav() {
   const [token, setToken] = useState();
@@ -82,6 +82,24 @@ export default function ProfileSideNav() {
     setShowModal(false);
   };
 
+  const handleLogout = () => {
+    if (user?.providerId === "custom") {
+      localStorage.removeItem("accessToken");
+      dispatch(logOut());
+      toast.success("Logout Successful", { id: "logout" });
+    }
+    if (user?.providerId === "firebase") {
+      try {
+        const success = signOut().then(() => {
+          localStorage.removeItem("accessToken");
+          dispatch(logOut());
+          toast.success("Logout successful", { id: "logout" });
+        });
+      } catch (error) { }
+    }
+  };
+
+
   return (
     <div className="profile-sidebar border border-1">
       <div
@@ -138,7 +156,7 @@ export default function ProfileSideNav() {
               My Review
             </a>
           </li>
-          <li className="nav-item">
+          <li onClick={handleLogout} className="nav-item">
             <a className="nav-link" href="#">
               Logout
             </a>
@@ -150,7 +168,7 @@ export default function ProfileSideNav() {
           <Modal.Title className="text-center mx-auto">Update Profile Picture</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          
+
           {croppedImage ? (
             <div>
               <Cropper

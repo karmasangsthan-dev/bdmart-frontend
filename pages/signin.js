@@ -88,17 +88,19 @@ const signin = () => {
                     type={showPass ? "text" : "password"}
                     placeholder="Please Enter your Password"
                   />
-                  {showPass ? (
-                    <AiFillEye
-                      onClick={() => setShowPass(!showPass)}
-                      className="fs-5 signup-password-show-button"
-                    />
-                  ) : (
-                    <AiFillEyeInvisible
-                      onClick={() => setShowPass(!showPass)}
-                      className="fs-5 signup-password-show-button"
-                    />
-                  )}
+                  <div className="desktop-icon-container">
+                    {showPass ? (
+                      <AiFillEye
+                        onClick={() => setShowPass(!showPass)}
+                        className="fs-5 signup-password-show-button"
+                      />
+                    ) : (
+                      <AiFillEyeInvisible
+                        onClick={() => setShowPass(!showPass)}
+                        className="fs-5 signup-password-show-button"
+                      />
+                    )}
+                  </div>
                 </div>
               </div>
               <div className="right w-50 mb-4 p-4">
