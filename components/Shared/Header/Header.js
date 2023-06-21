@@ -27,6 +27,7 @@ const Header = () => {
     (state) => state.currency
   );
   const [searchText, setSearchText] = useState("");
+  const [mobileSearchInput, setMobileSearchInput] = useState(null);
   const { cart } = useSelector((state) => state?.cart);
   const { data, isLoading, isError, error, refetch } =
     useGetSearchProductQuery(searchText);
@@ -40,7 +41,17 @@ const Header = () => {
   for (const item of cart) {
     totalProductQuantity += item.quantity;
   }
+  useEffect(() => {
+    setMobileSearchInput(document.getElementById('mobile-search-input'));
 
+  }, [])
+
+  const handleClearInput = () => {
+    setSearchText('');
+    if (mobileSearchInput) {
+      mobileSearchInput.value = '';
+    }
+  }
   return (
     <div id="strip2">
       <div id="nav_Bar" className="navBar ">
@@ -159,13 +170,21 @@ const Header = () => {
 
             <form className="example col-12 p-2">
               <input
-                style={{ borderTopRightRadius: '5px', borderBottomRightRadius: '5px' }}
+                id="mobile-search-input"
+                style={{ borderTopRightRadius: '5px' }}
                 type="text"
                 autoComplete="off"
                 onChange={(e) => setSearchText(e.target.value)}
                 placeholder=" What are you looking for?"
                 name="search"
               />
+              <div style={{ position: 'relative' }} className="d-flex align-items-center">
+                {searchText.length > 0 && <span onClick={() => handleClearInput()} className="px-1 text-danger" style={{ position: 'absolute', right: '70px', fontSize: '20px' }}>x</span>
+                }
+                <button type="submit" style={{ position: 'absolute', right: '0px', fontSize: '14px', padding: '0 25px', height: '100%' }}>
+                  <i className="fa fa-search"></i>
+                </button>
+              </div>
 
 
             </form>

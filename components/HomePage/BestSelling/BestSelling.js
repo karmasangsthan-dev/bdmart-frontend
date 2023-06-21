@@ -90,6 +90,7 @@ const BestSelling = ({ t }) => {
     ],
   };
 
+  
   return (
     <div className="px-2">
       <div className="">
@@ -153,7 +154,7 @@ const BestSelling = ({ t }) => {
         <div className="">
           <Slider className=" " {...settings}>
             {data?.allResult?.map((product, index) => {
-              
+
 
               return (
                 <DiscountProductCard key={index} product={product} />
