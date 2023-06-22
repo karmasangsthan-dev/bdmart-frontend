@@ -54,7 +54,7 @@
     display: inline-flex;
     margin-left: 0.5rem;
     text-decoration: none;
-    color: black;
+
 
 }
 
@@ -256,3 +256,19 @@
     font-size: .875rem;
     line-height: 1.25rem;
 }
+
+.sidebar-item a {
+    color: black;
+}
+
+.sidebar-item:hover {
+    background-color: rgb(249 250 251/1);
+    color: rgb(5 150 105/1);
+    cursor: pointer;
+}
+
+
+.sidebar-item:hover .sidebar-item-anchor {
+    color: rgb(5 150 105/1);
+}
+
