@@ -18,7 +18,7 @@ export const bn = {
         { title: "শপ", link: "/shop" },
         { title: "আপনার অর্ডার ট্র্যাক", link: "/profile/my-orders" },
         { title: "আরএফকিউ জমা দিন", link: "/submit-rfq" },
-        { title: "আমার অ্যাকাউন্ট", link: "/profile" },
+        { title: "আমার অ্যাকাউন্ট", link: "/user/dashboard" },
         { title: "যোগাযোগ করুন", link: "/contact" },
       ],
     },

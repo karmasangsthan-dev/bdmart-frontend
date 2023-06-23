@@ -2043,6 +2043,10 @@ a.slide_btn {
 @media (max-width: 716px) {
   .footer-section {
     margin-top: 50px;
+    padding-bottom: 50px;
+  }
+  .footer-3{
+    padding-bottom: 40px;
   }
 
   .social-area {
