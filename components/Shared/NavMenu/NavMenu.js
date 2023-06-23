@@ -30,7 +30,7 @@ const NavMenu = () => {
   const open = Boolean(anchorEl);
 
   const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+    router.push('/user/dashboard')
   };
 
   const handleLogout = () => {
@@ -86,143 +86,7 @@ const NavMenu = () => {
             </IconButton>
           </Tooltip>
         </Box>
-        <Menu
-          style={{ zIndex: "999999" }}
-          anchorEl={anchorEl}
-          id="account-menu"
-          open={open}
-          onClose={handleClose}
-          onClick={handleClose}
-          PaperProps={{
-            elevation: 0,
-            sx: {
-              borderRadius: "6px",
-              padding: "6px",
-              overflow: "visible",
-              filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-              mt: 1.5,
-              "& .MuiAvatar-root": {
-                width: 32,
-                height: 32,
-                ml: -0.5,
-                mr: 1,
-              },
-              "&:before": {
-                content: '""',
-                display: "block",
-                position: "absolute",
-                top: 0,
-                right: 14,
-                width: 10,
-                height: 10,
-                bgcolor: "background.paper",
-                transform: "translateY(-50%) rotate(45deg)",
-                zIndex: 0,
-              },
-            },
-          }}
-          transformOrigin={{ horizontal: "right", vertical: "top" }}
-          anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-        >
-          {/* <img
-            style={{
-              width: "56px",
-              height: "56px",
-              borderRadius: "50%",
-              margin: "auto",
-              display: "flex",
-            }}
-            src={
-              user?.profilePicture
-                ? user?.profilePicture
-                : "https://i.ibb.co/x258KZb/profile.jpg"
-            } */}
-
-          <div style={{ height: "56px", position: "relative" }}>
-            <Image
-              style={{ height: "100%", borderRadius: "50%", margin: "auto" }}
-              className="d-block "
-              width={56}
-              height={56}
-              src={avatar}
-              loading="eager"
-              alt="profile-pic"
-            />
-          </div>
-          <h5 className="text-center text-capitalize ">{user?.fullName}</h5>
-
-          <MenuItem onClick={() => router.push("/profile")}>
-            <img
-              className="me-2"
-              style={{
-                width: "32px",
-                height: "32px",
-                borderRadius: "50%",
-                marginLeft: "-10px",
-              }}
-              src="https://img.icons8.com/color/48/null/administrator-male-skin-type-7.png"
-            />
-            {t.homePage.header.profileTitle}
-          </MenuItem>
-          <MenuItem onClick={() => router.push("/profile/my-orders")}>
-            <img
-              className="me-2"
-              style={{
-                width: "32px",
-                height: "32px",
-                borderRadius: "50%",
-                marginLeft: "-10px",
-              }}
-              src="https://img.icons8.com/color/48/null/my-orange.png"
-            />{" "}
-            {t.homePage.header.ordersTitle}
-          </MenuItem>
-          <MenuItem>
-            <img
-              className="me-2"
-              style={{
-                width: "32px",
-                height: "32px",
-                borderRadius: "50%",
-                marginLeft: "-10px",
-              }}
-              src="https://img.icons8.com/color/48/popular-topic.png"
-            />
-            {t.homePage.header.reviews}
-          </MenuItem>
-          {user?.role && user?.role !== 'customer' && <MenuItem
-            onClick={() =>
-            (window.location.href =
-              "https://bangladesh-mart-admin.netlify.app")
-            }
-          >
-            <img
-              className="me-2"
-              style={{
-                width: "32px",
-                height: "32px",
-                borderRadius: "50%",
-                marginLeft: "-10px",
-              }}
-              src="https://img.icons8.com/color/48/null/administrative-tools.png"
-            />{" "}
-            {t.homePage.header.adminPanel}
-          </MenuItem>}
-
-          <MenuItem onClick={handleLogout}>
-            <img
-              className="me-2"
-              style={{
-                width: "32px",
-                height: "32px",
-                borderRadius: "50%",
-                marginLeft: "-10px",
-              }}
-              src="https://img.icons8.com/color/48/null/exit.png"
-            />
-            {t.homePage.header.logout}
-          </MenuItem>
-        </Menu>
+        
       </>
     </div>
   );
