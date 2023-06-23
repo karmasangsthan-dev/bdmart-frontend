@@ -9,7 +9,6 @@ const Dashboard = () => {
     const { data, isLoading: orderLoading } = useGetAllOrdersByEmailQuery(
         user.email
     );
-    console.log({ data })
 
     const formatDate = (dateString) => {
         if (!dateString) {
@@ -116,7 +115,6 @@ const Dashboard = () => {
                                                             totalAmount =
                                                                 totalAmount + order?.products[i].quantity * order?.products[i].price;
                                                         };
-                                                        console.log(order)
                                                         return (
                                                             <tr key={index}>
                                                                 <td className='order-id'><span>#{order?.invoiceId ? order?.invoiceId : 'Not Found'}</span></td>
