@@ -70,7 +70,7 @@ const MyOrders = () => {
                                                         <td className='order-date'><span>{order?.paymentMethod?.split(' ')[0]}</span></td>
                                                         <td className='order-date'><span>{order?.status}</span></td>
                                                         <td className='order-date'><span>${totalAmount}</span></td>
-                                                        <td className='order-date-details'><span className='order-details-btn'>Details</span></td>
+                                                        <td className='order-date-details'><span onClick={()=> router.push(`/order/${order?._id}`)} className='order-details-btn'>Details</span></td>
                                                     </tr>
                                                 )
                                             })
