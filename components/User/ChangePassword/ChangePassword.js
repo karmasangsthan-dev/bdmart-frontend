@@ -75,7 +75,7 @@ const ChangePassword = () => {
 
                                 <label htmlhtmlFor="name">Email:</label>
                                 <input
-                                    className="form-control w-100 px-3 py-2 mb-3"
+                                    className="form-control form-control-red w-100 px-3 py-2 mb-3 "
                                     name="email"
                                     type="text"
                                     value={user?.email}

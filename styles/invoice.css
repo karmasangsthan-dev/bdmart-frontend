@@ -100,8 +100,9 @@ th {
     box-shadow: none !important;
     
 }
-
 .form-control:focus {
     border-color: rgb(16 185 129/1);
-
+}
+.form-control-red:focus{
+    border-color: red !important;
 }
