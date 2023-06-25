@@ -157,11 +157,8 @@ const UpdateProfile = () => {
                             <div className="col-md-6">
                                 <label htmlhtmlFor="name">Full Name:</label>
                                 <input
-                                    className="w-100 px-3 py-2 mb-3 border-0 "
-                                    style={{
-                                        backgroundColor: "#eff0f5",
-                                        borderRadius: "5px",
-                                    }}
+                                    className="w-100 px-3 py-2 mb-3 form-control  "
+                                    
                                     name="fullName"
                                     type="text"
                                     defaultValue={user?.fullName}
@@ -170,12 +167,8 @@ const UpdateProfile = () => {
 
                                 <label htmlhtmlFor="name">Email:</label>
                                 <input
-                                    className="w-100 px-3 py-2 mb-3 border-0 "
+                                    className="form-control form-control-red w-100 px-3 py-2 mb-3 "
                                     name="email"
-                                    style={{
-                                        backgroundColor: "#eff0f5",
-                                        borderRadius: "5px",
-                                    }}
                                     type="text"
                                     value={user?.email}
                                     contentEditable="false"
@@ -188,11 +181,8 @@ const UpdateProfile = () => {
 
                                 <label htmlhtmlFor="name">Address:</label>
                                 <input
-                                    className="w-100 px-3 py-2 mb-3 border-0 text-capitalize"
-                                    style={{
-                                        backgroundColor: "#eff0f5",
-                                        borderRadius: "5px",
-                                    }}
+                                    className="w-100 px-3 py-2 mb-3 text-capitalize form-control"
+                                    
                                     type="text"
                                     defaultValue={user?.address}
                                     name="address"
@@ -200,12 +190,9 @@ const UpdateProfile = () => {
                                 />
                                 <label htmlhtmlFor="name">Contact Number:</label>
                                 <input
-                                    className="w-100 px-3 py-2 mb-3 border-0"
+                                    className="w-100 px-3 py-2 mb-3 form-control"
                                     name="contactNumber"
-                                    style={{
-                                        backgroundColor: "#eff0f5",
-                                        borderRadius: "5px",
-                                    }}
+                                    
                                     defaultValue={user?.contactNumber}
                                     type="number"
                                     placeholder="Enter Your Contact Number"

@@ -2,6 +2,7 @@ import React from 'react';
 import SideBar from '../../components/User/SideBar/SideBar';
 import Layout from '../../components/Layout';
 import UpdateProfile from '../../components/User/UpdateProfile/UpdateProfile';
+import RequireAuth from '../../components/Shared/RequireAuth/RequireAuth';
 
 const updateProfile = () => {
     return (
@@ -25,4 +26,4 @@ const updateProfile = () => {
     );
 };
 
-export default updateProfile;
+export default RequireAuth(updateProfile);
