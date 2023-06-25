@@ -9,6 +9,7 @@
     padding-bottom: 1rem;
 }
 
+
 @media screen and (max-width: 682px) {
     .orders-side-nav {
         display: none;

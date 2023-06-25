@@ -24,7 +24,7 @@ const UpdateProfile = () => {
         setToken(token);
     }, []);
 
-    const [updateProfileImage, { isSuccess: isImageSuccess, isLoading: isImageLoading, isError: isImageError }] =
+    const [updateProfileImage, { isSuccess: isImageSuccess, isLoading: isImageLoading, isError: isImageError, error }] =
         useUpdateProfileImageMutation({
             onSettled: () => api.invalidateTags("User"),
         });
@@ -57,7 +57,7 @@ const UpdateProfile = () => {
         }
 
         if (isError) {
-            toast.error("Something went wrong", { id: "updateProfile" })
+            toast.error(error?.data?.error, { id: "updateProfile" })
         }
     }, [isSuccess, isLoading, isError, isImageSuccess]);
 

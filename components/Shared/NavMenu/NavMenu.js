@@ -30,7 +30,11 @@ const NavMenu = () => {
   const open = Boolean(anchorEl);
 
   const handleClick = (event) => {
-    router.push('/user/dashboard')
+    const route = router.pathname;
+
+    if (!route.includes('/user')) {
+      router.push('/user/dashboard');
+    }
   };
 
   const handleLogout = () => {
@@ -86,7 +90,7 @@ const NavMenu = () => {
             </IconButton>
           </Tooltip>
         </Box>
-        
+
       </>
     </div>
   );

@@ -1776,6 +1776,9 @@ a.slide_btn {
   justify-content: center;
   flex-wrap: wrap;
 }
+.css-137ul40-MuiButtonBase-root-MuiIconButton-root:hover{
+  background-color: transparent;
+}
 
 .footer-1 {
   display: flex;

@@ -34,7 +34,6 @@ const SideBar = () => {
     // /user/dashboard
     const textParams = router.pathname;
     const textPath = textParams.split('/user/')[1];
-    console.log({textPath})
     return (
         <div className='dashboard-sidebar'>
             <div className="sidebar-content">
@@ -61,13 +60,16 @@ const SideBar = () => {
                         <span className={`sidebar-item-anchor ${textPath === 'update-profile' && 'active-sidebar-nav'}`}>Update Profile</span>
                     </span>
                 </Link>
-                <Link href='/user/change-password'>
-                    <span className={`sidebar-item ${textPath === 'change-password' && 'active-nav-bg'}`}>
+                {
+                    user?.providerId === 'custom' && <Link href='/user/change-password'>
+                        <span className={`sidebar-item ${textPath === 'change-password' && 'active-nav-bg'}`}>
 
-                        <svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 24 24" className={`flex-shrink-0 h-4 w-4 ${textPath === 'change-password' && 'active-sidebar-nav'}`} aria-hidden="true" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                        <span className={`sidebar-item-anchor ${textPath === 'change-password' && 'active-sidebar-nav'}`}>Change Password</span>
-                    </span>
-                </Link>
+                            <svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 24 24" className={`flex-shrink-0 h-4 w-4 ${textPath === 'change-password' && 'active-sidebar-nav'}`} aria-hidden="true" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                            <span className={`sidebar-item-anchor ${textPath === 'change-password' && 'active-sidebar-nav'}`}>Change Password</span>
+                        </span>
+                    </Link>
+                }
+
                 <span onClick={handleLogout} className='sidebar-item'>
                     <span>
                         <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M336 112a80 80 0 00-160 0v96"></path><rect width="320" height="272" x="96" y="208" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" rx="48" ry="48"></rect></svg>
