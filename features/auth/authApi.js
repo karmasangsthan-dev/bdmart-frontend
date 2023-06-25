@@ -58,18 +58,17 @@ const authApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["User"],
     }),
-    updateVisitor: builder.mutation({
-      query: ({data}) => {
-        const query = {
-          url: `/visitor/visitor`,
-          method: "PATCH",
-          body: data,
-        };
-        
-        return query;
-      },
+    updateUserPassword: builder.mutation({
+      query: ({ token, data }) => ({
+        url: `/user/change-password`,
+        method: "PATCH",
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+        body: data,
+      }),
       invalidatesTags: ["User"],
-    }),
+    })
   }),
 });
 
@@ -80,5 +79,5 @@ export const {
   useUpdateProfileImageMutation,
   useUpdateProfileMutation,
   useGetMeQuery,
-  useUpdateVisitorMutation,
+  useUpdateUserPasswordMutation
 } = authApi;

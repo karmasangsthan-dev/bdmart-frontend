@@ -43,7 +43,7 @@ const signin = () => {
     if (isSuccess) {
       localStorage.setItem("accessToken", data.token);
       toast.success("Success", { id: "login" });
-      router.push(redirect);
+      router.push(redirect || '/');
       dispatch(setUser(data?.data));
     }
     if (isError) {

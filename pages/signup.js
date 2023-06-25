@@ -66,7 +66,7 @@ const signup = () => {
       localStorage.setItem("accessToken", data?.token);
       toast.success("Signup success..", { id: "signup" });
       dispatch(fetchUser(data?.token));
-      router.push(redirect);
+      router.push(redirect || '/');
     }
     if (isError) {
       toast.error(error?.data?.error, { id: "signup" });
