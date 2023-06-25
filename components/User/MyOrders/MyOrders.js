@@ -34,6 +34,16 @@ const MyOrders = () => {
         }
     }
 
+    if (orderLoading) {
+        return (
+            <div>
+                <div className='d-flex justify-content-center align-items-center'>
+                    <div className="spinner1"></div>
+                </div>
+            </div>
+        )
+    }
+
 
     return (
         <div className="dash-order-table">
@@ -45,7 +55,7 @@ const MyOrders = () => {
                             <div className="con">
                                 <table className='table-order'>
                                     <thead>
-                                        <tr style={{ backgroundColor: 'rgb(243 244 246/1)', borderColor: 'rgb(229 231 235/1)',borderWidth:'1px' }}>
+                                        <tr style={{ backgroundColor: 'rgb(243 244 246/1)', borderColor: 'rgb(229 231 235/1)', borderWidth: '1px' }}>
                                             <th>Id</th>
                                             <th>OrderTime</th>
                                             <th>Method</th>
@@ -70,7 +80,7 @@ const MyOrders = () => {
                                                         <td className='order-date'><span>{order?.paymentMethod?.split(' ')[0]}</span></td>
                                                         <td className='order-date'><span>{order?.status}</span></td>
                                                         <td className='order-date'><span>${totalAmount}</span></td>
-                                                        <td className='order-date-details'><span onClick={()=> router.push(`/order/${order?._id}`)} className='order-details-btn'>Details</span></td>
+                                                        <td className='order-date-details'><span onClick={() => router.push(`/order/${order?._id}`)} className='order-details-btn'>Details</span></td>
                                                     </tr>
                                                 )
                                             })

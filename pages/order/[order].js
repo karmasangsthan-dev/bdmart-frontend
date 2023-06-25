@@ -56,13 +56,17 @@ const Order = () => {
                     <div className="spinner1"></div>
                 </div>
             ) : (
-                <div style={{ height: "120vh" }}>
-                    <div id="invoice-content" ref={componentRef}>
-                        <div
+                <div className="invoice-container" style={{ height: "120vh" }}>
+                    <div className="mx-5 px-5 mt-4 rounded-2 py-2" style={{ backgroundColor: "rgb(209 250 229/1)" }}>
+                        <label>Thank you <span style={{ color: 'rgb(5 150 105/1)', fontWeight: '700' }}>qwe qwe</span>, Your order have been received !</label>
+                    </div>
+                    <div id="invoice-content " >
+
+                        <div ref={componentRef}
                             className="order-container mx-5 px-5 my-4 py-4 rounded-2"
-                            style={{ backgroundColor: "whitesmoke" }}
+                            style={{ backgroundColor: "rgb(238 242 255/1)" }}
                         >
-                            <div className="d-flex justify-content-between">
+                            <div className="d-flex justify-content-between pb-3">
                                 <div>
                                     <h4>INVOICE</h4>
                                     <span style={{ fontWeight: "bold" }}>
@@ -76,7 +80,7 @@ const Order = () => {
                                                 }}
                                                 className="ms-2 px-2 bg-success"
                                             >
-                                                Successfull
+                                                Successful
                                             </span>
                                         }
                                         {
@@ -96,14 +100,14 @@ const Order = () => {
                                 </div>
                                 <div>
                                     <img
-                                        src="https://bangladeshmart.com.bd/_ipx/w_256,q_75/%2Fimages%2Flogo2.jpg?url=%2Fimages%2Flogo2.jpg&w=256&q=75"
-                                        alt="dashtar"
+                                        src="https://res.cloudinary.com/dfcztmnvh/image/upload/v1687640964/_images_logo2-removebg-preview_jhkefd.png"
+                                        alt="bd-mart"
                                         width={150}
                                     />
                                     <p>Dhaka, Bangladesh</p>
                                 </div>
                             </div>
-                            <div className="d-flex justify-content-between mt-5 align-items-start">
+                            <div className="d-flex justify-content-between mt-4 align-items-start">
                                 <div>
                                     <h6>DATE</h6>
                                     <p>{formatDate(data?.createdAt)}</p>
@@ -134,7 +138,7 @@ const Order = () => {
                                 >
                                     <thead className="" style={{ backgroundColor: "" }}>
                                         <tr>
-                                            <th>SR.</th>
+                                            <th className="ps-3">SR.</th>
                                             <th>PRODUCT TITLE</th>
                                             <th>QUANTITY</th>
                                             <th>ITEM PRICE</th>
@@ -143,8 +147,8 @@ const Order = () => {
                                     </thead>
                                     <tbody>
                                         {data?.products.map((product, i) => (
-                                            <tr key={i}>
-                                                <td>{i + 1}</td>
+                                            <tr className="" key={i}>
+                                                <td className="ps-3">{i + 1}</td>
                                                 <td>{product?.title}</td>
                                                 <td>{product?.quantity}</td>
                                                 <td>{product?.price} {data?.currency}</td>
