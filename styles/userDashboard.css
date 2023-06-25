@@ -319,10 +319,12 @@
     background-color: rgb(16 185 129/1);
     color: white;
 }
-.update-profile-button-container{
+
+.update-profile-button-container {
     display: flex;
     justify-content: flex-end;
 }
+
 .update-profile-button {
     background: rgb(16 185 129/1);
     transition-duration: .3s;
@@ -342,4 +344,36 @@
 .update-profile-button:hover {
     background: rgb(5 150 105/1);
 
+}
+
+@media screen and (max-width: 682px) {
+    .dashboard-container-content {
+        flex-wrap: wrap;
+        gap: 20px;
+        padding-bottom: 5rem;
+    }
+
+    .dashboard-sidebar {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .user-dashboard-container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .dashboard-first-section {
+        display: grid;
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+        grid-gap: 1rem;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+    .dash-overflow-hidden {
+        overflow: unset;
+    }
+    
 }

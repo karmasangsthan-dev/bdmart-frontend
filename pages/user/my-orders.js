@@ -2,7 +2,7 @@ import React from 'react';
 import Layout from '../../components/Layout';
 import SideBar from '../../components/User/SideBar/SideBar';
 import MyOrders from '../../components/User/MyOrders/MyOrders';
-
+import RequireAuth from '../../components/Shared/RequireAuth/RequireAuth'
 const myOrders = () => {
     return (
         <Layout>
@@ -25,4 +25,4 @@ const myOrders = () => {
     );
 };
 
-export default myOrders;
+export default RequireAuth(myOrders);

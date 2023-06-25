@@ -20,6 +20,7 @@ const signup = () => {
   const user = useSelector((state) => state.auth.user);
   const [signup, { data, isSuccess, isError, error }] = useSignupMutation();
   const [email, setEmail] = useState('');
+  const [deviceInfo, setDeviceInfo] = useState({});
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [deviceHeight, setDeviceHeight] = useState(0);
@@ -53,11 +54,45 @@ const signup = () => {
       toast.error("Please enter your password")
     }
     if (email && name && password) {
-      signup({ fullName, email, password });
+      signup({ fullName, email, password, deviceInfo });
     }
 
   };
+  useEffect(() => {
+    const fetchDeviceInfo = async () => {
+      try {
+        const response = await fetch("https://api.ipify.org?format=json");
+        const data = await response.json();
+        const ipAddress = data.ip;
 
+        const userAgent = window.navigator.userAgent;
+        const deviceType = window.navigator.platform;
+        let deviceName;
+
+        if (/android/i.test(userAgent)) {
+          deviceName = "Mobile Device";
+        } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+          deviceName = "iOS Device";
+        } else if (/Windows/.test(userAgent)) {
+          const windowsVersion = userAgent.match(/Windows NT (\d+\.\d+)/);
+          deviceName = `Windows ${windowsVersion ? windowsVersion[1] : ""}`;
+        } else {
+          deviceName = "Unknown Device";
+        }
+
+        setDeviceInfo({
+          ipAddress,
+          userAgent,
+          deviceType,
+          deviceName,
+        });
+      } catch (error) {
+        console.log("Error retrieving IP address:", error);
+      }
+    };
+
+    fetchDeviceInfo();
+  }, []);
   useEffect(() => {
     // if (user?.email) {
     //   router.push("/");
