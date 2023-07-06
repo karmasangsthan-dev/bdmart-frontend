@@ -20,6 +20,7 @@ body {
   overflow-x: hidden;
   margin: 0;
   padding: 0;
+  overflow-y: scroll;
 }
 
 .d-lg-none {
@@ -1555,6 +1556,23 @@ Check Box
 
 .form-check {
   margin-bottom: 22px;
+
+}
+
+.sidebar-shop .form-check {
+  padding-left: 0px;
+}
+
+.shop-sub-category-item {
+  font-family: sans-serif;
+  cursor: pointer;
+  margin-top: 5px;
+  padding: 5px;
+}
+
+.shop-sub-category-item:hover {
+  color: rgb(5 150 105/1);
+  background-color: rgb(245 245 245/1);
 }
 
 .form-check-label {
@@ -1776,7 +1794,8 @@ a.slide_btn {
   justify-content: center;
   flex-wrap: wrap;
 }
-.css-137ul40-MuiButtonBase-root-MuiIconButton-root:hover{
+
+.css-137ul40-MuiButtonBase-root-MuiIconButton-root:hover {
   background-color: transparent;
 }
 
@@ -2048,7 +2067,8 @@ a.slide_btn {
     margin-top: 50px;
     padding-bottom: 50px;
   }
-  .footer-3{
+
+  .footer-3 {
     padding-bottom: 40px;
   }
 
@@ -2275,6 +2295,21 @@ a.slide_btn {
   justify-content: space-evenly;
 }
 
+.sidebar-content-active {
+  color: rgb(5 150 105/1);
+  background-color: rgb(245 245 245/1);
+}
+.shop-sidebar-category{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.5rem;
+
+}
+/* .shop-sidebar-category:hover{
+  background-color: rgb(245 245 245/1);
+} */
+
 .shop-add-to-cart-button {
   position: relative;
   bottom: 33px;
@@ -2303,9 +2338,10 @@ a.slide_btn {
   margin-top: 3rem;
   margin-bottom: 4rem;
 }
-.just-for-you-loading-container{
+
+.just-for-you-loading-container {
   display: grid;
-  grid-template-columns: repeat(6,1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 20px;
 }
 
@@ -2324,9 +2360,10 @@ a.slide_btn {
     grid-template-columns: repeat(2, 1fr);
     margin: 0 10px;
   }
-  .just-for-you-loading-container{
+
+  .just-for-you-loading-container {
     display: grid;
-    grid-template-columns: repeat(2,1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
     margin: 0 20px;
   }
@@ -2357,7 +2394,7 @@ a.slide_btn {
 
   .shop-product-details {
     grid-template-columns: repeat(2, 1fr);
-    
+
   }
 }
 

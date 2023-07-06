@@ -6,6 +6,7 @@ import ShopSideBar from "../components/Shop/ShopSideBar/ShopSideBar";
 import {
   useGetAllProductsQuery,
   useGetProductsQuery,
+  useGetSubCategoryQuery,
 } from "../features/product/productApi";
 import { useSelector } from "react-redux";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -48,6 +49,8 @@ const shop = () => {
     perPage: page,
   });
 
+
+
   const {
     data: products,
     isSuccess,
@@ -61,7 +64,7 @@ const shop = () => {
   return (
     <Layout title="Shop - Bangladesh Mart">
       <div className="shop page-content">
-        <div style={{ maxWidth: '1240px' }} className="container">
+        <div  className="ps-4 ms-2 pe-3">
           <div className="row ">
             <aside className="col-lg-2 order-lg-first">
               <ShopSideBar
@@ -72,9 +75,9 @@ const shop = () => {
                 t={t}
               />
             </aside>
-            <div className="col-lg-10 pl-lg-5">
+            <div style={{paddingLeft:'20px'}} className="col-lg-10 pl-lg-5">
               <div className="">
-                
+
                 <div className="widget w-100 pb-3 d-flex justify-content-between align-items-center">
                   <p className="fs-6 d-sm-none d-lg-block">
                     {t.shopPage.allProducts.productsCountTitle}: {data?.total}

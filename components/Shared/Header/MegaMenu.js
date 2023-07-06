@@ -17,7 +17,7 @@ const MegaMenu = () => {
       header?.classList.toggle("sticky", window.scrollY > 0);
       stick?.classList.toggle("stic", window.scrollY > 0);
       bod?.classList.toggle("main-bod", window.scrollY > 0);
-      strip?.classList.toggle("strip-2-mar", window.scrollY >0);
+      strip?.classList.toggle("strip-2-mar", window.scrollY > 0);
     });
   }, []);
   const megaMenuData = [
@@ -447,26 +447,26 @@ const MegaMenu = () => {
       childClassName: "mega_content megas4",
       subCategories: [
         {
-          name: "Specialty Appliances",
+          name: "Laptop and computers",
           childCategories: [
             {
-              name: "Over-The-Range Microwaves",
+              name: "Laptop"
             },
             {
-              name: "Shop Rollback",
+              name: "Keyboard And Mouce",
             },
             {
-              name: "Product Layout3",
+              name: "Computer Monitor",
             },
             {
-              name: "Ovens & Ranges",
+              name: "Pc Gaming",
             },
             {
-              name: "Product Layout5",
+              name: "Hard Drive and Storage",
             },
             {
-              name: "Product Layout6",
-            },
+              name: "Networking",
+            }
           ],
         },
         {
@@ -791,22 +791,25 @@ const MegaMenu = () => {
             >
               <div id="accordion_body" className="accordion-body p-0">
                 <ul className="m-0 p-0">
-                  {megaMenuData?.map((menu,index) => (
+                  {megaMenuData?.map((menu, index) => (
                     <li key={index} className={menu?.parentClassName}>
                       <a href="#base" className="main-cata">
                         {menu?.mainCategoryName}
                       </a>
                       <div className={menu?.childClassName} id={menu?.htmlId}>
                         <div className="content">
-                          {menu?.subCategories?.map((category,index) => (
+                          {menu?.subCategories?.map((category, index) => (
                             <div key={index} className="dropmenu">
                               <header className="con-head">
                                 {category?.name}
                               </header>
                               <ul className="pro-nav ps-0 ">
-                                {category?.childCategories?.map((child,index) => (
+                                {category?.childCategories?.map((child, index) => (
                                   <li key={index} className="drop-nav-link">
-                                    <a href="#">{child?.name}</a>
+                                    <Link href={`/shop?category=${menu?.mainCategoryName}&subCategory=${category?.name}&childCategory=${child?.name}`}>
+                                      {child?.name}
+                                    </Link>
+                                    
                                   </li>
                                 ))}
                               </ul>
@@ -826,7 +829,7 @@ const MegaMenu = () => {
           >
             <div className="frombar">
               <ul className="mb-0">
-                {t.homePage.header.nav.map((navItem,index) => (
+                {t.homePage.header.nav.map((navItem, index) => (
                   <Link key={index} href={navItem?.link}>
                     <li className="inner-li">{navItem?.title}</li>
                   </Link>

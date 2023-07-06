@@ -1,15 +1,26 @@
 import { Collapse, Slider } from "@mui/material";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import { useGetSubCategoryQuery } from "../../../features/product/productApi";
 
 const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
   const router = useRouter();
   const [catOpen, setCatOpen] = useState(true);
-  const [brandOpen, setBrandOpen] = useState(true);
+  const [brandOpen, setBrandOpen] = useState(false);
   const [priceOpen, setPriceOpen] = useState(true);
   const [priceRange, setPriceRange] = useState([]);
   let allBrands = [];
   let allCategory = [];
+  // /shop?category=Electronics&subCategory=Mobile%20Phones%20and%20Tablets
+
+  const { category, subCategory, childCategory } = router.query;
+
+
+  console.log({ category, subCategory, childCategory })
+
+  const { data: subCategoryData, isLoading: subCategoryLoading } = useGetSubCategoryQuery(category);
+  console.log({ subCategoryData })
+
 
   useEffect(() => {
     setPriceRange([
@@ -99,7 +110,7 @@ const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
         setPriceOpen(false);
       } else {
         setCatOpen(true);
-        setBrandOpen(true);
+        setBrandOpen(false);
         setPriceOpen(true);
       }
     };
@@ -110,7 +121,7 @@ const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
     };
   }, []);
 
-
+  // console.log({ category, subCategory, childCategory })
   return (
     <div className="sticky-content">
       <aside className="sidebar sidebar-shop">
@@ -133,7 +144,6 @@ const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
             className="shop-categories mb-3 pb-2"
           >
             <div
-              onClick={() => setCatOpen(!catOpen)}
               aria-controls="example-collapse-text"
               aria-expanded={catOpen}
               className="d-flex justify-content-between align-items-center mt-3 "
@@ -141,84 +151,44 @@ const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
               <h5>{t.shopPage.sideNav.categoryTitle}</h5>
               <i className="fa fa-caret-down"></i>
             </div>
-            <Collapse in={catOpen}>
+            <Collapse in={true}>
               <div id="example-collapse-text">
-                {allCategory?.map((cat) => {
-                  return (
-                    <div key={cat} className="form-check">
-                      <label className="form-check-label text-capitalize">
-                        <input
-                          className="form-check-input"
-                          type="checkbox"
-                          id="small"
-                          checked={
-                            filter?.category?.includes(cat)
-                              ? true
-                              : cat === params
-                                ? true
-                                : false
-                          }
-                          value={cat}
-                          onClick={handleCategoryName}
-                          name="category"
-                        />
+                {/* sub category coll  */}
+                <div
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => router.push(`/shop?category=${category}`)}
+                  aria-controls="example-collapse-text"
+                  aria-expanded={catOpen}
+                  className="shop-sidebar-category"
+                >
+                  <h6 style={{ color: 'rgb(5 150 105/1)' }}>{category} </h6>
+                  {catOpen && <i className="fa fa-caret-down"></i>}
+                </div>
+                <Collapse in={true}>
+                  {
+                    !subCategory && <div id="example-collapse-text">
 
-                        {cat}
-                      </label>
+                      {subCategoryData?.map((subC, index) => (
+                        <div className="d-flex align-items-center justify-content-between">
+                          <p onClick={() => router.push(`/shop?category=${category}&subCategory=${subC?.title}`)} className="shop-sub-category-item w-100 me-2" key={index}>{subC?.title}</p>
+                          <i class="fa-solid fa-caret-right"></i>
+                        </div>
+                      ))}
                     </div>
-                  )
-                })}
+                  }
+                  {
+                    subCategory && <div className="d-flex align-items-center justify-content-between" id="example-collapse-text">
+                      <p className="ms-2 w-100 me-2 shop-sub-category-item sidebar-content-active">{subCategory}</p>
+                      <i className="fa fa-caret-down"></i>
+                    </div>
+                  }
+                </Collapse>
+
               </div>
             </Collapse>
           </div>
+          {/* {subCategoryData?.map((subC, index) => <p className="shop-sub-category-item" key={index}>{subC?.title}</p>)} */}
 
-          {/* <div
-            style={{ borderBottom: "0.1rem solid #ebebeb" }}
-            className="mb-3 pb-2"
-          >
-            <div
-              onClick={() => setSizeOpen(!sizeOpen)}
-              aria-controls="example-collapse-text"
-              aria-expanded={sizeOpen}
-              className="d-flex justify-content-between align-items-center"
-            >
-              <h5>Size</h5>
-              <i className="fa fa-caret-down"></i>
-            </div>
-            <Collapse in={sizeOpen}>
-              <div className="form-check">
-                <label className="form-check-label text-capitalize">
-                  <input
-                    className="form-check-input"
-                    type="radio"
-                    id="size"
-                    value="small"
-                    onClick={(e) =>
-                      setFilter({ ...filter, size: e.target.value })
-                    }
-                    name="size"
-                  />
-                  Small
-                </label>
-              </div>
-              <div className="form-check">
-                <label className="form-check-label text-capitalize">
-                  <input
-                    className="form-check-input"
-                    type="radio"
-                    id="size"
-                    value="large"
-                    onClick={(e) =>
-                      setFilter({ ...filter, size: e.target.value })
-                    }
-                    name="size"
-                  />
-                  Large
-                </label>
-              </div>
-            </Collapse>
-          </div> */}
-          {/* brand  */}
           <div
             style={{ borderBottom: "0.1rem solid #ebebeb" }}
             className="mb-3 pb-2"
