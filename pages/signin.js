@@ -107,10 +107,9 @@ const signin = () => {
                   <label htmlhtmlFor="email">Phone Number or Email*</label> <br />
                   <input
                     onChange={(e) => setEmail(e.target.value)}
-                    required
                     className="input-email"
                     type="email"
-                    
+                    id="email"
                     autoComplete="on"
                     placeholder="Please Enter your Email"
                   />

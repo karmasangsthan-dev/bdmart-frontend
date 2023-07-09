@@ -12,13 +12,13 @@ const productApi = apiSlice.injectEndpoints({
         return {
           url: `/products?${queryString}`,
           method: "GET",
-        };
+        }
       },
       providesTags: ["Products"],
     }),
     getSectionBasedProducts: builder.query({
       query: ({ section }) => {
-        console.log('section',section)
+        console.log('section', section)
         return {
           url: `/products/section?section=${section}`,
           method: "GET",
@@ -61,6 +61,14 @@ const productApi = apiSlice.injectEndpoints({
           method: "GET",
         };
       },
+      providesTags: ["Product"],
+    }),
+
+    getSubCategory: builder.query({
+      query: (mainCategory) => ({
+        url: `/category/subcategories/${mainCategory}`,
+        method: "GET",
+      }),
       providesTags: ["Product"],
     }),
     getAllOrdersByEmail: builder.query({
@@ -106,6 +114,7 @@ const productApi = apiSlice.injectEndpoints({
       }),
       // invalidatesTags: ["Cart"],
     }),
+
   }),
 });
 
@@ -120,4 +129,5 @@ export const {
   useGetSingleOrderByIdQuery,
   useGetCartProductsMutation,
   useGetCreateOrderMutation,
+  useGetSubCategoryQuery,
 } = productApi;
