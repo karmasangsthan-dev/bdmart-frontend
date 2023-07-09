@@ -15,7 +15,6 @@ export default function ShopProduct({ product }) {
   );
 
   let productPrice;
-  console.log(productPrice, "pp");
   if (currencyRate) {
     productPrice = (product?.price * currencyRate).toFixed(2);
   }

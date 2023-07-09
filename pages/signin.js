@@ -22,6 +22,7 @@ const signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPass, setShowPass] = useState(false);
+  const [deviceInfo, setDeviceInfo] = useState({});
   const router = useRouter();
   const { query } = router;
   const { redirect } = query;
@@ -32,9 +33,43 @@ const signin = () => {
   const handleSignIn = () => {
     // event.preventDefault();
 
-    login({ email, password });
+    login({ email, password, deviceInfo });
   };
-  
+  useEffect(() => {
+    const fetchDeviceInfo = async () => {
+      try {
+        const response = await fetch("https://api.ipify.org?format=json");
+        const data = await response.json();
+        const ipAddress = data.ip;
+
+        const userAgent = window.navigator.userAgent;
+        const deviceType = window.navigator.platform;
+        let deviceName;
+
+        if (/android/i.test(userAgent)) {
+          deviceName = "Mobile Device";
+        } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+          deviceName = "iOS Device";
+        } else if (/Windows/.test(userAgent)) {
+          const windowsVersion = userAgent.match(/Windows NT (\d+\.\d+)/);
+          deviceName = `Windows ${windowsVersion ? windowsVersion[1] : ""}`;
+        } else {
+          deviceName = "Unknown Device";
+        }
+
+        setDeviceInfo({
+          ipAddress,
+          userAgent,
+          deviceType,
+          deviceName,
+        });
+      } catch (error) {
+        console.log("Error retrieving IP address:", error);
+      }
+    };
+
+    fetchDeviceInfo();
+  }, []);
 
   useEffect(() => {
     if (isLoading) {
@@ -72,9 +107,10 @@ const signin = () => {
                   <label htmlhtmlFor="email">Phone Number or Email*</label> <br />
                   <input
                     onChange={(e) => setEmail(e.target.value)}
-                    required
                     className="input-email"
-                    type="text"
+                    type="email"
+                    id="email"
+                    autoComplete="on"
                     placeholder="Please Enter your Email"
                   />
                 </div>
@@ -101,6 +137,9 @@ const signin = () => {
                       />
                     )}
                   </div>
+                </div>
+                <div className="mt-3">
+                  <span onClick={()=>router.push(`forget-password`)} style={{cursor:'pointer',color:'#049cb9'}} className="">Forgot password ?</span>
                 </div>
               </div>
               <div className="right w-50 mb-4 p-4">

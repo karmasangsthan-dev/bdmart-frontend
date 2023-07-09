@@ -63,6 +63,14 @@ const productApi = apiSlice.injectEndpoints({
       },
       providesTags: ["Product"],
     }),
+
+    getSubCategory: builder.query({
+      query: (mainCategory) => ({
+        url: `/category/subcategories/${mainCategory}`,
+        method: "GET",
+      }),
+      providesTags: ["Product"],
+    }),
     getAllOrdersByEmail: builder.query({
       query: (email) => {
         return {
@@ -131,5 +139,5 @@ export const {
   useGetSingleOrderByIdQuery,
   useGetCartProductsMutation,
   useGetCreateOrderMutation,
-  useGetCategoriesQuery,
+  useGetSubCategoryQuery,
 } = productApi;

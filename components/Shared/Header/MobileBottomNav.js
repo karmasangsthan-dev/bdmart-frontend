@@ -57,7 +57,7 @@ export default function MobileBottomNav() {
           <BottomNavigationAction
             className="my-2"
             label="Profile"
-            value="/profile"
+            value="/user/dashboard"
             icon={<CgProfile className="fs-1" />}
           />
           <BottomNavigationAction
