@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { en } from "../../../locales/en";
 import { bn } from "../../../locales/bn";
+import { useGetCategoriesQuery } from "../../../features/product/productApi";
 
 const gallery = [
   {
@@ -87,6 +88,8 @@ const gallery = [
 
 const ShopDepartments = ({ t }) => {
   const router = useRouter();
+  const { data } = useGetCategoriesQuery();
+
   return (
     <div className="gallery-show ">
       <div className="">
@@ -99,34 +102,34 @@ const ShopDepartments = ({ t }) => {
 
       <div className=" justify-content-center px-5 ">
         <div className="all-shop-department">
-          {gallery.map((gal, index) => (
-            <div
-              key={index}
-              className=""
-            >
+          {data?.data?.map((gal, index) => (
+            <div key={index} className="">
               <div
-                onClick={() => router.push(`/shop?category=${gal?.name}`)}
+                onClick={() => router.push(`/shop?category=${gal?.category}`)}
                 className="gallery-img d-flex justify-content-center"
               >
-                <Image
+                {/* <Image
                   layout="responsive"
-                  width={1000}
-                  height={1000}
-                  src={gal.imageSrc}
+                  width={500}
+                  height={500}
+                  src={gal?.thumbnail}
                   className="shop-department-image "
                   loading="lazy"
                   alt=""
+                /> */}
+                <img
+                  src={gal.thumbnail}
+                  alt=""
+                  className="shop-department-image "
                 />
-                {/* <img src={gal.imageSrc} alt="" /> */}
               </div>
               <div className="gallery-title">
-                <p className="text-center">{gal.name}</p>
+                <p className="text-center">{gal?.category}</p>
               </div>
             </div>
           ))}
         </div>
       </div>
-      
     </div>
   );
 };
