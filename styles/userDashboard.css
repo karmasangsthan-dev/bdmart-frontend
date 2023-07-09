@@ -282,6 +282,8 @@
     cursor: pointer;
 }
 
+
+
 .sidebar-item:hover .sidebar-item-anchor {
     color: rgb(5 150 105/1);
 }
@@ -372,8 +374,9 @@
         gap: 1rem;
         margin-bottom: 2rem;
     }
+
     .dash-overflow-hidden {
         overflow: unset;
     }
-    
+
 }

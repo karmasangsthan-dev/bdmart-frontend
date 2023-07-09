@@ -148,6 +148,7 @@ const signup = () => {
                 <div className="mt-3">
                   <label htmlhtmlFor="email">Enter your Email*</label> <br />
                   <input
+                    id="email"
                     name="email"
                     style={{
                       backgroundColor: "#eff0f5",
@@ -155,14 +156,15 @@ const signup = () => {
                     }}
                     onChange={(e) => setEmail(e.target.value)}
                     className="w-100 px-2 py-1"
-                    type="text"
+                    type="email"
                     placeholder="Please Enter your Phone Number or Email"
                   />
                 </div>
                 <div className="mt-3">
-                  <label htmlhtmlFor="email">Password*</label>
+                  <label htmlhtmlFor="password">Password*</label>
                   <br />
                   <input
+                    id="password"
                     name="password"
                     style={{
                       backgroundColor: "#eff0f5",
@@ -173,17 +175,20 @@ const signup = () => {
                     type={showPass ? "text" : "password"}
                     placeholder="Please Enter your Password"
                   />
-                  {showPass ? (
-                    <AiFillEye
-                      onClick={() => setShowPass(!showPass)}
-                      className="fs-5 signup-password-show-button"
-                    />
-                  ) : (
-                    <AiFillEyeInvisible
-                      onClick={() => setShowPass(!showPass)}
-                      className="fs-5 signup-password-show-button"
-                    />
-                  )}
+
+                  <div className="desktop-icon-container">
+                    {showPass ? (
+                      <AiFillEye
+                        onClick={() => setShowPass(!showPass)}
+                        className="fs-5 signup-password-show-button"
+                      />
+                    ) : (
+                      <AiFillEyeInvisible
+                        onClick={() => setShowPass(!showPass)}
+                        className="fs-5 signup-password-show-button"
+                      />
+                    )}
+                  </div>
                 </div>
               </div>
 

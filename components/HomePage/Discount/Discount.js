@@ -69,8 +69,8 @@ const Discount = ({ t }) => {
 
   return (
     <div>
-      <section className="">
-        <div style={{ maxWidth: "1260px" }} className="mx-auto ">
+      <section  className="">
+        <div>
           <div className="">
             <div className="col-lg-12 col-md-12 col-sm-12 w">
               <div className="gal-head">
@@ -130,7 +130,7 @@ const Discount = ({ t }) => {
             </div>
           ) : (
             <div>
-              <Slider className="px-4" {...settings}>
+              <Slider className="" {...settings}>
                 {data?.data?.map((product) => (
                   <DiscountProductCard product={product} key={product?._id} />
                 ))}
