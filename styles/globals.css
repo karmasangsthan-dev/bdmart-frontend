@@ -83,6 +83,11 @@ buttton:focus {
   color: black;
 }
 
+.forget-margin {
+  min-height: calc(100vh - 158px);
+}
+
+
 @media (max-width: 1094px) {}
 
 /*==========================================
@@ -952,7 +957,7 @@ MGA CONTENT NAV
   width: 890px;
   margin-left: 292px;
   z-index: 999;
-  top: -22px;
+  top: -17px;
   left: 0;
   background: #fff;
 }
@@ -1021,7 +1026,7 @@ MGA CONTENT NAV
   width: 890px;
   margin-left: 292px;
   z-index: 999;
-  top: -66px;
+  top: -61px;
   left: 0;
   background: #fff;
 }
@@ -1042,7 +1047,7 @@ MGA CONTENT NAV
   width: 890px;
   margin-left: 292px;
   z-index: 999;
-  top: -110px;
+  top: -105px;
   left: 0;
   background: #fff;
 }
@@ -1057,7 +1062,7 @@ MGA CONTENT NAV
   width: 890px;
   margin-left: 292px;
   z-index: 999;
-  top: -154px;
+  top: -149px;
   left: 0;
   background: #fff;
 }
@@ -1067,7 +1072,7 @@ MGA CONTENT NAV
   width: 890px;
   margin-left: 292px;
   z-index: 999;
-  top: -198px;
+  top: -193px;
   left: 0;
   background: #fff;
 }
@@ -1077,7 +1082,7 @@ MGA CONTENT NAV
   width: 890px;
   margin-left: 292px;
   z-index: 999;
-  top: -242px;
+  top: -237px;
   left: 0;
   background: #fff;
 }
@@ -1087,7 +1092,7 @@ MGA CONTENT NAV
   position: absolute;
   margin-left: 292px;
   z-index: 999;
-  top: -286px;
+  top: -281px;
   left: 0;
   background: #fff;
 }
@@ -1419,7 +1424,6 @@ accordion_container
 
 .content {
   background: #fff;
-  margin-top: 5px;
   min-height: 322px;
   border-top: 3px solid #faa72c !important;
   border: 1px solid #faa72c;
@@ -2299,13 +2303,15 @@ a.slide_btn {
   color: rgb(5 150 105/1);
   background-color: rgb(245 245 245/1);
 }
-.shop-sidebar-category{
+
+.shop-sidebar-category {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 0.5rem;
 
 }
+
 /* .shop-sidebar-category:hover{
   background-color: rgb(245 245 245/1);
 } */
