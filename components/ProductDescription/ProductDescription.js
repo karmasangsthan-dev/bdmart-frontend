@@ -20,6 +20,7 @@ const ProductDescription = ({ product }) => {
     ];
 
     // Split the liData into two separate arrays
+    // split the li data into two separate arrays 
     var leftSide = liData.slice(0, Math.ceil(liData.length / 2));
     var rightSide = liData.slice(Math.ceil(liData.length / 2));
 
