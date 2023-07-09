@@ -138,8 +138,8 @@ const signin = () => {
                     )}
                   </div>
                 </div>
-                <div>
-                  <span>Forgot password ?</span>
+                <div className="mt-3">
+                  <span onClick={()=>router.push(`forget-password`)} style={{cursor:'pointer',color:'#049cb9'}} className="">Forgot password ?</span>
                 </div>
               </div>
               <div className="right w-50 mb-4 p-4">
