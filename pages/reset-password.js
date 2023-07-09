@@ -1,18 +1,15 @@
-import React from "react";
 import Layout from "../components/Layout";
-import ForgetPassword from "../components/Shared/Login/ForgetPassword";
+import ResetPasswordForm from "../components/Shared/Login/ResetPassword";
 
-const ForgetUserPassword = () => {
+export default function ResetPassword() {
   return (
     <Layout>
       <main
         className="mainnnnn forget-margin"
         style={{ background: "#eff0f5", marginTop: "-15px" }}
       >
-        <ForgetPassword />
+        <ResetPasswordForm />
       </main>
     </Layout>
   );
-};
-
-export default ForgetUserPassword;
+}

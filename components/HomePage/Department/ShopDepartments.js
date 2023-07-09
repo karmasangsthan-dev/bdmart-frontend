@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { en } from "../../../locales/en";
 import { bn } from "../../../locales/bn";
 import { useGetCategoriesQuery } from "../../../features/product/productApi";
+// import { useGetCategoriesQuery } from "../../../features/product/productApi";
 
 const gallery = [
   {

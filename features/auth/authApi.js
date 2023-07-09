@@ -68,7 +68,18 @@ const authApi = apiSlice.injectEndpoints({
         body: data,
       }),
       invalidatesTags: ["User"],
-    })
+    }),
+    resetPassword: builder.mutation({
+      query: ({ token, data }) => ({
+        url: `/user/change-password`,
+        method: "PATCH",
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+        body: data,
+      }),
+      invalidatesTags: ["User"],
+    }),
   }),
 });
 
@@ -79,5 +90,5 @@ export const {
   useUpdateProfileImageMutation,
   useUpdateProfileMutation,
   useGetMeQuery,
-  useUpdateUserPasswordMutation
+  useUpdateUserPasswordMutation,
 } = authApi;
