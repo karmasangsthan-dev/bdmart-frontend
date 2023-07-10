@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../features/cart/cartSlice";
 import { toast } from "react-hot-toast";
-
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { decryptCurrency } from "../../config/cryptingCurrency";
 
@@ -58,13 +58,24 @@ export default function DiscountProductCard({ product }) {
     <div className="mb-3 mobile-product-card" key={product?._id}>
       <div className="product-link bestselling-product-container product-card-shop border p-3 rounded shadow">
         <div className="">
-          <img
+          {/* <img
             onClick={() => router.push(`/productDetails/${product._id}`)}
             className=""
             style={{ width: "100%", height: "100%" }}
             src={product?.thumbnail}
             alt=""
+          /> */}
+          <Image
+          onClick={() => router.push(`/productDetails/${product._id}`)}
+            layout="responsive"
+            width={100}
+            height={100}
+            objectFit="contain"
+            alt="Picture of the author"
+            src={product?.thumbnail}
           />
+
+
         </div>
         <p
           onClick={() => router.push(`/productDetails/${product._id}`)}
