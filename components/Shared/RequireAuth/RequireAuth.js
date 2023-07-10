@@ -13,8 +13,8 @@ const RequreAuth = (WrappedComponent) => {
     if (!user?.email) {
       return (
         <Layout>
-          <div className="text-center w-full d-flex justify-content-center  align-items-center h-50">
-            <p style={{ cursor: 'pointer' }}
+          <div className="text-center w-full d-flex justify-content-center  align-items-center ">
+            {/* <p style={{ cursor: 'pointer' }}
               onClick={() => router.push({
                 pathname: "/signin",
                 query: { redirect: router.asPath },
@@ -22,7 +22,11 @@ const RequreAuth = (WrappedComponent) => {
               className=" border-0 bg-warning d-inline-block px-3 py-2 rounded"
             >
               Please Login
-            </p>
+            </p> */}
+            <button onClick={() => router.push({
+              pathname: "/signin",
+              query: { redirect: router.asPath },
+            })} className='update-profile-button'>Please Login</button>
           </div>
         </Layout>
       );

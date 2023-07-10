@@ -4,7 +4,7 @@ import { Tab, Tabs } from 'react-bootstrap';
 import AddReview from './AddReview';
 
 const ProductDescription = ({ product }) => {
-    var liData = [
+    var liData2 = [
         'LED Digital display',
         'Gender: Unisex',
         'Silicone Band',
@@ -18,6 +18,10 @@ const ProductDescription = ({ product }) => {
         "Waterproof: Daily life\'s water-resistant, but not for bathing, swimming, diving, etc",
         'Quantity: 1 Pc'
     ];
+
+    var liData = product?.details.length > 0 ? product?.details : liData2;
+
+    
 
     // Split the liData into two separate arrays
     // split the li data into two separate arrays 
