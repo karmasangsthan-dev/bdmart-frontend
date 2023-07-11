@@ -12,6 +12,13 @@ const authApi = apiSlice.injectEndpoints({
       }),
       providesTags: ["User"],
     }),
+    getUserByToken: builder.query({
+      query: (token) => ({
+        url: `/user/token/${token}`,
+        method: "GET",
+      }),
+      providesTags: ["User"],
+    }),
     signup: builder.mutation({
       query: (data) => ({
         url: "/user/signup",
@@ -69,12 +76,31 @@ const authApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["User"],
     }),
-    resetPassword: builder.mutation({
+    changePassword: builder.mutation({
       query: ({ token, data }) => ({
         url: `/user/change-password`,
         method: "PATCH",
         headers: {
           authorization: `Bearer ${token}`,
+        },
+        body: data,
+      }),
+      invalidatesTags: ["User"],
+    }),
+    resetPasswordEmail: builder.mutation({
+      query: (data) => ({
+        url: `/user/reset-password-email`,
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["User"],
+    }),
+    resetPassword: builder.mutation({
+      query: ({ resetToken, ...data }) => ({
+        url: `/user/forgotten-password`,
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${resetToken}`,
         },
         body: data,
       }),
@@ -91,4 +117,7 @@ export const {
   useUpdateProfileMutation,
   useGetMeQuery,
   useUpdateUserPasswordMutation,
+  useGetUserByTokenQuery,
+  useResetPasswordEmailMutation,
+  useResetPasswordMutation,
 } = authApi;

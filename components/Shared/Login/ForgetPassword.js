@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
+
 import ReCAPTCHA from "react-google-recaptcha";
 import { toast } from "react-hot-toast";
+import { useResetPasswordEmailMutation } from "../../../features/auth/authApi";
 
-const ForgetPassword = () => {
+const ForgetPassword = ({ setEmailSent }) => {
   const [isValid, setIsValid] = useState(false);
   const [emailValid, setEmailValid] = useState(false);
   const [email, setEmail] = useState("");
   const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
 
+  const [passwordResetEmailSend, { isLoading, isSuccess, isError, error }] =
+    useResetPasswordEmailMutation();
   const handleCaptchaChange = (value) => {
     setIsValid(true);
   };
@@ -16,24 +20,32 @@ const ForgetPassword = () => {
     const data = emailRegex.test(email);
     setEmailValid(data);
   }, [email]);
-
+  console.log({ isLoading, isSuccess, isError, error });
   const handleForgetPassword = () => {
     if (email === "") {
       toast.error("Please enter your email address...!!");
     } else if (email && emailValid === false) {
       toast.error("Please enter valid email address...!!");
     } else {
-      toast.success("Email send successful... Please check your email");
+      passwordResetEmailSend({ email });
     }
   };
-
+  useEffect(() => {
+    if (isLoading) {
+      toast.loading("Loading...", { id: "sendEmail" });
+    }
+    if (isSuccess) {
+      toast.success("Email sent Successful", { id: "sendEmail" });
+      setEmailSent(true);
+    }
+    if (error) {
+      toast.error(error?.message, { id: "sendEmail" });
+    }
+  }, [isSuccess, isError, error, isLoading]);
   return (
     <div className="container">
       <h4 className="py-3">Forgot your password?</h4>
-      <div
-        className="p-5"
-        style={{ backgroundColor: "#fff", minHeight: "50vh" }}
-      >
+      <div className="p-5" style={{ backgroundColor: "#fff" }}>
         <p>
           Enter your email address below and we’ll send you a link to reset your
           password
@@ -52,28 +64,22 @@ const ForgetPassword = () => {
             type="text"
             placeholder="Enter your email adreess"
           />
-          <ReCAPTCHA
+          {/* <ReCAPTCHA
             sitekey={process.env.NEXT_PUBLIC_KAPTCHA_SITE_KEY}
             onChange={handleCaptchaChange}
-          />
+          /> */}
           ,
           <div
             className="update-profile-button-container"
             style={{ justifyContent: "flex-start" }}
           >
-            {isValid ? (
-              <button
-                onClick={handleForgetPassword}
-                className="update-profile-button"
-                type="submit"
-              >
-                Send Link
-              </button>
-            ) : (
-              <button className="disable-profile-button" type="submit">
-                Send Link
-              </button>
-            )}
+            <button
+              onClick={handleForgetPassword}
+              className="update-profile-button"
+              type="submit"
+            >
+              Send Link
+            </button>
           </div>
         </div>
       </div>
