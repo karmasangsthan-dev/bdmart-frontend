@@ -122,7 +122,7 @@ const checkout = () => {
     }
 
     if (isSuccess) {
-      router.push("/profile/my-orders");
+      router.push("/user/my-orders");
       toast.success("Successfully created Order...!!", { id: "createOrder" });
       dispatch(clearCart());
       localStorage.removeItem("cartProducts");

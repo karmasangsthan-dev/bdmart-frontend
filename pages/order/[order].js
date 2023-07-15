@@ -48,7 +48,7 @@ const Order = () => {
             return ""; // Fallback value if the date string is invalid
         }
     }
-
+    
     return (
         <Layout title="Invoice - Bangladesh Mart">
             {orderLoading ? (
@@ -58,7 +58,7 @@ const Order = () => {
             ) : (
                 <div className="invoice-container" style={{ height: "120vh" }}>
                     <div className="mx-5 px-5 mt-4 rounded-2 py-2" style={{ backgroundColor: "rgb(209 250 229/1)" }}>
-                        <label>Thank you <span style={{ color: 'rgb(5 150 105/1)', fontWeight: '700' }}>qwe qwe</span>, Your order have been received !</label>
+                        <label>Thank you <span style={{ color: 'rgb(5 150 105/1)', fontWeight: '700' }}>{data?.name}</span>, Your order have been received !</label>
                     </div>
                     <div id="invoice-content " >
 

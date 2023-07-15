@@ -824,11 +824,11 @@ const MegaMenu = () => {
             </div>
           </div>
           <div
-            className=" d-flex justify-content-center "
+            className=" d-flex justify-content-start "
             style={{ width: "78%" }}
           >
             <div className="frombar">
-              <ul className="mb-0">
+              <ul className="mb-0" style={{paddingLeft:'36px'}}>
                 {t.homePage.header.nav.map((navItem, index) => (
                   <Link key={index} href={navItem?.link}>
                     <li className="inner-li">{navItem?.title}</li>
