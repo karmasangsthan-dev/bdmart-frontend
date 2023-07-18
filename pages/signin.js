@@ -145,7 +145,7 @@ const signin = () => {
               <div className="right w-50 mb-4 p-4">
                 <button
                   style={{ backgroundColor: "#faa72c" }}
-                  className="btn w-100 px-2 py-2 mt-3 text-white"
+                  className="btn w-100 px-2 py-2 mt-3 mb-2 text-white"
                   onClick={handleSignIn}
                 >
                   Signin

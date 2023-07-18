@@ -16,6 +16,7 @@ export const en = {
       nav: [
         { title: "Home", link: "/" },
         { title: "Shop", link: "/shop" },
+        { title: "Become a seller", link: "/seller" },
         { title: "Track Your Order", link: "/profile/my-orders" },
         { title: "Submit RFQ", link: "/submit-rfq" },
         { title: "My Account", link: "/user/dashboard" },

@@ -1,10 +1,60 @@
 import React from 'react';
 
-const DeleveryAndService = () => {
+const DeleveryAndService = ({ product }) => {
+    console.log({ product })
+
+    const getTime = (data) => {
+        const currentDate = new Date();
+
+        if (typeof data !== 'string') {
+            throw new TypeError('Invalid data format. Expected a string.');
+        }
+
+        const dateParts = data.split('-').map(Number);
+
+        if (dateParts.length !== 2 || dateParts.some(isNaN)) {
+            throw new TypeError('Invalid data format. Expected "min-max" format.');
+        }
+
+        const [minDays, maxDays] = dateParts;
+
+        const minDeliveryDate = new Date(currentDate);
+        minDeliveryDate.setDate(minDeliveryDate.getDate() + minDays);
+
+        const maxDeliveryDate = new Date(currentDate);
+        maxDeliveryDate.setDate(maxDeliveryDate.getDate() + maxDays);
+
+        // Format the delivery dates
+        const minDateFormatted = minDeliveryDate.getDate() + ' ' + getMonthName(minDeliveryDate.getMonth());
+        const maxDateFormatted = maxDeliveryDate.getDate() + ' ' + getMonthName(maxDeliveryDate.getMonth());
+
+        // Create the desired format
+        const deliveryTimeFormatted = minDateFormatted + ' - ' + maxDateFormatted + '\n';
+
+        return deliveryTimeFormatted;
+    }
+
+    const getMonthName = (monthIndex) => {
+        const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        return monthNames[monthIndex];
+    }
+
+    const delTime = product?.deleveryTime ?  product?.deleveryTime?.split(' ')[0] : '1-2';
+
+    let formattedDeliveryTime;
+    try {
+        formattedDeliveryTime = getTime(delTime);
+    } catch (error) {
+        // Handle or log the error
+        console.error('Error:', error);
+    }
+
+
+
     return (
         <div>
-            <div  className="delivery-info">
-                <h5>Delivery</h5>
+            <div className="delivery-info">
+                {/* <h5>Delivery</h5>
                 <div className="d-flex">
                     <div className="me-2">
                         <img
@@ -18,7 +68,7 @@ const DeleveryAndService = () => {
                         <p>Dhaka, Dhaka North, Banani Road No. 12 - 19 </p>
                         <p className="text-info">CHANGE</p>
                     </div>
-                </div>
+                </div> */}
                 <div className="d-flex mt-2">
                     <div className="me-2">
                         <img
@@ -34,9 +84,11 @@ const DeleveryAndService = () => {
                                 <span style={{ fontWeight: "bold" }}>
                                     Standard Delivery
                                 </span>{" "}
-                                9 Jun - 12 Jun
+                                {formattedDeliveryTime}
                             </p>
-                            <p>3 - 6 day(s)</p>
+                            {
+                                product.deleveryTime ? <p>{product.deleveryTime.split(' ')[0]} day(s)</p> : <p>1-2 day(s)</p>
+                            }
                         </div>
                         <p>$ 2</p>
                     </div>
@@ -52,7 +104,7 @@ const DeleveryAndService = () => {
                     </div>
                     <div className="d-flex justify-content-between align-items-center w-100">
                         <div>
-                            <p>Cash on Delivery Available</p>
+                            {product?.isCashOnDelevery === 'Yes' ? <p>Cash on Delivery Available</p> : <p className='text-danger'>Cash on Delivery is Unavailable</p>}
                         </div>
                     </div>
                 </div>
@@ -70,7 +122,7 @@ const DeleveryAndService = () => {
                     </div>
                     <div className="d-flex justify-content-between align-items-center w-100">
                         <div>
-                            <p>14 days easy return</p>
+                            <p>{product?.returnAvailable ? product?.returnAvailable : '1 Day'} easy return</p>
                         </div>
                     </div>
                 </div>
@@ -85,7 +137,7 @@ const DeleveryAndService = () => {
                     </div>
                     <div className="d-flex justify-content-between align-items-center w-100">
                         <div>
-                            <p>Warranty not available</p>
+                            {product?.warrentyAvailable ? <p>{product?.warrentyAvailable} Warranty</p> : <p>Warranty not available</p>}
                         </div>
                     </div>
                 </div>

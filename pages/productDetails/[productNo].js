@@ -390,7 +390,7 @@ const productNo = () => {
                 <ShareProduct></ShareProduct>
               </div>
               <div className="col-md-3 delevery-service-container">
-                <DeleveryAndService></DeleveryAndService>
+                <DeleveryAndService product={product}></DeleveryAndService>
 
 
               </div>

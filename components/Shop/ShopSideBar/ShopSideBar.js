@@ -16,10 +16,8 @@ const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
   const { category, subCategory, childCategory } = router.query;
 
 
-  console.log({ category, subCategory, childCategory })
 
   const { data: subCategoryData, isLoading: subCategoryLoading } = useGetSubCategoryQuery(category);
-  console.log({ subCategoryData })
 
 
   useEffect(() => {
@@ -121,7 +119,6 @@ const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
     };
   }, []);
 
-  // console.log({ category, subCategory, childCategory })
   return (
     <div className="sticky-content">
       <aside className="sidebar sidebar-shop">
