@@ -30,7 +30,6 @@ const ProductReviewSection = ({ product }) => {
   const ratingsSum = reviews.reduce((sum, review) => sum + review.ratings, 0);
   const averageRating = totalReviews ? ratingsSum / totalReviews : 0;
 
-console.log(ratingsSum,'product rev')
 
   return (
     <div className="review-section-container  my-5  product-description-container">

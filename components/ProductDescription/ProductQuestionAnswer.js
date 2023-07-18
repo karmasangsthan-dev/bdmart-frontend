@@ -26,7 +26,6 @@ const ProductQuestionAnswer = ({ product }) => {
     if (!question) {
       toast.error("Please write your question at first...!!");
     } else {
-      console.log({ product });
       createQus(myQuestionData);
       elem.value = "";
     }
