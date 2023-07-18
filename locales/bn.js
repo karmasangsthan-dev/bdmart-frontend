@@ -16,6 +16,7 @@ export const bn = {
       nav: [
         { title: "হোম", link: "/" },
         { title: "শপ", link: "/shop" },
+        { title: "বিক্রেতা হন", link: "/seller" },
         { title: "আপনার অর্ডার ট্র্যাক", link: "/profile/my-orders" },
         { title: "আরএফকিউ জমা দিন", link: "/submit-rfq" },
         { title: "আমার অ্যাকাউন্ট", link: "/user/dashboard" },

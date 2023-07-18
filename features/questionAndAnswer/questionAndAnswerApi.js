@@ -4,7 +4,6 @@ const questionAndAnswerApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     createQuestion: builder.mutation({
       query: ({ productId, ...data }) => {
-        console.log({productId})
         return {
           url: `/question/${productId}`,
           method: "POST",
