@@ -1,12 +1,11 @@
 import React from 'react';
 import Layout from '../components/Layout';
+import SellerLogin from '../components/SellerLogin/SellerLogin';
 
 const seller = () => {
     return (
         <Layout>
-            <div>
-                <p>Welcome to Bangladesh Mart Seller...!!</p>
-            </div>
+            <SellerLogin></SellerLogin>
         </Layout>
     );
 };
