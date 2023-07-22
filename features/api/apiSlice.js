@@ -12,6 +12,7 @@ const apiSlice = createApi({
     "Currency",
     "Review",
     "QuestionAndAnswer",
+    "Categories",
   ],
   endpoints: () => ({}),
 });
