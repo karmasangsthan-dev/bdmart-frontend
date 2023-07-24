@@ -1,7 +1,11 @@
 import React from 'react';
 import banner from '../../public/images/seller-banner.png'
+import { toast } from 'react-hot-toast';
 
 const SellerLogin = () => {
+    const handleCreateSellerAccount =()=>{
+        toast.success("Account creating request received. Please check your email for next process")
+    }
     return (
         <div style={{minHeight:'120vh'}}>
             <div className='seller-login-container'>
@@ -30,7 +34,7 @@ const SellerLogin = () => {
 
                                 </div>
                                 <div className='mt-4'>
-                                    <button style={{ backgroundColor: '#fd5417', fontWeight: '500' }} className='w-100 text-white py-2 border-0 rounded'>Create Account</button>
+                                    <button onClick={handleCreateSellerAccount} style={{ backgroundColor: '#fd5417', fontWeight: '500' }} className='w-100 text-white py-2 border-0 rounded'>Create Account</button>
                                 </div>
                             </div>
                         </div>

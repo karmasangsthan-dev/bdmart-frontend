@@ -15,7 +15,6 @@ export const bn = {
       megaMenuTitle: "বিভাগসমূহ",
       nav: [
         { title: "হোম", link: "/" },
-        { title: "শপ", link: "/shop" },
         { title: "বিক্রেতা হন", link: "/seller" },
         { title: "আপনার অর্ডার ট্র্যাক", link: "/profile/my-orders" },
         { title: "আরএফকিউ জমা দিন", link: "/submit-rfq" },
