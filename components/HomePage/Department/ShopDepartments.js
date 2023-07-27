@@ -91,6 +91,8 @@ const ShopDepartments = ({ t }) => {
   const router = useRouter();
   const { data } = useGetCategoriesQuery();
 
+  
+
   return (
     <div className="gallery-show ">
       <div className="">

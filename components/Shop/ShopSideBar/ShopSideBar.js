@@ -171,14 +171,21 @@ const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
                           <i class="fa-solid fa-caret-right"></i>
                         </div>
                       ))}
+
+
                     </div>
                   }
                   {
                     subCategory && <div className="d-flex align-items-center justify-content-between" id="example-collapse-text">
-                      <p className="ms-2 w-100 me-2 shop-sub-category-item sidebar-content-active">{subCategory}</p>
+                      <p onClick={() => router.push(`/shop?category=${category}&subCategory=${subCategory}`)} className="ms-2 w-100 me-2 shop-sub-category-item sidebar-content-active">{subCategory}</p>
                       <i className="fa fa-caret-down"></i>
                     </div>
                   }
+
+                  {childCategory && <div className="d-flex align-items-center justify-content-between" id="example-collapse-text">
+                    <p onClick={() => router.push(`/shop?category=${category}&subCategory=${subCategory}&childCategory=${childCategory}`)} className="ms-4 w-100 me-3 shop-sub-category-item sidebar-content-active">{childCategory}</p>
+                    
+                  </div>}
                 </Collapse>
 
               </div>
