@@ -1,18 +1,18 @@
-import Head from "next/head";
-import Header from "./Shared/Header/Header";
-import { useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
-import { fetchUser } from "../features/auth/authSlice";
-import Script from "next/script";
+import Head from 'next/head';
+import Header from './Shared/Header/Header';
+import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { fetchUser } from '../features/auth/authSlice';
+import Script from 'next/script';
 
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router';
 
-import { setCart, setCartProducts } from "../features/cart/cartSlice";
-import { useGetCartProductsMutation } from "../features/product/productApi";
+import { setCart, setCartProducts } from '../features/cart/cartSlice';
+import { useGetCartProductsMutation } from '../features/product/productApi';
 
-import MobileBottomNav from "./Shared/Header/MobileBottomNav";
+import MobileBottomNav from './Shared/Header/MobileBottomNav';
 
-const Layout = ({ children, title = "Bangladesh Mart" }) => {
+const Layout = ({ children, title = 'Bangladesh Mart' }) => {
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -20,15 +20,14 @@ const Layout = ({ children, title = "Bangladesh Mart" }) => {
     useGetCartProductsMutation();
 
   useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-
+    const token = localStorage.getItem('accessToken');
     dispatch(fetchUser(token));
   }, [dispatch]);
 
   useEffect(() => {
-    const cartProducts = localStorage.getItem("cartProducts");
+    const cartProducts = localStorage.getItem('cartProducts');
     if (cartProducts) {
-      const cart = JSON.parse(localStorage.getItem("cartProducts"));
+      const cart = JSON.parse(localStorage.getItem('cartProducts'));
       dispatch(setCart(cart));
       getCartProducts(cart);
     }
@@ -50,7 +49,7 @@ const Layout = ({ children, title = "Bangladesh Mart" }) => {
       <Header />
 
       <main>{children}</main>
-      <div style={{ position: "relative", zIndex: "99999" }}>
+      <div style={{ position: 'relative', zIndex: '99999' }}>
         <MobileBottomNav />
       </div>
     </>
