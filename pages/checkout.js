@@ -353,7 +353,7 @@ const checkout = () => {
                         >
                           Confirm Order
 
-                          <span style={{width:'20px',height:'20px'}}>
+                          <span style={{ width: '20px', height: '20px' }}>
                             <svg
                               style={{ verticalAlign: 'unset' }}
                               stroke="currentColor"
@@ -383,7 +383,70 @@ const checkout = () => {
               </div>
             </div>
             <div className="checkout-right-side">
-              right
+              <div className="order-summery-container">
+                <h2 className="order-summery-title">Order Summary</h2>
+                <div className="order-items-container">
+                  <div className="order-items">
+                    <span className="flex justify-center my-auto text-gray-500 font-semibold text-4xl">
+                      <svg
+                        stroke="currentColor"
+                        fill="currentColor"
+                        strokeWidth={0}
+                        viewBox="0 0 512 512"
+                        height="1em"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M454.65 169.4A31.82 31.82 0 00432 160h-64v-16a112 112 0 00-224 0v16H80a32 32 0 00-32 32v216c0 39 33 72 72 72h272a72.22 72.22 0 0050.48-20.55 69.48 69.48 0 0021.52-50.2V192a31.75 31.75 0 00-9.35-22.6zM176 144a80 80 0 01160 0v16H176zm192 96a112 112 0 01-224 0v-16a16 16 0 0132 0v16a80 80 0 00160 0v-16a16 16 0 0132 0z" />
+                      </svg>
+                    </span>
+                    <h2 className="no-items-text">
+                      No Item Added Yet!
+                    </h2>
+                  </div>
+                </div>
+
+                <div className="coupon-container">
+                  <form className="w-100">
+                    <div className="coupon-content">
+                      <input
+                        type="text"
+                        placeholder="Input your coupon code"
+                        className="form-control"
+                      />
+                      <button className="">
+                        Apply
+                      </button>
+                    </div>
+                  </form>
+                </div>
+
+
+                <div className="checkout-subtotal">
+                  Subtotal
+                  <span className="">$0.00</span>
+                </div>
+
+                <div className="checkout-subtotal">
+                  Shipping Cost
+                  <span className="">
+                    $20.00
+                  </span>
+                </div>
+                <div className="checkout-subtotal-discount">
+                  Discount
+                  <span className="">
+                    $0.00
+                  </span>
+                </div>
+                <div className="border-t mt-4">
+                  <div className="flex items-center font-bold font-serif justify-between pt-5 text-sm uppercase">
+                    TOTAL COST
+                    <span className="font-serif font-extrabold text-lg">$20.00</span>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div >
