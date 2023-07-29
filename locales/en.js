@@ -16,10 +16,11 @@ export const en = {
       nav: [
         { title: "Home", link: "/" },
         { title: "Become a seller", link: "/seller" },
-        { title: "Your Order", link: "/profile/my-orders" },
+        { title: "Your Order", link: "/user/my-orders" },
         { title: "Submit RFQ", link: "/submit-rfq" },
         { title: "My Account", link: "/user/dashboard" },
         { title: "Contact Us", link: "/contact" },
+        { title: "Seller Dashboard", link: "/seller/dashboard" },
       ],
     },
     bestSelling: {
