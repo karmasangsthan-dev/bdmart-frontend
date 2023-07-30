@@ -85,12 +85,12 @@ const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
       if (!filter.category.includes(params)) {
         setFilter({
           ...filter,
-          category: [...filter.category, params],
+          category: params,
         });
       } else {
         setFilter({
           ...filter,
-          category: filter.category.filter((name) => name !== params),
+          category: params,
         });
       }
     }
@@ -161,7 +161,7 @@ const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
                 <Collapse in={true}>
                   {!subCategory && (
                     <div id="example-collapse-text">
-                      {subCategoryData?.data?.subCategories.map(
+                      {subCategoryData?.data?.subCategories?.map(
                         (subC, index) => (
                           <>
                             <div className="d-flex align-items-center justify-content-between">
@@ -182,6 +182,12 @@ const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
                             <div className="ms-3  ">
                               {subC?.childCategories?.map((child) => (
                                 <p
+                                  onClick={() =>
+                                    setFilter({
+                                      ...filter,
+                                      childCategory: child?._id,
+                                    })
+                                  }
                                   className=" my-1 p-1"
                                   style={{ background: 'whitesmoke' }}
                                 >
