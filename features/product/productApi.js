@@ -65,8 +65,8 @@ const productApi = apiSlice.injectEndpoints({
     }),
 
     getSubCategory: builder.query({
-      query: (mainCategory) => ({
-        url: `/category/subcategories/${mainCategory}`,
+      query: (categoryTitle) => ({
+        url: `/subcategory?categoryTitle=${categoryTitle}`,
         method: 'GET',
       }),
       providesTags: ['Product'],
