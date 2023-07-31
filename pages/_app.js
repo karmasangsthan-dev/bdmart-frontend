@@ -14,6 +14,7 @@ import '../styles/productDetails.css'
 import "../styles/notfoundpage.css"
 import '../styles/cart.css'
 import '../styles/discount.css'
+import '../styles/contactHeader.css';
 import '../styles/order.css'
 import '../styles/invoice.css'
 import '../styles/contact.css'

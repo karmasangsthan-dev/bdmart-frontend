@@ -276,6 +276,7 @@
     height: 3rem;
 }
 .coupon-content button{
+    display: inline-flex;
     font-size: 1rem;
     line-height: 1.5rem;
     padding-top: 0.75rem;
@@ -296,7 +297,6 @@
     align-items: center;
     cursor: pointer;
     height: 3rem;
-    display: inline-flex;
 }
 .checkout-subtotal{
     color: rgb(107 114 128/1);

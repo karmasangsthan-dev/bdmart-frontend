@@ -1,3 +1,5 @@
+@import './variable.css';
+
 .product-question-container {
     padding-bottom: 20px;
     background: #fff;
@@ -80,7 +82,7 @@
     top: 0;
     width: 15%;
     height: 100%;
-    background-color: #faa72c;
+    background-color:var(--primary-color);
     color: white;
     text-decoration: none;
     border-color: transparent;

@@ -14,6 +14,7 @@ const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
   // /shop?category=Electronics&subCategory=Mobile%20Phones%20and%20Tablets
 
   const { category, subCategory, childCategory } = router.query;
+  
   const { data: subCategoryData, isLoading: subCategoryLoading } =
     useGetSubCategoryQuery(category);
   console.log(subCategoryData);
