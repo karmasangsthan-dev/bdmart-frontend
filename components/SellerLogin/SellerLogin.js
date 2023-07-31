@@ -13,8 +13,8 @@ const SellerLogin = () => {
                     <div className='d-flex align-items-center py-5 '>
                         <div className='w-50 px-5'>
                             <h1 className='text-white ' style={{ fontSize: '62px' }}>Bangladesh #1 <br /> Marketplace</h1>
-                            <h6 className='text-white'>Create a Daraz seller account in 5 minutes and reach millions of customers today!
-                                Create a Daraz seller account in 5 minutes and reach millions of customers today!
+                            <h6 className='text-white'>Create a Bangladesh Mart seller account in 5 minutes and reach millions of customers today!
+                                
                             </h6>
                         </div>
                         <div className='w-50 px-5'>
