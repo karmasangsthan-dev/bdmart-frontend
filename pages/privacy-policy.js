@@ -4,7 +4,7 @@ import Layout from '../components/Layout';
 const privacyPolicy = () => {
     return (
         <Layout>
-            <div className='container' style={{ minHeight: '120vh' }}>
+            <div className='container pb-5' style={{ minHeight: '120vh' }}>
                 <h3>Privacy Policy - Bangladesh Mart</h3>
 
                 <p>Last updated: February 29, 2023</p>
