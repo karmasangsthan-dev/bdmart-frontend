@@ -1,27 +1,27 @@
-import React, { useEffect, useState } from "react";
-import Layout from "../components/Layout";
-import { Button, Collapse, Container, Navbar, Nav } from "react-bootstrap";
-import ShopProduct from "../components/Product/ShopProduct";
-import ShopSideBar from "../components/Shop/ShopSideBar/ShopSideBar";
+import React, { useEffect, useState } from 'react';
+import Layout from '../components/Layout';
+import { Button, Collapse, Container, Navbar, Nav } from 'react-bootstrap';
+import ShopProduct from '../components/Product/ShopProduct';
+import ShopSideBar from '../components/Shop/ShopSideBar/ShopSideBar';
 import {
   useGetAllProductsQuery,
   useGetProductsQuery,
   useGetSubCategoryQuery,
-} from "../features/product/productApi";
-import { useSelector } from "react-redux";
-import InfiniteScroll from "react-infinite-scroll-component";
-import Skeleton from "react-loading-skeleton";
-import { useRouter } from "next/router";
-import ShopPagination from "../components/Shared/Pagination/ShopPagination";
-import { en } from "../locales/en";
-import { bn } from "../locales/bn";
-import DiscountProductCard from "../components/Product/DiscountProductCard";
-import { Rating } from "@mui/material";
+} from '../features/product/productApi';
+import { useSelector } from 'react-redux';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import Skeleton from 'react-loading-skeleton';
+import { useRouter } from 'next/router';
+import ShopPagination from '../components/Shared/Pagination/ShopPagination';
+import { en } from '../locales/en';
+import { bn } from '../locales/bn';
+import DiscountProductCard from '../components/Product/DiscountProductCard';
+import { Rating } from '@mui/material';
 
 const shop = () => {
   const router = useRouter();
   const { locale } = router;
-  const t = locale === "en" ? en : bn;
+  const t = locale === 'en' ? en : bn;
   const [params, setParams] = useState();
   const categoryTextParams = router.query?.category;
 
@@ -39,8 +39,9 @@ const shop = () => {
   }, [router.query?.category]);
 
   const [filter, setFilter] = useState({
-    category: [],
-    size: "",
+    category: '',
+    childCategory: '',
+    size: '',
     brand: [],
     price: [],
   });
@@ -48,8 +49,6 @@ const shop = () => {
   const { data, isLoading } = useGetAllProductsQuery({
     perPage: page,
   });
-
-
 
   const {
     data: products,
@@ -59,12 +58,10 @@ const shop = () => {
     error,
   } = useGetProductsQuery({ sort, filter });
 
-
-
   return (
     <Layout title="Shop - Bangladesh Mart">
       <div className="shop page-content">
-        <div  className="ps-4 ms-2 pe-3">
+        <div className="ps-4 ms-2 pe-3">
           <div className="row ">
             <aside className="col-lg-2 order-lg-first">
               <ShopSideBar
@@ -75,9 +72,8 @@ const shop = () => {
                 t={t}
               />
             </aside>
-            <div style={{paddingLeft:'20px'}} className="col-lg-10 pl-lg-5">
+            <div style={{ paddingLeft: '20px' }} className="col-lg-10 pl-lg-5">
               <div className="">
-
                 <div className="widget w-100 pb-3 d-flex justify-content-between align-items-center">
                   <p className="fs-6 d-sm-none d-lg-block">
                     {t.shopPage.allProducts.productsCountTitle}: {data?.total}
@@ -131,19 +127,18 @@ const shop = () => {
                           <div
                             key={i}
                             className="border shadow rounded loading-card-content"
-
                           >
                             <Skeleton
                               className="d-flex mx-auto mt-2"
                               style={{
-                                width: "92%",
-                                minHeight: "188px",
-                                maxHeight: "189px",
+                                width: '92%',
+                                minHeight: '188px',
+                                maxHeight: '189px',
                               }}
                             />
                             <div className="product-details-card p-2">
                               <div
-                                style={{ marginTop: "-14px" }}
+                                style={{ marginTop: '-14px' }}
                                 className="product-title "
                               >
                                 <span>
@@ -152,22 +147,22 @@ const shop = () => {
                               </div>
                               <div className="product-price">
                                 <p className="mb-0 ">
-                                  <Skeleton style={{ width: "50px" }} />
+                                  <Skeleton style={{ width: '50px' }} />
                                 </p>
                               </div>
                               <div className="old-price">
-                                <del style={{ display: "inline-block" }}>
-                                  <Skeleton style={{ width: "50px" }} />
+                                <del style={{ display: 'inline-block' }}>
+                                  <Skeleton style={{ width: '50px' }} />
                                 </del>
                                 <span className="ms-1">
-                                  <Skeleton style={{ width: "30px" }} />
+                                  <Skeleton style={{ width: '30px' }} />
                                 </span>
                               </div>
                               <div className="d-flex align-items-center">
-                                <Skeleton style={{ width: "80px" }} />
+                                <Skeleton style={{ width: '80px' }} />
                                 <Skeleton
                                   className="ms-1"
-                                  style={{ width: "30px" }}
+                                  style={{ width: '30px' }}
                                 />
                               </div>
                             </div>
@@ -178,21 +173,26 @@ const shop = () => {
                   ) : (
                     <div className="shop-products">
                       {products?.data?.map((product, index) => (
-                        <ShopProduct product={product} key={index}></ShopProduct>
+                        <ShopProduct
+                          product={product}
+                          key={index}
+                        ></ShopProduct>
                       ))}
                       {/* {loadedProducts === 0 && <p>No products found.</p>} */}
                     </div>
                   )}
                 </div>
               </div>
-              {!loading && <div className=" shop-pagination">
-                <ShopPagination
-                  setSort={setSort}
-                  sort={sort}
-                  pageFound={products?.pageFound}
-                  data
-                />
-              </div>}
+              {!loading && (
+                <div className=" shop-pagination">
+                  <ShopPagination
+                    setSort={setSort}
+                    sort={sort}
+                    pageFound={products?.pageFound}
+                    data
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>
