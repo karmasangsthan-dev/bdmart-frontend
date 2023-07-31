@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 let initialState = {
   user: {
@@ -8,10 +8,10 @@ let initialState = {
   isLoading: false,
   isError: false,
   isSuccess: false,
-  error: "",
+  error: '',
 };
 
-export const fetchUser = createAsyncThunk("auth/fetchUser", async (token) => {
+export const fetchUser = createAsyncThunk('auth/fetchUser', async (token) => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_SITE_LINK}/api/v1/user/me`,
     {
@@ -25,14 +25,14 @@ export const fetchUser = createAsyncThunk("auth/fetchUser", async (token) => {
   return data?.data;
 });
 export const googleLogin = createAsyncThunk(
-  "auth/googleLogin",
+  'auth/googleLogin',
   async (data) => {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_SITE_LINK}/api/v1/user/socialLogin`,
       {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
       }
@@ -40,7 +40,7 @@ export const googleLogin = createAsyncThunk(
     const result = await response.json();
 
     if (result?.status == 1) {
-      localStorage.setItem("accessToken", result?.token);
+      localStorage.setItem('accessToken', result?.token);
       return result?.data;
     }
     // return data;
@@ -48,23 +48,24 @@ export const googleLogin = createAsyncThunk(
 );
 
 const authSlice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState,
   reducers: {
     logOut: (state, action) => {
       state.user = {
-        email: "",
-        role: "",
+        email: '',
+        role: '',
         cart: [],
       };
     },
 
     setUser: (state, action) => {
+      console.log(action.payload);
       state.user = action.payload;
       state.isLoading = false;
       state.isSuccess = true;
       state.isError = false;
-      state.error = "";
+      state.error = '';
     },
     addToCart: (state, { payload }) => {
       state.cart = [
@@ -112,14 +113,14 @@ const authSlice = createSlice({
         state.isLoading = true;
         state.isError = false;
         state.isSuccess = false;
-        state.error = "";
+        state.error = '';
       })
       .addCase(fetchUser.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
         state.user = payload;
-        state.error = "";
+        state.error = '';
       })
       .addCase(fetchUser.rejected, (state, action) => {
         state.isLoading = false;
@@ -131,14 +132,14 @@ const authSlice = createSlice({
         state.isLoading = true;
         state.isError = false;
         state.isSuccess = false;
-        state.error = "";
+        state.error = '';
       })
       .addCase(googleLogin.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
         state.user = payload;
-        state.error = "";
+        state.error = '';
       })
       .addCase(googleLogin.rejected, (state, action) => {
         state.isLoading = false;

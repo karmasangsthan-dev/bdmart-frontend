@@ -86,10 +86,24 @@ buttton:focus {
 .forget-margin {
   min-height: calc(100vh - 158px);
 }
-.seller-login-container{
+
+.seller-login-container {
   background: url('../public/images/seller-banner.png');
 }
 
+.form-control {
+  outline: none !important;
+  box-shadow: none !important;
+
+}
+
+.form-control:focus {
+  border-color: rgb(16 185 129/1) !important;
+}
+
+.form-control-red:focus {
+  border-color: red !important;
+}
 
 @media (max-width: 1094px) {}
 

@@ -95,14 +95,3 @@ th {
     border-width: 1px;
     border-radius: 5px;
 }
-.form-control{
-    outline: none !important;
-    box-shadow: none !important;
-    
-}
-.form-control:focus {
-    border-color: rgb(16 185 129/1);
-}
-.form-control-red:focus{
-    border-color: red !important;
-}

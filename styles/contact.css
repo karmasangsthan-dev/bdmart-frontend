@@ -16,7 +16,6 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 2rem;
-
 }
 
 .contact-card {
@@ -41,21 +40,18 @@
   font-size: 1.25rem;
   line-height: 1.75rem;
   margin-bottom: 0.5rem;
-
 }
 
 .contact-card p {
-  opacity: .9;
+  opacity: 0.9;
   line-height: 1.75rem;
   font-size: 1rem;
   margin-bottom: 0;
 }
 
 .contact-card p span {
-  color: rgb(16 185 129/1)
+  color: rgb(16 185 129/1);
 }
-
-
 
 @media screen and (max-width: 682px) {
   .contact-content-hd {
@@ -67,6 +63,5 @@
     display: grid;
     grid-template-columns: repeat(1, minmax(0, 1fr));
     gap: 2rem;
-
   }
 }
