@@ -91,7 +91,6 @@ const SideBar = () => {
                     </span>
                     <a className='sidebar-item-anchor' href="#">Log Out</a>
                 </span>
-
             </div>
         </div >
     );
