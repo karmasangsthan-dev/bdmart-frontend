@@ -99,12 +99,12 @@ export default function ContactHeader({ user }) {
                 About Us
               </a>
               <span className="mx-2">|</span>
-              <a className="font-medium hover:text-emerald-600" href="/contact-us">
+              <Link className="font-medium hover:text-emerald-600" href="/contact">
                 {" "}
                 Contact Us
-              </a>
+              </Link>
               <span className="mx-2">|</span>
-              <button className="font-medium hover:text-emerald-600">
+              <button onClick={() => router.push('/user/dashboard')} className="font-medium hover:text-emerald-600">
                 My account
               </button>
               <span className="mx-2">|</span>
