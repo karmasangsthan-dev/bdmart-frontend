@@ -1,25 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { en } from "../../../locales/en";
 import { bn } from "../../../locales/bn";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import LanguageSelector from "./LanguageSelector";
 
 const MegaMenu = () => {
-  useEffect(() => {
-    window.addEventListener("scroll", function () {
-      let header = this.document.querySelector("#strip2");
-      let bar = this.document.querySelector("#nav_Bar");
-      let strip = this.document.querySelector("#strip");
-      let bod = document.querySelector("#accordion_body");
-      let stick = this.document.querySelector("#sec_bar");
+  const [isMegaMenuOn, setIsMegaMenuOn] = useState(false);
 
-      bar?.classList.toggle("removeBar", window.scrollY > 0);
-      header?.classList.toggle("sticky", window.scrollY > 0);
-      stick?.classList.toggle("stic", window.scrollY > 0);
-      bod?.classList.toggle("main-bod", window.scrollY > 0);
-      strip?.classList.toggle("strip-2-mar", window.scrollY > 0);
-    });
-  }, []);
   const megaMenuData = [
     {
       mainCategoryName: "Appliances",
@@ -761,11 +749,15 @@ const MegaMenu = () => {
   const { locale } = router;
   const t = locale === "en" ? en : bn;
 
+  const handleMegaMenu = () => {
+    setIsMegaMenuOn(!isMegaMenuOn)
+  }
+
   return (
     <div id="sec_bar" className="sec_nav ">
       <div className="container-fluid">
         <div className="row align-items-center">
-          <div
+          {/* <div
             style={{ minHeight: "56px" }}
             className="accordion w-auto"
             id="accordionPanelsStayOpenExample"
@@ -823,20 +815,73 @@ const MegaMenu = () => {
                 </ul>
               </div>
             </div>
-          </div>
-          <div
-            className=" d-flex justify-content-start "
-            style={{ width: "78%" }}
-          >
-            <div className="frombar">
-              <ul className="mb-0" style={{paddingLeft:'36px'}}>
-                {t.homePage.header.nav.map((navItem, index) => (
-                  <Link key={index} href={navItem?.link}>
-                    <li className="inner-li">{navItem?.title}</li>
-                  </Link>
-                ))}
-              </ul>
+          </div> */}
+          <div className="d-flex justify-content-between">
+            <div
+              className="first-part d-flex justify-content-start "
+
+            >
+              <div className="frombar">
+                <ul className="mb-0" style={{ paddingLeft: '36px' }}>
+                  <span onClick={handleMegaMenu} className="cateogries-megamenu">
+                    <span  className=" d-inline-block">
+                      <li className="inner-li">Categories</li>
+
+                    </span>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true" class="ml-1 h-3 w-3 group-hover:text-emerald-600"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
+                  </span>
+                  {isMegaMenuOn && <div id="accordion_body" className="accordion-body p-0">
+                    <ul className="m-0 p-0">
+                      {megaMenuData?.map((menu, index) => (
+                        <li key={index} className={menu?.parentClassName}>
+                          <a href="#base" className="main-cata">
+                            {menu?.mainCategoryName}
+                          </a>
+                          <div className={menu?.childClassName} id={menu?.htmlId}>
+                            <div className="content">
+                              {menu?.subCategories?.map((category, index) => (
+                                <div key={index} className="dropmenu">
+                                  <header className="con-head">
+                                    {category?.name}
+                                  </header>
+                                  <ul className="pro-nav ps-0 ">
+                                    {category?.childCategories?.map((child, index) => (
+                                      <li key={index} className="drop-nav-link">
+                                        <Link href={`/shop?category=${menu?.mainCategoryName}&subCategory=${category?.name}&childCategory=${child?.name}`}>
+                                          {child?.name}
+                                        </Link>
+
+
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>}
+                  {t.homePage.header.nav.map((navItem, index) => (
+                    <Link key={index} href={navItem?.link}>
+                      <li className="inner-li">{navItem?.title}</li>
+                    </Link>
+                  ))}
+                </ul>
+              </div>
             </div>
+            <div className="frombar right-part-nav">
+              <div className=" ">
+                <ul className="mb-0 d-flex justify-content-center align-items-center">
+                  <LanguageSelector></LanguageSelector>
+                  <li className="inner-li">Privacy Policy</li>
+                  <li className="inner-li">Terms & Conditions</li>
+                </ul>
+
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
