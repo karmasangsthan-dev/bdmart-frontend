@@ -5,9 +5,12 @@ import { useGetSubCategoryQuery } from '../../../features/product/productApi';
 
 const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
   const router = useRouter();
+
   const [catOpen, setCatOpen] = useState(true);
   const [brandOpen, setBrandOpen] = useState(false);
   const [priceOpen, setPriceOpen] = useState(true);
+  const [childCategoryOpen, setChildCategoryOpen] = useState(false);
+
   const [priceRange, setPriceRange] = useState([]);
   let allBrands = [];
   let allCategory = [];
@@ -16,7 +19,7 @@ const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
   const { category, subCategory, childCategory } = router.query;
   const { data: subCategoryData, isLoading: subCategoryLoading } =
     useGetSubCategoryQuery(category);
-  console.log(subCategoryData);
+
   useEffect(() => {
     setPriceRange([
       data?.lowestPriceProduct.price,
@@ -79,7 +82,15 @@ const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
       router.replace('/shop');
     }
   };
+  const handleSetSubCategory = (subC) => {
+    setChildCategoryOpen(
+      childCategoryOpen === subC?.subCategoryTitle ? '' : subC?.subCategoryTitle
+    );
 
+    // router.push({
+    //   query: { ...router.query, subCategory: subC?.subCategoryTitle },
+    // });
+  };
   useEffect(() => {
     if (params !== '' && typeof params !== 'undefined') {
       if (!filter.category.includes(params)) {
@@ -163,39 +174,45 @@ const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
                     <div id="example-collapse-text">
                       {subCategoryData?.data?.subCategories?.map(
                         (subC, index) => (
-                          <>
+                          <div key={index}>
                             <div className="d-flex align-items-center justify-content-between">
                               <p
-                                // onClick={() =>
-                                //   router.push(
-                                //     `/shop?category=${category}&subCategory=${subC?.title}`
-                                //   )
-                                // }
+                                onClick={() => handleSetSubCategory(subC)}
                                 className="shop-sub-category-item w-100 me-2"
                                 key={index}
                               >
                                 {subC?.subCategoryTitle}
                               </p>
+                              {console.log(subC)}
+                              {childCategoryOpen === subC?.subCategoryTitle ? (
+                                <i className="fa fa-caret-down"></i>
+                              ) : (
+                                <i class="fa-solid fa-caret-right"></i>
+                              )}
+                            </div>
 
-                              <i class="fa-solid fa-caret-right"></i>
-                            </div>
-                            <div className="ms-3  ">
-                              {subC?.childCategories?.map((child) => (
-                                <p
-                                  onClick={() =>
-                                    setFilter({
-                                      ...filter,
-                                      childCategory: child?._id,
-                                    })
-                                  }
-                                  className=" my-1 p-1"
-                                  style={{ background: 'whitesmoke' }}
-                                >
-                                  {child?.childCategoryTitle}
-                                </p>
-                              ))}
-                            </div>
-                          </>
+                            <Collapse
+                              in={childCategoryOpen === subC.subCategoryTitle}
+                            >
+                              <div className="ms-3  ">
+                                {subC?.childCategories?.map((child) => (
+                                  <p
+                                    onClick={() =>
+                                      setFilter({
+                                        ...filter,
+                                        childCategory: child?._id,
+                                      })
+                                    }
+                                    className=" my-1 p-1"
+                                    style={{ background: 'whitesmoke' }}
+                                  >
+                                    {console.log(subC?.childCategories)}
+                                    {child?.childCategoryTitle}
+                                  </p>
+                                ))}
+                              </div>
+                            </Collapse>
+                          </div>
                         )
                       )}
                     </div>
