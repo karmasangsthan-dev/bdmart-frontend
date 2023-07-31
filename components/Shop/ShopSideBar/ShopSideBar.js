@@ -1,7 +1,7 @@
-import { Collapse, Slider } from "@mui/material";
-import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
-import { useGetSubCategoryQuery } from "../../../features/product/productApi";
+import { Collapse, Slider } from '@mui/material';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
+import { useGetSubCategoryQuery } from '../../../features/product/productApi';
 
 const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
   const router = useRouter();
@@ -14,12 +14,9 @@ const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
   // /shop?category=Electronics&subCategory=Mobile%20Phones%20and%20Tablets
 
   const { category, subCategory, childCategory } = router.query;
-
-
-
-  const { data: subCategoryData, isLoading: subCategoryLoading } = useGetSubCategoryQuery(category);
-
-
+  const { data: subCategoryData, isLoading: subCategoryLoading } =
+    useGetSubCategoryQuery(category);
+  console.log(subCategoryData);
   useEffect(() => {
     setPriceRange([
       data?.lowestPriceProduct.price,
@@ -60,7 +57,7 @@ const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
     setFilter({ ...filter, price: newValue });
     setPriceRange(newValue);
 
-    if (typeof onChange === "function") {
+    if (typeof onChange === 'function') {
       onChange(newValue);
     }
   };
@@ -79,21 +76,21 @@ const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
           ...filter.category.filter((name) => name !== e.target.value),
         ],
       });
-      router.replace("/shop");
+      router.replace('/shop');
     }
   };
 
   useEffect(() => {
-    if (params !== "" && typeof params !== "undefined") {
+    if (params !== '' && typeof params !== 'undefined') {
       if (!filter.category.includes(params)) {
         setFilter({
           ...filter,
-          category: [...filter.category, params],
+          category: params,
         });
       } else {
         setFilter({
           ...filter,
-          category: filter.category.filter((name) => name !== params),
+          category: params,
         });
       }
     }
@@ -127,17 +124,17 @@ const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
             <p className="fw-bold">{t.shopPage.sideNav.filterTitle}:</p>
             <p
               onClick={() =>
-                setFilter({ category: [], size: "", brand: [], price: [] })
+                setFilter({ category: [], size: '', brand: [], price: [] })
               }
               className="text-danger px-2 rounded fw-bold"
-              style={{ cursor: "pointer" }}
+              style={{ cursor: 'pointer' }}
               href="#"
             >
               {t.shopPage.sideNav.clearTitle}
             </p>
           </div>
           <div
-            style={{ borderBottom: "0.1rem solid #ebebeb" }}
+            style={{ borderBottom: '0.1rem solid #ebebeb' }}
             className="shop-categories mb-3 pb-2"
           >
             <div
@@ -162,39 +159,91 @@ const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
                   {catOpen && <i className="fa fa-caret-down"></i>}
                 </div>
                 <Collapse in={true}>
-                  {
-                    !subCategory && <div id="example-collapse-text">
+                  {!subCategory && (
+                    <div id="example-collapse-text">
+                      {subCategoryData?.data?.subCategories?.map(
+                        (subC, index) => (
+                          <>
+                            <div className="d-flex align-items-center justify-content-between">
+                              <p
+                                // onClick={() =>
+                                //   router.push(
+                                //     `/shop?category=${category}&subCategory=${subC?.title}`
+                                //   )
+                                // }
+                                className="shop-sub-category-item w-100 me-2"
+                                key={index}
+                              >
+                                {subC?.subCategoryTitle}
+                              </p>
 
-                      {subCategoryData?.map((subC, index) => (
-                        <div className="d-flex align-items-center justify-content-between">
-                          <p onClick={() => router.push(`/shop?category=${category}&subCategory=${subC?.title}`)} className="shop-sub-category-item w-100 me-2" key={index}>{subC?.title}</p>
-                          <i class="fa-solid fa-caret-right"></i>
-                        </div>
-                      ))}
-
-
+                              <i class="fa-solid fa-caret-right"></i>
+                            </div>
+                            <div className="ms-3  ">
+                              {subC?.childCategories?.map((child) => (
+                                <p
+                                  onClick={() =>
+                                    setFilter({
+                                      ...filter,
+                                      childCategory: child?._id,
+                                    })
+                                  }
+                                  className=" my-1 p-1"
+                                  style={{ background: 'whitesmoke' }}
+                                >
+                                  {child?.childCategoryTitle}
+                                </p>
+                              ))}
+                            </div>
+                          </>
+                        )
+                      )}
                     </div>
-                  }
-                  {
-                    subCategory && <div className="d-flex align-items-center justify-content-between" id="example-collapse-text">
-                      <p onClick={() => router.push(`/shop?category=${category}&subCategory=${subCategory}`)} className="ms-2 w-100 me-2 shop-sub-category-item sidebar-content-active">{subCategory}</p>
+                  )}
+                  {subCategory && (
+                    <div
+                      className="d-flex align-items-center justify-content-between"
+                      id="example-collapse-text"
+                    >
+                      <p
+                        onClick={() =>
+                          router.push(
+                            `/shop?category=${category}&subCategory=${subCategory}`
+                          )
+                        }
+                        className="ms-2 w-100 me-2 shop-sub-category-item sidebar-content-active"
+                      >
+                        {subCategory}
+                      </p>
                       <i className="fa fa-caret-down"></i>
                     </div>
-                  }
+                  )}
 
-                  {childCategory && <div className="d-flex align-items-center justify-content-between" id="example-collapse-text">
-                    <p onClick={() => router.push(`/shop?category=${category}&subCategory=${subCategory}&childCategory=${childCategory}`)} className="ms-4 w-100 me-3 shop-sub-category-item sidebar-content-active">{childCategory}</p>
-                    
-                  </div>}
+                  {childCategory && (
+                    <div
+                      className="d-flex align-items-center justify-content-between"
+                      id="example-collapse-text"
+                    >
+                      <p
+                        onClick={() =>
+                          router.push(
+                            `/shop?category=${category}&subCategory=${subCategory}&childCategory=${childCategory}`
+                          )
+                        }
+                        className="ms-4 w-100 me-3 shop-sub-category-item sidebar-content-active"
+                      >
+                        {childCategory}
+                      </p>
+                    </div>
+                  )}
                 </Collapse>
-
               </div>
             </Collapse>
           </div>
           {/* {subCategoryData?.map((subC, index) => <p className="shop-sub-category-item" key={index}>{subC?.title}</p>)} */}
 
           <div
-            style={{ borderBottom: "0.1rem solid #ebebeb" }}
+            style={{ borderBottom: '0.1rem solid #ebebeb' }}
             className="mb-3 pb-2"
           >
             <div
@@ -230,10 +279,7 @@ const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
           </div>
           {/* price range  */}
 
-          <div
-            style={{ borderBottom: "0.1rem solid #ebebeb" }}
-            className=" "
-          >
+          <div style={{ borderBottom: '0.1rem solid #ebebeb' }} className=" ">
             <div
               onClick={() => setPriceOpen(!priceOpen)}
               aria-controls="example-collapse-text"
@@ -247,11 +293,11 @@ const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
               <div className="price-range-slider">
                 <div className="">
                   <p className="text-center">
-                    {" "}
+                    {' '}
                     $
                     {filter.price.length
                       ? filter.price[0]
-                      : data?.lowestPriceProduct?.price}{" "}
+                      : data?.lowestPriceProduct?.price}{' '}
                     - $
                     {filter.price.length
                       ? filter.price[1]
@@ -265,9 +311,9 @@ const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
                     ...(filter.price.length
                       ? filter.price
                       : [
-                        data?.lowestPriceProduct?.price,
-                        data?.highestPriceProduct?.price,
-                      ]),
+                          data?.lowestPriceProduct?.price,
+                          data?.highestPriceProduct?.price,
+                        ]),
                   ]}
                   onChange={handlePriceChange}
                   valueLabelDisplay="auto"

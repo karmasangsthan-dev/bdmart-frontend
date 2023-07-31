@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Header from './Shared/Header/Header';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { fetchUser } from '../features/auth/authSlice';
 import Script from 'next/script';
@@ -15,13 +15,18 @@ import MobileBottomNav from './Shared/Header/MobileBottomNav';
 const Layout = ({ children, title = 'Bangladesh Mart' }) => {
   const dispatch = useDispatch();
   const router = useRouter();
-
+  const { user } = useSelector((state) => state.auth);
   const [getCartProducts, { data, isLoading, isSuccess }] =
     useGetCartProductsMutation();
 
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
     dispatch(fetchUser(token));
+
+    if (user?.email) {
+      document.cookie =
+        'userData=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    }
   }, [dispatch]);
 
   useEffect(() => {
