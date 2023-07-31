@@ -2,7 +2,7 @@ import React from 'react';
 import Layout from '../../components/Layout';
 import SideBar from '../../components/User/SideBar/SideBar';
 import RequireAuth from '../../components/Shared/RequireAuth/RequireAuth'
-import SellerSidebar from '../../components/Seller/sellerSidebar';
+import SellerSidebar from '../../components/Seller/SellerSidebar';
 import SellerDashboard from '../../components/Seller/SellerDashboard';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSignOut } from 'react-firebase-hooks/auth';
