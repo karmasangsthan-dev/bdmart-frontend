@@ -60,11 +60,11 @@ const review = () => {
     const handleImageChange = (event) => {
         const files = event.target.files;
         const imageArray = [];
-        for (let i = 0; i < files.length; i++) {
+        for (let i = 0; i < files?.length; i++) {
             const reader = new FileReader();
             reader.onload = (e) => {
                 imageArray.push(e.target.result);
-                if (imageArray.length === files.length) {
+                if (imageArray?.length === files?.length) {
                     if (files?.length <= 3) {
                         setShow(false);
                         setShowCropeModal(true);
@@ -87,15 +87,15 @@ const review = () => {
     };
     // handle review submit
     const handleSubmit = () => {
-        if (finalImages.length < 1 && !reviewText) {
+        if (finalImages?.length < 1 && !reviewText) {
             toast.error("Please select images and enter your review details");
             return;
         }
-        if (finalImages.length >= 1 && !reviewText) {
+        if (finalImages?.length >= 1 && !reviewText) {
             toast.error("Please add a review details");
             return;
         }
-        if (reviewText && finalImages.length < 1) {
+        if (reviewText && finalImages?.length < 1) {
             toast.error("Please select at least 1 image");
             return;
         }
@@ -251,7 +251,7 @@ const review = () => {
                                                                 controlId="exampleForm.ControlInput1"
                                                             >
 
-                                                                {selectedImages.length <= 0 ? (
+                                                                {selectedImages?.length <= 0 ? (
                                                                     <>
                                                                         <ul
                                                                             className="text-danger"
@@ -351,7 +351,7 @@ const review = () => {
                                                         <Modal.Title className="">Resize the images</Modal.Title>
                                                     </Modal.Header>
                                                     <Modal.Body className="mx-auto ">
-                                                        {selectedImages.length > 0 && (
+                                                        {selectedImages?.length > 0 && (
                                                             <>
                                                                 <div className="d-flex justify-content-center">
                                                                     <Row className="g-5 mx-auto" style={{ gap: "15px" }}>

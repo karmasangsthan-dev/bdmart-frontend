@@ -32,7 +32,7 @@ const signup = () => {
 
   const handleSignup = () => {
     const fullName = name;
-    if (name.length < 1 && email.length < 1 && password.length < 1) {
+    if (name?.length < 1 && email?.length < 1 && password?.length < 1) {
       toast.error('Please fill up sign up form at first...!!');
     }
     if (name && password && !email) {

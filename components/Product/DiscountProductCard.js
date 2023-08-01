@@ -50,7 +50,7 @@ export default function DiscountProductCard({ product }) {
     dispatch(addToCart({ id: product?._id }));
   };
   const { reviews } = product;
-  const totalReviews = reviews.length;
+  const totalReviews = reviews?.length;
   const ratingsSum = reviews.reduce((sum, review) => sum + review.ratings, 0);
   const averageRating = totalReviews ? ratingsSum / totalReviews : 0;
   const sanitizedAverageRating = isNaN(averageRating) ? 0 : averageRating;
