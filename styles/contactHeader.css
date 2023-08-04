@@ -29,6 +29,7 @@
 }
 
 .contact-header .wrapper-hd {
+    margin-left: 25px;
     display: flex;
     align-items: center;
 }
@@ -59,7 +60,6 @@
 .contact-right-part button {
     font-weight: 500;
     cursor: pointer;
-    -webkit-appearance: button;
     background-color: transparent;
     font-size: 100%;
     margin: 0;

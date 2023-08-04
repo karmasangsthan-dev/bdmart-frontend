@@ -122,7 +122,7 @@ const Header = () => {
                     autoComplete="off"
                   />
                   <div style={{ position: 'relative' }} className="d-flex align-items-center">
-                    {searchText.length > 0 && <span title="Clear" onClick={() => handleClearInput()} className="px-1 text-danger" style={{ position: 'absolute', right: '15px', fontSize: '20px', cursor: 'pointer' }}>x</span>
+                    {searchText?.length > 0 && <span title="Clear" onClick={() => handleClearInput()} className="px-1 text-danger" style={{ position: 'absolute', right: '15px', fontSize: '20px', cursor: 'pointer' }}>x</span>
                     }
 
                   </div>
@@ -228,7 +228,7 @@ const Header = () => {
                   name="search"
                 />
                 <div style={{ position: 'relative' }} className="d-flex align-items-center">
-                  {searchText.length > 0 && <span onClick={() => handleClearInput()} className="px-1 text-danger" style={{ position: 'absolute', right: '70px', fontSize: '20px' }}>x</span>
+                  {searchText?.length > 0 && <span onClick={() => handleClearInput()} className="px-1 text-danger" style={{ position: 'absolute', right: '70px', fontSize: '20px' }}>x</span>
                   }
                   <button type="submit" style={{ position: 'absolute', right: '0px', fontSize: '14px', padding: '0 25px', height: '100%' }}>
                     <i className="fa fa-search"></i>

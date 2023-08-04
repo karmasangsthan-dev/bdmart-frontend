@@ -458,10 +458,10 @@ const MegaMenu = () => {
           ],
         },
         {
-          name: "Product Layout",
+          name: "Computers and Accessories",
           childCategories: [
             {
-              name: "Shop Rollback",
+              name: "Monitors",
             },
             {
               name: "Product-Layout2",
