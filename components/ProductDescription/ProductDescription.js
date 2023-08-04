@@ -19,14 +19,14 @@ const ProductDescription = ({ product }) => {
         'Quantity: 1 Pc'
     ];
 
-    var liData = product?.details.length > 0 ? product?.details : liData2;
+    var liData = product?.details?.length > 0 ? product?.details : liData2;
 
     
 
     // Split the liData into two separate arrays
     // split the li data into two separate arrays 
-    var leftSide = liData.slice(0, Math.ceil(liData.length / 2));
-    var rightSide = liData.slice(Math.ceil(liData.length / 2));
+    var leftSide = liData.slice(0, Math.ceil(liData?.length / 2));
+    var rightSide = liData.slice(Math.ceil(liData?.length / 2));
 
     return (
         <div className='product-description-container '>

@@ -32,7 +32,7 @@ const cart = () => {
           <div className="row cart-container">
             <div className="col-lg-9">
               {
-                cart.length < 1 ? (
+                cart?.length < 1 ? (
                   <div>
                     <p>Your Cart Is Empty. Please add cart at first</p>
                   </div>

@@ -12,7 +12,7 @@ const DeleveryAndService = ({ product }) => {
 
         const dateParts = data.split('-').map(Number);
 
-        if (dateParts.length !== 2 || dateParts.some(isNaN)) {
+        if (dateParts?.length !== 2 || dateParts.some(isNaN)) {
             throw new TypeError('Invalid data format. Expected "min-max" format.');
         }
 

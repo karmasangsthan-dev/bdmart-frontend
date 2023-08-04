@@ -246,7 +246,7 @@ const productNo = () => {
                       readOnly
                     />
                   </div>
-                  <div onClick={scrollToReviews} className="">( <span className="ratings-texts">{product?.reviews.length} Reviews</span> )</div>
+                  <div onClick={scrollToReviews} className="">( <span className="ratings-texts">{product?.reviews?.length} Reviews</span> )</div>
                 </div>
                 <div>
                   <h4 className="my-2">

@@ -91,14 +91,14 @@ export default function QuesAndAnswer({ question, user }) {
             </div>
           </div>
         </div>
-        {!question?.answers.length ? (
+        {!question?.answers?.length ? (
           <>
             <div className="product-qna-admin-reply ">
               <span style={{ width: "20px", height: "20px" }}></span>
               <div className="question-desc">No answer yet</div>
             </div>
             <div>
-              {user?.role === "admin" && question?.answers.length == 0 && (
+              {user?.role === "admin" && question?.answers?.length == 0 && (
                 <div>
                   <div className="d-flex justify-content-end">
                     <label

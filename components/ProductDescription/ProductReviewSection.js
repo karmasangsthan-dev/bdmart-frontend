@@ -11,7 +11,7 @@ const ProductReviewSection = ({ product }) => {
 
 
   const { reviews } = product;
-  const totalReviews = reviews.length;
+  const totalReviews = reviews?.length;
   const ratingsCount = {
     5: 0,
     4: 0,
@@ -82,7 +82,7 @@ const ProductReviewSection = ({ product }) => {
 
           }}
         >
-          {product?.reviews.length > 0 && <h5 className="fs-6 mt-2">Product Reviews : ({product?.reviews.length}) </h5>}
+          {product?.reviews?.length > 0 && <h5 className="fs-6 mt-2">Product Reviews : ({product?.reviews?.length}) </h5>}
         </div>
 
       </div>

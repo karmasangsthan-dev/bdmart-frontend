@@ -11,7 +11,7 @@ const ResetPasswordForm = ({ resetToken }) => {
   const [forgetPassword, { data, isSuccess, isError, error, isLoading }] =
     useResetPasswordMutation();
   const handleForgetPassword = () => {
-    if (!newPassword.length || !confirmPassword.length) {
+    if (!newPassword?.length || !confirmPassword?.length) {
       return toast.error("Please provide password and confirm password...!!");
     } else if (newPassword !== confirmPassword) {
       return toast.error("Password and confirm password is not matched...!!");
