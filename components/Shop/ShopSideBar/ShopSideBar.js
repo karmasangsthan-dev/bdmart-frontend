@@ -1,7 +1,7 @@
 import { Collapse, Slider } from '@mui/material';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { useGetSubCategoryQuery } from '../../../features/product/productApi';
+import { useGetSingleSubCategoryQuery, useGetSubCategoryQuery } from '../../../features/product/productApi';
 
 const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
   const router = useRouter();
@@ -14,10 +14,14 @@ const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
   // /shop?category=Electronics&subCategory=Mobile%20Phones%20and%20Tablets
 
   const { category, subCategory, childCategory } = router.query;
-  
+
   const { data: subCategoryData, isLoading: subCategoryLoading } =
     useGetSubCategoryQuery(category);
-  console.log(subCategoryData);
+
+  const dataA = 'altaf';
+  const { data: singleSubCategory, isLoading: singleSubCategoryLoading } =
+    useGetSingleSubCategoryQuery(dataA);
+
   useEffect(() => {
     setPriceRange([
       data?.lowestPriceProduct.price,
@@ -117,6 +121,10 @@ const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
     };
   }, []);
 
+  const childCategories = subCategoryData?.data?.subCategories?.find(a => a?.subCategoryTitle === subCategory)?.childCategories;
+
+
+
   return (
     <div className="sticky-content">
       <aside className="sidebar sidebar-shop">
@@ -160,18 +168,18 @@ const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
                   {catOpen && <i className="fa fa-caret-down"></i>}
                 </div>
                 <Collapse in={true}>
-                  {!subCategory && (
+                  {category && !subCategory && (
                     <div id="example-collapse-text">
                       {subCategoryData?.data?.subCategories?.map(
                         (subC, index) => (
                           <>
                             <div className="d-flex align-items-center justify-content-between">
                               <p
-                                // onClick={() =>
-                                //   router.push(
-                                //     `/shop?category=${category}&subCategory=${subC?.title}`
-                                //   )
-                                // }
+                                onClick={() =>
+                                  router.push(
+                                    `/shop?category=${category}&subCategory=${subC?.subCategoryTitle}`
+                                  )
+                                }
                                 className="shop-sub-category-item w-100 me-2"
                                 key={index}
                               >
@@ -180,7 +188,7 @@ const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
 
                               <i class="fa-solid fa-caret-right"></i>
                             </div>
-                            <div className="ms-3  ">
+                            {/* <div className="ms-3  ">
                               {subC?.childCategories?.map((child) => (
                                 <p
                                   onClick={() =>
@@ -195,12 +203,16 @@ const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
                                   {child?.childCategoryTitle}
                                 </p>
                               ))}
-                            </div>
+                            </div> */}
                           </>
                         )
                       )}
                     </div>
                   )}
+
+                  {/* category end here */}
+
+
                   {subCategory && (
                     <div
                       className="d-flex align-items-center justify-content-between"
@@ -220,23 +232,40 @@ const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
                     </div>
                   )}
 
-                  {childCategory && (
-                    <div
-                      className="d-flex align-items-center justify-content-between"
-                      id="example-collapse-text"
+                  <div
+                    className="d-flex  flex-column"
+
+                  >
+
+                    {!childCategory && childCategories?.map((childCategoryData) => {
+                      return (
+                        <p
+                          onClick={() =>
+                            router.push(
+                              `/shop?category=${category}&subCategory=${subCategory}&childCategory=${childCategoryData?.childCategoryTitle}`
+                            )
+                          }
+                          className="ms-4 w-100 me-3 shop-sub-category-item sidebar-content-active"
+                        >
+
+                          {childCategoryData?.childCategoryTitle}
+                        </p>
+                      );
+                    })}
+                    {childCategory && <p
+                      onClick={() =>
+                        router.push(
+                          `/shop?category=${category}&subCategory=${subCategory}&childCategory=${childCategory}`
+                        )
+                      }
+                      className="ms-4 w-100 me-3 shop-sub-category-item sidebar-content-active"
                     >
-                      <p
-                        onClick={() =>
-                          router.push(
-                            `/shop?category=${category}&subCategory=${subCategory}&childCategory=${childCategory}`
-                          )
-                        }
-                        className="ms-4 w-100 me-3 shop-sub-category-item sidebar-content-active"
-                      >
-                        {childCategory}
-                      </p>
-                    </div>
-                  )}
+
+                      {childCategory}
+                    </p>}
+                  </div>
+
+
                 </Collapse>
               </div>
             </Collapse>
@@ -312,9 +341,9 @@ const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
                     ...(filter.price.length
                       ? filter.price
                       : [
-                          data?.lowestPriceProduct?.price,
-                          data?.highestPriceProduct?.price,
-                        ]),
+                        data?.lowestPriceProduct?.price,
+                        data?.highestPriceProduct?.price,
+                      ]),
                   ]}
                   onChange={handlePriceChange}
                   valueLabelDisplay="auto"
@@ -325,9 +354,9 @@ const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
               </div>
             </Collapse>
           </div>
-        </div>
-      </aside>
-    </div>
+        </div >
+      </aside >
+    </div >
   );
 };
 
