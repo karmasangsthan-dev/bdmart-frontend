@@ -22,8 +22,6 @@ const shop = () => {
   const router = useRouter();
   const { locale } = router;
   const t = locale === 'en' ? en : bn;
-  const [params, setParams] = useState();
-  const categoryTextParams = router.query?.category;
 
   const user = useSelector((state) => state.auth.user);
   const [allProducts, setAllProducts] = useState([]);
@@ -34,12 +32,9 @@ const shop = () => {
     priceSort: 0,
   });
 
-  useEffect(() => {
-    setParams(categoryTextParams);
-  }, [router.query?.category]);
-
   const [filter, setFilter] = useState({
     category: '',
+    subCategory: '',
     childCategory: '',
     size: '',
     brand: [],
@@ -68,7 +63,6 @@ const shop = () => {
                 data={data}
                 filter={filter}
                 setFilter={setFilter}
-                params={params}
                 t={t}
               />
             </aside>

@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useGetSubCategoryQuery } from '../../../features/product/productApi';
 
-const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
+const ShopSideBar = ({ data, filter, setFilter, t }) => {
   const router = useRouter();
 
   const [catOpen, setCatOpen] = useState(true);
@@ -16,7 +16,11 @@ const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
   let allCategory = [];
   // /shop?category=Electronics&subCategory=Mobile%20Phones%20and%20Tablets
 
-  const { category, subCategory, childCategory } = router.query;
+  const {
+    category,
+    subcategory: subCategory,
+    childcategory: childCategory,
+  } = router.query;
   const { data: subCategoryData, isLoading: subCategoryLoading } =
     useGetSubCategoryQuery(category);
 
@@ -64,48 +68,46 @@ const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
       onChange(newValue);
     }
   };
-  const handleCategoryName = (e) => {
-    if (!filter.category.includes(e.target.value)) {
-      setFilter({
-        ...filter,
-        category: [...filter.category, e.target.value],
-      });
-    }
 
-    if (filter.category.includes(e.target.value)) {
-      setFilter({
-        ...filter,
-        category: [
-          ...filter.category.filter((name) => name !== e.target.value),
-        ],
-      });
-      router.replace('/shop');
-    }
-  };
   const handleSetSubCategory = (subC) => {
     setChildCategoryOpen(
       childCategoryOpen === subC?.subCategoryTitle ? '' : subC?.subCategoryTitle
     );
 
-    // router.push({
-    //   query: { ...router.query, subCategory: subC?.subCategoryTitle },
-    // });
+    router.push({
+      query: { ...router.query, subcategory: subC?.subCategoryTitle },
+    });
+  };
+  const handleSetChildCategory = (child) => {
+    setFilter({
+      ...filter,
+      childCategory: child?._id,
+    });
+    router.push({
+      query: { ...router.query, childcategory: child?.childCategoryTitle },
+    });
   };
   useEffect(() => {
-    if (params !== '' && typeof params !== 'undefined') {
-      if (!filter.category.includes(params)) {
-        setFilter({
-          ...filter,
-          category: params,
-        });
-      } else {
-        setFilter({
-          ...filter,
-          category: params,
-        });
-      }
+    if (category) {
+      console.log('dukche toh ', category);
+      setFilter({
+        ...filter,
+        category: category,
+      });
     }
-  }, [params]);
+    if (subCategory) {
+      setFilter({
+        ...filter,
+        subCategory: subCategory,
+      });
+    }
+    if (category) {
+      setFilter({
+        ...filter,
+        childCategory: childCategory,
+      });
+    }
+  }, [category, subCategory, childCategory]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -183,7 +185,7 @@ const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
                               >
                                 {subC?.subCategoryTitle}
                               </p>
-                              {console.log(subC)}
+
                               {childCategoryOpen === subC?.subCategoryTitle ? (
                                 <i className="fa fa-caret-down"></i>
                               ) : (
@@ -198,15 +200,11 @@ const ShopSideBar = ({ data, filter, setFilter, params, t }) => {
                                 {subC?.childCategories?.map((child) => (
                                   <p
                                     onClick={() =>
-                                      setFilter({
-                                        ...filter,
-                                        childCategory: child?._id,
-                                      })
+                                      handleSetChildCategory(child)
                                     }
                                     className=" my-1 p-1"
                                     style={{ background: 'whitesmoke' }}
                                   >
-                                    {console.log(subC?.childCategories)}
                                     {child?.childCategoryTitle}
                                   </p>
                                 ))}
