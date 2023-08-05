@@ -79,9 +79,9 @@ const MyOrders = () => {
                                                                 <td className='order-id'><span>#{order?.invoiceId ? order?.invoiceId : 'Not Found'}</span></td>
                                                                 <td className='order-date'><span>{formatDate(order?.createdAt)}</span></td>
 
-                                                                <td className='order-date'><span>{order?.paymentMethod?.split(' ')[0]}</span></td>
+                                                                <td className='order-date'><span>{order?.paymentMethod === 'cashOnDelevery' && 'Cash On Delevery'}</span></td>
                                                                 <td className='order-date'><span>{order?.status}</span></td>
-                                                                <td className='order-date'><span>${totalAmount}</span></td>
+                                                                <td className='order-date '><span>{totalAmount}{" "}{order?.currency}</span></td>
                                                                 <td className='order-date-details'><span onClick={() => router.push(`/order/${order?._id}`)} className='order-details-btn'>Details</span></td>
                                                             </tr>
                                                         )
