@@ -100,11 +100,12 @@ const Order = () => {
                                 </div>
                                 <div>
                                     <img
+                                    style={{marginRight:'-20px'}}
                                         src="https://res.cloudinary.com/dfcztmnvh/image/upload/v1687640964/_images_logo2-removebg-preview_jhkefd.png"
                                         alt="bd-mart"
                                         width={150}
                                     />
-                                    <p>Dhaka, Bangladesh</p>
+                                    <p className="text-end">Dhaka, Bangladesh</p>
                                 </div>
                             </div>
                             <div className="d-flex justify-content-between mt-4 align-items-start">

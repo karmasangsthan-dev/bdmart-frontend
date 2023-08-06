@@ -9,26 +9,6 @@ import { clearCart } from "../features/cart/cartSlice";
 import RequireAuth from "../components/Shared/RequireAuth/RequireAuth";
 import Link from "next/link";
 
-const PaymentMethodRadio = ({ method, isSelected, onChange }) => {
-  const handleChange = (method) => {
-    onChange(method);
-  };
-
-
-  return (
-    <div className="payment-method-radio">
-      <label>
-        <input
-          type="radio"
-          checked={isSelected}
-          onChange={() => handleChange(method)}
-        />
-        <span className="radio-label">{method}</span>
-      </label>
-    </div>
-  );
-};
-
 const checkout = () => {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -44,9 +24,10 @@ const checkout = () => {
   );
 
 
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('cashOnDelevery');
 
-  const handleMethodChange = (method) => {
-    setSelectedMethod(method);
+  const handlePaymentMethodChange = (event) => {
+    setSelectedPaymentMethod(event.target.value);
   };
 
   const calculateTotal = () => {
@@ -54,20 +35,18 @@ const checkout = () => {
     cart?.forEach((cartItem) => {
       const quantity = cartItem?.quantity;
       const product = cartProducts?.find((p) => p?._id === cartItem?.id);
-
       if (product?.price && quantity) {
         total += product.price * quantity;
       }
     });
-    return total * currencyRate?.toFixed(2);
+    return total.toFixed(2);
   };
+
   const handleCouponSubmit = (event) => {
     event.preventDefault();
-    toast.success("Coupon added");
-    const form = event.target;
-    form.reset();
-    form.blur();
-    document.activeElement.blur();
+    const name = event.target.coupon.value;
+    toast.error(`Your coupon was invalid`);
+    
   };
 
   // Combine product data with quantity
@@ -82,40 +61,40 @@ const checkout = () => {
   });
   const handleCreateOrder = (event) => {
     event.preventDefault();
-    if (selectedMethod !== "") {
+    if (selectedPaymentMethod !== "") {
       const firstName = event.target.firstName.value;
       const lastName = event.target.lastName.value;
       const fullName = firstName + " " + lastName;
-      const companyName = event.target.companyName.value;
       const country = event.target.country.value;
       const address = event.target.address.value;
       const city = event.target.city.value;
-      const state = event.target.state.value;
       const postcode = event.target.postcode.value;
       const phone = event.target.phone.value;
       const email = event.target.email.value;
 
       const orderData = {
         name: fullName,
-        companyName,
         country,
         address,
         city,
-        state,
         postcode,
         phone,
         billingEmail: email,
         userEmail: user?.email,
         products: productsWithQuantity,
-        paymentMethod: selectedMethod,
+        paymentMethod: selectedPaymentMethod,
         currency,
         currencyRate
       };
 
       getCreateOrder(orderData);
+
     } else {
       toast.error("Please select a payment method at first");
     }
+
+
+
   };
   useEffect(() => {
     if (isLoading) {
@@ -123,10 +102,10 @@ const checkout = () => {
     }
 
     if (isSuccess) {
-      router.push("/user/my-orders");
       toast.success("Successfully created Order...!!", { id: "createOrder" });
       dispatch(clearCart());
       localStorage.removeItem("cartProducts");
+      router.push("/user/my-orders");
     }
   }, [isLoading, isSuccess, isError]);
 
@@ -140,7 +119,7 @@ const checkout = () => {
           <div className="d-flex checkout-full-content">
             <div className="checkout-left-side">
               <div className="left-content">
-                <form >
+                <form onSubmit={handleCreateOrder}>
                   <div className="form-group">
                     <h2 className="checkout-personal-details">01. Personal Details</h2>
                     <div className="personal-content">
@@ -161,13 +140,21 @@ const checkout = () => {
                       <div className="personal-input">
                         <label htmlFor="">Email address</label>
                         <div className="personal-relative">
-                          <input name="email" className="form-control" type="text" placeholder="youremail@gmail.com" />
+                          <input
+                            readOnly
+                            disabled
+                            name="email"
+                            type="text"
+                            id="email"
+                            className="form-control checkout-email-input"
+                            value={user?.email}
+                          />
                         </div>
                       </div>
                       <div className="personal-input">
                         <label htmlFor="">Phone Number</label>
                         <div className="personal-relative">
-                          <input name="contact" className="form-control" type="tel" placeholder="+062-6532956" />
+                          <input name="phone" className="form-control" type="tel" placeholder="+062-6532956" />
                         </div>
                       </div>
                     </div>
@@ -196,7 +183,7 @@ const checkout = () => {
                       <div className="personal-input-city">
                         <label htmlFor="">ZIP / Postal</label>
                         <div className="personal-relative">
-                          <input name="zipCode" className="form-control" type="text" placeholder="2345" />
+                          <input name="postcode" className="form-control" type="text" placeholder="2345" />
                         </div>
                       </div>
 
@@ -282,7 +269,13 @@ const checkout = () => {
                                 </h6>
                               </div>
 
-                              <input name="shipping-method" type="radio" class="shipping-radio" defaultValue='cashOnDelevery' />
+                              <input
+                                name="shipping-method"
+                                type="radio"
+                                class="shipping-radio"
+                                value="cashOnDelevery"
+                                checked={selectedPaymentMethod === 'cashOnDelevery'}
+                                onChange={handlePaymentMethodChange} />
 
                             </div>
                           </label>
@@ -300,7 +293,14 @@ const checkout = () => {
                                 </h6>
                               </div>
 
-                              <input name="shipping-method" type="radio" class="shipping-radio" defaultValue='creditCard' />
+                              <input
+                                name="shipping-method"
+                                type="radio"
+                                class="shipping-radio"
+                                value="creditCard"
+                                checked={selectedPaymentMethod === 'creditCard'}
+                                onChange={handlePaymentMethodChange}
+                              />
 
                             </div>
                           </label>
@@ -385,31 +385,23 @@ const checkout = () => {
             <div className="checkout-right-side">
               <div className="order-summery-container">
                 <h2 className="order-summery-title">Order Summary</h2>
-                <div className="order-items-container">
-                  <div className="order-items">
-                    <span className="flex justify-center my-auto text-gray-500 font-semibold text-4xl">
-                      <svg
-                        stroke="currentColor"
-                        fill="currentColor"
-                        strokeWidth={0}
-                        viewBox="0 0 512 512"
-                        height="1em"
-                        width="1em"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path d="M454.65 169.4A31.82 31.82 0 00432 160h-64v-16a112 112 0 00-224 0v16H80a32 32 0 00-32 32v216c0 39 33 72 72 72h272a72.22 72.22 0 0050.48-20.55 69.48 69.48 0 0021.52-50.2V192a31.75 31.75 0 00-9.35-22.6zM176 144a80 80 0 01160 0v16H176zm192 96a112 112 0 01-224 0v-16a16 16 0 0132 0v16a80 80 0 00160 0v-16a16 16 0 0132 0z" />
-                      </svg>
-                    </span>
-                    <h2 className="no-items-text">
-                      No Item Added Yet!
-                    </h2>
-                  </div>
+
+                <div className="order-product-container">
+                  {
+                    cartProducts?.map((product, i) => {
+                      return (
+                        <CheckoutCartItem key={i}
+                          product={product} ></CheckoutCartItem>
+                      )
+                    })
+                  }
                 </div>
 
                 <div className="coupon-container">
-                  <form className="w-100">
+                  <form onSubmit={handleCouponSubmit} className="w-100">
                     <div className="coupon-content">
                       <input
+                        name="coupon"
                         type="text"
                         placeholder="Input your coupon code"
                         className="form-control"
@@ -424,13 +416,13 @@ const checkout = () => {
 
                 <div className="checkout-subtotal">
                   Subtotal
-                  <span className="">$0.00</span>
+                  <span className="">{calculateTotal()}{" "}{currency}</span>
                 </div>
 
                 <div className="checkout-subtotal">
                   Shipping Cost
                   <span className="">
-                    $20.00
+                    20.00{" "}{currency}
                   </span>
                 </div>
                 <div className="checkout-subtotal-discount">
@@ -439,10 +431,13 @@ const checkout = () => {
                     $0.00
                   </span>
                 </div>
-                <div className="border-t mt-4">
-                  <div className="flex items-center font-bold font-serif justify-between pt-5 text-sm uppercase">
+                <div className=" mt-4" style={{ borderTopWidth: '1px', borderColor: "#e5e7eb", borderTopStyle: 'solid' }}>
+                  <div style={{
+                    fontWeight: '700', fontSize: ".875rem",
+                    lineHeight: "1.25rem"
+                  }} className="d-flex align-items-center font-serif justify-content-between pt-4 text-sm uppercase">
                     TOTAL COST
-                    <span className="font-serif font-extrabold text-lg">$20.00</span>
+                    <span className="font-serif font-extrabold text-lg">{(Number(calculateTotal()) + 20.00).toFixed(2)}</span>
                   </div>
                 </div>
               </div>
