@@ -9,6 +9,7 @@ import {
   useGetCurrencyQuery,
   useUpdateCurrencyMutation,
 } from "../../../features/currency/currencyApi";
+import ContactHeaderLogOut from "./ContactHeaderLogOut";
 
 require("dotenv").config();
 export default function ContactHeader({ user }) {
@@ -64,172 +65,78 @@ export default function ContactHeader({ user }) {
     }
   }, [data?.data, success]);
 
-  
+
 
   return (
     <>
-      <div className="strip-1 ">
-        <div className="contact-area">
-          <div className="phone">
-            <i className="fas fa-phone-alt"></i>
-            <p>012345678</p>
-          </div>
-          <div className="email">
-            <i className="far fa-envelope"></i>
-            <p>contact@bangladeshmart.com.bd</p>
-          </div>
-        </div>
-        <div className="user-area">
-          <div className="language-selector">
-            <Dropdown show={showDropdown} onToggle={setShowDropdown}>
-              <Dropdown.Toggle
-                className="btn border-0"
-                variant="transparent"
-                id="dropdown-button"
+      <div className="contact-header">
+        <div className="content-header">
+          <div className="content-hd">
+            <span className="wrapper-hd">
+              <svg
+
+                stroke="currentColor"
+                fill="none"
+                strokeWidth={2}
+                viewBox="0 0 24 24"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="me-2"
+                height="1em"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <img
-                  className="flag-img mx-auto"
-                  src={shipTo?.flags?.png || "/images/flag.png"}
-                  alt="country"
-                  width={18}
-                  height={14}
-                  loading="eager"
-                />
-                <span>
-                  /{locale === "en" && "English"}
-                  {locale === "bn" && "বাংলা"}/{code || "Currency"}
+                <path d="M15.05 5A5 5 0 0 1 19 8.95M15.05 1A9 9 0 0 1 23 8.94m-1 7.98v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+              </svg>
+              We are available 24/7, Need help? Call Us :
+              <a href="tel:+012345609" className="contact-tel">
+                +01234560352
+              </a>
+            </span>
+            <div className="contact-right-part">
+              <a className="font-medium hover:text-emerald-600" href="/about-us">
+                {" "}
+                About Us
+              </a>
+              <span className="mx-2">|</span>
+              <Link className="font-medium hover:text-emerald-600" href="/contact">
+                {" "}
+                Contact Us
+              </Link>
+              <span className="mx-2">|</span>
+              <button onClick={() => router.push('/user/dashboard')} className="font-medium hover:text-emerald-600">
+                My account
+              </button>
+              <span className="mx-2">|</span>
+              {!user?.email && <button onClick={() => router.push({
+                pathname: "/signin",
+                query: { redirect: router.asPath },
+              })} className="d-flex align-items-center ">
+                <span className="me-1 d-flex align-items-center">
+                  <svg
+                    stroke="currentColor"
+                    fill="none"
+                    strokeWidth={2}
+                    viewBox="0 0 24 24"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    height="1em"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx={12} cy={7} r={4} />
+                  </svg>
                 </span>
-              </Dropdown.Toggle>
+                Login
+              </button>}
 
-              <Dropdown.Menu
-                style={{ zIndex: "99999" }}
-                className="dropdown-menu"
-                id="myDD"
-              >
-                <Form onSubmit={handleChange}>
-                  <li>
-                    <span className="ship-text">Ship to</span>
-                    <div className="drop-down" style={{ padding: "5px 0" }}>
-                      <button
-                        className="btn border-0 dropdown-toggle"
-                        type="button"
-                        onClick={handleToggle}
-                      >
-                        {shipTo ? (
-                          <>
-                            <img
-                              className="flag-img"
-                              src={shipTo?.flags?.png}
-                              alt={shipTo?.name?.common}
-                              width={18}
-                              height={14}
-                              loading="eager"
-                            />
-                            {shipTo?.name?.common}
-                          </>
-                        ) : (
-                          <span>Select Country</span>
-                        )}
-                      </button>
-
-                      {isOpen && (
-                        <ul className="dropdown-menu show country-ul-header">
-                          {countriesData?.map((country,index) => (
-                            <li
-                              className="header-shipping-country-name px-2"
-                              key={index}
-                              onClick={() => handleCountrySelect(country)}
-                            >
-                              <img
-                                className="flag-icon"
-                                src={country.flags.png}
-                                alt={country.name.common}
-                                style={{
-                                  width: "20px",
-                                  marginRight: "10px",
-                                }}
-                              />
-                              {country.name.common}
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </div>
-                  </li>
-                  <li>
-                    <span className="ship-text">Language</span>
-                    <div className="drop-down">
-                      <select
-                        className="text-capitalize border-0"
-                        id=""
-                        name="locale"
-                        defaultValue={locale}
-                      >
-                        {locales.map((local) => (
-                          <option
-                            key={local}
-                            className="text-capitalize"
-                            value={local}
-                          >
-                            {local === "en" && "English"}
-                            {local === "bn" && "বাংলা"}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </li>
-                  <li>
-                    <span className="ship-text">Currency</span>
-                    <div className="drop-down">
-                      <select className="English text-center" name="currency">
-                        <option value="USD">Select Currency</option>
-                        {data?.data?.map((curr) => (
-                          <option
-                            key={curr.code}
-                            value={curr.code}
-                            selected={code === curr.code}
-                          >
-                            {curr.code}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </li>
-                  <Button type="submit" className="btn save btn-danger">
-                    Save
-                  </Button>
-                </Form>
-              </Dropdown.Menu>
-            </Dropdown>
-          </div>
-          <div className="user-sign ">
-            <div className="sign-icons ">
-              {!user?.providerId && (
-                <div>
-                  <Link href="/signin" prefetch={false}>
-                    <i className="fas fa-user"></i>
-                    <span className="sign-text "> &nbsp; Sign in &nbsp;</span>
-                  </Link>{" "}
-                  | &nbsp;
-                  <Link href="/signup">
-                    <i className="fas fa-user-plus"></i>
-                    <span className="sign-text">&nbsp; Sign up &nbsp;</span>
-                  </Link>
-                </div>
-              )}
-
-              {user?.providerId && (
-                <div className="d-flex ">
-                  <p className="text-warning px-2 rounded-2 text-capitalize ">
-                    {user?.fullName}
-                  </p>
-                </div>
-              )}
+              {user?.email &&  <ContactHeaderLogOut></ContactHeaderLogOut>}
             </div>
-            <div></div>
           </div>
         </div>
       </div>
+
     </>
   );
 }

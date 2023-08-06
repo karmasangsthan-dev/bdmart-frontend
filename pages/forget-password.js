@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import ForgetPassword from "../components/Shared/Login/ForgetPassword";
-import ResetEmailSent from "../components/Shared/Login/resetEmailSent";
+import ResetEmailSent from "../components/Shared/Login/ResetEmailSent";
 import { MdOutlineMarkEmailRead } from "react-icons/md";
 
 const ForgetUserPassword = () => {

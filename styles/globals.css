@@ -1,8 +1,10 @@
 @import url("https://fonts.googleapis.com/css?family=Kaushan+Script|Montserrat:400,700|Roboto:300i,400&display=swap");
-
+@import './variable.css';
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
 
 /*google fonts*/
+
+
 
 /*=============
 common css start
@@ -21,7 +23,9 @@ body {
   margin: 0;
   padding: 0;
   overflow-y: scroll;
+  scroll-behavior: smooth;
 }
+
 
 .d-lg-none {
   display: none !important;
@@ -86,10 +90,24 @@ buttton:focus {
 .forget-margin {
   min-height: calc(100vh - 158px);
 }
-.seller-login-container{
-  background: url('../public/images/seller-banner.png');
+
+.seller-login-container {
+  background: url('https://res.cloudinary.com/dfcztmnvh/image/upload/v1690799160/seller-banner_imsmf3.png');
 }
 
+.form-control {
+  outline: none !important;
+  box-shadow: none !important;
+
+}
+
+.form-control:focus {
+  border-color: rgb(16 185 129/1) !important;
+}
+
+.form-control-red:focus {
+  border-color: red !important;
+}
 
 @media (max-width: 1094px) {}
 
@@ -357,8 +375,6 @@ CoMmOn CsS EnD
 
 .flag-img {
   /* width: 18px; */
-  margin-top: -3px;
-  margin-right: 3px;
   /* height: 14px; */
 }
 
@@ -502,15 +518,12 @@ a .sign-text {
 
 .strip-2 {
   transition: all 0.4s ease;
-
-  margin-top: 7px;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   flex-direction: row;
 }
 
 .strip-2-mar {
-  margin-top: 7px !important;
   transition: all 0.4s ease;
 }
 
@@ -523,7 +536,7 @@ a .sign-text {
 form.example input[type="text"] {
   padding: 10px;
   font-size: 15px;
-  border: 2px solid #faa72c;
+  border: 2px solid var(--primary-color);
   float: left;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
@@ -547,7 +560,7 @@ form.example button {
   width: 10%;
   padding: 12px;
   outline: none;
-  background: #faa72c;
+  background:var(--primary-color);
   color: white;
   font-size: 17px;
   border: none;
@@ -557,7 +570,7 @@ form.example button {
 }
 
 form.example button:hover {
-  background: #faa72c;
+  background: var(--primary-color);
 }
 
 /* Clear floats */
@@ -777,7 +790,6 @@ Nav Bar End
 
 .sec_nav {
   position: relative;
-  margin-top: -10px;
   transition: all 0.3s ease;
 }
 
@@ -812,7 +824,6 @@ Nav Bar End
 .dropdown {
   position: relative;
   display: inline-block;
-  float: left;
 }
 
 .dropdown-content {
@@ -869,7 +880,7 @@ MGA CONTENT NAV
   position: absolute;
   z-index: 9999;
   background: #fff;
-  top: 56px;
+  top: 31px;
   width: 314px;
   border-top: 3px solid #faa72c !important;
   border: 1px solid #faa72c;
@@ -1029,7 +1040,7 @@ MGA CONTENT NAV
   width: 890px;
   margin-left: 292px;
   z-index: 999;
-  top: -61px;
+  top: -58px;
   left: 0;
   background: #fff;
 }
@@ -1050,7 +1061,7 @@ MGA CONTENT NAV
   width: 890px;
   margin-left: 292px;
   z-index: 999;
-  top: -105px;
+  top: -99px;
   left: 0;
   background: #fff;
 }
@@ -1065,7 +1076,7 @@ MGA CONTENT NAV
   width: 890px;
   margin-left: 292px;
   z-index: 999;
-  top: -149px;
+  top: -140px;
   left: 0;
   background: #fff;
 }
@@ -1075,7 +1086,7 @@ MGA CONTENT NAV
   width: 890px;
   margin-left: 292px;
   z-index: 999;
-  top: -193px;
+  top: -181px;
   left: 0;
   background: #fff;
 }
@@ -1085,7 +1096,7 @@ MGA CONTENT NAV
   width: 890px;
   margin-left: 292px;
   z-index: 999;
-  top: -237px;
+  top: -222px;
   left: 0;
   background: #fff;
 }
@@ -1095,14 +1106,15 @@ MGA CONTENT NAV
   position: absolute;
   margin-left: 292px;
   z-index: 999;
-  top: -281px;
+  top: -263px;
   left: 0;
   background: #fff;
 }
 
 .frombar {
-  padding: 12px;
-  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  padding: 5px;
   margin-left: 11px;
 }
 

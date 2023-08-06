@@ -134,6 +134,34 @@ const productNo = () => {
 
     dispatch(addToCart({ id: product?._id }));
   };
+
+  const productBuyNow = (product) => {
+
+    const cartProducts = localStorage.getItem("cartProducts");
+    if (cartProducts) {
+      const cart = JSON.parse(localStorage.getItem("cartProducts"));
+      const index = cart?.findIndex(
+        (cartProduct) => cartProduct?.id === product?._id
+      );
+      if (index !== -1) {
+        cart[index].quantity += 1;
+        toast.success("Updated Quantity", { id: "addToCart" });
+      } else {
+        cart.push({ id: product?._id, quantity: 1 });
+        toast.success("Added to cart", { id: "addToCart" });
+      }
+      localStorage.setItem("cartProducts", JSON.stringify(cart));
+    }
+    if (!cartProducts) {
+      const cart = [{ id: product?._id, quantity: 1 }];
+      localStorage.setItem("cartProducts", JSON.stringify(cart));
+      toast.success("Added to cart", { id: "addToCart" });
+    }
+
+    dispatch(addToCart({ id: product?._id }));
+
+    router.push('/checkout');
+  };
   const scrollToReviews = () => {
     const productReviewSection = document.getElementById(
       "productReviewSection"
@@ -178,14 +206,14 @@ const productNo = () => {
 
   return (
     <Layout title={`${product?.title ? product?.title : ""} Bangladesh Mart`}>
-      <main className="mainnnnn" style={{background: '#eff0f5'}}>
+      <main className="mainnnnn" style={{ background: '#eff0f5' }}>
         {data?.status && (
           <div
             style={{ minHeight: "120vh", maxWidth: "1200px" }}
             className="container "
           >
             <div
-            
+
               style={{ marginTop: "-15px", marginBottom: "5px" }}
               role="presentation"
               onClick={handleClick}
@@ -246,7 +274,7 @@ const productNo = () => {
                       readOnly
                     />
                   </div>
-                  <div onClick={scrollToReviews} className="">( <span className="ratings-texts">{product?.reviews.length} Reviews</span> )</div>
+                  <div onClick={scrollToReviews} className="">( <span className="ratings-texts">{product?.reviews?.length} Reviews</span> )</div>
                 </div>
                 <div>
                   <h4 className="my-2">
@@ -346,7 +374,7 @@ const productNo = () => {
 
                     )}
                     <button
-
+                      onClick={() => productBuyNow(product)}
                       style={{ height: "38px" }}
                       className="desktop-buy-now-button"
                     >

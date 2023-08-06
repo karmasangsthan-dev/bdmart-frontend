@@ -14,12 +14,11 @@ export const en = {
       searchTitle: "What you are looking for ? ",
       megaMenuTitle: "Departments",
       nav: [
-        { title: "Home", link: "/" },
-        { title: "Become a seller", link: "/seller" },
-        { title: "Your Order", link: "/profile/my-orders" },
-        { title: "Submit RFQ", link: "/submit-rfq" },
-        { title: "My Account", link: "/user/dashboard" },
+        { title: "About Us", link: "/about-us" },
         { title: "Contact Us", link: "/contact" },
+        { title: "Your Order", link: "/user/my-orders" },
+        { title: "Submit RFQ", link: "/submit-rfq" },
+        { title: "Seller Dashboard", link: "/seller/dashboard" },
       ],
     },
     bestSelling: {

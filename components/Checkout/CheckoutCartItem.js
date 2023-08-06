@@ -3,23 +3,42 @@ import { useSelector } from "react-redux";
 
 const CheckoutCartItem = ({ product }) => {
   const { cart } = useSelector((state) => state?.cart);
+  const { cartProducts } = useSelector((state) => state?.cart);
   const { code: currency, rate: currencyRate } = useSelector(
     (state) => state.currency
   );
 
   const rowProduct = cart?.find((item) => item.id == product?._id);
   return (
-    <>
-      <li className="list-group-item d-flex justify-content-between lh-condensed">
-        <div>
-          <h6 className="my-0 text-capitalize">{product?.title} </h6>
-          <small className="text-muted">Description</small>
+    <div className="main-product-div">
+      <div className="checkout-product">
+        <img
+          src={product?.thumbnail}
+          width={40}
+          height={40}
+          alt={product?.title}
+        />
+      </div>
+      <div className="checkout-product-content">
+        <a
+          className="checkout-product-link-button"
+          href="/product/undefined"
+        >
+          {product?.title}
+        </a>
+        <div className="d-flex justify-content-between">
+          <p className="checkout-product-price">Item Price {(product?.price * currencyRate).toFixed(2)}{" "}{currency} </p>
+          <p className="checkout-product-price " style={{color:'black',fontWeight:'bold'}}>x {rowProduct?.quantity}</p>
         </div>
-        <span className="text-muted">
-          {product?.price * currencyRate?.toFixed(2) * rowProduct?.quantity} {currency}
-        </span>
-      </li>
-    </>
+
+
+        <div className="d-flex align-items-center justify-content-between">
+          <div className="main-price">
+            <span>{rowProduct?.quantity * (product?.price * currencyRate).toFixed(2)}{" "}{currency}</span>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

@@ -14,12 +14,10 @@ export const bn = {
       searchTitle: "আপনি কি খুঁজছেন ?",
       megaMenuTitle: "বিভাগসমূহ",
       nav: [
-        { title: "হোম", link: "/" },
-        { title: "বিক্রেতা হন", link: "/seller" },
-        { title: "আপনার অর্ডার ট্র্যাক", link: "/profile/my-orders" },
-        { title: "আরএফকিউ জমা দিন", link: "/submit-rfq" },
-        { title: "আমার অ্যাকাউন্ট", link: "/user/dashboard" },
+        { title: "আমাদের সম্পরকে", link: "/about-us" },
         { title: "যোগাযোগ করুন", link: "/contact" },
+        { title: "আপনার অর্ডার ট্র্যাক", link: "/user/my-orders" },
+        { title: "আরএফকিউ জমা দিন", link: "/submit-rfq" },
       ],
     },
     bestSelling: {

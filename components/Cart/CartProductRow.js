@@ -79,7 +79,7 @@ export default function CartProductRow({ product }) {
             onClick={() => router.push(`/productDetails/${product._id}`)}
             className="product-title cart-product-title mb-0 ms-3"
           >
-            {product?.title.length > 30
+            {product?.title?.length > 30
               ? `${product?.title.slice(0, 35)}...`
               : product?.title}
           </p>
