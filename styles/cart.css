@@ -1,3 +1,62 @@
+.cart-flot-container{
+    position: absolute;
+}
+.cart-flot-container .cart-content{
+    
+    --tw-shadow: 0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -4px rgba(0,0,0,.1);
+    --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color),0 4px 6px -4px var(--tw-shadow-color);
+
+    box-shadow: 0 0 #0000,0 0 #0000,0 0 #0000,0 0 #0000,0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -4px rgba(0,0,0,.1);
+    display: block;
+    cursor: pointer;
+    float: right;
+    z-index: 30;
+    bottom: 50%;
+    top: 50%;
+    right: 0;
+    position: fixed;
+}
+.cart-content .first-content{
+    color: rgb(55 65 81/1);
+    padding: 0.5rem;
+    background-color: rgb(238 242 255/1);
+    border-top-left-radius: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    display: flex;
+}
+.first-content .item-number{
+    color:rgb(4 120 87/1);
+    font-size: 1.5rem;
+    line-height: 2rem;
+    margin-bottom: 0.25rem;
+}
+.first-content .item-number-text{
+    font-weight: 500;
+    font-size: .875rem;
+    line-height: 1.25rem;
+    font-family: Inter,sans-serif;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+.cart-content .second-content{
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    display: flex;
+    color: rgb(255 255 255/1);
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-family: Inter,sans-serif;
+    padding: 0.5rem;
+    background-color:rgb(4 120 87/1);
+    border-bottom-left-radius: 0.5rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .btn-remove-cart {
     color: #ccc;
     background-color: transparent;

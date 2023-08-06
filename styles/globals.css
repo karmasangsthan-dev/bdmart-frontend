@@ -109,6 +109,15 @@ buttton:focus {
   border-color: red !important;
 }
 
+.language-selector-save{
+  display: block;
+  background-color: var(--primary-color);
+  width: 93%;
+  margin:0 10px;
+  border: none;
+  padding: 5px;
+}
+
 @media (max-width: 1094px) {}
 
 /*==========================================

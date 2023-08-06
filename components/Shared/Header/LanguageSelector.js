@@ -175,9 +175,11 @@ const LanguageSelector = () => {
                                 </select>
                             </div>
                         </li>
-                        <Button type="submit" className="btn save btn-danger">
-                            Save
-                        </Button>
+                        <li className='' >
+                            <button type="submit" className=" language-selector-save">
+                                Save
+                            </button>
+                        </li>
                     </Form>
                 </Dropdown.Menu>
             </Dropdown>
