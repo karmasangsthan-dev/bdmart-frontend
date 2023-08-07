@@ -13,6 +13,7 @@ import { bn } from "../locales/bn";
 import axios from "axios";
 import FixedBottomNavigation from "../components/Shared/Header/MobileBottomNav";
 import MobileBottomNav from "../components/Shared/Header/MobileBottomNav";
+import CartFlottingButton from "../components/Cart/CartFlottingButton";
 
 export default function Home({ data }) {
   const { locale } = useRouter();
@@ -21,6 +22,7 @@ export default function Home({ data }) {
   return (
     <Layout>
       <Banner />
+      <CartFlottingButton></CartFlottingButton>
       <LandingImage />
       <BestSelling t={t} />
       <ShopDepartments t={t} />
