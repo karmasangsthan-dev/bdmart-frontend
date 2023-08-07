@@ -55,7 +55,7 @@ const shop = () => {
 
   return (
     <Layout title="Shop - Bangladesh Mart">
-      <div style={{minHeight:'120vh'}} className="shop page-content">
+      <div style={{ minHeight: '120vh' }} className="shop page-content">
         <div className="ps-4 ms-2 pe-3">
           <div className="row ">
             <aside className="col-lg-2 order-lg-first">

@@ -24,9 +24,9 @@ const ShopSideBar = ({ data, filter, setFilter, t }) => {
   const { data: subCategoryData, isLoading: subCategoryLoading } =
     useGetSubCategoryQuery(category);
 
-  const dataA = 'altaf';
-  const { data: singleSubCategory, isLoading: singleSubCategoryLoading } =
-    useGetSingleSubCategoryQuery(dataA);
+  // const dataA = 'altaf';
+  // const { data: singleSubCategory, isLoading: singleSubCategoryLoading } =
+  //   useGetSingleSubCategoryQuery(dataA);
 
   useEffect(() => {
     setPriceRange([
@@ -77,42 +77,34 @@ const ShopSideBar = ({ data, filter, setFilter, t }) => {
     setChildCategoryOpen(
       childCategoryOpen === subC?.subCategoryTitle ? '' : subC?.subCategoryTitle
     );
-
-    router.push({
-      query: { ...router.query, subcategory: subC?.subCategoryTitle },
-    });
-  };
-  const handleSetChildCategory = (child) => {
     setFilter({
       ...filter,
-      childCategory: child?._id,
+      subCategory: subC?.subCategoryTitle,
+      childCategory: '',
     });
-    router.push({
-      query: { ...router.query, childcategory: child?.childCategoryTitle },
-    });
+    router.push(
+      `/shop?category=${category}&subCategory=${subC?.subCategoryTitle}`
+    );
   };
-  useEffect(() => {
-    if (category) {
-      console.log('dukche toh ', category);
-      setFilter({
-        ...filter,
-        category: category,
-      });
-    }
-    if (subCategory) {
-      setFilter({
-        ...filter,
-        subCategory: subCategory,
-      });
-    }
-    if (category) {
-      setFilter({
-        ...filter,
-        childCategory: childCategory,
-      });
-    }
-  }, [category, subCategory, childCategory]);
 
+  const handleSetChildCategory = (childCategoryData) => {
+    setFilter({
+      ...filter,
+      childCategory: childCategoryData?.childCategoryTitle,
+    });
+    router.push(
+      `/shop?category=${category}&subCategory=${subCategory}&childCategory=${childCategoryData?.childCategoryTitle}`
+    );
+  };
+  console.log({ category, subCategory, childCategory });
+  useEffect(() => {
+    setFilter((prevFilter) => ({
+      ...prevFilter,
+      category: category ? category : '',
+      subCategory: subCategory ? subCategory : '',
+      childCategory: childCategory ? childCategory : '',
+    }));
+  }, [category, subCategory, childCategory]);
   useEffect(() => {
     const handleResize = () => {
       const deviceWidth = window.innerWidth;
@@ -145,7 +137,7 @@ const ShopSideBar = ({ data, filter, setFilter, t }) => {
             <p className="fw-bold">{t.shopPage.sideNav.filterTitle}:</p>
             <p
               onClick={() =>
-                setFilter({ category: [], size: '', brand: [], price: [] })
+                setFilter({ category: '', size: '', brand: [], price: [] })
               }
               className="text-danger px-2 rounded fw-bold"
               style={{ cursor: 'pointer' }}
@@ -187,11 +179,7 @@ const ShopSideBar = ({ data, filter, setFilter, t }) => {
                           <div key={index}>
                             <div className="d-flex align-items-center justify-content-between">
                               <p
-                                onClick={() =>
-                                  router.push(
-                                    `/shop?category=${category}&subCategory=${subC?.subCategoryTitle}`
-                                  )
-                                }
+                                onClick={() => handleSetSubCategory(subC)}
                                 className="shop-sub-category-item w-100 me-2"
                                 key={index}
                               >
@@ -204,22 +192,6 @@ const ShopSideBar = ({ data, filter, setFilter, t }) => {
                                 <i class="fa-solid fa-caret-right"></i>
                               )}
                             </div>
-                            {/* <div className="ms-3  ">
-                              {subC?.childCategories?.map((child) => (
-                                <p
-                                  onClick={() =>
-                                    setFilter({
-                                      ...filter,
-                                      childCategory: child?._id,
-                                    })
-                                  }
-                                  className=" my-1 p-1"
-                                  style={{ background: 'whitesmoke' }}
-                                >
-                                  {child?.childCategoryTitle}
-                                </p>
-                              ))}
-                            </div> */}
                           </div>
                         )
                       )}
@@ -253,9 +225,7 @@ const ShopSideBar = ({ data, filter, setFilter, t }) => {
                         return (
                           <p
                             onClick={() =>
-                              router.push(
-                                `/shop?category=${category}&subCategory=${subCategory}&childCategory=${childCategoryData?.childCategoryTitle}`
-                              )
+                              handleSetChildCategory(childCategoryData)
                             }
                             className="ms-4 w-100 me-3 shop-sub-category-item sidebar-content-active"
                           >
