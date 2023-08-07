@@ -1,13 +1,13 @@
-import { Collapse, Rating } from "@mui/material";
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
-import { toast } from "react-hot-toast";
-import Slider from "react-slick";
-import { useAddToCartMutation } from "../../features/auth/authApi";
-import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../../features/cart/cartSlice";
+import { Collapse, Rating } from '@mui/material';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
+import Slider from 'react-slick';
+import { useAddToCartMutation } from '../../features/auth/authApi';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart } from '../../features/cart/cartSlice';
 
 export default function ShopProduct({ product }) {
   const { code: currency, rate: currencyRate } = useSelector(
@@ -53,35 +53,35 @@ export default function ShopProduct({ product }) {
 
     //   ----------------------------------------------------------
 
-    const cartProducts = localStorage.getItem("cartProducts");
+    const cartProducts = localStorage.getItem('cartProducts');
     if (cartProducts) {
-      const cart = JSON.parse(localStorage.getItem("cartProducts"));
+      const cart = JSON.parse(localStorage.getItem('cartProducts'));
       const index = cart?.findIndex(
         (cartProduct) => cartProduct?.id === product?._id
       );
       if (index !== -1) {
         cart[index].quantity += 1;
-        toast.success("Updated Quantity", { id: "addToCart" });
+        toast.success('Updated Quantity', { id: 'addToCart' });
       } else {
-        cart.push({ id: product?._id, quantity: 1 });
-        toast.success("Added to cart", { id: "addToCart" });
+        cart.push({ id: product?._id, quantity: 1, price: product?.price });
+        toast.success('Added to cart', { id: 'addToCart' });
       }
-      localStorage.setItem("cartProducts", JSON.stringify(cart));
+      localStorage.setItem('cartProducts', JSON.stringify(cart));
     }
     if (!cartProducts) {
-      const cart = [{ id: product?._id, quantity: 1 }];
-      localStorage.setItem("cartProducts", JSON.stringify(cart));
-      toast.success("Added to cart", { id: "addToCart" });
+      const cart = [{ id: product?._id, quantity: 1, price: product?.price }];
+      localStorage.setItem('cartProducts', JSON.stringify(cart));
+      toast.success('Added to cart', { id: 'addToCart' });
     }
 
-    dispatch(addToCart({ id: product?._id }));
+    dispatch(addToCart({ id: product?._id, price: product?.price }));
   };
   // useEffect(() => {
   //   if (isLoading) {
   //     toast.loading("Loading...", { id: "addToCart" });
   //   }
   //   if (isSuccess) {
-  //     dispatch(addToCart(cartProduct));
+  //     dispatch(addToCart(cartProduct));s
   //     toast.success("Added to cart", { id: "addToCart" });
   //   }
   // }, [isSuccess, isLoading]);
@@ -93,14 +93,14 @@ export default function ShopProduct({ product }) {
           <img
             onClick={() => router.push(`/productDetails/${product._id}`)}
             className="border"
-            style={{ width: "100%", height: "100%" }}
+            style={{ width: '100%', height: '100%' }}
             src={product?.thumbnail}
             alt=""
           />
         </div>
         <p
           onClick={() => router.push(`/productDetails/${product._id}`)}
-          style={{ minHeight: "42px", cursor: "pointer" }}
+          style={{ minHeight: '42px', cursor: 'pointer' }}
           className="item-name mt-2 mb-0 text-capitalize"
         >
           {product?.title?.length > 30
@@ -123,12 +123,12 @@ export default function ShopProduct({ product }) {
         </div>
         <div className="d-flex align-items-center">
           <Rating
-            style={{ fontSize: "15px", marginLeft: "-3px" }}
+            style={{ fontSize: '15px', marginLeft: '-3px' }}
             name="read-only"
             value={parseInt(product?.rating || 5)}
             readOnly
           />
-          <p className="mb-0 ms-1" style={{ fontSize: "13px" }}>
+          <p className="mb-0 ms-1" style={{ fontSize: '13px' }}>
             ({parseInt(product?.rating || 5)})
           </p>
         </div>
