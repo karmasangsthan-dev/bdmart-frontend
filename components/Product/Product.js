@@ -1,15 +1,21 @@
-import Image from "next/image";
-import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
-import { toast } from "react-hot-toast";
-import { useDispatch, useSelector } from "react-redux";
-import { useAddToCartMutation } from "../../features/auth/authApi";
-import { addToCart } from "../../features/cart/cartSlice";
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { useDispatch, useSelector } from 'react-redux';
+import { useAddToCartMutation } from '../../features/auth/authApi';
+import {
+  addToCart,
+  setCartProductsLocally,
+} from '../../features/cart/cartSlice';
 
 export default function Product({ product }) {
   // const [token, setToken] = useState();
   // const [cartProduct, setCartProduct] = useState({});
   const dispatch = useDispatch();
+  const { cartProducts: cartProductsLocally } = useSelector(
+    (state) => state.cart
+  );
   // const user = useSelector((state) => state.auth?.user);
   const router = useRouter();
   // useEffect(() => {
@@ -38,29 +44,29 @@ export default function Product({ product }) {
     //   }
 
     //   ----------------------------------------------------------
-
-    const cartProducts = localStorage.getItem("cartProducts");
+    console.log(product);
+    const cartProducts = localStorage.getItem('cartProducts');
     if (cartProducts) {
-      const cart = JSON.parse(localStorage.getItem("cartProducts"));
+      const cart = JSON.parse(localStorage.getItem('cartProducts'));
       const index = cart?.findIndex(
         (cartProduct) => cartProduct?.id === product?._id
       );
       if (index !== -1) {
         cart[index].quantity += 1;
-        toast.success("Updated Quantity", { id: "addToCart" });
+        toast.success('Updated Quantity', { id: 'addToCart' });
       } else {
-        cart.push({ id: product?._id, quantity: 1 });
-        toast.success("Added to cart", { id: "addToCart" });
+        cart.push({ id: product?._id, quantity: 1, price: product?.price });
+        toast.success('Added to cart', { id: 'addToCart' });
       }
-      localStorage.setItem("cartProducts", JSON.stringify(cart));
+      localStorage.setItem('cartProducts', JSON.stringify(cart));
     }
     if (!cartProducts) {
-      const cart = [{ id: product?._id, quantity: 1 }];
-      localStorage.setItem("cartProducts", JSON.stringify(cart));
-      toast.success("Added to cart", { id: "addToCart" });
+      const cart = [{ id: product?._id, quantity: 1, price: product?.price }];
+      localStorage.setItem('cartProducts', JSON.stringify(cart));
+      toast.success('Added to cart', { id: 'addToCart' });
     }
 
-    dispatch(addToCart({ id: product?._id }));
+    dispatch(addToCart({ id: product?._id, price: product?.price }));
   };
   // useEffect(() => {
   //   if (isLoading) {

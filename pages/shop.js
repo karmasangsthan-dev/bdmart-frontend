@@ -22,8 +22,6 @@ const shop = () => {
   const router = useRouter();
   const { locale } = router;
   const t = locale === 'en' ? en : bn;
-  const [params, setParams] = useState();
-  const categoryTextParams = router.query?.category;
 
   const user = useSelector((state) => state.auth.user);
   const [allProducts, setAllProducts] = useState([]);
@@ -34,18 +32,15 @@ const shop = () => {
     priceSort: 0,
   });
 
-  useEffect(() => {
-    setParams(categoryTextParams);
-  }, [router.query?.category]);
-
   const [filter, setFilter] = useState({
     category: '',
+    subCategory: '',
     childCategory: '',
     size: '',
     brand: [],
     price: [],
   });
-
+  console.log(filter);
   const { data, isLoading } = useGetAllProductsQuery({
     perPage: page,
   });
@@ -60,7 +55,7 @@ const shop = () => {
 
   return (
     <Layout title="Shop - Bangladesh Mart">
-      <div style={{minHeight:'120vh'}} className="shop page-content">
+      <div style={{ minHeight: '120vh' }} className="shop page-content">
         <div className="ps-4 ms-2 pe-3">
           <div className="row ">
             <aside className="col-lg-2 order-lg-first">
@@ -68,7 +63,6 @@ const shop = () => {
                 data={data}
                 filter={filter}
                 setFilter={setFilter}
-                params={params}
                 t={t}
               />
             </aside>
