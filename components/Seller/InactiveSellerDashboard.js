@@ -6,27 +6,15 @@ import { useSignOut } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import { useRouter } from 'next/router';
 import SellerForm from './SellerForm';
+import { toast } from 'react-hot-toast';
 
 const InactiveSellerDashboard = () => {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.auth.user);
     const [signOut, loading, error] = useSignOut(auth);
     const router = useRouter();
-    const handleLogout = () => {
-        if (user?.providerId === "custom") {
-            localStorage.removeItem("accessToken");
-            dispatch(logOut());
-            toast.success("Logout Successful", { id: "logout" });
-        }
-        if (user?.providerId === "firebase") {
-            try {
-                const success = signOut().then(() => {
-                    localStorage.removeItem("accessToken");
-                    dispatch(logOut());
-                    toast.success("Logout successful", { id: "logout" });
-                });
-            } catch (error) { }
-        }
+    const handleSellerLogout = () => {
+        toast.success('Log out successful')
     };
     // /user/dashboard
     const textParams = router.pathname;
@@ -45,7 +33,7 @@ const InactiveSellerDashboard = () => {
                                     <span className={`sidebar-item-anchor ${textPath === 'dashboard' && 'active-sidebar-nav'}`}>Dashboard</span>
                                 </span>
                             </Link>
-                            <span onClick={handleLogout} className='sidebar-item'>
+                            <span onClick={handleSellerLogout} className='sidebar-item'>
                                 <span>
                                     <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M336 112a80 80 0 00-160 0v96"></path><rect width="320" height="272" x="96" y="208" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" rx="48" ry="48"></rect></svg>
                                 </span>
