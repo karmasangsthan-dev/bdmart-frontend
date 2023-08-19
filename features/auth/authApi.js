@@ -22,13 +22,29 @@ const authApi = apiSlice.injectEndpoints({
     getUserByToken: builder.query({
       query: (token) => ({
         url: `/user/token/${token}`,
-        method: "GET",
+        method: 'GET',
       }),
-      providesTags: ["User"],
+      providesTags: ['User'],
     }),
     signup: builder.mutation({
       query: (data) => ({
         url: '/user/signup',
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: ['User'],
+    }),
+    sellerAccountVerify: builder.mutation({
+      query: (data) => ({
+        url: '/user/seller/verify-account',
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: ['User'],
+    }),
+    createSellerAccount: builder.mutation({
+      query: ({ userData, token }) => ({
+        url: `/user/seller/register/${token}`,
         method: 'POST',
         body: data,
       }),
@@ -130,4 +146,6 @@ export const {
   useGetUserByTokenQuery,
   useResetPasswordEmailMutation,
   useResetPasswordMutation,
+  useCreateSellerAccountMutation,
+  useSellerAccountVerifyMutation,
 } = authApi;

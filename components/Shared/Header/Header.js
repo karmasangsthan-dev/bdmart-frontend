@@ -1,32 +1,32 @@
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import Link from 'next/link';
+import React, { useEffect, useState } from 'react';
 
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 
-import NavMenu from "../NavMenu/NavMenu";
+import NavMenu from '../NavMenu/NavMenu';
 
-import Image from "next/image";
-import { useRouter } from "next/router";
-import { Dropdown, Nav, Navbar } from "react-bootstrap";
-import SearchIcon from "@mui/icons-material/Search";
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { Dropdown, Nav, Navbar } from 'react-bootstrap';
+import SearchIcon from '@mui/icons-material/Search';
 
-import { Avatar, Badge, TextField, Tooltip } from "@mui/material";
-import { useGetSearchProductQuery } from "../../../features/product/productApi";
-import ContactHeader from "./ContactHeader";
-import { en } from "../../../locales/en";
-import { bn } from "../../../locales/bn";
-import MegaMenu from "./MegaMenu";
+import { Avatar, Badge, TextField, Tooltip } from '@mui/material';
+import { useGetSearchProductQuery } from '../../../features/product/productApi';
+import ContactHeader from './ContactHeader';
+import { en } from '../../../locales/en';
+import { bn } from '../../../locales/bn';
+import MegaMenu from './MegaMenu';
 
-import { AiOutlineMenu } from "react-icons/ai";
+import { AiOutlineMenu } from 'react-icons/ai';
 const Header = () => {
   const router = useRouter();
   const { locale } = router;
-  const t = locale === "en" ? en : bn;
+  const t = locale === 'en' ? en : bn;
   const user = useSelector((state) => state?.auth?.user);
   const { code: currency, rate: currencyRate } = useSelector(
     (state) => state.currency
   );
-  const [searchText, setSearchText] = useState("");
+  const [searchText, setSearchText] = useState('');
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileSearchInput, setMobileSearchInput] = useState(null);
   const [desktopSearchInput, setDesktopSearchInput] = useState(null);
@@ -46,8 +46,7 @@ const Header = () => {
   useEffect(() => {
     setMobileSearchInput(document.getElementById('mobile-search-input'));
     setDesktopSearchInput(document.getElementById('desktop-search-input'));
-
-  }, [])
+  }, []);
 
   const handleClearInput = () => {
     setSearchText('');
@@ -57,7 +56,7 @@ const Header = () => {
     if (desktopSearchInput) {
       desktopSearchInput.value = '';
     }
-  }
+  };
   // useEffect(() => {
   //   window.addEventListener("scroll", function () {
   //     let header = this.document.querySelector("#strip2");
@@ -76,7 +75,8 @@ const Header = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const scrollTop =
+        window.pageYOffset || document.documentElement.scrollTop;
       setIsScrolled(scrollTop > 0);
     };
 
@@ -87,19 +87,17 @@ const Header = () => {
     };
   }, []);
 
-
   return (
     <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
       <ContactHeader user={user} />
 
-      <div className={`search-cart-header ${isScrolled ? 'sticky' : ''}`} id="strip2">
-
+      <div
+        className={`search-cart-header ${isScrolled ? 'sticky' : ''}`}
+        id="strip2"
+      >
         <div id="nav_Bar" className="navBar ">
-
-
           <div className="main-strip-2 d-sm-none d-lg-block">
             <div id="strip" className="strip-2">
-
               <div className="logo ms-2">
                 <Link href="/">
                   <Image
@@ -121,10 +119,25 @@ const Header = () => {
                     name="search"
                     autoComplete="off"
                   />
-                  <div style={{ position: 'relative' }} className="d-flex align-items-center">
-                    {searchText?.length > 0 && <span title="Clear" onClick={() => handleClearInput()} className="px-1 text-danger" style={{ position: 'absolute', right: '15px', fontSize: '20px', cursor: 'pointer' }}>x</span>
-                    }
-
+                  <div
+                    style={{ position: 'relative' }}
+                    className="d-flex align-items-center"
+                  >
+                    {searchText?.length > 0 && (
+                      <span
+                        title="Clear"
+                        onClick={() => handleClearInput()}
+                        className="px-1 text-danger"
+                        style={{
+                          position: 'absolute',
+                          right: '15px',
+                          fontSize: '20px',
+                          cursor: 'pointer',
+                        }}
+                      >
+                        x
+                      </span>
+                    )}
                   </div>
 
                   <button type="submit">
@@ -136,9 +149,9 @@ const Header = () => {
                   <form className="example">
                     <div
                       style={{
-                        display: "block",
-                        minWidth: "841px",
-                        zIndex: "999",
+                        display: 'block',
+                        minWidth: '841px',
+                        zIndex: '999',
                       }}
                       className="dropdown-menu search-content-box shadow px-2"
                     >
@@ -164,10 +177,13 @@ const Header = () => {
                                   <div className="name">{product?.title}</div>
                                   <div className="price">
                                     <span
-                                      style={{ fontWeight: "600" }}
+                                      style={{ fontWeight: '600' }}
                                       className="text-danger"
                                     >
-                                      {(product?.price * currencyRate).toFixed(2)} <span> {currency}</span>
+                                      {(product?.price * currencyRate).toFixed(
+                                        2
+                                      )}{' '}
+                                      <span> {currency}</span>
                                     </span>
                                   </div>
                                 </div>
@@ -187,7 +203,9 @@ const Header = () => {
               </div>
 
               <div className="d-flex ">
-                <div className="cart-icon ms-3">{user?.email && <NavMenu />}</div>
+                <div className="cart-icon ms-3">
+                  {user?.email && <NavMenu />}
+                </div>
                 <div className="cart-icon ms-4">
                   <Tooltip title="Cart">
                     <Link href="/cart">
@@ -204,11 +222,9 @@ const Header = () => {
                     </Link>
                   </Tooltip>
                 </div>
-                {
-                  !user?.email && <div style={{ width: '40px', height: '40px' }}>
-
-                  </div>
-                }
+                {!user?.email && (
+                  <div style={{ width: '40px', height: '40px' }}></div>
+                )}
               </div>
             </div>
           </div>
@@ -216,7 +232,6 @@ const Header = () => {
           {/* for mobile */}
           <div className="main-strip-2 d-sm-block d-lg-none">
             <div className="">
-
               <form className="example col-12 p-2">
                 <input
                   id="mobile-search-input"
@@ -227,23 +242,44 @@ const Header = () => {
                   placeholder=" What are you looking for?"
                   name="search"
                 />
-                <div style={{ position: 'relative' }} className="d-flex align-items-center">
-                  {searchText?.length > 0 && <span onClick={() => handleClearInput()} className="px-1 text-danger" style={{ position: 'absolute', right: '70px', fontSize: '20px' }}>x</span>
-                  }
-                  <button type="submit" style={{ position: 'absolute', right: '0px', fontSize: '14px', padding: '0 25px', height: '100%' }}>
+                <div
+                  style={{ position: 'relative' }}
+                  className="d-flex align-items-center"
+                >
+                  {searchText?.length > 0 && (
+                    <span
+                      onClick={() => handleClearInput()}
+                      className="px-1 text-danger"
+                      style={{
+                        position: 'absolute',
+                        right: '70px',
+                        fontSize: '20px',
+                      }}
+                    >
+                      x
+                    </span>
+                  )}
+                  <button
+                    type="submit"
+                    style={{
+                      position: 'absolute',
+                      right: '0px',
+                      fontSize: '14px',
+                      padding: '0 25px',
+                      height: '100%',
+                    }}
+                  >
                     <i className="fa fa-search"></i>
                   </button>
                 </div>
-
-
               </form>
 
               {data?.data?.length > 0 && (
                 <form className="example justify-content-center">
                   <div
                     style={{
-                      display: "block",
-                      zIndex: "999",
+                      display: 'block',
+                      zIndex: '999',
                     }}
                     className="dropdown-menu search-content-box shadow px-2 w-100"
                   >
@@ -269,10 +305,11 @@ const Header = () => {
                                 <div className="name">{product?.title}</div>
                                 <div className="price">
                                   <span
-                                    style={{ fontWeight: "600" }}
+                                    style={{ fontWeight: '600' }}
                                     className="text-danger"
                                   >
-                                    {(product?.price * currencyRate).toFixed(2)} <span> {currency}</span>
+                                    {(product?.price * currencyRate).toFixed(2)}{' '}
+                                    <span> {currency}</span>
                                   </span>
                                 </div>
                               </div>
