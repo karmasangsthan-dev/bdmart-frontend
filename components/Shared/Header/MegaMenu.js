@@ -822,7 +822,7 @@ const MegaMenu = () => {
 
             >
               <div className="frombar">
-                <ul className="mb-0" style={{ paddingLeft: '36px' }}>
+                <ul className="mb-0" >
                   <span onClick={handleMegaMenu} className="cateogries-megamenu">
                     <span  className=" d-inline-block">
                       <li className="inner-li">Categories</li>

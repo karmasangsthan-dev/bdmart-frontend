@@ -11,7 +11,7 @@
 
 .question-answer-login-btn {
     cursor: pointer;
-    color: #faa72c;
+    color: var(--primary-color);
 }
 
 .product-questions-header {
