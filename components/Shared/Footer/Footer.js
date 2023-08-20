@@ -4,12 +4,13 @@ import { GrDeliver } from "react-icons/gr";
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
 import { FaUserFriends } from "react-icons/fa";
 import { BsApple } from "react-icons/bs";
+import Link from "next/link";
 const Footer = () => {
   return (
     <footer className="footer-section ">
       <div className="footer-main">
         <div className="footer-1">
-          {[1, 2, 3, 4, 5, 6].map((item,index) => (
+          {[1, 2, 3, 4, 5, 6].map((item, index) => (
             <div key={index} className="footer-icons">
               <div className="footer-icon round-icon">
                 <BiDollar className="fs-2" />
@@ -58,15 +59,15 @@ const Footer = () => {
             <h6>Shopping with us</h6>
           </div>
           <div>
-            <a className="footer-click" href="">
-              Making Payments
-            </a>
+            <Link className="footer-click" href="">
+              Product Categories
+            </Link>
           </div>
           <div>
-            <a href="">Deliver Options</a>
+            <Link href="">New Arrivals</Link>
           </div>
           <div>
-            <a href="">Buyer Protection</a>
+            <Link href="">Best Sellers</Link>
           </div>
           <div></div>
         </div>
@@ -75,13 +76,13 @@ const Footer = () => {
             <h6>Customer Services</h6>
           </div>
           <div>
-            <a href="">Making Payments</a>
+            <a href="">Contact Us</a>
           </div>
           <div>
-            <a href="">Deliver Options</a>
+            <a href="">FAQs</a>
           </div>
           <div>
-            <a href="">Buyer Protection</a>
+            <a href="">Returns & Exchanges</a>
           </div>
           <div></div>
         </div>
@@ -90,13 +91,13 @@ const Footer = () => {
             <h6>Collaborate with us</h6>
           </div>
           <div>
-            <a href="">Making Payments</a>
+            <a href="">Affiliate Program</a>
           </div>
           <div>
-            <a href="">Deliver Options</a>
+            <a href="">Wholesale Inquiries</a>
           </div>
           <div>
-            <a href="">Buyer Protection</a>
+            <a href="">Brand Partnerships</a>
           </div>
           <div></div>
         </div>
