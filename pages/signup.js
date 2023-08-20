@@ -60,7 +60,7 @@ const signup = () => {
       document.cookie =
         'userData=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
 
-      signup({ fullName, email, password, deviceInfo });
+      signup({ fullName, email, password });
     }
   };
 
@@ -68,6 +68,7 @@ const signup = () => {
     if (isSuccess) {
       toast.success('Signup success..', { id: 'signup' });
       const userDataString = JSON.stringify(data?.cookieData);
+
       setCookie('userData', userDataString, 7);
       router.push('/resetEmailSent');
     }

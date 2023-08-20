@@ -1,14 +1,13 @@
-@import url("https://fonts.googleapis.com/css?family=Kaushan+Script|Montserrat:400,700|Roboto:300i,400&display=swap");
+@import url('https://fonts.googleapis.com/css?family=Kaushan+Script|Montserrat:400,700|Roboto:300i,400&display=swap');
 @import './variable.css';
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
 
 /*google fonts*/
 
-
-
 /*=============
 common css start
 =============*/
+
 * {
   margin: 0;
   padding: 0;
@@ -17,7 +16,7 @@ common css start
 }
 
 body {
-  font-family: "Spartan";
+  font-family: 'Spartan';
   font-weight: 400;
   overflow-x: hidden;
   margin: 0;
@@ -25,7 +24,6 @@ body {
   overflow-y: scroll;
   scroll-behavior: smooth;
 }
-
 
 .d-lg-none {
   display: none !important;
@@ -70,7 +68,7 @@ ol {
 }
 
 p {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: 300;
 }
 
@@ -100,7 +98,6 @@ buttton:focus {
 .form-control {
   outline: none !important;
   box-shadow: none !important;
-
 }
 
 .form-control:focus {
@@ -111,16 +108,17 @@ buttton:focus {
   border-color: red !important;
 }
 
-.language-selector-save{
+.language-selector-save {
   display: block;
   background-color: var(--primary-color);
   width: 93%;
-  margin:0 10px;
+  margin: 0 10px;
   border: none;
   padding: 5px;
 }
 
-@media (max-width: 1094px) {}
+@media (max-width: 1094px) {
+}
 
 /*==========================================
 CoMmOn CsS EnD
@@ -152,6 +150,8 @@ CoMmOn CsS EnD
   border-bottom: 1px solid gray;
   padding-bottom: 0;
   margin-bottom: 15px;
+  display: sticky;
+  top: 0px;
 }
 
 .removeBar {
@@ -216,7 +216,6 @@ CoMmOn CsS EnD
   color: white !important;
 }
 
-
 .landing-img img {
   width: 100%;
 }
@@ -276,7 +275,6 @@ CoMmOn CsS EnD
 
 .drop-nav-link a:hover {
   color: black !important;
-
 }
 
 .logo_icon a span {
@@ -544,7 +542,7 @@ a .sign-text {
 }
 
 /* Style the search field */
-form.example input[type="text"] {
+form.example input[type='text'] {
   padding: 10px;
   font-size: 15px;
   border: 2px solid var(--primary-color);
@@ -571,7 +569,7 @@ form.example button {
   width: 10%;
   padding: 12px;
   outline: none;
-  background:var(--primary-color);
+  background: var(--primary-color);
   color: white;
   font-size: 17px;
   border: none;
@@ -586,7 +584,7 @@ form.example button:hover {
 
 /* Clear floats */
 form.example::after {
-  content: "";
+  content: '';
   clear: both;
   display: table;
 }
@@ -820,7 +818,6 @@ Nav Bar End
   box-shadow: inset 0 -1px 0 rgb(0 0 0 / 13%) !important;
 }
 
-
 .accordion-button {
   margin-top: 8px;
   border: 1px solid black !important;
@@ -1028,7 +1025,7 @@ MGA CONTENT NAV
 }
 
 @media (max-width: 1027px) {
-  .row>* {
+  .row > * {
     flex-shrink: 0;
     /* max-width: 100%; */
     padding-right: 0 !important;
@@ -1273,7 +1270,7 @@ Galery Part
 
 .gal-head h2::before {
   position: absolute;
-  content: "";
+  content: '';
   top: 38px;
   left: 0px;
   width: 39%;
@@ -1283,7 +1280,7 @@ Galery Part
 
 .gal-head-best-selling h2::before {
   position: absolute;
-  content: "";
+  content: '';
   top: 38px;
   left: 0px;
   width: 35%;
@@ -1293,7 +1290,7 @@ Galery Part
 
 .gal-head h2::after {
   position: absolute;
-  content: "";
+  content: '';
   top: 38px;
   right: 0;
   width: 39%;
@@ -1303,7 +1300,7 @@ Galery Part
 
 .gal-head-best-selling h2::after {
   position: absolute;
-  content: "";
+  content: '';
   top: 38px;
   right: 0;
   width: 35%;
@@ -1519,7 +1516,7 @@ accordion_container
   padding: 12px 0;
   color: black;
   font-size: 14px;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 #lt:hover {
@@ -1576,7 +1573,7 @@ accordion_container
 /*==============================
 Check Box
 ===============================*/
-.form-check-input[type="checkbox"] {
+.form-check-input[type='checkbox'] {
   border-radius: 0 !important;
 }
 
@@ -1586,7 +1583,6 @@ Check Box
 
 .form-check {
   margin-bottom: 22px;
-
 }
 
 .sidebar-shop .form-check {
@@ -1868,7 +1864,7 @@ a.slide_btn {
 }
 
 .logo-heading {
-  font-family: "Spartan";
+  font-family: 'Spartan';
   font-weight: 700;
   font-size: 17px;
   margin-bottom: 15px;
@@ -1910,7 +1906,7 @@ a.slide_btn {
   font-size: 15px;
   margin-right: 10px;
   margin-left: 10px;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .footer-3 {
@@ -1927,7 +1923,7 @@ a.slide_btn {
 
 .copy-right p {
   font-size: 13px;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 @media (max-width: 505px) {
@@ -2031,7 +2027,8 @@ a.slide_btn {
   }
 }
 
-@media (max-width: 960px) {}
+@media (max-width: 960px) {
+}
 
 @media (max-width: 936px) {
   .desktop {
@@ -2066,7 +2063,8 @@ a.slide_btn {
   }
 }
 
-@media (max-width: 890px) {}
+@media (max-width: 890px) {
+}
 
 @media (max-width: 836px) {
   .social-area {
@@ -2279,7 +2277,6 @@ a.slide_btn {
 
 .bestselling-product-container img:hover {
   cursor: pointer;
-
 }
 
 .main-detail .item-name:hover {
@@ -2335,7 +2332,6 @@ a.slide_btn {
   justify-content: space-between;
   align-items: center;
   margin-top: 0.5rem;
-
 }
 
 /* .shop-sidebar-category:hover{
@@ -2377,12 +2373,10 @@ a.slide_btn {
   gap: 20px;
 }
 
-
 @media only screen and (max-width: 576px) {
   .d-sm-none {
     display: none !important;
   }
-
 
   .d-sm-block {
     display: block !important;
@@ -2426,7 +2420,6 @@ a.slide_btn {
 
   .shop-product-details {
     grid-template-columns: repeat(2, 1fr);
-
   }
 }
 
