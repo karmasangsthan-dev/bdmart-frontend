@@ -92,7 +92,9 @@ buttton:focus {
 }
 
 .seller-login-container {
-  background: url('https://res.cloudinary.com/dfcztmnvh/image/upload/v1690799160/seller-banner_imsmf3.png');
+  background-image: url('https://img.freepik.com/free-photo/luxury-plain-green-gradient-abstract-studio-background-empty-room-with-space-your-text-picture_1258-99418.jpg?w=740&t=st=1691678715~exp=1691679315~hmac=1bc4a98af61f3ac557ffb13ebe18133a6f602f3df4561331f9fcdb1dc88ce6e1');
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .form-control {
