@@ -1,13 +1,14 @@
 import React from 'react';
 import Layout from '../../components/Layout';
 import SellerLogin from '../../components/SellerLogin/SellerLogin';
+import SellerRegister from '../../components/SellerLogin/sellerRegister';
 
-const Login = () => {
+const Register = () => {
     return (
         <Layout>
-            <SellerLogin></SellerLogin>
+            <SellerRegister></SellerRegister>
         </Layout>
     );
 };
 
-export default Login;
+export default Register;

@@ -5,25 +5,42 @@ import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUser } from '../../features/auth/authSlice';
 import { getCookie } from '../../utils/getCookie';
+import { useCreateSellerAccountMutation } from '../../features/auth/authApi';
+import { toast } from 'react-hot-toast';
 
-const emailVerifiedSuccess = () => {
+const SellerEmailVerified = () => {
   const router = useRouter();
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const {
     query: { token },
   } = router;
+  const [createSellerAccount, { data, isSuccess, isLoading, error, isError }] =
+    useCreateSellerAccountMutation();
 
   useEffect(() => {
     const userDataCookie = getCookie('userData');
     if (userDataCookie !== null) {
       const userData = JSON.parse(userDataCookie);
-      console.log(userData); // This will log the parsed JSON data
+      createSellerAccount({ userData, token });
     } else {
       console.log('userData cookie not found');
     }
   }, [token]);
 
+  useEffect(() => {
+    if (isLoading) {
+      toast.loading('Loading...', { id: 'sellerRegister' });
+    }
+    if (isSuccess) {
+      toast.success('Success', { id: 'sellerRegister' });
+      console.log(data);
+    }
+    if (isError) {
+      toast.error('Error ', { id: 'sellerRegister' });
+      console.log(error);
+    }
+  }, [isSuccess, isLoading, isError, error]);
   // setTimeout(() => {
   //   router.push('/');
   // }, 5000);
@@ -53,4 +70,4 @@ const emailVerifiedSuccess = () => {
   );
 };
 
-export default emailVerifiedSuccess;
+export default SellerEmailVerified;

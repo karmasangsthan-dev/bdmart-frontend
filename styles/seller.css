@@ -1,0 +1,44 @@
+@import './variable.css';
+
+
+.seller-login-container {
+    background-image: url('https://img.freepik.com/free-photo/luxury-plain-green-gradient-abstract-studio-background-empty-room-with-space-your-text-picture_1258-99418.jpg?w=740&t=st=1691678715~exp=1691679315~hmac=1bc4a98af61f3ac557ffb13ebe18133a6f602f3df4561331f9fcdb1dc88ce6e1');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+
+.seller-login-btn p {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.seller-login-btn span {
+    color: var(--primary-color);
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.icon-container svg {
+    cursor: pointer;
+}
+
+.seller-email-blur {
+    background-color: rgb(216, 216, 216);
+    cursor: not-allowed;
+    
+}
+.change-email{
+    position: relative;
+}
+.change-email p{
+    margin-top: 1px;
+    font-size: 12px;
+    position: absolute;
+    right: 0;
+    color: red;
+    cursor: pointer;
+}
+.verification-success{
+    border: 1px solid var(--primary-color) !important;
+}
