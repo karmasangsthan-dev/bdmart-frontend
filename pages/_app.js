@@ -18,6 +18,8 @@ import '../styles/contactHeader.css';
 import '../styles/order.css'
 import '../styles/invoice.css'
 import '../styles/contact.css'
+import '../styles/footer.css'
+import '../styles/seller.css'
 import '../styles/shopdepartment.css'
 import '../styles/mobileSignin.css'
 import '../styles/productQuestions.css'
