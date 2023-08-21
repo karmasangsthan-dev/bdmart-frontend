@@ -89,11 +89,6 @@ buttton:focus {
   min-height: calc(100vh - 158px);
 }
 
-.seller-login-container {
-  background-image: url('https://img.freepik.com/free-photo/luxury-plain-green-gradient-abstract-studio-background-empty-room-with-space-your-text-picture_1258-99418.jpg?w=740&t=st=1691678715~exp=1691679315~hmac=1bc4a98af61f3ac557ffb13ebe18133a6f602f3df4561331f9fcdb1dc88ce6e1');
-  background-size: cover;
-  background-repeat: no-repeat;
-}
 
 .form-control {
   outline: none !important;
@@ -1803,65 +1798,6 @@ a.slide_btn {
   }
 }
 
-/* Footer Area start */
-.footer-section {
-  margin-top: 20px;
-  background-color: whitesmoke;
-  /* margin-bottom: 50px; */
-
-  padding-bottom: 10px;
-  padding-top: 20px;
-}
-
-.footer-main {
-  padding-bottom: 50px;
-  border-bottom: 1px solid gray;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.css-137ul40-MuiButtonBase-root-MuiIconButton-root:hover {
-  background-color: transparent;
-}
-
-.footer-1 {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.footer-icons {
-  display: flex;
-  margin-left: 10px;
-  margin-right: 10px;
-  width: 180px;
-  flex-direction: column;
-}
-
-.footer-icon {
-  font-size: 25px;
-  color: rgb(63, 63, 63);
-  font-weight: lighter !important;
-  margin-bottom: 15px;
-}
-
-/* .round-icon i {
-  border: 2px solid rgb(63, 63, 63);
-  border-radius: 100%;
-  padding: 6px 10px;
-} */
-
-.footer-icons div {
-  text-align: center;
-  justify-content: center;
-}
-
-.footer-links div a:hover {
-  color: #000;
-  /* text-decoration: none; */
-}
 
 .logo-heading {
   font-family: 'Spartan';

@@ -34,22 +34,7 @@ const authApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ['User'],
     }),
-    sellerAccountVerify: builder.mutation({
-      query: (data) => ({
-        url: '/user/seller/verify-account',
-        method: 'POST',
-        body: data,
-      }),
-      invalidatesTags: ['User'],
-    }),
-    createSellerAccount: builder.mutation({
-      query: ({ userData, token }) => ({
-        url: `/user/seller/register/${token}`,
-        method: 'POST',
-        body: data,
-      }),
-      invalidatesTags: ['User'],
-    }),
+
     login: builder.mutation({
       query: (data) => ({
         url: '/user/login',
@@ -132,6 +117,34 @@ const authApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ['User'],
     }),
+
+    sellerAccountVerify: builder.mutation({
+      query: (data) => ({
+        url: '/user/seller/verify-account',
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: ['User'],
+    }),
+    sendOTP: builder.mutation({
+      query: (email) => ({
+        url: `/seller/send-email`,
+        method: 'POST',
+        body: email,
+      }),
+      invalidatesTags: ['User'],
+    }),
+    verifyOTPForSeller: builder.mutation({
+      query: (data) => ({
+        url: `/seller/verify-otp`,
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: ['User'],
+    }),
+
+
+
   }),
 });
 
@@ -146,6 +159,6 @@ export const {
   useGetUserByTokenQuery,
   useResetPasswordEmailMutation,
   useResetPasswordMutation,
-  useCreateSellerAccountMutation,
-  useSellerAccountVerifyMutation,
+  useSendOTPMutation,
+  useVerifyOTPForSellerMutation,
 } = authApi;
