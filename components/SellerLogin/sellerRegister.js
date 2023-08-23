@@ -1,7 +1,7 @@
 import banner from '../../public/images/seller-banner.png'
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { useSellerAccountVerifyMutation, useSendOTPMutation, useVerifyOTPForSellerMutation } from '../../features/auth/authApi';
+import { useSellerAccountVerifyMutation, useSellerSignupMutation, useSendOTPMutation, useVerifyOTPForSellerMutation } from '../../features/auth/authApi';
 import { setCookie } from '../../utils/setCookie';
 import { useRouter } from 'next/router';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
@@ -10,15 +10,17 @@ const SellerRegister = () => {
   const router = useRouter();
   const [isEmailSend, setIsEmailSend] = useState(0);
   const [isVerified, setIsVerified] = useState(0);
+  const [OTP, setOTP] = useState(0);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [OTP, setOTP] = useState(0);
   const [showPass, setShowPass] = useState(false);
   const [sendOTP, { data: sendOTPData, isLoading: isLoadingSendOTP, isSuccess: isSuccessSendOTP, isError: isErrorSendOTP, error: sendOTPError }] = useSendOTPMutation();
   const [verifyOTPForSeller, { data: verifyOTPData, isLoading: isLoadingVerifyOTP, isSuccess: isSuccessVerifyOTP, isError: isErrorVerifyOTP, error: verifyOTPError }] = useVerifyOTPForSellerMutation();
+  const [sellerSignup, { data: sellerSignupData, isLoading: sellerSignupLoading, isSuccess: sellerSignupSuccess, isError: sellerSignupError, error: sellerError }] = useSellerSignupMutation();
 
   const handleCreateSellerAccount = (event) => {
     event.preventDefault();
+    sellerSignup({ email, password })
     toast.success('Request Receieved. As soon as possible we contact with you')
 
   }
@@ -28,19 +30,18 @@ const SellerRegister = () => {
   const checkOTPVerified = () => {
     verifyOTPForSeller({ OTP, email })
   }
-
-
+  
   useEffect(() => {
     // Handling sendOTP mutation
     if (isLoadingSendOTP) {
-      toast.loading('Loading...', { id: 'sendOTP' });
+      toast.loading('Sending OTP...', { id: 'sendOTP' });
     }
     if (isSuccessSendOTP) {
       toast.success('OTP sent successfully, please check your email', { id: 'sendOTP' });
       setIsEmailSend(1);
     }
-    if (isErrorSendOTP) {
-      toast.error(sendOTPError?.data?.error, { id: 'sendOTP' });
+    if (sendOTPError) {
+      toast.error(sendOTPError?.data?.message, { id: 'sendOTP' });
     }
 
 
@@ -75,7 +76,7 @@ const SellerRegister = () => {
                 millions of customers today!
               </h6>
             </div>
-            <form onSubmit={handleCreateSellerAccount} className="w-50 px-5">
+            <div className='w-50 px-5'>
               <div
                 className="login-form p-5 "
                 style={{ borderRadius: '15px', background: '#f7f7f7' }}
@@ -149,7 +150,7 @@ const SellerRegister = () => {
 
                 <div className="mt-4">
                   {isVerified === 1 && <button
-                    type="submit"
+                    onClick={handleCreateSellerAccount}
                     style={{ backgroundColor: '#fd5417', fontWeight: '500' }}
                     className="w-100 text-white py-2 border-0 rounded"
                   >
@@ -186,7 +187,7 @@ const SellerRegister = () => {
                   <p className=''>Have an account ? <span onClick={() => router.push('/seller/login')} className=''>Click for Login</span></p>
                 </div>
               </div>
-            </form>
+            </div>
           </div>
         </div>
       </div >
