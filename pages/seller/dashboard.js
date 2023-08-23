@@ -37,7 +37,7 @@ const dashboard = () => {
     const textPath = textParams.split('/seller/')[1];
 
     const sellerUser = {
-        name: 'Altaf', email: 'web.altaf.1@gmail.com', passowrd: '12345678', status: 'active'
+        name: 'Altaf', email: 'web.altaf.1@gmail.com', passowrd: '12345678', status: 'inactive'
     }
 
 

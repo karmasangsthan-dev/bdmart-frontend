@@ -213,8 +213,7 @@ const productNo = () => {
             className="container "
           >
             <div
-
-              style={{ marginTop: "-15px", marginBottom: "5px" }}
+              className="pt-2"
               role="presentation"
               onClick={handleClick}
             >

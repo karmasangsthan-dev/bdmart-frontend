@@ -26,7 +26,7 @@ const authApi = apiSlice.injectEndpoints({
       }),
       providesTags: ['User'],
     }),
-    signup: builder.mutation({
+    customerSignup: builder.mutation({
       query: (data) => ({
         url: '/user/signup',
         method: 'POST',
@@ -117,18 +117,35 @@ const authApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ['User'],
     }),
-
-    sellerAccountVerify: builder.mutation({
+    sellerSignup: builder.mutation({
       query: (data) => ({
-        url: '/user/seller/verify-account',
+        url: '/seller/signup',
         method: 'POST',
         body: data,
       }),
       invalidatesTags: ['User'],
     }),
+    sellerSignin: builder.mutation({
+      query: (data) => ({
+        url: '/seller/signin',
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: ['User'],
+    }),
+
+
     sendOTP: builder.mutation({
       query: (email) => ({
         url: `/seller/send-email`,
+        method: 'POST',
+        body: email,
+      }),
+      invalidatesTags: ['User'],
+    }),
+    sendCustomerOTP: builder.mutation({
+      query: (email) => ({
+        url: `/user/send-email`,
         method: 'POST',
         body: email,
       }),
@@ -142,6 +159,14 @@ const authApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ['User'],
     }),
+    verifyOTPForCustomer: builder.mutation({
+      query: (data) => ({
+        url: `/user/verify-otp`,
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: ['User'],
+    }),
 
 
 
@@ -150,7 +175,7 @@ const authApi = apiSlice.injectEndpoints({
 
 export const {
   useLoginMutation,
-  useSignupMutation,
+  useCustomerSignupMutation,
   useSocialLoginMutation,
   useUpdateProfileImageMutation,
   useUpdateProfileMutation,
@@ -161,4 +186,8 @@ export const {
   useResetPasswordMutation,
   useSendOTPMutation,
   useVerifyOTPForSellerMutation,
+  useSellerSignupMutation,
+  useSellerSigninMutation,
+  useSendCustomerOTPMutation,
+  useVerifyOTPForCustomerMutation,
 } = authApi;
