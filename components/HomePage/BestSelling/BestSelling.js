@@ -41,9 +41,16 @@ const styles = {
 };
 
 const BestSelling = ({ t }) => {
-  const { data, isLoading } = useGetSectionBasedProductsQuery({
+  const [isFound, setIsFound] = useState(1);
+  const { data, isLoading, isError, error } = useGetSectionBasedProductsQuery({
     section: "bestSelling",
   });
+
+  useEffect(() => {
+    if (error?.data?.status === 0) {
+      setIsFound(0)
+    }
+  }, [isError, error])
 
   const settings = {
     dots: false,
@@ -98,73 +105,73 @@ const BestSelling = ({ t }) => {
   return (
     <section>
       <div className="px-2">
-      <div className="">
-        <div className="col-lg-12 col-md-12 col-sm-12 w">
-          <div className="gal-head gal-head-best-selling">
-            <h2 className="mb-0">{t.homePage.bestSelling.title}</h2>
+        <div className="">
+          <div className="col-lg-12 col-md-12 col-sm-12 w">
+            <div className="gal-head gal-head-best-selling">
+              <h2 className="mb-0">{t.homePage.bestSelling.title}</h2>
+            </div>
           </div>
         </div>
-      </div>
 
-      {isLoading ? (
-        <div className="">
-          <Slider {...settings}>
-            {[1, 2, 3, 4, 5, 6].map((product, i) => {
-              return (
-                <div key={i} className="mb-1">
-                  <div className="product-link bestselling-product-container  border px-3 py-2 m-3  rounded-3 shadow">
-                    <div className="">
-                      <Skeleton
-                        style={{ width: "100%", height: "139px" }}
-                      ></Skeleton>
-                    </div>
-
-                    <p className="item-name mt-2 mb-0">
-                      <Skeleton></Skeleton>
-                    </p>
-
-                    <Skeleton
-                      className="mt-0"
-                      style={{ width: "50px" }}
-                    ></Skeleton>
-
-                    <div className="old-price">
-                      <del style={{ display: "inline-block" }}>
+        {isLoading || isFound === 0 ? (
+          <div className="">
+            <Slider {...settings}>
+              {[1, 2, 3, 4, 5, 6].map((product, i) => {
+                return (
+                  <div key={i} className="mb-1">
+                    <div className="product-link bestselling-product-container  border px-3 py-2 m-3  rounded-3 shadow">
+                      <div className="">
                         <Skeleton
-                          className="mt-0"
-                          style={{ width: "50px" }}
+                          style={{ width: "100%", height: "139px" }}
                         ></Skeleton>
-                      </del>
-                      <span className="ms-2">
-                        <Skeleton
-                          className="mt-0"
-                          style={{ width: "50px" }}
-                        ></Skeleton>
-                      </span>
-                    </div>
+                      </div>
 
-                    <div className="d-flex align-items-center">
-                      <Skeleton style={{ width: "80px" }}></Skeleton>
-                      <p className="mb-0 ms-1" style={{ fontSize: "13px" }}>
-                        <Skeleton style={{ width: "30px" }}></Skeleton>
+                      <p className="item-name mt-2 mb-0">
+                        <Skeleton></Skeleton>
                       </p>
+
+                      <Skeleton
+                        className="mt-0"
+                        style={{ width: "50px" }}
+                      ></Skeleton>
+
+                      <div className="old-price">
+                        <del style={{ display: "inline-block" }}>
+                          <Skeleton
+                            className="mt-0"
+                            style={{ width: "50px" }}
+                          ></Skeleton>
+                        </del>
+                        <span className="ms-2">
+                          <Skeleton
+                            className="mt-0"
+                            style={{ width: "50px" }}
+                          ></Skeleton>
+                        </span>
+                      </div>
+
+                      <div className="d-flex align-items-center">
+                        <Skeleton style={{ width: "80px" }}></Skeleton>
+                        <p className="mb-0 ms-1" style={{ fontSize: "13px" }}>
+                          <Skeleton style={{ width: "30px" }}></Skeleton>
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
-          </Slider>
-        </div>
-      ) : (
-        <div className="">
-          <Slider className=" " {...settings}>
-            {data?.data?.map((product, index) => {
-              return <DiscountProductCard key={index} product={product} />;
-            })}
-          </Slider>
-        </div>
-      )}
-    </div>
+                );
+              })}
+            </Slider>
+          </div>
+        ) : (
+          <div className="">
+            <Slider className=" " {...settings}>
+              {data?.data?.map((product, index) => {
+                return <DiscountProductCard key={index} product={product} />;
+              })}
+            </Slider>
+          </div>
+        )}
+      </div>
     </section>
   );
 };

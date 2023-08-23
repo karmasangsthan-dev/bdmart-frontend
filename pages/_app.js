@@ -28,6 +28,7 @@ import '../styles/checkout.css'
 import { Toaster } from "react-hot-toast";
 import Providers from "../app/provider";
 import { useEffect } from "react";
+import OfflineNotifier from "../components/OfflineNotifier";
 const App = ({ Component, pageProps }) => {
   useEffect(() => {
     import("bootstrap/dist/js/bootstrap.bundle.min.js").catch((error) =>
@@ -42,6 +43,7 @@ const App = ({ Component, pageProps }) => {
     <Providers>
       <Component {...pageProps} />
       <Toaster />
+      <OfflineNotifier />
     </Providers>
   );
 }

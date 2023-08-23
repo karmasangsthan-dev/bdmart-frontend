@@ -19,19 +19,18 @@ import auth from '../firebase.init';
 import GoogleLogin from '../components/Shared/SocialLogin/GoogleLogin';
 
 const signin = () => {
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPass, setShowPass] = useState(false);
-
-  const router = useRouter();
+  const [login, { data, isSuccess, isLoading, isError, error }] = useLoginMutation();
   const { query } = router;
   const { redirect } = query;
   const dispatch = useDispatch();
-  const [login, { data, isSuccess, isLoading, isError, error }] =
-    useLoginMutation();
 
-  const handleSignIn = () => {
-    // event.preventDefault();
+
+  const handleCreateCustomerAccount = (e) => {
+    e.preventDefault();
     login({ email, password });
   };
 
@@ -49,148 +48,103 @@ const signin = () => {
       toast.error(error?.data?.error, { id: 'login' });
     }
   }, [isSuccess, data, dispatch, isError, error, isLoading]);
+
+
   return (
     <div className="">
       <Header></Header>
-      <div className="sign-in-container d-sm-none d-lg-block">
-        <div className="sign-in-content">
-          <div className="login-header">
-            <h4 className="title-text">Welcome to BD Mart! Please login.</h4>
-            <span>
-              New member? <Link href="/signup"> Register here.</Link>
-            </span>
-          </div>
-          <div>
-            <div className="form-container">
-              <div className="left-content">
-                <div>
-                  <label htmlhtmlFor="email">Phone Number or Email*</label>{' '}
-                  <br />
-                  <input
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="input-email"
-                    type="email"
-                    id="email"
-                    autoComplete="on"
-                    placeholder="Please Enter your Email"
-                  />
-                </div>
-
-                <div className="mt-3">
-                  <label htmlhtmlFor="email">Password*</label>
-                  <br />
-                  <input
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="input-password"
-                    type={showPass ? 'text' : 'password'}
-                    placeholder="Please Enter your Password"
-                  />
-                  <div className="desktop-icon-container">
-                    {showPass ? (
-                      <AiFillEye
-                        onClick={() => setShowPass(!showPass)}
-                        className="fs-5 signup-password-show-button"
-                      />
-                    ) : (
-                      <AiFillEyeInvisible
-                        onClick={() => setShowPass(!showPass)}
-                        className="fs-5 signup-password-show-button"
-                      />
-                    )}
-                  </div>
-                </div>
-                <div className="mt-3">
-                  <span
-                    onClick={() => router.push(`forget-password`)}
-                    style={{ cursor: 'pointer', color: '#049cb9' }}
-                    className=""
-                  >
-                    Forgot password ?
-                  </span>
-                </div>
-              </div>
-              <div className="right w-50 mb-4 p-4">
-                <button
-                  style={{ backgroundColor: '#faa72c' }}
-                  className="btn w-100 px-2 py-2 mt-3 mb-2 text-white"
-                  onClick={handleSignIn}
-                >
-                  Signin
-                </button>
-                <p>or sign in with</p>
-                <GoogleLogin />
-                <button
-                  style={{ backgroundColor: '#3b5998' }}
-                  className="btn w-100 px-2 py-2 mt-3 text-white"
-                >
-                  <FaFacebookF></FaFacebookF> Facebook
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="d-sm-block d-lg-none">
-        <div className="mobile-login-container">
-          <div className="mobile-contact-header">
-            <h4 className="">
-              Welcome to <span className="mark">BD Mart!</span>
-              <br className="login-br-sm" /> Please login.
-            </h4>
-            {/* <span>
-              New member? <Link href="/signup"> Register here.</Link>
-            </span> */}
-          </div>
-          <div className="mobile-login-content">
-            <div>
-              <label htmlhtmlFor="email">Phone Number or Email*</label> <br />
-              <input
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="input-email"
-                type="text"
-                placeholder="Please Enter your Email"
-              />
-            </div>
-            <div className="mt-2">
-              <label htmlhtmlFor="email">Password*</label>
-              <br />
-              <input
-                onChange={(e) => setPassword(e.target.value)}
-                className="input-password"
-                type={showPass ? 'text' : 'password'}
-                placeholder="Please Enter your Password"
-              />
-              <div className="icon-container">
-                {showPass ? (
-                  <AiFillEye
-                    onClick={() => setShowPass(!showPass)}
-                    className="fs-5 mobile-signup-password-show-button"
-                  />
-                ) : (
-                  <AiFillEyeInvisible
-                    onClick={() => setShowPass(!showPass)}
-                    className="fs-5 mobile-signup-password-show-button"
-                  />
-                )}
-              </div>
-            </div>
+      <>
+        <div style={{ minHeight: '120vh' }}>
+          <div className="seller-login-container">
             <div className="">
-              <button className="mobile-sign-in-btn " onClick={handleSignIn}>
-                Signin
-              </button>
-              <p className="mobile-signin-divider">or sign in with</p>
-              <GoogleLogin />
-              <button
-                style={{ backgroundColor: '#3b5998' }}
-                className="btn mobile-facebook-signin-btn"
-              >
-                <FaFacebookF></FaFacebookF> Facebook
-              </button>
+              <div className="d-flex align-items-center py-5 ">
+                <div className="w-50 px-5">
+                  <h1 className="text-white " style={{ fontSize: '62px' }}>
+                    Bangladesh #1 <br /> Marketplace
+                  </h1>
+                  <h6 className="text-white">
+                    Create a Bangladesh Mart seller account in 5 minutes and reach
+                    millions of customers today!
+                  </h6>
+                </div>
+                <form onSubmit={handleCreateCustomerAccount} className="w-50 px-5">
+                  <div
+                    className="login-form p-5 "
+                    style={{ borderRadius: '15px', background: '#f7f7f7' }}
+                  >
+                    <h2 className="text-center">Login your Account</h2>
+                    <p className="text-center">
+                      Welcome! Millions of Bangladesh Mart users are waiting to buy
+                      your product.
+                    </p>
+
+                    <div>
+                      <label htmlFor="email">Email</label> <br />
+                      <input
+                        id='email'
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="w-100 py-2 px-3 rounded mt-2"
+                        style={{ border: '1px solid #6c7778' }}
+                        type="email"
+                        autoComplete="on"
+                        placeholder="Enter email address"
+                      />
+                    </div>
+                    <div className="mt-3">
+                      <label htmlFor="password">Password</label> <br />
+                      <input
+                        onChange={(e) => setPassword(e.target.value)}
+                        className="w-100 py-2 px-3 mt-2 rounded"
+                        type={showPass ? 'text' : 'password'}
+                        id='password'
+                        style={{ border: '1px solid #6c7778' }}
+                        placeholder="Enter password"
+                      />
+                    </div>
+                    <div className="icon-container">
+                      {showPass ? (
+                        <AiFillEye
+                          onClick={() => setShowPass(!showPass)}
+                          className="fs-5 mobile-signup-password-show-button"
+                        />
+                      ) : (
+                        <AiFillEyeInvisible
+                          onClick={() => setShowPass(!showPass)}
+                          className="fs-5 mobile-signup-password-show-button"
+                        />
+                      )}
+                    </div>
+                    <div className="mt-4">
+                      <button
+                        type="submit"
+                        style={{ backgroundColor: '#fd5417', fontWeight: '500' }}
+                        className="w-100 text-white py-2 border-0 rounded"
+                      >
+                        Login
+                      </button>
+                    </div>
+                    <div className='mt-3 seller-login-btn'>
+                      <p className=''>Haven't an account ? <span onClick={() => router.push({
+                        pathname: "/signup",
+                        query: { redirect: router.asPath },
+                      })} className=''>Click for Register</span></p>
+                    </div>
+
+                    <p className="mobile-signin-divider">or sign in with</p>
+                    <GoogleLogin />
+                    <button
+                      style={{ backgroundColor: '#3b5998' }}
+                      className="btn mobile-facebook-signin-btn"
+                    >
+                      <FaFacebookF></FaFacebookF> Facebook
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </>
     </div>
   );
 };

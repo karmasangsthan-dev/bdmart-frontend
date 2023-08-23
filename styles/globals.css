@@ -54,7 +54,7 @@ a:hover {
 ul,
 ol {
   list-style: none;
-  padding: 0;
+  padding: 0 !important;
   margin: 0;
 }
 
@@ -142,9 +142,8 @@ CoMmOn CsS EnD
 }
 
 .navBar {
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid rgb(218, 218, 218);
   padding-bottom: 0;
-  margin-bottom: 15px;
   display: sticky;
   top: 0px;
 }
