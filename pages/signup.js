@@ -80,14 +80,16 @@ const signup = () => {
 
   useEffect(() => {
     if (isSuccess) {
+      localStorage.setItem("accessToken", data?.token);
       toast.success('Signup success..', { id: 'customerSignup' });
+      dispatch(fetchUser(data?.token));
       router.push(redirect || '/');
     }
     if (isLoading) {
-      toast.loading('Loading...', { id: 'signup' });
+      toast.loading('Loading...', { id: 'customerSignup' });
     }
     if (isError) {
-      toast.error(error?.data?.error, { id: 'signup' });
+      toast.error(error?.data?.error, { id: 'customerSignup' });
     }
   }, [isSuccess, isLoading, isError, error, dispatch, data?.token, user]);
 
