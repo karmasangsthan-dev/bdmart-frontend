@@ -12,6 +12,16 @@ const authApi = apiSlice.injectEndpoints({
       }),
       providesTags: ['User'],
     }),
+    getMeSeller: builder.query({
+      query: (token) => ({
+        url: '/seller/me',
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+        method: 'GET',
+      }),
+      providesTags: ['Seller'],
+    }),
     getUserByToken: builder.query({
       query: (token) => ({
         url: `/user/token/${token}`,
