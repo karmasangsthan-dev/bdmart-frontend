@@ -24,6 +24,21 @@ export const fetchUser = createAsyncThunk('auth/fetchUser', async (token) => {
 
   return data?.data;
 });
+export const fetchSeller = createAsyncThunk('auth/fetchSeller', async (token) => {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_SITE_LINK}/api/v1/seller/me`,
+    {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  const data = await response.json();
+
+  return data?.data;
+});
+
+
 export const googleLogin = createAsyncThunk(
   'auth/googleLogin',
   async (data) => {
