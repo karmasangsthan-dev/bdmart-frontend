@@ -83,10 +83,10 @@ const SellerRegister = () => {
   useEffect(() => {
     // seller signup
     if (sellerSignupLoading) {
-      toast.loading('Creating account. please wait...!!');
+      toast.loading('Creating account. please wait...!!', { id: 'sendOTP' });
     }
     if (sellerSignupSuccess) {
-      toast.success('Seller account create successfully');
+      toast.success('Seller account create successfully', { id: 'sendOTP' });
       localStorage.setItem('accessToken', sellerSignupData?.token);
       toast.success('Signup success..', { id: 'sellerSignup' });
       dispatch(fetchSeller(sellerSignupData?.token));
