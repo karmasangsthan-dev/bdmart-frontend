@@ -16,30 +16,9 @@ const JustForYou = ({ t }) => {
   });
 
   const { currency, currencyRate } = useSelector((state) => state.currency);
+  const loadMoreProduct = () => {
 
-  // let productPrice;
-  // if (currencyRate) {
-  //   productPrice = (
-  //     (product?.price - (product?.price * product?.discountPercentage) / 100) *
-  //     currencyRate
-  //   ).toFixed(2);
-  // }
-
-  const fetchMoreData = () => {
-    setPage(page + 6);
-  };
-
-  const totalProducts = data?.total || 0;
-  const loadedProducts = data?.data?.length || 0;
-  const hasMore = loadedProducts < totalProducts;
-
-  useEffect(() => {
-    if (loadedProducts >= totalProducts) {
-      // Fetch more data when all products are loaded initially
-      fetchMoreData();
-    }
-  }, [totalProducts]);
-
+  }
   return (
     <section>
       <div className="mb-5">
@@ -114,32 +93,19 @@ const JustForYou = ({ t }) => {
             <div className=" all-products-container ">
               <>
                 {data?.data?.map((product) => {
+                  console.log({ data: data?.data })
                   return (
                     <JustForYouProductCard product={product} key={product?._id} />
                   );
                 })}
-                {loadedProducts === 0 && <p>No products found.</p>}
+
               </>
             </div>
           )}
 
+          <button onClick={loadMoreProduct} className="d-flex mx-auto px-5 text-white py-2 border-0 rounded mt-3" style={{ backgroundColor: "rgb(253, 130, 23)", fontWeight: "500" }}>Load More...</button>
         </div>
-        <InfiniteScroll
-          dataLength={loadedProducts}
-          next={fetchMoreData}
-          hasMore={!isLoading && hasMore}
-          loader={<h4 className="text-center">Loading...</h4>}
-          endMessage={
-            data?.data && (
-              <p className="mb-4" style={{ textAlign: "center" }}>
-                <b>
-                  To see more products click{" "}
-                  <span onClick={() => router.push("/shop")}>here</span>
-                </b>
-              </p>
-            )
-          }
-        ></InfiniteScroll>
+
       </div >
     </section>
   );
