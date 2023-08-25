@@ -77,6 +77,22 @@ export default function Product({ product }) {
   //     toast.success("Added to cart", { id: "addToCart" });
   //   }
   // }, [isSuccess, isLoading]);
+
+  const getProductPriceRange = (variants) => {
+    let highestPrice = variants[0]?.price ? variants[0]?.price : 0;
+    let lowestPrice = variants[0]?.price ? variants[0]?.price : 0;
+
+    variants.forEach((variant) => {
+      if (variant.price > highestPrice) {
+        highestPrice = variant.price;
+      }
+      if (variant.price < lowestPrice) {
+        lowestPrice = variant.price;
+      }
+    });
+
+    return { highestPrice, lowestPrice };
+  };
   return (
     <div className="product-link bestselling-product-container product border p-3 ms-3 mt-3 mb-4 me-3 rounded-3 shadow">
       <picture>
@@ -103,7 +119,15 @@ export default function Product({ product }) {
         <del>{product?.oldPrice ? product?.oldPrice : 40}.00$</del>
       </div>
       <div className="save-price">
-        {product?.savedPrice ? product?.savedPrice : 10}.00$
+        <div>
+          <span className="item-price">{`${
+            getProductPriceRange(product?.variants).lowestPrice
+          } ${currency}`}</span>{' '}
+          -
+          <span className="item-price pl-2">{`${
+            getProductPriceRange(product?.variants).highestPrice
+          } ${currency}`}</span>
+        </div>
       </div>
       <div id="">
         <button
