@@ -85,9 +85,23 @@ export default function ShopProduct({ product }) {
   //     toast.success("Added to cart", { id: "addToCart" });
   //   }
   // }, [isSuccess, isLoading]);
+  const getProductPriceRange = (variants) => {
+    let highestPrice = variants[0]?.price ? variants[0]?.price : 0;
+    let lowestPrice = variants[0]?.price ? variants[0]?.price : 0;
 
+    variants.forEach((variant) => {
+      if (variant.price > highestPrice) {
+        highestPrice = variant.price;
+      }
+      if (variant.price < lowestPrice) {
+        lowestPrice = variant.price;
+      }
+    });
+
+    return { highestPrice, lowestPrice };
+  };
   return (
-    <div className="mb-1 w-100" key={product?._id}>
+    <div className="mb-1 w-100 shop-page-product" key={product?._id}>
       <div className="product-link bestselling-product-container  border p-3 rounded-3 shadow">
         <div className="">
           <img
@@ -109,11 +123,15 @@ export default function ShopProduct({ product }) {
         </p>
 
         <div className="d-flex justify-content-between align-items-center">
-          <span className="item-price">
-            {/* {productPrice}
-            {currency} */}
-            {`${productPrice} ${currency}`}
-          </span>
+          <div>
+            <span className="item-price">{`${
+              getProductPriceRange(product?.variants).lowestPrice
+            } ${currency}`}</span>{' '}
+            -
+            <span className="item-price pl-2">{`${
+              getProductPriceRange(product?.variants).highestPrice
+            } ${currency}`}</span>
+          </div>
         </div>
         <div className="old-price">
           <del>

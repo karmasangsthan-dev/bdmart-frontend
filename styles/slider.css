@@ -2,7 +2,6 @@
 
 @import './variable.css';
 
-
 * {
   padding: 0;
   margin: 0;
@@ -24,10 +23,10 @@ main {
 }
 
 .item-price {
-  font-size: 15px;
+  font-size: 13px;
   margin-top: 6px;
   font-family: Arial, Helvetica, sans-serif;
-  font-weight: bolder;
+  font-weight: 600;
 }
 
 .old-price {
@@ -76,7 +75,7 @@ main {
   font-size: 20px;
   cursor: pointer;
   font-weight: lighter !important;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   border-radius: 100px;
   background-color: orange;
 }
@@ -88,7 +87,7 @@ main {
   font-size: 20px;
   cursor: pointer;
   font-weight: lighter !important;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   border-radius: 100px;
   background-color: orange;
 }
@@ -244,7 +243,6 @@ p.star {
   }
 }
 
-
 @media (max-width: 525px) {
   .card-header h1 {
     font-size: 18px !important;
@@ -270,7 +268,8 @@ p.star {
 }
 
 .control-btn .prev {
-  background: url('https://www.jiomart.com/assets/version1685987373/ds2web/jds-icons/angle-left-primary-icon.svg') center no-repeat !important;
+  background: url('https://www.jiomart.com/assets/version1685987373/ds2web/jds-icons/angle-left-primary-icon.svg')
+    center no-repeat !important;
   left: 5px;
   display: flex;
   color: black;
@@ -279,7 +278,8 @@ p.star {
 }
 
 .control-btn .next {
-  background: url('https://www.jiomart.com/assets/version1685987373/ds2web/jds-icons/angle-right-primary-icon.svg') center no-repeat !important;
+  background: url('https://www.jiomart.com/assets/version1685987373/ds2web/jds-icons/angle-right-primary-icon.svg')
+    center no-repeat !important;
   right: 5px;
   display: flex;
   justify-content: center;

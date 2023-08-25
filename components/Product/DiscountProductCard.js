@@ -53,6 +53,22 @@ export default function DiscountProductCard({ product }) {
   const ratingsSum = reviews.reduce((sum, review) => sum + review.ratings, 0);
   const averageRating = totalReviews ? ratingsSum / totalReviews : 0;
   const sanitizedAverageRating = isNaN(averageRating) ? 0 : averageRating;
+
+  const getProductPriceRange = (variants) => {
+    let highestPrice = variants[0]?.price ? variants[0]?.price : 0;
+    let lowestPrice = variants[0]?.price ? variants[0]?.price : 0;
+
+    variants.forEach((variant) => {
+      if (variant.price > highestPrice) {
+        highestPrice = variant.price;
+      }
+      if (variant.price < lowestPrice) {
+        lowestPrice = variant.price;
+      }
+    });
+
+    return { highestPrice, lowestPrice };
+  };
   return (
     <div className="mb-3 mobile-product-card" key={product?._id}>
       <div className="product-link bestselling-product-container product-card-shop border p-3 rounded shadow">
@@ -86,9 +102,15 @@ export default function DiscountProductCard({ product }) {
 
         <div className="d-flex justify-content-between align-items-center">
           <span className="item-price">
-            {/* {productPrice}
-            {currency} */}
-            {`${productPrice} ${currency}`}
+            <div>
+              <span className="item-price">{`${
+                getProductPriceRange(product?.variants).lowestPrice
+              } ${currency}`}</span>{' '}
+              -
+              <span className="item-price pl-2">{`${
+                getProductPriceRange(product?.variants).highestPrice
+              } ${currency}`}</span>
+            </div>
           </span>
         </div>
         <div className="old-price">
