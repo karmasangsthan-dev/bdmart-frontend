@@ -18,6 +18,7 @@ import { bn } from '../../../locales/bn';
 import MegaMenu from './MegaMenu';
 
 import { AiOutlineMenu } from 'react-icons/ai';
+import NavMenuLogin from '../NavMenuLogin/NavMenuLogin';
 const Header = () => {
   const router = useRouter();
   const { locale } = router;
@@ -205,6 +206,7 @@ const Header = () => {
               <div className="d-flex ">
                 <div className="cart-icon ms-3">
                   {user?.email && <NavMenu />}
+                  {!user?.email && <NavMenuLogin />}
                 </div>
                 <div className="cart-icon ms-4">
                   <Tooltip title="Cart">
@@ -222,9 +224,7 @@ const Header = () => {
                     </Link>
                   </Tooltip>
                 </div>
-                {!user?.email && (
-                  <div style={{ width: '40px', height: '40px' }}></div>
-                )}
+                
               </div>
             </div>
           </div>

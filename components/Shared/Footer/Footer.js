@@ -5,9 +5,149 @@ import { IoIosCheckmarkCircleOutline } from "react-icons/io";
 import { FaUserFriends } from "react-icons/fa";
 import { BsApple } from "react-icons/bs";
 import Link from "next/link";
+import Image from "next/image";
+
+
 const Footer = () => {
   return (
     <footer className="footer-section ">
+      <div className="footer-routes-container">
+        <div className="route-content">
+          <h3 className="">
+            Company
+          </h3>
+          <ul className="">
+            <li className="">
+              <Link
+                className=""
+                href="/about-us"
+              >
+                About Us
+              </Link>
+            </li>
+            <li className="">
+              <Link
+                className=""
+                href="/contact-us"
+              >
+                Contact Us
+              </Link>
+            </li>
+            <li className="">
+              <Link
+                className=""
+                href="/#"
+              >
+                Careers
+              </Link>
+            </li>
+            <li className="">
+              <a
+                className=""
+                href="/#"
+              >
+                Latest News
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div className="route-content">
+          <h3 className="">
+            Top Category
+          </h3>
+          <ul className="">
+            <li className="">
+              <a
+                className=""
+                href="/search?Category=fish--meat"
+              >
+                Fish &amp; Meat
+              </a>
+            </li>
+            <li className="">
+              <a
+                className=""
+                href="/search?Category=drinks"
+              >
+                Soft Drinks
+              </a>
+            </li>
+            <li className="">
+              <a
+                className=""
+                href="/search?Category=baby-care"
+              >
+                Baby Care
+              </a>
+            </li>
+            <li className="">
+              <a
+                className=""
+                href="/search?Category=beauty--health"
+              >
+                {" "}
+                Beauty &amp; Health
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div className="route-content">
+          <h3 className="">
+            My Account
+          </h3>
+          <ul className="">
+            <li className="">
+              <a
+                className=""
+                href="/#"
+              >
+                Dashboard
+              </a>
+            </li>
+            <li className="">
+              <a
+                className=""
+                href="/#"
+              >
+                My Orders
+              </a>
+            </li>
+            <li className="">
+              <a
+                className=""
+                href="/#"
+              >
+                Recent Orders
+              </a>
+            </li>
+            <li className="">
+              <a
+                className=""
+                href="/#"
+              >
+                Updated Profile
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div className="route-content">
+          <a className="mr-3 lg:mr-12 xl:mr-12" rel="noreferrer" href="/">
+            <Image
+              style={{ position: 'relative', right: '25px',bottom:'10px' }}
+              alt="logo"
+              src="/images/logo2.jpg"
+              width={190}
+              height={70}
+            />
+          </a>
+          <div className="leading-7 font-sans text-sm text-gray-600 ">
+            <p className=""> 3 No Tejturi Bazar West, Panthapath, Dhaka 1215, Bangladesh</p>
+            <p className="my-1">Tell: 01223334455</p>
+            <p className="my-1">Email: contact@bangladeshmart.com.bd</p>
+          </div>
+        </div>
+      </div>
+
       <div className="">
         <div className="footer-div-1">
           <div className="bottom-footer-container">
@@ -15,7 +155,7 @@ const Footer = () => {
               <span className="follow-us-text">
                 Follow Us
               </span>
-              <ul className="icon-container">
+              <ul className="icon-container ps-0">
                 <li className="social-icon">
                   <a
                     aria-label="Social Link"
@@ -180,7 +320,7 @@ const Footer = () => {
                         minHeight: "100%",
                         maxHeight: "100%"
                       }}
-                      
+
                     />
                     <noscript />
                   </span>

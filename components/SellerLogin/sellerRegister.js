@@ -5,6 +5,7 @@ import { useSellerAccountVerifyMutation, useSellerSignupMutation, useSendOTPMuta
 import { setCookie } from '../../utils/setCookie';
 import { useRouter } from 'next/router';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
+import { fetchSeller, fetchUser } from '../../features/auth/authSlice';
 
 const SellerRegister = () => {
   const router = useRouter();
@@ -21,8 +22,6 @@ const SellerRegister = () => {
   const handleCreateSellerAccount = (event) => {
     event.preventDefault();
     sellerSignup({ email, password })
-    toast.success('Request Receieved. As soon as possible we contact with you')
-
   }
   const sendEmailVerificationCode = () => {
     sendOTP({ email });
@@ -30,7 +29,7 @@ const SellerRegister = () => {
   const checkOTPVerified = () => {
     verifyOTPForSeller({ OTP, email })
   }
-  
+
   useEffect(() => {
     // Handling sendOTP mutation
     if (isLoadingSendOTP) {
@@ -45,11 +44,20 @@ const SellerRegister = () => {
     }
 
 
-
-
   }, [isSuccessSendOTP, isErrorSendOTP, isLoadingSendOTP, sendOTPError]);
 
   useEffect(() => {
+    // seller signup 
+    if (sellerSignupLoading) {
+      toast.loading("Creating account. please wait...!!")
+    }
+    if (sellerSignupSuccess) {
+      toast.success("Seller account create successfully")
+      localStorage.setItem("accessToken", sellerSignupData?.token);
+      toast.success('Signup success..', { id: 'sellerSignup' });
+      dispatch(fetchSeller(sellerSignupData?.token));
+      router.push('/seller/dashboard');
+    }
     // Handling verifyOTPForSeller mutation
     if (isLoadingVerifyOTP) {
       toast.loading('Loading...', { id: 'verifyOTPForSeller' });
@@ -61,7 +69,7 @@ const SellerRegister = () => {
     if (isErrorVerifyOTP) {
       toast.error(verifyOTPError?.data?.error, { id: 'verifyOTPForSeller' });
     }
-  }, [isSuccessVerifyOTP, isErrorVerifyOTP, isLoadingVerifyOTP, verifyOTPError])
+  }, [isSuccessVerifyOTP, isErrorVerifyOTP, isLoadingVerifyOTP, verifyOTPError, sellerSignupSuccess, sellerSignupLoading])
   return (
     <div style={{ minHeight: '120vh' }}>
       <div className="seller-login-container">

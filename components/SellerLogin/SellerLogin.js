@@ -24,7 +24,7 @@ const SellerLogin = () => {
     if (isSuccess) {
       localStorage.setItem('accessToken', data.token);
       toast.success('Success', { id: 'sellerSignin' });
-
+      router.push('/seller/dashboard')
     }
     if (isError) {
       toast.error(error?.data?.error, { id: 'sellerSignin' });

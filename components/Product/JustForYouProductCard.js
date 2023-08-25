@@ -3,9 +3,7 @@ import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../features/cart/cartSlice';
 import { toast } from 'react-hot-toast';
-
-import { useEffect, useState } from 'react';
-import { decryptCurrency } from '../../config/cryptingCurrency';
+import Image from 'next/image';
 
 export default function JustForYouProductCard({ product }) {
   const { code: currency, rate: currencyRate } = useSelector(
@@ -73,12 +71,16 @@ export default function JustForYouProductCard({ product }) {
     <div className="mb-3" key={product?._id}>
       <div className="product-link bestselling-product-container product-card-shop border p-3 rounded-3 shadow">
         <div className="">
-          <img
+          <Image
+            layout="responsive"
+            width={100}
+            height={100}
+            objectFit="contain"
             onClick={() => router.push(`/productDetails/${product._id}`)}
             className=""
             style={{ width: '100%', height: '100%' }}
             src={product?.thumbnail}
-            alt=""
+            alt={product?.title}
           />
         </div>
         <p
