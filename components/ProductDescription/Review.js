@@ -125,7 +125,7 @@ export default function Review({ review }) {
 
               className="fs-6 review-like-btn"
               onClick={() => router.push({
-                pathname: "/signup",
+                pathname: "/signin",
                 query: { redirect: router.asPath },
               })}
             />

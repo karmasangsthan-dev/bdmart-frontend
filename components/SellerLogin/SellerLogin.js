@@ -1,23 +1,36 @@
-import banner from '../../public/images/seller-banner.png'
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { useSellerAccountVerifyMutation } from '../../features/auth/authApi';
-import { setCookie } from '../../utils/setCookie';
 import { useRouter } from 'next/router';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
+import { useSellerSigninMutation } from '../../features/auth/authApi';
 
 const SellerLogin = () => {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPass, setShowPass] = useState(false);
-  
+
+  const [sellerSignin, { data, isLoading, isSuccess, isError, error }] = useSellerSigninMutation();
 
   const handleCreateSellerAccount = (e) => {
-    
+    e.preventDefault();
+    sellerSignin({ email, password })
   };
 
-  
+  useEffect(() => {
+    if (isLoading) {
+      toast.loading('Loading...', { id: 'sellerSignin' });
+    }
+    if (isSuccess) {
+      localStorage.setItem('accessToken', data.token);
+      toast.success('Success', { id: 'sellerSignin' });
+
+    }
+    if (isError) {
+      toast.error(error?.data?.error, { id: 'sellerSignin' });
+    }
+  }, [isSuccess, data, isError, error, isLoading]);
+
   return (
     <div style={{ minHeight: '120vh' }}>
       <div className="seller-login-container">
