@@ -4,6 +4,7 @@ let initialState = {
   user: {
     cart: [],
   },
+  seller: {},
   cart: [],
   isLoading: false,
   isError: false,
@@ -24,20 +25,22 @@ export const fetchUser = createAsyncThunk('auth/fetchUser', async (token) => {
 
   return data?.data;
 });
-export const fetchSeller = createAsyncThunk('auth/fetchSeller', async (token) => {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_SITE_LINK}/api/v1/seller/me`,
-    {
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    }
-  );
-  const data = await response.json();
-
-  return data?.data;
-});
-
+export const fetchSeller = createAsyncThunk(
+  'auth/fetchSeller',
+  async (token) => {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_SITE_LINK}/api/v1/seller/me`,
+      {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const data = await response.json();
+    console.log(data);
+    return data?.data;
+  }
+);
 
 export const googleLogin = createAsyncThunk(
   'auth/googleLogin',
@@ -157,6 +160,25 @@ const authSlice = createSlice({
         state.error = '';
       })
       .addCase(googleLogin.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = false;
+        state.error = action.error.message;
+      })
+      .addCase(fetchSeller.pending, (state, { payload }) => {
+        state.isLoading = true;
+        state.isError = false;
+        state.isSuccess = false;
+        state.error = '';
+      })
+      .addCase(fetchSeller.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.seller = payload;
+        state.error = '';
+      })
+      .addCase(fetchSeller.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = false;

@@ -3,18 +3,22 @@ import { toast } from 'react-hot-toast';
 import { useRouter } from 'next/router';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { useSellerSigninMutation } from '../../features/auth/authApi';
+import { useDispatch } from 'react-redux';
+import { fetchSeller } from '../../features/auth/authSlice';
 
 const SellerLogin = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPass, setShowPass] = useState(false);
 
-  const [sellerSignin, { data, isLoading, isSuccess, isError, error }] = useSellerSigninMutation();
+  const [sellerSignin, { data, isLoading, isSuccess, isError, error }] =
+    useSellerSigninMutation();
 
   const handleCreateSellerAccount = (e) => {
     e.preventDefault();
-    sellerSignin({ email, password })
+    sellerSignin({ email, password });
   };
 
   useEffect(() => {
@@ -24,7 +28,8 @@ const SellerLogin = () => {
     if (isSuccess) {
       localStorage.setItem('accessToken', data.token);
       toast.success('Success', { id: 'sellerSignin' });
-      router.push('/seller/dashboard')
+      dispatch(fetchSeller(data?.token));
+      router.push('/seller/dashboard');
     }
     if (isError) {
       toast.error(error?.data?.error, { id: 'sellerSignin' });
@@ -59,7 +64,7 @@ const SellerLogin = () => {
                 <div>
                   <label htmlFor="email">Email</label> <br />
                   <input
-                    id='email'
+                    id="email"
                     onChange={(e) => setEmail(e.target.value)}
                     className="w-100 py-2 px-3 rounded mt-2"
                     style={{ border: '1px solid #6c7778' }}
@@ -74,7 +79,7 @@ const SellerLogin = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     className="w-100 py-2 px-3 mt-2 rounded"
                     type={showPass ? 'text' : 'password'}
-                    id='password'
+                    id="password"
                     style={{ border: '1px solid #6c7778' }}
                     placeholder="Enter password"
                   />
@@ -101,8 +106,16 @@ const SellerLogin = () => {
                     Login As Seller
                   </button>
                 </div>
-                <div className='mt-3 seller-login-btn'>
-                  <p className=''>Haven't an account ? <span onClick={() => router.push('/seller/register')} className=''>Click for Register</span></p>
+                <div className="mt-3 seller-login-btn">
+                  <p className="">
+                    Haven't an account ?{' '}
+                    <span
+                      onClick={() => router.push('/seller/register')}
+                      className=""
+                    >
+                      Click for Register
+                    </span>
+                  </p>
                 </div>
               </div>
             </form>
