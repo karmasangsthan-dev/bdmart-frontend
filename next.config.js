@@ -15,6 +15,7 @@ const nextConfig = {
       "i.dummyjson.com",
       "example.com",
       "img.freepik.com",
+      "www.pngmart.com"
     ],
   },
 };

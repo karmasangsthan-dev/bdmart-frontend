@@ -19,11 +19,13 @@ import MegaMenu from './MegaMenu';
 
 import { AiOutlineMenu } from 'react-icons/ai';
 import NavMenuLogin from '../NavMenuLogin/NavMenuLogin';
+import SellerNavMenu from '../NavMenu/SellerNavMenu';
 const Header = () => {
   const router = useRouter();
   const { locale } = router;
   const t = locale === 'en' ? en : bn;
   const user = useSelector((state) => state?.auth?.user);
+  const seller = useSelector((state) => state.auth.seller);
   const { code: currency, rate: currencyRate } = useSelector(
     (state) => state.currency
   );
@@ -205,8 +207,9 @@ const Header = () => {
 
               <div className="d-flex ">
                 <div className="cart-icon ms-3">
-                  {user?.email && <NavMenu />}
-                  {!user?.email && <NavMenuLogin />}
+                  {user?.email && !seller?.email && <NavMenu />}
+                  {!user?.email && !seller?.email && <NavMenuLogin />}
+                  {!user?.email && seller?.email && <SellerNavMenu></SellerNavMenu>}
                 </div>
                 <div className="cart-icon ms-4">
                   <Tooltip title="Cart">

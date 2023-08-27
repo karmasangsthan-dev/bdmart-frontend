@@ -10,11 +10,11 @@ import { toast } from 'react-hot-toast';
 
 const InactiveSellerDashboard = () => {
     const dispatch = useDispatch();
-    const user = useSelector((state) => state.auth.user);
+    const seller = useSelector((state) => state.auth.seller);
     const [signOut, loading, error] = useSignOut(auth);
     const router = useRouter();
     const handleSellerLogout = () => {
-        toast.success('Log out successful')
+        toast.success('Seller log out successful')
     };
     // /user/dashboard
     const textParams = router.pathname;
@@ -55,7 +55,7 @@ const InactiveSellerDashboard = () => {
                                     <div className="d-flex checkout-full-content">
                                         <div style={{width:'100%'}} className="checkout-left-side">
                                             <div className="left-content">
-                                                <SellerForm></SellerForm>
+                                                <SellerForm seller={seller}></SellerForm>
                                             </div>
                                         </div>
                                     </div>

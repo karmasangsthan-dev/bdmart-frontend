@@ -13,7 +13,7 @@ import SellerLayout from '../../components/Seller/SellerLayout';
 import InactiveSellerDashboard from '../../components/Seller/InactiveSellerDashboard';
 const dashboard = () => {
     const dispatch = useDispatch();
-    const user = useSelector((state) => state.auth.user);
+    const seller = useSelector((state) => state.auth.seller);
     const [signOut, loading, error] = useSignOut(auth);
     const router = useRouter();
     const handleLogout = () => {
@@ -36,20 +36,16 @@ const dashboard = () => {
     const textParams = router.pathname;
     const textPath = textParams.split('/seller/')[1];
 
-    const sellerUser = {
-        name: 'Altaf', email: 'web.altaf.1@gmail.com', passowrd: '12345678', status: 'inactive'
-    }
-
-
+    
     return (
         <Layout>
             {
-                sellerUser?.status === 'active' && <SellerLayout>
+                seller?.status === 'active' && <SellerLayout>
                     <SellerDashboard></SellerDashboard>
                 </SellerLayout>
             }
             {
-                sellerUser?.status === 'inactive' && <InactiveSellerDashboard></InactiveSellerDashboard>
+                seller?.status === 'inactive' && <InactiveSellerDashboard></InactiveSellerDashboard>
             }
         </Layout>
     );

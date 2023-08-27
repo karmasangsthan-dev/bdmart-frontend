@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Header from './Shared/Header/Header';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { fetchUser } from '../features/auth/authSlice';
+import { fetchSeller, fetchUser } from '../features/auth/authSlice';
 import Script from 'next/script';
 
 import { useRouter } from 'next/router';
@@ -22,6 +22,7 @@ const Layout = ({ children, title = 'Bangladesh Mart' }) => {
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
     dispatch(fetchUser(token));
+    dispatch(fetchSeller(token));
 
     if (user?.email) {
       document.cookie =

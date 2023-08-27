@@ -1,14 +1,10 @@
 import Link from 'next/link';
 import React from 'react';
 
-const SellerForm = () => {
+const SellerForm = ({seller}) => {
     // event handler for submit seller data 
     const handleSubmitSellerData = () => {
 
-    }
-
-    const sellerUser = {
-        name: 'Altaf', email: 'web.altaf.1@gmail.com', passowrd: '12345678', status: 'inactive'
     }
 
     return (
@@ -40,7 +36,7 @@ const SellerForm = () => {
                                 type="text"
                                 id="email"
                                 className="form-control checkout-email-input"
-                                value={sellerUser?.email}
+                                value={seller?.email}
                             />
                         </div>
                     </div>
