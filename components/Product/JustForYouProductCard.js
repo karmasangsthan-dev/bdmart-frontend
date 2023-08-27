@@ -58,10 +58,10 @@ export default function JustForYouProductCard({ product }) {
 
     variants.forEach((variant) => {
       if (variant.price > highestPrice) {
-        highestPrice = variant.price;
+        highestPrice = (variant.price * currencyRate).toFixed(2);
       }
       if (variant.price < lowestPrice) {
-        lowestPrice = variant.price;
+        lowestPrice = (variant.price * currencyRate).toFixed(2);
       }
     });
 

@@ -210,7 +210,7 @@ const productNo = () => {
   if (!data?.status) {
     return <NotFoundPage></NotFoundPage>;
   }
-  console.log(variant);
+
   return (
     <Layout title={`${product?.title ? product?.title : ''} Bangladesh Mart`}>
       <main className="mainnnnn" style={{ background: '#eff0f5' }}>
@@ -307,7 +307,7 @@ const productNo = () => {
                   <h4 className="my-2">
                     Price:{' '}
                     <span style={{ color: '#f85606' }}>
-                      {variant?.price * currencyRate} {currency}
+                      {(variant?.price * currencyRate).toFixed(2)} {currency}
                     </span>{' '}
                   </h4>
                   <div className="old-price">
@@ -356,15 +356,19 @@ const productNo = () => {
                 <div className="d-flex align-items-center gap-2">
                   <h6 style={{ minWidth: '50px' }}>Size:</h6>
                   <Form.Select
-                    className="product-description-size"
+                    className="product-description-size text-uppercase"
                     style={{ minWidth: '156px', maxWidth: '156px' }}
                     aria-label="Default select example"
                   >
-                    <option>Select Size</option>
-                    <option value="XL">XL</option>
-                    <option value="L">L</option>
-                    <option value="M">M</option>
-                    <option value="S">S</option>
+                    {variant?.size?.length ? (
+                      variant?.size?.map((variantSize) => (
+                        <option className="text-uppercase">
+                          {variantSize}
+                        </option>
+                      ))
+                    ) : (
+                      <option>None</option>
+                    )}
                   </Form.Select>
                 </div>
 
