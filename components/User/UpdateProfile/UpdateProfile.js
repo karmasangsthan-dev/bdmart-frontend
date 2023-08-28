@@ -130,9 +130,10 @@ const UpdateProfile = () => {
                         <div className="" style={{ width: '100px', height: '100px' }}>
                             <Image
                                 style={{ width: '100%', height: '100%', borderRadius: '50%' }}
-                                layout="responsive"
+                                layout="fixed"
                                 width={100}
                                 height={100}
+                                objectFit="cover"  // This property is used for maintaining aspect ratio and covering the container
                                 src={user?.profilePicture || "https://i.ibb.co/x258KZb/profile.jpg"}
                                 className="border p-1"
                                 alt=""
@@ -158,7 +159,7 @@ const UpdateProfile = () => {
                                 <label htmlhtmlFor="name">Full Name:</label>
                                 <input
                                     className="w-100 px-3 py-2 mb-3 form-control  "
-                                    
+
                                     name="fullName"
                                     type="text"
                                     defaultValue={user?.fullName}
@@ -182,7 +183,7 @@ const UpdateProfile = () => {
                                 <label htmlhtmlFor="name">Address:</label>
                                 <input
                                     className="w-100 px-3 py-2 mb-3 text-capitalize form-control"
-                                    
+
                                     type="text"
                                     defaultValue={user?.address}
                                     name="address"
@@ -192,7 +193,7 @@ const UpdateProfile = () => {
                                 <input
                                     className="w-100 px-3 py-2 mb-3 form-control"
                                     name="contactNumber"
-                                    
+
                                     defaultValue={user?.contactNumber}
                                     type="number"
                                     placeholder="Enter Your Contact Number"

@@ -1,13 +1,13 @@
 import React from 'react';
 import Layout from '../../components/Layout';
-import SellerLayout from '../../components/Seller/SellerLayout';
+import SellerLayoutDashboard from '../../components/Seller/SellerLayoutDashboard';
 
 const SelsManageMent = () => {
     return (
         <Layout>
-            <SellerLayout>
+            <SellerLayoutDashboard>
                 <h2 className='dash-content-heading'>Order and Sales Management</h2>
-            </SellerLayout>
+            </SellerLayoutDashboard>
         </Layout>
     );
 };

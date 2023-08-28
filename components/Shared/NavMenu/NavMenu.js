@@ -79,7 +79,7 @@ const NavMenu = () => {
                 {" "}
                 {/* {<img className="img-fluid" src={avatar} alt="" />}{" "} */}
                 <Image
-                  layout="responsive"
+                  layout="fixed"
                   width={100}
                   height={100}
                   src={avatar}

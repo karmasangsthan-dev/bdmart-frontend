@@ -3,15 +3,20 @@ import { toast } from 'react-hot-toast';
 import { useRouter } from 'next/router';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { useSellerSigninMutation } from '../../features/auth/authApi';
-import { useDispatch } from 'react-redux';
-import { fetchSeller } from '../../features/auth/authSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchSeller, logOut } from '../../features/auth/authSlice';
+import { useSignOut } from 'react-firebase-hooks/auth';
+import auth from '../../firebase.init';
 
 const SellerLogin = () => {
+  const seller = useSelector((state => state.auth.seller))
+  const user = useSelector((state => state.auth.user))
   const router = useRouter();
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPass, setShowPass] = useState(false);
+  const [signOut, loading] = useSignOut(auth);
 
   const [sellerSignin, { data, isLoading, isSuccess, isError, error }] =
     useSellerSigninMutation();
@@ -20,13 +25,20 @@ const SellerLogin = () => {
     e.preventDefault();
     sellerSignin({ email, password });
   };
+  useEffect(() => {
+    const sellerToken = localStorage.getItem('sellerAccessToken');
+    if (sellerToken || seller?.email) {
+      localStorage.removeItem("sellerAccessToken");
+      router.replace('/')
+    }
+  }, [router])
 
   useEffect(() => {
     if (isLoading) {
       toast.loading('Loading...', { id: 'sellerSignin' });
     }
     if (isSuccess) {
-      localStorage.setItem('accessToken', data.token);
+      localStorage.setItem('sellerAccessToken', data.token);
       toast.success('Success', { id: 'sellerSignin' });
       dispatch(fetchSeller(data?.token));
       router.push('/seller/dashboard');

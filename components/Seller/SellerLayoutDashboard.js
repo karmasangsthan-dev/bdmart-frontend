@@ -1,7 +1,7 @@
 import React from 'react';
 import SellerSidebar from './SellerSidebar';
 
-const SellerLayout = ({ children}) => {
+const SellerLayoutDashboard = ({ children}) => {
     return (
         <div style={{ minHeight: '120vh' }} className="bg-gray-50">
             <div className='user-dashboard-container'>
@@ -19,4 +19,4 @@ const SellerLayout = ({ children}) => {
     );
 };
 
-export default SellerLayout;
+export default SellerLayoutDashboard;

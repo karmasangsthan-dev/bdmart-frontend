@@ -21,6 +21,7 @@ const SellerRegister = () => {
   const [OTP, setOTP] = useState(0);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [fullName, setFullName] = useState('');
   const [showPass, setShowPass] = useState(false);
   const [
     sendOTP,
@@ -55,7 +56,7 @@ const SellerRegister = () => {
 
   const handleCreateSellerAccount = (event) => {
     event.preventDefault();
-    sellerSignup({ email, password });
+    sellerSignup({ email, password ,fullName});
   };
   const sendEmailVerificationCode = () => {
     sendOTP({ email });
@@ -87,7 +88,7 @@ const SellerRegister = () => {
     }
     if (sellerSignupSuccess) {
       toast.success('Seller account create successfully', { id: 'sendOTP' });
-      localStorage.setItem('accessToken', sellerSignupData?.token);
+      localStorage.setItem('sellerAccessToken', sellerSignupData?.token);
       toast.success('Signup success..', { id: 'sellerSignup' });
       dispatch(fetchSeller(sellerSignupData?.token));
       router.push('/seller/dashboard');
@@ -140,9 +141,8 @@ const SellerRegister = () => {
                   <label htmlFor="email">Email</label> <br />
                   <input
                     onChange={(e) => setEmail(e.target.value)}
-                    className={`w-100 py-2 px-3 rounded mt-2 ${
-                      isEmailSend === 1 && `seller-email-blur`
-                    } ${isVerified === 1 && 'verification-success '}`}
+                    className={`w-100 py-2 px-3 rounded mt-2 ${isEmailSend === 1 && `seller-email-blur`
+                      } ${isVerified === 1 && 'verification-success '}`}
                     style={{ border: '1px solid #6c7778' }}
                     type="email"
                     id="email"
@@ -168,10 +168,9 @@ const SellerRegister = () => {
                     <label htmlFor="">Verification Code</label> <br />
                     <input
                       onChange={(e) => setOTP(e.target.value)}
-                      className={`w-100 py-2 px-3 mt-2 rounded ${
-                        isVerified === 1 &&
+                      className={`w-100 py-2 px-3 mt-2 rounded ${isVerified === 1 &&
                         'verification-success seller-email-blur'
-                      } `}
+                        } `}
                       type="text"
                       disabled={isVerified === 1}
                       style={{ border: '1px solid #6c7778' }}
@@ -181,16 +180,27 @@ const SellerRegister = () => {
                 )}
 
                 {isVerified === 1 && isEmailSend === 1 && (
-                  <div className="mt-3">
-                    <label htmlFor="">Password</label> <br />
-                    <input
-                      onChange={(e) => setPassword(e.target.value)}
-                      className={`w-100 py-2 px-3 mt-2 rounded `}
-                      type={showPass ? 'text' : 'password'}
-                      style={{ border: '1px solid #6c7778' }}
-                      placeholder="Enter password"
-                    />
-                  </div>
+                  <>
+                    <div className="mt-3">
+                      <label htmlFor="">Full Name</label> <br />
+                      <input
+                        onChange={(e) => setFullName(e.target.value)}
+                        className={`w-100 py-2 px-3 mt-2 rounded `}
+                        style={{ border: '1px solid #6c7778' }}
+                        placeholder="Enter your full name"
+                      />
+                    </div>
+                    <div className="mt-3">
+                      <label htmlFor="">Password</label> <br />
+                      <input
+                        onChange={(e) => setPassword(e.target.value)}
+                        className={`w-100 py-2 px-3 mt-2 rounded `}
+                        type={showPass ? 'text' : 'password'}
+                        style={{ border: '1px solid #6c7778' }}
+                        placeholder="Enter password"
+                      />
+                    </div>
+                  </>
                 )}
 
                 {isVerified === 1 && isEmailSend === 1 && (
