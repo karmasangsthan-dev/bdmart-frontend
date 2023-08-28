@@ -192,51 +192,51 @@ const checkout = () => {
 
                     <label >Shipping Cost</label>
                     <div className="personal-content">
-                      <div class="personal-input">
+                      <div className="personal-input">
                         <div>
-                          <div class="shipping-method">
-                            <label class="">
-                              <div class="shipping-content">
-                                <div class="d-flex align-items-center">
-                                  <span class="ship">
-                                    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle>
+                          <div className="shipping-method">
+                            <label className="">
+                              <div className="shipping-content">
+                                <div className="d-flex align-items-center">
+                                  <span className="ship">
+                                    <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle>
                                     </svg>
                                   </span>
                                   <div>
-                                    <h6 class="shipping-method-title">FedEx</h6>
+                                    <h6 className="shipping-method-title">FedEx</h6>
                                     <p style={{
                                       color: "rgb(107 114 128/1)", fontWeight: '500', fontSize: ".75rem",
                                       lineHeight: "1rem"
-                                    }} class="">Delivery: Today <span class="font-medium text-gray-600">Cost :$60.00</span>
+                                    }} className="">Delivery: Today <span className="font-medium text-gray-600">Cost :$60.00</span>
                                     </p>
                                   </div>
                                 </div>
-                                <input name="shippingOption" type="radio" class="shipping-radio" value="FedEx" />
+                                <input name="shippingOption" type="radio" className="shipping-radio" value="FedEx" />
                               </div>
                             </label>
                           </div>
                         </div>
                       </div>
-                      <div class="personal-input">
+                      <div className="personal-input">
                         <div>
-                          <div class="shipping-method">
-                            <label class="">
-                              <div class="shipping-content">
-                                <div class="d-flex align-items-center">
-                                  <span class="ship">
-                                    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle>
+                          <div className="shipping-method">
+                            <label className="">
+                              <div className="shipping-content">
+                                <div className="d-flex align-items-center">
+                                  <span className="ship">
+                                    <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle>
                                     </svg>
                                   </span>
                                   <div>
-                                    <h6 class="shipping-method-title">UPS</h6>
+                                    <h6 className="shipping-method-title">UPS</h6>
                                     <p style={{
                                       color: "rgb(107 114 128/1)", fontWeight: '500', fontSize: ".75rem",
                                       lineHeight: "1rem"
-                                    }}>Delivery: 7 Days <span class="font-medium text-gray-600">Cost :$20.00</span>
+                                    }}>Delivery: 7 Days <span className="font-medium text-gray-600">Cost :$20.00</span>
                                     </p>
                                   </div>
                                 </div>
-                                <input name="shippingOption" type="radio" class="shipping-radio" value="UPS" />
+                                <input name="shippingOption" type="radio" className="shipping-radio" value="UPS" />
                               </div>
                             </label>
                           </div>
@@ -272,7 +272,7 @@ const checkout = () => {
                               <input
                                 name="shipping-method"
                                 type="radio"
-                                class="shipping-radio"
+                                className="shipping-radio"
                                 value="cashOnDelevery"
                                 checked={selectedPaymentMethod === 'cashOnDelevery'}
                                 onChange={handlePaymentMethodChange} />
@@ -287,7 +287,7 @@ const checkout = () => {
                           <label className="cursor-pointer label">
                             <div className="d-flex align-items-center justify-content-between">
                               <div className="d-flex align-items-center justify-content-between gap-2">
-                                <svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1.1" viewBox="0 0 16 16" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M14.5 2h-13c-0.825 0-1.5 0.675-1.5 1.5v9c0 0.825 0.675 1.5 1.5 1.5h13c0.825 0 1.5-0.675 1.5-1.5v-9c0-0.825-0.675-1.5-1.5-1.5zM1.5 3h13c0.271 0 0.5 0.229 0.5 0.5v1.5h-14v-1.5c0-0.271 0.229-0.5 0.5-0.5zM14.5 13h-13c-0.271 0-0.5-0.229-0.5-0.5v-4.5h14v4.5c0 0.271-0.229 0.5-0.5 0.5zM2 10h1v2h-1zM4 10h1v2h-1zM6 10h1v2h-1z"></path></svg>
+                                <svg stroke="currentColor" fill="currentColor" strokeWidth="0" version="1.1" viewBox="0 0 16 16" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M14.5 2h-13c-0.825 0-1.5 0.675-1.5 1.5v9c0 0.825 0.675 1.5 1.5 1.5h13c0.825 0 1.5-0.675 1.5-1.5v-9c0-0.825-0.675-1.5-1.5-1.5zM1.5 3h13c0.271 0 0.5 0.229 0.5 0.5v1.5h-14v-1.5c0-0.271 0.229-0.5 0.5-0.5zM14.5 13h-13c-0.271 0-0.5-0.229-0.5-0.5v-4.5h14v4.5c0 0.271-0.229 0.5-0.5 0.5zM2 10h1v2h-1zM4 10h1v2h-1zM6 10h1v2h-1z"></path></svg>
                                 <h6 className="font-serif font-medium text-sm text-gray-600">
                                   Credit Card
                                 </h6>
@@ -296,7 +296,7 @@ const checkout = () => {
                               <input
                                 name="shipping-method"
                                 type="radio"
-                                class="shipping-radio"
+                                className="shipping-radio"
                                 value="creditCard"
                                 checked={selectedPaymentMethod === 'creditCard'}
                                 onChange={handlePaymentMethodChange}

@@ -1,21 +1,42 @@
 import Link from 'next/link';
 import React from 'react';
+import { useInactiveSellerDetailsSubmitMutation } from '../../features/auth/authApi';
 
-const SellerForm = () => {
+const SellerForm = ({ seller }) => {
+    const [
+        inactiveSellerDetailsSubmit,
+        {
+            data,
+            isLoading,
+            isSuccess,
+            isError,
+            error,
+        },
+    ] = useInactiveSellerDetailsSubmitMutation();
+
+
     // event handler for submit seller data 
-    const handleSubmitSellerData = () => {
+    const handleSubmitSellerData = (e) => {
+        e.preventDefault();
 
-    }
+        const formData = {
+            fullName: e.target.firstName.value + " " + e.target.lastName.value,
+            email: e.target.email.value,
+            phone: e.target.phone.value,
+        };
 
-    const sellerUser = {
-        name: 'Altaf', email: 'web.altaf.1@gmail.com', passowrd: '12345678', status: 'inactive'
-    }
+        console.log('Form data:', formData);
+
+        inactiveSellerDetailsSubmit(formData)
+    };
+
 
     return (
         <form onSubmit={handleSubmitSellerData}>
             <div className="form-group">
-                
+                <h5 className='mb-3'>Personal Information :</h5>
                 <div className="personal-content">
+
                     <div className="personal-input">
                         <label htmlFor="">First Name</label>
                         <div className="personal-relative">
@@ -40,7 +61,7 @@ const SellerForm = () => {
                                 type="text"
                                 id="email"
                                 className="form-control checkout-email-input"
-                                value={sellerUser?.email}
+                                value={seller?.email}
                             />
                         </div>
                     </div>
@@ -50,9 +71,74 @@ const SellerForm = () => {
                             <input name="phone" className="form-control" type="tel" placeholder="+062-6532956" />
                         </div>
                     </div>
+                    <div className="personal-input">
+                        <label htmlFor="address">Your Address</label>
+                        <div className="personal-relative">
+                            <input id='address' name="address" className="form-control" type="address" placeholder="+123 your address here " />
+                        </div>
+                    </div>
+                    <div className="personal-input">
+                        <label htmlFor="country">Country</label>
+                        <div className="personal-relative">
+                            <input id='country' name="country" className="form-control" type="text" placeholder="Enter your country" />
+                        </div>
+                    </div>
+
 
                 </div>
-                
+                <h5 className='mt-5'>Business Information :</h5>
+                <div className="personal-content mt-3">
+                    <div className="personal-input">
+                        <label htmlFor="business-desk">Business Type</label>
+                        <div className="personal-relative">
+                            <input id='business-type' name="businessType" className="form-control" type="text" placeholder="eg:electronics" />
+                        </div>
+                    </div>
+                    <div className="personal-input">
+                        <label htmlFor="business-member">Business Member</label>
+                        <div className="personal-relative">
+                            <input id='business-member' name="businessMember" className="form-control" type="text" placeholder="How many member in your company" />
+                        </div>
+                    </div>
+                </div>
+
+                <div className="personal-content mt-3" style={{ gridTemplateColumns: "repeat(1, minmax(0, 1fr))" }}>
+                    <div className="personal-input">
+                        <label htmlFor="business-desk">Business Description</label>
+                        <div className="personal-relative">
+                            <textarea id='business-desk' name="businessDesc" className="form-control" type="text" placeholder="Tell me about your business" />
+                        </div>
+                    </div>
+
+                </div>
+                <h5 className='mt-5'>Legal Documents :</h5>
+                <div className="personal-content mt-3">
+                    <div className="personal-input">
+                        <label>Your NID Photo</label>
+                        <div className="personal-relative">
+                            <input type="file" className='form-control' placeholder='Enter your NID photo'/>
+                        </div>
+                    </div>
+                    <div className="personal-input">
+                        <label>Company Trade License</label>
+                        <div className="personal-relative">
+                            <input type="file" className='form-control' placeholder='Enter your NID photo'/>
+                        </div>
+                    </div>
+                    <div className="personal-input">
+                        <label>Your Driving License</label>
+                        <div className="personal-relative">
+                            <input type="file" className='form-control' placeholder='Enter your NID photo'/>
+                        </div>
+                    </div>
+                    <div className="personal-input">
+                        <label>Your Passport</label>
+                        <div className="personal-relative">
+                            <input type="file" className='form-control' placeholder='Enter your NID photo'/>
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
 
@@ -96,7 +182,6 @@ const SellerForm = () => {
                     <div className="personal-input">
                         <button
                             type="submit"
-                            disabled=""
                             className="confirm-order-button d-flex align-items-center gap-2"
                         >
                             Send Application
@@ -127,7 +212,7 @@ const SellerForm = () => {
 
             </div>
 
-        </form>
+        </form >
     );
 };
 

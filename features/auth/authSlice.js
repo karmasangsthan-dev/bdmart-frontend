@@ -76,6 +76,12 @@ const authSlice = createSlice({
         cart: [],
       };
     },
+    logOutSeller: (state, action) => {
+      state.seller = {
+        email: '',
+        role: '',
+      };
+    },
 
     setUser: (state, action) => {
       console.log(action.payload);
@@ -187,5 +193,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { logOut, setUser } = authSlice.actions;
+export const { logOut, setUser, logOutSeller } = authSlice.actions;
 export default authSlice.reducer;

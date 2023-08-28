@@ -189,7 +189,7 @@ const ShopSideBar = ({ data, filter, setFilter, t }) => {
                               {childCategoryOpen === subC?.subCategoryTitle ? (
                                 <i className="fa fa-caret-down"></i>
                               ) : (
-                                <i class="fa-solid fa-caret-right"></i>
+                                <i className="fa-solid fa-caret-right"></i>
                               )}
                             </div>
                           </div>
