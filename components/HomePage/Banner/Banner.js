@@ -15,7 +15,6 @@ const Banner = () => {
                             width={500}
                             height={500}
                             layout="responsive"
-                            objectFit="contain"
                             loading="eager"
                         />
                     </div>
@@ -30,7 +29,6 @@ const Banner = () => {
                             width={500}
                             height={500}
                             layout="responsive"
-                            objectFit="contain"
                             loading="eager"
                         />
                     </div>

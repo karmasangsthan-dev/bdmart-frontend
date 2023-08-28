@@ -66,8 +66,6 @@ export default function ContactHeader({ user }) {
     }
   }, [data?.data, success]);
 
-
-  console.log({ seller })
   return (
     <>
       <div className="contact-header">

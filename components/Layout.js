@@ -21,13 +21,14 @@ const Layout = ({ children, title = 'Bangladesh Mart' }) => {
 
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
-    dispatch(fetchUser(token));
-    dispatch(fetchSeller(token));
-
-    if (user?.email) {
-      document.cookie =
-        'userData=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    const sellerAccessToken = localStorage.getItem('sellerAccessToken');
+    if(token){
+      dispatch(fetchUser(token));
     }
+    if(sellerAccessToken){
+      dispatch(fetchSeller(sellerAccessToken));
+    }
+
   }, [dispatch]);
 
   useEffect(() => {

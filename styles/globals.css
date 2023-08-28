@@ -1155,6 +1155,15 @@ MGA CONTENT NAV
   font-family: sans-serif;
   text-decoration: none;
 }
+.become-seller {
+  display: inline-block;
+  color: rgb(32, 32, 32);
+  font-weight: 600;
+  font-size: 14px;
+  font-family: sans-serif;
+  text-decoration: none;
+}
+
 
 /*====================
 BAnner Part

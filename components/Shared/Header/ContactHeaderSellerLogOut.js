@@ -14,8 +14,8 @@ const ContactHeaderSellerLogOut = () => {
     const handleSellerLogout = () => {
         try {
             localStorage.removeItem("accessToken");
-            dispatch(logOutSeller());
-            toast.success("Logout Successful", { id: "logOutSeller" });
+            localStorage.removeItem("sellerAccessToken");
+            toast.success("Seller Logout Successful");
         } catch (error) {
             console.log(error)
         }

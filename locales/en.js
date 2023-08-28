@@ -18,7 +18,6 @@ export const en = {
         { title: "Contact Us", link: "/contact" },
         { title: "Your Order", link: "/user/my-orders" },
         { title: "Submit RFQ", link: "/submit-rfq" },
-        { title: "Become Seller", link: "/seller/login" },
       ],
     },
     bestSelling: {
