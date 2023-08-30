@@ -55,7 +55,7 @@ const signin = () => {
       <Header></Header>
       <>
         <div style={{ minHeight: '120vh' }}>
-          <div className="seller-login-container">
+          <div className="user-login-container">
             <div className="">
               <div className="d-flex align-items-center py-5 ">
                 <div className="w-50 px-5">

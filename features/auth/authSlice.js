@@ -77,10 +77,7 @@ const authSlice = createSlice({
       };
     },
     logOutSeller: (state, action) => {
-      state.seller = {
-        email: '',
-        role: '',
-      };
+      state.seller = {};
     },
 
     setUser: (state, action) => {

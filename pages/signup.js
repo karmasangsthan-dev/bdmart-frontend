@@ -102,7 +102,7 @@ const signup = () => {
 
       <>
         <div style={{ minHeight: '120vh' }}>
-          <div className="seller-login-container">
+          <div className="user-login-container">
             <div className="">
               <div className="d-flex align-items-center py-3 ">
                 <div className="w-50 px-5">
