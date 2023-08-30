@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SellerSidebar from './SellerSidebar';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,6 +10,7 @@ import { toast } from 'react-hot-toast';
 import { logOutSeller } from '../../features/auth/authSlice';
 
 const InactiveSellerDashboard = () => {
+    
     const dispatch = useDispatch();
     const seller = useSelector((state) => state.auth.seller);
     const [signOut, loading, error] = useSignOut(auth);
@@ -18,6 +19,7 @@ const InactiveSellerDashboard = () => {
         try {
             localStorage.removeItem("accessToken");
             localStorage.removeItem("sellerAccessToken");
+            dispatch(logOutSeller())
             toast.success("Seller logout successful");
         } catch (error) {
             console.log(error)
@@ -26,7 +28,7 @@ const InactiveSellerDashboard = () => {
     // /user/dashboard
     const textParams = router.pathname;
     const textPath = textParams.split('/seller/')[1];
-
+    
 
     return (
         <div style={{ minHeight: '120vh' }} className="bg-gray-50">
@@ -49,28 +51,7 @@ const InactiveSellerDashboard = () => {
 
                         </div>
                     </div >
-                    <div className="dashbord-content-preview">
-                        <div className="dash-overflow-hidden">
-                            <div className='d-flex justify-content-center'>
-                                <img width="50" height="50" src="https://img.icons8.com/3d-fluency/94/high-priority.png" alt="high-priority" />
-                            </div>
-
-                            <p className='text-danger text-center mt-2'>Your account was not verified !! Please fill up all details about you and your company.</p>
-
-                            <div>
-                                <div className="checkout-container " style={{ paddingLeft: '0.5rem', paddingRight: '0.5rems' }}>
-                                    <div className="d-flex checkout-full-content">
-                                        <div style={{ width: '100%' }} className="checkout-left-side">
-                                            <div className="left-content">
-                                                <SellerForm seller={seller}></SellerForm>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
+                    <SellerForm ></SellerForm>
 
                 </div>
             </div>
