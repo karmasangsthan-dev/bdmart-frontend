@@ -10,6 +10,7 @@ import {
   useUpdateCurrencyMutation,
 } from "../../../features/currency/currencyApi";
 import ContactHeaderLogOut from "./ContactHeaderLogOut";
+import ContactHeaderSellerLogOut from "./ContactHeaderSellerLogOut";
 
 require("dotenv").config();
 export default function ContactHeader({ user }) {
@@ -19,7 +20,7 @@ export default function ContactHeader({ user }) {
   const [showDropdown, setShowDropdown] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [shipTo, setShipTo] = useState(null);
-
+  const seller = useSelector((state) => state.auth.seller);
   const { code, rate } = useSelector((state) => state.currency);
 
   // query to db
@@ -64,8 +65,6 @@ export default function ContactHeader({ user }) {
       dispatch(setUpCurrency(currencyWithRate));
     }
   }, [data?.data, success]);
-
-
 
   return (
     <>
@@ -131,7 +130,12 @@ export default function ContactHeader({ user }) {
                 Login
               </button>}
 
-              {user?.email &&  <ContactHeaderLogOut></ContactHeaderLogOut>}
+              {!seller?.email && user?.email ? <ContactHeaderLogOut></ContactHeaderLogOut> : <></>}
+
+              {seller?.email && !user?.email ? <>
+                <span className="mx-2">|</span>
+                <ContactHeaderSellerLogOut></ContactHeaderSellerLogOut>
+              </> : <></>}
             </div>
           </div>
         </div>

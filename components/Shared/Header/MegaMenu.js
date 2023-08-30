@@ -4,9 +4,14 @@ import { bn } from "../../../locales/bn";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import LanguageSelector from "./LanguageSelector";
+import { useDispatch, useSelector } from "react-redux";
+import { useSignOut } from 'react-firebase-hooks/auth';
+import { logOut } from "../../../features/auth/authSlice";
+import auth from "../../../firebase.init";
+import { toast } from "react-hot-toast";
 
 const MegaMenu = () => {
-  const [isMegaMenuOn, setIsMegaMenuOn] = useState(false);
+
 
   const megaMenuData = [
     {
@@ -744,7 +749,11 @@ const MegaMenu = () => {
       ],
     },
   ];
-
+  const { seller, isLoading } = useSelector((state => state.auth))
+  const { user } = useSelector((state => state.auth))
+  const [isMegaMenuOn, setIsMegaMenuOn] = useState(false);
+  const [signOut, loading] = useSignOut(auth);
+  const dispatch = useDispatch();
   const router = useRouter();
   const { locale } = router;
   const t = locale === "en" ? en : bn;
@@ -752,70 +761,47 @@ const MegaMenu = () => {
   const handleMegaMenu = () => {
     setIsMegaMenuOn(!isMegaMenuOn)
   }
+  const handleNavigateForSeller = () => {
+    if (user?.email) {
+      const success = window.confirm('Are you sure want to log out as a customer ?');
+
+      if (success) {
+        localStorage.removeItem('accessToken');
+        if (user?.providerId === "custom") {
+          localStorage.removeItem("accessToken");
+          dispatch(logOut());
+          toast.success("Logout Successful", { id: "logout" });
+          router.push('/seller/login')
+        }
+        if (user?.providerId === "firebase") {
+          try {
+            const success = signOut().then(() => {
+              localStorage.removeItem("accessToken");
+              dispatch(logOut());
+              toast.success("Logout successful", { id: "logout" });
+              router.push('/seller/login')
+            });
+          } catch (error) { }
+        }
+      }
+      else {
+        router.push('/')
+      }
+
+    }
+    else{
+      router.push('/seller/login')
+    }
+  }
+  useEffect(() => {
+
+  }, [])
 
   return (
     <div id="sec_bar" className="sec_nav ">
       <div className="container-fluid">
         <div className="row align-items-center">
-          {/* <div
-            style={{ minHeight: "56px" }}
-            className="accordion w-auto"
-            id="accordionPanelsStayOpenExample"
-          >
-            <h2 className="accordion-header" id="panelsStayOpen-headingThree">
-              <button
-                className="accordion-button collapsed"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#panelsStayOpen-collapseThree"
-                aria-expanded="false"
-                aria-controls="panelsStayOpen-collapseThree"
-              >
-                <span style={{ fontSize: "15px" }}>
-                  {t?.homePage?.header.megaMenuTitle}
-                </span>
-              </button>
-            </h2>
-            <div
-              id="panelsStayOpen-collapseThree"
-              className="accordion-collapse collapse"
-              aria-labelledby="panelsStayOpen-headingThree"
-            >
-              <div id="accordion_body" className="accordion-body p-0">
-                <ul className="m-0 p-0">
-                  {megaMenuData?.map((menu, index) => (
-                    <li key={index} className={menu?.parentClassName}>
-                      <a href="#base" className="main-cata">
-                        {menu?.mainCategoryName}
-                      </a>
-                      <div className={menu?.childClassName} id={menu?.htmlId}>
-                        <div className="content">
-                          {menu?.subCategories?.map((category, index) => (
-                            <div key={index} className="dropmenu">
-                              <header className="con-head">
-                                {category?.name}
-                              </header>
-                              <ul className="pro-nav ps-0 ">
-                                {category?.childCategories?.map((child, index) => (
-                                  <li key={index} className="drop-nav-link">
-                                    <Link href={`/shop?category=${menu?.mainCategoryName}&subCategory=${category?.name}&childCategory=${child?.name}`}>
-                                      {child?.name}
-                                    </Link>
-                                    
-                                    
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div> */}
+
           <div className="d-flex justify-content-between">
             <div
               className="first-part d-flex justify-content-start "
@@ -824,11 +810,11 @@ const MegaMenu = () => {
               <div className="frombar">
                 <ul className="mb-0" >
                   <span onClick={handleMegaMenu} className="cateogries-megamenu">
-                    <span  className=" d-inline-block">
+                    <span className=" d-inline-block">
                       <li className="inner-li">Categories</li>
 
                     </span>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true" class="ml-1 h-3 w-3 group-hover:text-emerald-600"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" aria-hidden="true" className="ml-1 h-3 w-3 group-hover:text-emerald-600"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7"></path></svg>
                   </span>
                   {isMegaMenuOn && <div id="accordion_body" className="accordion-body p-0">
                     <ul className="m-0 p-0">
@@ -868,6 +854,9 @@ const MegaMenu = () => {
                       <li className="inner-li">{navItem?.title}</li>
                     </Link>
                   ))}
+                  {!seller?.email && <p onClick={handleNavigateForSeller} className="become-seller">
+                    <span className="inner-li">Become a seller</span>
+                  </p>}
                 </ul>
               </div>
             </div>
@@ -875,7 +864,7 @@ const MegaMenu = () => {
               <div className=" ">
                 <ul className="mb-0 d-flex justify-content-center align-items-center">
                   <LanguageSelector></LanguageSelector>
-                  <li onClick={()=>router.push('/privacy-policy')} className="inner-li">Privacy Policy</li>
+                  <li onClick={() => router.push('/privacy-policy')} className="inner-li">Privacy Policy</li>
                   <li className="inner-li">Terms & Conditions</li>
                 </ul>
 

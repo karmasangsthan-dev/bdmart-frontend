@@ -178,6 +178,16 @@ const authApi = apiSlice.injectEndpoints({
       invalidatesTags: ['User'],
     }),
 
+    inactiveSellerDetailsSubmit: builder.mutation({
+      query: ({ formData }) => ({
+        url: `/seller/submit-seller-details`,
+        method: 'PATCH',
+        body: formData,
+      }),
+      invalidatesTags: ['Seller'],
+    }),
+
+
 
 
   }),
@@ -200,4 +210,5 @@ export const {
   useSellerSigninMutation,
   useSendCustomerOTPMutation,
   useVerifyOTPForCustomerMutation,
+  useInactiveSellerDetailsSubmitMutation,
 } = authApi;

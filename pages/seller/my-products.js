@@ -1,10 +1,9 @@
 import React from 'react';
 import Layout from '../../components/Layout';
-import SellerSidebar from '../../components/Seller/SellerSidebar';
-import SellerLayout from '../../components/Seller/SellerLayout';
 import { useGetSectionBasedProductsQuery } from '../../features/product/productApi';
 import { Rating } from '@mui/material';
 import Image from 'next/image';
+import SellerLayoutDashboard from '../../components/Seller/SellerLayoutDashboard';
 
 const MyProducts = () => {
     const { data, isLoading } = useGetSectionBasedProductsQuery({
@@ -12,7 +11,7 @@ const MyProducts = () => {
     });
     return (
         <Layout title='My Products | Seller Account | Bangladesh Mart'>
-            <SellerLayout >
+            <SellerLayoutDashboard >
                 <h2 className='dash-content-heading'>My Products</h2>
 
                 <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)'}}>
@@ -77,7 +76,7 @@ const MyProducts = () => {
                         })
                     }
                 </div>
-            </SellerLayout>
+            </SellerLayoutDashboard>
         </Layout>
     );
 };
