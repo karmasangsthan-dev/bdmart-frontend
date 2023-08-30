@@ -179,12 +179,12 @@ const authApi = apiSlice.injectEndpoints({
     }),
 
     inactiveSellerDetailsSubmit: builder.mutation({
-      query: (email) => ({
-        url: `/seller/submit-seller-details/${email}`,
+      query: ({ formData }) => ({
+        url: `/seller/submit-seller-details`,
         method: 'PATCH',
-        body: data,
+        body: formData,
       }),
-      invalidatesTags: ['User'],
+      invalidatesTags: ['Seller'],
     }),
 
 

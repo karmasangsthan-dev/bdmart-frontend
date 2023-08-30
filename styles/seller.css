@@ -1,6 +1,11 @@
 @import './variable.css';
 
 
+.user-login-container {
+    background-image: url('https://img.freepik.com/free-photo/luxury-plain-green-gradient-abstract-studio-background-empty-room-with-space-your-text-picture_1258-99418.jpg?w=740&t=st=1691678715~exp=1691679315~hmac=1bc4a98af61f3ac557ffb13ebe18133a6f602f3df4561331f9fcdb1dc88ce6e1');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
 .seller-login-container {
     background-image: url('https://img.freepik.com/free-vector/abstract-orange-background-with-lines-halftone-effect_1017-32107.jpg?w=826&t=st=1693239425~exp=1693240025~hmac=2c292fd0ff158335ce632c4bba51306c1c7d5d3359bd5e2b3e65e5b75f3f78fd');
     background-size: cover;
@@ -41,4 +46,43 @@
 }
 .verification-success{
     border: 1px solid var(--primary-color) !important;
+}
+.seller-under-review-btn{
+    transition-property: all;
+    transition-timing-function: cubic-bezier(.4,0,.2,1);
+    transition-duration: .15s;
+    color: white;
+    font-weight: 500;
+    font-size: .875;
+    line-height: 1.25rem;
+    font-family: Inter,sans-serif;
+    text-align: center;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    background-color: rgb(96, 196, 163);
+    border-color: rgb(16 185 129/1);
+    border-width: 1px;
+    border-radius: 0.25rem;
+    justify-content: center;
+    width: 100%;
+    cursor: not-allowed;
+    display: flex;
+}
+.see-your-application-btn{
+    min-width: 210px;
+    display: flex;
+    margin: auto;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(.4,0,.2,1);
+    transition-duration: .15s;
+    color: white;
+    font-weight: 500;
+    font-size: .875;
+    line-height: 1.25rem;
+    font-family: Inter,sans-serif;
+    text-align: center;
+    padding: 0.75rem 1.5rem;
+    background-color: rgb(96, 196, 163);
+    border-radius: 0.25rem;
+    border-radius: 5px;
 }

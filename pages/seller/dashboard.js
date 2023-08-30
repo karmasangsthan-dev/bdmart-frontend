@@ -15,7 +15,6 @@ const dashboard = () => {
     // /seller/dashboard
     const textParams = router.pathname;
     const textPath = textParams.split('/seller/')[1];
-    console.log({seller, isLoading })
 
     return (
         <Layout>

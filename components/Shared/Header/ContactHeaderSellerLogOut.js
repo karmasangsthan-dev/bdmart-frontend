@@ -13,8 +13,8 @@ const ContactHeaderSellerLogOut = () => {
     const router = useRouter();
     const handleSellerLogout = () => {
         try {
-            localStorage.removeItem("accessToken");
             localStorage.removeItem("sellerAccessToken");
+            dispatch(logOutSeller())
             toast.success("Seller Logout Successful");
         } catch (error) {
             console.log(error)
