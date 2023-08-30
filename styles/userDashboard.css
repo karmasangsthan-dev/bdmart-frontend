@@ -24,17 +24,29 @@
     margin-right: 2.5rem;
     width: 20rem;
     flex-shrink: 0;
+    
+}
+.sticky-top-dashboard{
+    position: sticky;
+    top: 10rem;
 }
 
 .sidebar-content {
     padding: 2rem;
     background-color: white;
     border-radius: 0.375rem;
-    top: 8rem;
-    position: sticky;
     gap: 10px;
     display: flex;
     flex-direction: column;
+}
+.sidebar-content-profile {
+    padding: 2rem;
+    background-color: white;
+    border-radius: 0.375rem;
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    
 }
 
 .user-dashboard-container .sidebar-item {
