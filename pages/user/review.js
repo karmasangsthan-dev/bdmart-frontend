@@ -58,7 +58,7 @@ const review = () => {
         setShow(true);
     };
     const handleImageChange = (event) => {
-        const files = event.target.files;
+        const files = event?.target?.files;
         const imageArray = [];
         for (let i = 0; i < files?.length; i++) {
             const reader = new FileReader();
@@ -121,14 +121,14 @@ const review = () => {
         let croppedImagesFile = [];
         const promises = [];
         selectedImages?.forEach((image, index) => {
-            const cropper = cropperRefs.current[index];
+            const cropper = cropperRefs?.current[index];
             if (!cropper) {
                 return;
             }
             const canvas = cropper?.cropper?.getCroppedCanvas();
             if (canvas) {
                 const promise = new Promise((resolve) => {
-                    canvas.toBlob((blob) => {
+                    canvas?.toBlob((blob) => {
                         resolve(blob);
                     }, "image/jpeg");
                 }).then((blob) => {
@@ -277,7 +277,7 @@ const review = () => {
                                                                         style={{ marginTop: "-10px" }}
                                                                         className="d-flex justify-content-center flex-wrap"
                                                                     >
-                                                                        {selectedImages.map((image, index) => (
+                                                                        {selectedImages?.map((image, index) => (
                                                                             <img
                                                                                 className="border"
                                                                                 key={index}
@@ -355,7 +355,7 @@ const review = () => {
                                                             <>
                                                                 <div className="d-flex justify-content-center">
                                                                     <Row className="g-5 mx-auto" style={{ gap: "15px" }}>
-                                                                        {selectedImages.map((image, index) => (
+                                                                        {selectedImages?.map((image, index) => (
                                                                             <Col lg="4" sm="1" xl="4" md="1">
                                                                                 <div>
                                                                                     <Cropper
@@ -367,9 +367,7 @@ const review = () => {
                                                                                         zoomable={false}
                                                                                         autoCropArea={1}
                                                                                         viewMode={1}
-                                                                                        ref={(cropper) =>
-                                                                                            (cropperRefs.current[index] = cropper)
-                                                                                        }
+                                                                                        ref={(cropper) => { cropperRefs.current[index] = cropper }}
                                                                                     />
                                                                                 </div>
                                                                             </Col>
