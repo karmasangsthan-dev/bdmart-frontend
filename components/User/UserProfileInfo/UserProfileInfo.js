@@ -2,10 +2,10 @@ import React from 'react';
 
 const UserProfileInfo = ({user}) => {
     const shortedEmail = (email) => {
-        const emailFirstPart = email.split('@')[0];
-        const emailSecondPart = email.split('@')[1];
-        const firstFour = emailFirstPart.slice(0, 4);
-        const lastFour = emailFirstPart.slice(-4);
+        const emailFirstPart = email?.split('@')[0];
+        const emailSecondPart = email?.split('@')[1];
+        const firstFour = emailFirstPart?.slice(0, 4);
+        const lastFour = emailFirstPart?.slice(-4);
         const generatedEmail = firstFour + '*******' + lastFour + '@' + emailSecondPart
 
         return generatedEmail;
