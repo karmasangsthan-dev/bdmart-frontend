@@ -7,6 +7,7 @@ import { signOut } from 'firebase/auth';
 import { useSignOut } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 import Link from 'next/link';
+import UserProfileInfo from '../UserProfileInfo/UserProfileInfo';
 
 
 const SideBar = () => {
@@ -36,7 +37,10 @@ const SideBar = () => {
     const textPath = textParams.split('/user/')[1];
     return (
         <div className='dashboard-sidebar'>
-            <div className="sidebar-content">
+            <div className="sticky-top-dashboard">
+                <UserProfileInfo user={user}></UserProfileInfo>
+                <div className="sidebar-content">
+
                 <Link href='/user/dashboard'>
                     <span className={`sidebar-item ${textPath === 'dashboard' && 'active-nav-bg'}`}>
                         <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" className={`flex-shrink-0 h-4 w-4 ${textPath === 'dashboard' && 'active-sidebar-nav'} `} aria-hidden="true" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><rect width="176" height="176" x="48" y="48" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32" rx="20" ry="20"></rect><rect width="176" height="176" x="288" y="48" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32" rx="20" ry="20"></rect><rect width="176" height="176" x="48" y="288" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32" rx="20" ry="20"></rect><rect width="176" height="176" x="288" y="288" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32" rx="20" ry="20"></rect></svg>
@@ -55,7 +59,7 @@ const SideBar = () => {
                 </Link>
                 <Link href='/user/review'>
                     <span className={`sidebar-item ${textPath === 'review' && 'active-nav-bg'}`}>
-                        
+
                         <svg height="1.4em" width="1.3em" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={`flex-shrink-0 h-4 w-4 ${textPath === 'review' && 'active-sidebar-nav'}`}>
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M15 14.25C13.3431 14.25 12 15.5931 12 17.25C12 18.9069 13.3431 20.25 15 20.25C16.6569 20.25 18 18.9069 18 17.25C18 15.5931 16.6569 14.25 15 14.25ZM10.5 17.25C10.5 14.7647 12.5147 12.75 15 12.75C17.4853 12.75 19.5 14.7647 19.5 17.25C19.5 19.7353 17.4853 21.75 15 21.75C12.5147 21.75 10.5 19.7353 10.5 17.25Z" fill="#080341" />
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M15.75 8.25H8.25V6.75H15.75V8.25Z" fill="#080341" />
@@ -92,6 +96,8 @@ const SideBar = () => {
                     <a className='sidebar-item-anchor' href="#">Log Out</a>
                 </span>
             </div>
+            </div>
+            
         </div >
     );
 };

@@ -23,6 +23,7 @@ const SellerSidebar = () => {
     return (
         <div>
             <div className='dashboard-sidebar'>
+                
                 <div className="sidebar-content">
                     <Link href='/seller/dashboard'>
                         <span className={`sidebar-item ${textPath === 'dashboard' && 'active-nav-bg'}`}>
