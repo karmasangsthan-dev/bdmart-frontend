@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   decreaseQuantity,
   increaseQuantity,
   removeFromCart,
   removeFromCartProducts,
-} from "../../features/cart/cartSlice";
-import { useRouter } from "next/router";
-import { toast } from "react-hot-toast";
+} from '../../features/cart/cartSlice';
+import { useRouter } from 'next/router';
+import { toast } from 'react-hot-toast';
 
 export default function CartProductRow({ product }) {
   const { cart } = useSelector((state) => state.cart);
@@ -15,40 +15,45 @@ export default function CartProductRow({ product }) {
     (state) => state.currency
   );
   const rowProduct = cart?.find((item) => item.id == product?._id);
+
+  const variant = product?.variants?.find(
+    (prod) => prod?._id === rowProduct?.variant
+  );
+
   const dispatch = useDispatch();
   const router = useRouter();
 
   let productPrice;
   if (currencyRate) {
-    productPrice = (product?.price * currencyRate).toFixed(2);
+    productPrice = (variant?.price * currencyRate).toFixed(2);
   }
 
   const handleQuantityIncrement = (item) => {
-    const cart = JSON.parse(localStorage.getItem("cartProducts"));
+    const cart = JSON.parse(localStorage.getItem('cartProducts'));
     const index = cart?.findIndex(
       (cartProduct) => cartProduct?.id === item?._id
     );
     if (index !== -1) {
       cart[index].quantity += 1;
-      localStorage.setItem("cartProducts", JSON.stringify(cart));
+      localStorage.setItem('cartProducts', JSON.stringify(cart));
       dispatch(increaseQuantity(item?._id));
     }
   };
   const handleQuantityDecrement = (item) => {
-    const cart = JSON.parse(localStorage.getItem("cartProducts"));
+    const cart = JSON.parse(localStorage.getItem('cartProducts'));
     const index = cart?.findIndex(
       (cartProduct) => cartProduct?.id === item?._id
     );
     if (index !== -1) {
       if (cart[index].quantity > 1) {
         cart[index].quantity -= 1;
-        localStorage.setItem("cartProducts", JSON.stringify(cart));
+        localStorage.setItem('cartProducts', JSON.stringify(cart));
         dispatch(decreaseQuantity(item?._id));
       } else {
         toast.error(
           "Sorry !! Quantity can't be reduced more. You can remove the product.",
           {
-            id: "cartProduct",
+            id: 'cartProduct',
           }
         );
       }
@@ -58,16 +63,13 @@ export default function CartProductRow({ product }) {
   const handleRemove = (product) => {
     // const productId = product?.product?._id;
     // const userId = user?._id;
-    const cartsString = localStorage.getItem("cartProducts");
+    const cartsString = localStorage.getItem('cartProducts');
     let cart = JSON.parse(cartsString);
     cart = cart.filter((item) => item?.id !== product?._id);
-    localStorage.setItem("cartProducts", JSON.stringify(cart));
+    localStorage.setItem('cartProducts', JSON.stringify(cart));
     dispatch(removeFromCart(product?._id));
     dispatch(removeFromCartProducts(product?._id));
-
-
   };
-
 
   return (
     <tr key={product?._id}>
@@ -88,23 +90,11 @@ export default function CartProductRow({ product }) {
 
       <td className="quantity-col">
         <div
-          style={{ height: "60px" }}
-          className="product-quantity  d-flex align-items-center"
+          style={{ height: '60px', width: '45px' }}
+          className="product-quantity  d-flex align-items-center justify-content-center "
         >
-          <div className="qty-container">
-            <button
-              onClick={() => handleQuantityDecrement(product)}
-              className="qty-btn-minus btn-light"
-              type="button"
-            >
-              <i className="fa fa-minus"></i>
-            </button>
-            <input
-              type="text"
-              name="qty"
-              value={rowProduct?.quantity}
-              className="input-qty cart-input-qty"
-            />
+          {/* <div className="qty-container"> */}
+          <div className="d-flex flex-column justify-content-center w-50">
             <button
               onClick={() => handleQuantityIncrement(product)}
               className="qty-btn-plus btn-light"
@@ -112,29 +102,58 @@ export default function CartProductRow({ product }) {
             >
               <i className="fa fa-plus"></i>
             </button>
+            <input
+              type="text"
+              name="qty"
+              value={rowProduct?.quantity}
+              className="input-qty cart-input-qty text-center "
+            />
+
+            <button
+              onClick={() => handleQuantityDecrement(product)}
+              className="qty-btn-minus btn-light"
+              type="button"
+            >
+              <i className="fa fa-minus"></i>
+            </button>
           </div>
         </div>
       </td>
+      <td className="" style={{ width: '50px' }}>
+        <p
+          style={{
+            backgroundColor: `rgba(${variant?.color.r}, ${variant?.color.g}, ${variant?.color.b}, ${variant?.color.a})`,
+            width: '25px',
+            height: '25px',
+          }}
+          className="product-select-color mt-2"
+        ></p>
+      </td>
+      <td>
+        <p style={{ height: '60px' }} className="text-uppercase my-auto mt-2">
+          {rowProduct?.size}
+        </p>
+      </td>
       <td className="cart-price-col">
-        <p style={{ height: "60px" }} className=" cart-product-price">
-          {productPrice} {currency}
+        <p style={{ height: '60px' }} className=" cart-product-price">
+          {productPrice}
+          <br /> {currency}
         </p>
       </td>
       <td className="total-col">
-        <p
-          className=" mb-0  cart-product-price"
-          style={{ height: "60px" }}
-        >
-          {productPrice * rowProduct?.quantity} {currency}
+        <p className=" mb-0  cart-product-price" style={{ height: '60px' }}>
+          {productPrice * rowProduct?.quantity} <br />
+          {currency}
         </p>
       </td>
+
       <td className="remove-col">
         <div
-          style={{ height: "60px" }}
+          style={{ height: '60px' }}
           className="d-flex justify-content-center align-items-center"
         >
           <button
-            style={{ maxHeight: "30px", minHeight: "30px", width: "30px" }}
+            style={{ maxHeight: '30px', minHeight: '30px', width: '30px' }}
             onClick={() => handleRemove(product)}
             className=" btn-remove-cart "
           >
