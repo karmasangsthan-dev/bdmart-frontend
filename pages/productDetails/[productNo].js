@@ -115,7 +115,7 @@ const productNo = () => {
     ((product?.oldPrice - product?.price) / product?.oldPrice) * 100;
 
   const handleAddToCart = (product) => {
-    console.log({variant, selectedSize});
+    console.log({ variant, selectedSize });
     if (variant?.size?.length && !selectedSize) {
       return toast.error('Please select a size', { id: 'details' });
     }
@@ -126,14 +126,23 @@ const productNo = () => {
         (cartProduct) => cartProduct?.id === product?._id
       );
       if (index !== -1) {
-        cart[index].quantity += 1;
+        cart[index]?.variants?.push({
+          variantId: variant?._id,
+          size: selectedSize,
+          quantity,
+        });
         toast.success('Updated Quantity', { id: 'addToCart' });
       } else {
         cart.push({
           id: product?._id,
-          quantity: 1,
-          variant: variant?._id,
-          size: selectedSize,
+
+          variants: [
+            {
+              variantId: variant?._id,
+              size: selectedSize,
+              quantity: 1,
+            },
+          ],
         });
         toast.success('Added to cart', { id: 'addToCart' });
       }
@@ -143,16 +152,23 @@ const productNo = () => {
       const cart = [
         {
           id: product?._id,
-          quantity: 1,
-          variant: variant?._id,
-          size: selectedSize,
+          variants: [
+            { variantId: variant?._id, size: selectedSize, quantity: 1 },
+          ],
         },
       ];
       localStorage.setItem('cartProducts', JSON.stringify(cart));
       toast.success('Added to cart', { id: 'addToCart' });
     }
 
-    dispatch(addToCart({ id: product?._id }));
+    dispatch(
+      addToCart({
+        id: product?._id,
+        variantId: variant?._id,
+        size: selectedSize,
+        quantity,
+      })
+    );
   };
 
   const productBuyNow = (product) => {
@@ -305,7 +321,7 @@ const productNo = () => {
               </div>
 
               <div className="col-lg-5 col-md-5 col-sm-12 product-details-information">
-                <h3>Name: {product?.title}</h3>
+                <h3 className="text-capitalize">Name: {product?.title}</h3>
                 <div className="d-flex justiy-content-center">
                   <div className="ratings">
                     <Rating

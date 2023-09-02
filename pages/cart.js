@@ -13,7 +13,7 @@ const cart = () => {
   const { code: currency, rate: currencyRate } = useSelector(
     (state) => state.currency
   );
-  console.log(cartProducts);
+
   const calculateTotal = () => {
     let total = 0;
     cart?.forEach((cartItem) => {
