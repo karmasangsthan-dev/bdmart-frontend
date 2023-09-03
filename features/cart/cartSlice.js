@@ -29,13 +29,24 @@ const cartSlice = createSlice({
     // },
 
     addToCart: (state, action) => {
-      const { id, quantity = 1, price } = action.payload;
+      const { id, quantity, price, variantId, size } = action.payload;
       const existingItem = state.cart?.find((item) => item.id === id);
 
       if (existingItem) {
         existingItem.quantity += quantity;
+        existingItem?.variants.push({ variantId, size });
       } else {
-        state.cart?.push({ id, quantity, price });
+        state.cart?.push({
+          id,
+
+          variants: [
+            {
+              variantId,
+              size,
+              quantity,
+            },
+          ],
+        });
       }
     },
     removeFromCart: (state, action) => {
