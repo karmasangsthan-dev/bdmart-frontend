@@ -62,6 +62,16 @@ main {
   /* width: 180px; */
   margin-bottom: 10px;
 }
+.cart-btn-see-options {
+  color: white;
+  background-color:rgb(50, 171, 219);
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 5px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
 
 .hide-btn {
   display: none !important;
