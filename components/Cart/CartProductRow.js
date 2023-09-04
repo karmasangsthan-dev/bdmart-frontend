@@ -103,7 +103,7 @@ export default function CartProductRow({ product }) {
   }, []);
   console.log({ rowProduct });
   return (
-    <tr key={product?._id}>
+    <>
       {/* <td className="product-col ">
         <div className="d-flex align-items-center">
           <img className="cart-image" src={product?.thumbnail} alt="product" />
@@ -219,7 +219,7 @@ export default function CartProductRow({ product }) {
           </td>
         </tr>
       ))}
-    </tr>
+    </>
     // <>
     //   {console.log(matchedVariant)}
     //   {rowProduct?.variants?.map((varinatData) => {

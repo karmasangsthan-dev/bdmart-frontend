@@ -124,13 +124,23 @@ export default function JustForYouProductCard({ product }) {
           </p>
         </div>
         <div id="">
-          <button
-            className="cart-btn w-100 "
-            onClick={() => handleAddToCart(product)}
-          >
-            Add to Cart
-            <i className="far plus-ico fa-plus-square text-white"></i>
-          </button>
+          {product?.variants?.length > 0 ? (
+            <button
+              onClick={() => router.push(`/productDetails/${product?._id}`)}
+              className="cart-btn-see-options w-100 "
+            >
+              Select options
+              <i className="far plus-ico fa-plus-square text-white"></i>
+            </button>
+          ) : (
+            <button
+              className="cart-btn w-100 "
+              onClick={() => handleAddToCart(product)}
+            >
+              Add to Cart
+              <i class="fa-solid plus-ico fa-cart-shopping text-white"></i>
+            </button>
+          )}
         </div>
       </div>
     </div>
