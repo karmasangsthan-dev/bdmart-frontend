@@ -103,11 +103,9 @@ export default function CartProductRow({ product }) {
   }, []);
   console.log({ rowProduct });
   return (
-    <tr key={product?._id}>
-      
-
+    <>
       {matchedVariant?.map((variant) => (
-        <tr className="">
+        <tr key={product?._id}>
           <td className="product-col ">
             <div className="d-flex align-items-center">
               <img
@@ -128,25 +126,10 @@ export default function CartProductRow({ product }) {
           </td>
           <td className="quantity-col">
             <div
-              style={{ height: '60px', width: '45px' }}
-              className="product-quantity  d-flex align-items-center justify-content-center "
+              style={{ height: "60px" }}
+              className="product-quantity  d-flex align-items-center"
             >
-              {/* <div className="qty-container"> */}
-              <div className="d-flex flex-column justify-content-center w-50">
-                <button
-                  onClick={() => handleQuantityIncrement(product)}
-                  className="qty-btn-plus btn-light"
-                  type="button"
-                >
-                  <i className="fa fa-plus"></i>
-                </button>
-                <input
-                  type="text"
-                  name="qty"
-                  value={variant?.quantity}
-                  className="input-qty cart-input-qty text-center "
-                />
-
+              <div className="qty-container">
                 <button
                   onClick={() => handleQuantityDecrement(product)}
                   className="qty-btn-minus btn-light"
@@ -154,23 +137,38 @@ export default function CartProductRow({ product }) {
                 >
                   <i className="fa fa-minus"></i>
                 </button>
+                <input
+                  type="text"
+                  name="qty"
+                  value={variant?.quantity}
+                  className="input-qty cart-input-qty"
+                />
+                <button
+                  onClick={() => handleQuantityIncrement(product)}
+                  className="qty-btn-plus btn-light"
+                  type="button"
+                >
+                  <i className="fa fa-plus"></i>
+                </button>
               </div>
             </div>
           </td>
           <td className="" style={{ width: '50px' }}>
-            <p
-              style={{
-                backgroundColor: `rgba(${variant?.color.r}, ${variant?.color.g}, ${variant?.color.b}, ${variant?.color.a})`,
-                width: '25px',
-                height: '25px',
-              }}
-              className="product-select-color mt-2"
-            ></p>
+            <div className='d-flex align-items-center justify-content-center' style={{ height: '60px' }} >
+              <p
+                style={{
+                  backgroundColor: `rgba(${variant?.color.r}, ${variant?.color.g}, ${variant?.color.b}, ${variant?.color.a})`,
+                  width: '20px',
+                  height: '20px',
+                }}
+                className="product-select-color"
+              ></p>
+            </div>
           </td>
           <td>
             <p
-              style={{ height: '60px' }}
-              className="text-uppercase my-auto mt-2"
+              style={{ height: '60px',maxWidth:'40px' }}
+              className="text-uppercase my-auto d-flex align-items-center justify-content-center"
             >
               {variant?.size}
             </p>
@@ -204,8 +202,9 @@ export default function CartProductRow({ product }) {
               </button>
             </div>
           </td>
+
         </tr>
       ))}
-    </tr>
+    </>
   );
 }
