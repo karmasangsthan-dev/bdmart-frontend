@@ -17,6 +17,7 @@ export default function CartProductRow({ product }) {
   );
   const rowProduct = cart?.find((item) => item.id == product?._id);
 
+
   const matchingElements = product?.variants
     .filter((element) =>
       rowProduct?.variants?.some(
@@ -167,7 +168,7 @@ export default function CartProductRow({ product }) {
           </td>
           <td>
             <p
-              style={{ height: '60px',maxWidth:'40px' }}
+              style={{ height: '60px', maxWidth: '40px' }}
               className="text-uppercase my-auto d-flex align-items-center justify-content-center"
             >
               {variant?.size}
@@ -205,6 +206,7 @@ export default function CartProductRow({ product }) {
 
         </tr>
       ))}
+
     </>
   );
 }

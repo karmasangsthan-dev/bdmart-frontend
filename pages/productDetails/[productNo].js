@@ -49,7 +49,6 @@ const SamplePrevArrow = (props) => {
 
 const productNo = () => {
   const [selectedSize, setSelectedSize] = useState('');
-  console.log(selectedSize);
   const settings = {
     dots: false,
     infinite: false,
@@ -115,7 +114,6 @@ const productNo = () => {
     ((product?.oldPrice - product?.price) / product?.oldPrice) * 100;
 
   const handleAddToCart = (product) => {
-    console.log({ variant, selectedSize });
     if (variant?.size?.length && !selectedSize) {
       return toast.error('Please select a size', { id: 'details' });
     }
@@ -228,7 +226,6 @@ const productNo = () => {
   };
 
   useEffect(() => {
-    console.log('handaiya geche');
     if (product?.variants) {
       setVariant(product?.variants[0]);
     }
@@ -245,7 +242,6 @@ const productNo = () => {
   if (!data?.status) {
     return <NotFoundPage></NotFoundPage>;
   }
-
   return (
     <Layout title={`${product?.title ? product?.title : ''} Bangladesh Mart`}>
       <main className="mainnnnn" style={{ background: '#eff0f5' }}>
@@ -271,11 +267,8 @@ const productNo = () => {
               </Breadcrumb>
             </div>
             <div
-              className="d-flex flex-wrap mt-2 pt-3 margin-mobile-10px-x rounded"
-              style={{
-                border: `1px solid rgba(${variant?.color?.r}, ${variant?.color?.g}, ${variant?.color?.b}, ${variant?.color?.a})`,
-                backgroundColor: `rgba(${variant?.color?.r}, ${variant?.color?.g}, ${variant?.color?.b},0.03)`,
-              }}
+              className="d-flex flex-wrap mt-2 pt-3 margin-mobile-10px-x rounded bg-white product-description-container"
+
             >
               <div
                 style={{
@@ -358,36 +351,36 @@ const productNo = () => {
 
                 <div className="d-flex align-items-center gap-2 mt-2">
                   <h6 style={{ minWidth: '50px' }}>Color:</h6>
-                  <div>
-                    {product?.variants?.map((variantItem, index) => (
-                      <>
-                        {variant?._id === variantItem?._id ? (
-                          <p
-                            key={index}
-                            onClick={() => setVariant(variantItem)}
-                            style={{
-                              backgroundColor: `rgba(${variantItem.color.r}, ${variantItem.color.g}, ${variantItem.color.b}, ${variantItem.color.a})`,
-                              width: '25px',
-                              height: '25px',
-                            }}
-                            className="product-select-color "
-                          ></p>
-                        ) : (
-                          <p
-                            key={index}
-                            onClick={() => setVariant(variantItem)}
-                            style={{
-                              backgroundColor: `rgba(${variantItem.color.r}, ${variantItem.color.g}, ${variantItem.color.b}, ${variantItem.color.a})`,
-                            }}
-                            className="product-select-color "
-                          ></p>
-                        )}
-                      </>
-                    ))}
+                  <div className='product-colors-nav'>
+                    {product?.variants?.map((variantItem, index) => {
+                      console.log({ variantItem })
+                      return (
+                        <>
+                          {variant?._id === variantItem?._id ? (
+                            <a
+                              key={index}
+                              onClick={() => setVariant(variantItem)}
+                              style={{
+                                backgroundColor: `rgba(${variantItem.color.r}, ${variantItem.color.g}, ${variantItem.color.b}, ${variantItem.color.a})`,
+                              }}
+                              className="active"
+                            ></a>
+                          ) : (
+                            <a
+                              key={index}
+                              onClick={() => setVariant(variantItem)}
+
+                              style={{
+                                backgroundColor: `rgba(${variantItem.color.r}, ${variantItem.color.g}, ${variantItem.color.b}, ${variantItem.color.a})`,
+                              }}
+                            ></a>
+                          )}
+                        </>
+                      )
+                    })}
                   </div>
                 </div>
 
-                {product?.color && <p>{product?.color}</p>}
                 <div className="d-flex align-items-center gap-2">
                   <h6 style={{ minWidth: '50px' }}>Size:</h6>
                   <Form.Select
