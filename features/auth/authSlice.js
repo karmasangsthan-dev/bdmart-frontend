@@ -70,11 +70,7 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     logOut: (state, action) => {
-      state.user = {
-        email: '',
-        role: '',
-        cart: [],
-      };
+      state.user = {};
     },
     logOutSeller: (state, action) => {
       state.seller = {};

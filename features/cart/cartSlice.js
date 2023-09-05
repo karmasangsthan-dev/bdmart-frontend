@@ -34,7 +34,7 @@ const cartSlice = createSlice({
 
       if (existingItem) {
         existingItem.quantity += quantity;
-        existingItem?.variants.push({ variantId, size });
+        existingItem?.variants?.push({ variantId, size });
       } else {
         state.cart?.push({
           id,
