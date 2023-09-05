@@ -95,22 +95,34 @@ export default function JustForYouProductCard({ product }) {
 
         <div className="d-flex justify-content-between align-items-center">
           <span className="item-price">
-            <div>
-              <span className="item-price">{`${
-                getProductPriceRange(product?.variants).lowestPrice
-              } ${currency}`}</span>{' '}
-              -
-              <span className="item-price pl-2">{`${
-                getProductPriceRange(product?.variants).highestPrice
-              } ${currency}`}</span>
-            </div>
+            {product?.variants?.length ? (
+              <div>
+                <span className="item-price">{`${
+                  getProductPriceRange(product?.variants).lowestPrice
+                } ${currency}`}</span>{' '}
+                -
+                <span className="item-price pl-2">{`${
+                  getProductPriceRange(product?.variants).highestPrice
+                } ${currency}`}</span>
+              </div>
+            ) : (
+              <span className="item-price">{`${(
+                product?.price * currencyRate
+              ).toFixed(2)} ${currency}`}</span>
+            )}
           </span>
         </div>
         <div className="old-price">
-          <del>
-            {(product?.oldPrice * currencyRate).toFixed(2)} {currency}
-          </del>
-          <span className="ms-2"> - {discountPercentage?.toFixed(2)}%</span>
+          {!product?.variants?.length ? (
+            <>
+              <del>
+                {(product?.oldPrice * currencyRate).toFixed(2)} {currency}
+              </del>
+              <span className="ms-2"> - {discountPercentage?.toFixed(2)}%</span>
+            </>
+          ) : (
+            <div style={{ height: '18px' }}></div>
+          )}
         </div>
         <div className="d-flex align-items-center">
           <Rating
