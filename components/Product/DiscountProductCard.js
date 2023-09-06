@@ -59,11 +59,11 @@ export default function DiscountProductCard({ product }) {
     let lowestPrice = variants[0]?.price ? variants[0]?.price : 0;
 
     variants.forEach((variant) => {
-      if (variant.price > highestPrice) {
-        highestPrice = variant.price;
+      if (variant?.price > highestPrice) {
+        highestPrice = (variant.price * currencyRate).toFixed(2);
       }
       if (variant.price < lowestPrice) {
-        lowestPrice = variant.price;
+        lowestPrice = (variant.price * currencyRate).toFixed(2);
       }
     });
 

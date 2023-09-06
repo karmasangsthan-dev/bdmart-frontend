@@ -16,16 +16,17 @@ const Layout = ({ children, title = 'Bangladesh Mart' }) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { user } = useSelector((state) => state.auth);
+  const { seller } = useSelector((state) => state.auth);
   const [getCartProducts, { data, isLoading, isSuccess }] =
     useGetCartProductsMutation();
 
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
     const sellerAccessToken = localStorage.getItem('sellerAccessToken');
-    if(token){
+    if (token) {
       dispatch(fetchUser(token));
     }
-    if(sellerAccessToken){
+    if (sellerAccessToken) {
       dispatch(fetchSeller(sellerAccessToken));
     }
 

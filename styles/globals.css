@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Kaushan+Script|Montserrat:400,700|Roboto:300i,400&display=swap');
 @import './variable.css';
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap');
 
 /*google fonts*/
 
@@ -61,7 +62,6 @@ ol {
 
 .accordion-body {
   margin-top: 15px !important;
-  margin-left: 60px;
 }
 
 .mega_content {
@@ -773,7 +773,7 @@ Nav Bar End
 
 .dropbtn:hover,
 .dropbtn:focus {
-  background-color: #faa72c;
+  background-color: var(--primary-color);
 }
 
 #myInput {
@@ -807,7 +807,7 @@ Nav Bar End
 }
 
 .accordion-button:not(.collapsed) {
-  color: #faa72c !important;
+  color: var(--primary-color) !important;
   background-color: #e7f1ff !important;
   box-shadow: inset 0 -1px 0 rgb(0 0 0 / 13%) !important;
 }
@@ -883,10 +883,11 @@ MGA CONTENT NAV
   z-index: 9999;
   background: #fff;
   top: 31px;
+  left: 1px;
   width: 314px;
-  border-top: 3px solid #faa72c !important;
-  border: 1px solid #faa72c;
-  border-bottom-left-radius: 10px;
+  min-height: 365px;
+  border-top: 3px solid var(--primary-color) !important;
+  border: 1px solid var(--primary-color);
   padding: 0rem 0 0 0px;
   transition: all 0.5s ease;
 }
@@ -898,8 +899,8 @@ MGA CONTENT NAV
   background: #fff;
   top: 51px !important;
   width: 314px;
-  border-top: 3px solid #faa72c !important;
-  border: 1px solid #faa72c;
+  border-top: 3px solid var(--primary-color) !important;
+  border: 1px solid var(--primary-color);
   border-bottom-left-radius: 10px;
   padding: 0rem 0 0 0px;
 }
@@ -940,7 +941,7 @@ MGA CONTENT NAV
 .nav-links:hover {
   width: 100%;
   cursor: pointer;
-  background-color: #faa72c;
+  background-color: var(--primary-color);
 }
 
 .last-cata:hover {
@@ -1054,8 +1055,8 @@ MGA CONTENT NAV
 }
 
 .con-head {
-  /* border-bottom: 1px solid; */
-  font-weight: bolder;
+  font-size: 16px;
+  font-weight: 500;
 }
 
 .megas2 {
@@ -1150,7 +1151,7 @@ MGA CONTENT NAV
 
 .frombar ul a {
   color: rgb(32, 32, 32);
-  font-weight: 600;
+  font-weight: 400;
   font-size: 14px;
   font-family: sans-serif;
   text-decoration: none;
@@ -1450,11 +1451,11 @@ accordion_container
 
 .content {
   background: #fff;
-  min-height: 322px;
-  border-top: 3px solid #faa72c !important;
-  border: 1px solid #faa72c;
-
-  border-bottom-right-radius: 10px;
+  min-height: 365px;
+  border-top: 3px solid var(--primary-color) !important;
+  border: 1px solid var(--primary-color);
+  width: calc(100vw - 311px);
+  /* border-bottom-right-radius: 10px; */
 }
 
 .bt a {
@@ -1852,7 +1853,6 @@ a.slide_btn {
   font-size: 15px;
   margin-right: 10px;
   margin-left: 10px;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .footer-3 {
