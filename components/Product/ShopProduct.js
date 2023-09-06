@@ -163,3 +163,29 @@ export default function ShopProduct({ product }) {
     </div>
   );
 }
+
+{
+  variants: [
+    {
+      color: {
+        r: 255,
+        g: 0,
+        b: 0,
+        a: 1,
+      },
+
+      size: 'Xl',
+      oldPrice: 220,
+      price: 200,
+      stock: 25,
+      status: 'selling',
+      size: 'l',
+      oldPrice: 180,
+      price: 150,
+      stock: 25,
+      status: 'selling',
+
+      _id: '64e7802914e6a2939b0058a9',
+    },
+  ];
+}
