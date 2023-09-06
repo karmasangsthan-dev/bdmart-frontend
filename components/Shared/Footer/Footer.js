@@ -141,7 +141,7 @@ const Footer = () => {
             />
           </a>
           <div className="leading-7 font-sans text-sm text-gray-600 ">
-            <p className=""> 3 No Tejturi Bazar West, Panthapath, Dhaka 1215, Bangladesh</p>
+            <p className=""> 1020 Vatara Road, Notun Bazar, Dhaka 1212, Bangladesh</p>
             <p className="my-1">Tell: 01223334455</p>
             <p className="my-1">Email: contact@bangladeshmart.com.bd</p>
           </div>

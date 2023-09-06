@@ -35,7 +35,7 @@
     user-select: none;
     border: 1px solid transparent;
     border-radius: 0.375rem;
-    background-color: #faa72c;
+    background-color: var(--primary-color);
     width: 100%;
     color: white;
     padding-top: 0.5rem !important;

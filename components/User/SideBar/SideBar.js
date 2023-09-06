@@ -38,7 +38,7 @@ const SideBar = () => {
     return (
         <div className='dashboard-sidebar'>
             <div className="sticky-top-dashboard">
-                {/* <UserProfileInfo user={user}></UserProfileInfo> */}
+                <UserProfileInfo user={user}></UserProfileInfo>
                 <div className="sidebar-content">
 
                 <Link href='/user/dashboard'>

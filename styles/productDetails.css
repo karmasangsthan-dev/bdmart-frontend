@@ -21,6 +21,10 @@ input:focus {
     box-shadow: none;
 }
 
+.product-quantity{
+    display: flex;
+}
+
 .product-quantity a,
 a:hover {
     text-decoration: none;
@@ -33,10 +37,9 @@ a:hover {
 }
 
 .product-quantity .qty-container .input-qty {
-    text-align: center;
     padding: 6px 10px;
     border: 1px solid #d4d4d4;
-    max-width: 80px;
+    width: 38px;
 }
 
 .product-quantity .qty-container .qty-btn-minus,

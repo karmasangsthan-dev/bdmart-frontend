@@ -1,7 +1,6 @@
 import React from 'react';
 
 const DeleveryAndService = ({ product }) => {
-    console.log({ product })
 
     const getTime = (data) => {
         const currentDate = new Date();

@@ -6,6 +6,7 @@ import { toast } from 'react-hot-toast';
 import Image from 'next/image';
 
 export default function JustForYouProductCard({ product }) {
+
   const { code: currency, rate: currencyRate } = useSelector(
     (state) => state.currency
   );
@@ -58,10 +59,10 @@ export default function JustForYouProductCard({ product }) {
 
     variants.forEach((variant) => {
       if (variant.price > highestPrice) {
-        highestPrice = variant.price;
+        highestPrice = (variant.price * currencyRate).toFixed(2);
       }
       if (variant.price < lowestPrice) {
-        lowestPrice = variant.price;
+        lowestPrice = (variant.price * currencyRate).toFixed(2);
       }
     });
 
@@ -96,13 +97,11 @@ export default function JustForYouProductCard({ product }) {
         <div className="d-flex justify-content-between align-items-center">
           <span className="item-price">
             <div>
-              <span className="item-price">{`${
-                getProductPriceRange(product?.variants).lowestPrice
-              } ${currency}`}</span>{' '}
+              <span className="item-price">{`${getProductPriceRange(product?.variants).lowestPrice
+                } ${currency}`}</span>{' '}
               -
-              <span className="item-price pl-2">{`${
-                getProductPriceRange(product?.variants).highestPrice
-              } ${currency}`}</span>
+              <span className="item-price pl-2">{`${getProductPriceRange(product?.variants).highestPrice
+                } ${currency}`}</span>
             </div>
           </span>
         </div>
@@ -124,13 +123,19 @@ export default function JustForYouProductCard({ product }) {
           </p>
         </div>
         <div id="">
-          <button
+          {product?.variants?.length > 0 ? <button
+          onClick={()=>router.push(`/productDetails/${product?._id}`)}
+            className="cart-btn-see-options w-100 "
+          >
+            Select options
+            <i className="far plus-ico fa-plus-square text-white"></i>
+          </button> : <button
             className="cart-btn w-100 "
             onClick={() => handleAddToCart(product)}
           >
             Add to Cart
-            <i className="far plus-ico fa-plus-square text-white"></i>
-          </button>
+            <i class="fa-solid plus-ico fa-cart-shopping text-white"></i>
+          </button>}
         </div>
       </div>
     </div>
