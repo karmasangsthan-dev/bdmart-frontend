@@ -1,33 +1,41 @@
-.signin-container{
+.signin-container {
   min-height: 120vh;
 }
-.signup-container{
+
+.signup-container {
   min-height: 120vh;
 }
+
 .user-login-container {
   background-image: url('https://img.freepik.com/free-photo/luxury-plain-green-gradient-abstract-studio-background-empty-room-with-space-your-text-picture_1258-99418.jpg?w=740&t=st=1691678715~exp=1691679315~hmac=1bc4a98af61f3ac557ffb13ebe18133a6f602f3df4561331f9fcdb1dc88ce6e1');
   background-size: cover;
   background-repeat: no-repeat;
 }
-.user-login-content{
+
+.user-login-content {
   display: flex;
   align-items: center;
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
-.first-content , .second-content{
+
+.signin-container .first-content,
+.signin-container .second-content {
   width: 50%;
   padding-left: 3rem;
   padding-right: 3rem;
 }
-.first-content h1{
+
+.signin-container .first-content h1 {
   color: white;
   font-size: 62px;
 }
-.first-content h6{
+
+.signin-container .first-content h6 {
   color: white;
 }
-.second-content .login-form{
+
+.signin-container .second-content .login-form {
   padding: 3rem;
   border-radius: 15px;
   background: #f7f7f7;
@@ -35,22 +43,27 @@
 
 
 @media screen and (max-width: 682px) {
-  .signin-container{
+  .signin-container {
     min-height: 103vh;
   }
-  .signup-container{
+
+  .signup-container {
     min-height: auto;
   }
-  .first-content{
+
+  .signin-container .first-content {
     display: none;
   }
-  .second-content{
+
+  .signin-container .second-content {
     width: 100%;
     padding-left: 1rem;
     padding-right: 1rem;
   }
-  .second-content .login-form{
+
+  .signin-container .second-content .login-form {
     padding: 2rem;
+    border-radius: 9px;
   }
 
 }

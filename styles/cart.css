@@ -271,9 +271,7 @@
 }
 
 @media screen and (max-width: 682px) {
-    .cart-flot-container{
-        display: none;
-    }
+    
     .cart-container {
         padding: 0 20px;
     }
