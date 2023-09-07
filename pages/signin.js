@@ -17,6 +17,7 @@ import {
 import { setUser } from '../features/auth/authSlice';
 import auth from '../firebase.init';
 import GoogleLogin from '../components/Shared/SocialLogin/GoogleLogin';
+import Layout from '../components/Layout';
 
 const signin = () => {
   const router = useRouter();
@@ -51,26 +52,24 @@ const signin = () => {
 
 
   return (
-    <div className="">
-      <Header></Header>
+    <Layout >
       <>
-        <div style={{ minHeight: '120vh' }}>
+        <div className='signin-container'>
           <div className="user-login-container">
             <div className="">
-              <div className="d-flex align-items-center py-5 ">
-                <div className="w-50 px-5">
-                  <h1 className="text-white " style={{ fontSize: '62px' }}>
+              <div className="user-login-content ">
+                <div className="first-content">
+                  <h1 className='login-heading'>
                     Bangladesh #1 <br /> Marketplace
                   </h1>
-                  <h6 className="text-white">
+                  <h6>
                     Create a Bangladesh Mart seller account in 5 minutes and reach
                     millions of customers today!
                   </h6>
                 </div>
-                <div className="w-50 px-5">
+                <div className="second-content">
                   <div
-                    className="login-form p-5 "
-                    style={{ borderRadius: '15px', background: '#f7f7f7' }}
+                    className="login-form"
                   >
                     <h2 className="text-center">Login your Account</h2>
                     <p className="text-center">
@@ -150,7 +149,7 @@ const signin = () => {
           </div>
         </div>
       </>
-    </div>
+    </Layout>
   );
 };
 export default signin;

@@ -64,39 +64,45 @@
     text-decoration: inherit;
     color: rgb(107 114 128/1);
 }
-.call-us-now{
+
+.call-us-now {
     display: block;
     text-align: center;
     grid-column: span 1/span 1;
 
 }
-.call-us-now p{
+
+.call-us-now p {
     line-height: 1.75rem;
     font-weight: 500;
     font-size: 1rem;
     display: block;
 }
-.call-us-now h5{
+
+.call-us-now h5 {
     color: rgb(16 185 129/1);
     line-height: 1.75rem;
     font-weight: 700;
     font-size: 1.5rem;
     margin: 0;
 }
-.footer-routes-container{
+
+.footer-routes-container {
     display: grid;
     justify-content: space-between;
     padding-top: 4rem;
     padding-bottom: 4rem;
-    grid-template-columns: repeat(12,minmax(0,1fr));
+    grid-template-columns: repeat(12, minmax(0, 1fr));
     gap: 1.75rem;
 }
-.route-content{
+
+.route-content {
     grid-column: span 3/span 3;
     padding-bottom: 0;
 
 }
-.route-content h3{
+
+.route-content h3 {
     line-height: 1.75rem;
     margin-bottom: 1.5rem;
     font-weight: 500;
@@ -104,7 +110,8 @@
     margin: 0;
     font-size: inherit;
 }
-.route-content ul{
+
+.route-content ul {
     font-size: .875rem;
     line-height: 1.25rem;
     flex-direction: column;
@@ -113,15 +120,39 @@
     margin: 0;
     padding: 0;
 }
-.route-content ul li{
+
+.route-content ul li {
     display: flex;
     align-items: baseline;
     margin-top: calc(0.75rem * calc(1 - 0));
     margin-bottom: calc(0.75rem * 0);
 }
-.route-content ul li a{
+
+.route-content ul li a {
     color: rgb(75 85 99/1);
     width: 100%;
     display: inline-block;
     text-decoration: inherit;
+}
+
+/* mobile design start here  */
+
+@media screen and (max-width: 682px) {
+    .footer-routes-container {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        justify-content: space-between;
+        gap: 1.25rem;
+        padding-top: 2.5rem;
+        padding-bottom: 2.5rem;
+    }
+
+    .route-content {
+        grid-column: span 1/span 1;
+    }
+
+    .footer-section {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
 }

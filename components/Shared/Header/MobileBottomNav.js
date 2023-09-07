@@ -7,7 +7,7 @@ import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import ArchiveIcon from "@mui/icons-material/Archive";
 import Paper from "@mui/material/Paper";
 import { useState } from "react";
-import { Home, Shop } from "@mui/icons-material";
+import { Home, Shop,Category } from "@mui/icons-material";
 import { CgProfile } from "react-icons/cg";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useRouter } from "next/router";
@@ -52,14 +52,9 @@ export default function MobileBottomNav() {
             handleRouteChange(newValue);
           }}
         >
+          <BottomNavigationAction className="my-2" label="Category" icon={<Category />}  />
           <BottomNavigationAction className="my-2" label="Home" icon={<Home />} value="/" />
-          <BottomNavigationAction className="my-2" label="Shop" icon={<Shop />} value="/shop" />
-          <BottomNavigationAction
-            className="my-2"
-            label="Profile"
-            value="/user/dashboard"
-            icon={<CgProfile className="fs-1" />}
-          />
+
           <BottomNavigationAction
             className="my-2"
             label="Cart"
@@ -69,6 +64,12 @@ export default function MobileBottomNav() {
                 <AiOutlineShoppingCart className="fs-1" />
               </Badge>
             }
+          />
+          <BottomNavigationAction
+            className="my-2"
+            label="Profile"
+            value="/user/dashboard"
+            icon={<CgProfile className="fs-1" />}
           />
         </BottomNavigation>
       </Paper>
