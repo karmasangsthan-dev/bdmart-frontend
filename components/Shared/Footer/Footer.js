@@ -143,7 +143,7 @@ const Footer = () => {
           <div className="leading-7 font-sans text-sm text-gray-600 ">
             <p className=""> 1020 Vatara Road, Notun Bazar, Dhaka 1212, Bangladesh</p>
             <p className="my-1">Tell: 01223334455</p>
-            <p className="my-1">Email: contact@bangladeshmart.com.bd</p>
+            <p className="my-1 d-sm-none d-lg-block">Email: contact@bangladeshmart.com.bd</p>
           </div>
         </div>
       </div>
