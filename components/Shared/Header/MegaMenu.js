@@ -836,8 +836,6 @@ const MegaMenu = () => {
                                         <Link href={`/shop?category=${menu?.mainCategoryName}&subCategory=${category?.name}&childCategory=${child?.name}`}>
                                           {child?.name}
                                         </Link>
-
-
                                       </li>
                                     ))}
                                   </ul>

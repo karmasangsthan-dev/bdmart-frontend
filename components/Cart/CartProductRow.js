@@ -17,53 +17,36 @@ export default function CartProductRow({ product }) {
   );
   const rowProduct = cart?.find((item) => item.id == product?._id);
 
-  // const matchingElements = [];
-  // for (let index = 0; index < rowProduct?.variants?.length; index++) {
-  //   rowProduct?.variants?.find((selected) => {
-  //     if (selected?.variantId === product?.variants[index]?._id) {
-  //       matchingElements.push(product?.variants[index]);
-  //     }
-  //   });
-  // }
-  // matchingElements.map((matchingElement) => {
-  //   const selectedElement = rowProduct?.variants?.find(
-  //     (selected) => selected?.variantId === matchingElement._id
-  //   );
+  const matchingElements = product?.variants
+    .filter((element) =>
+      rowProduct?.variants?.some(
+        (selected) => selected?.variantId === element._id
+      )
+    )
+    .map((matchingElement) => {
+      const selectedElement = rowProduct?.variants?.find(
+        (selected) => selected?.variantId === matchingElement._id
+      );
 
-  //   if (selectedElement && selectedElement.size && selectedElement?.quantity) {
-  //     return {
-  //       ...matchingElement,
-  //       isMatching: true,
-  //       size: selectedElement.size,
-  //       quantity: selectedElement?.quantity,
-  //     };
-  //   } else {
-  //     return {
-  //       ...matchingElement,
-  //       isMatching: true,
-  //     };
-  //   }
-  // });
-  const matchingElements = [];
-  for (let index = 0; index < rowProduct?.variants?.length; index++) {
-    const variantId = product?.variants[index]?._id;
-    const selectedElements = rowProduct?.variants?.filter(
-      (selected) => selected?.variantId === variantId
-    );
-
-    if (selectedElements.length > 0) {
-      selectedElements.forEach((selectedElement, i) => {
-        const updatedElement = {
-          ...product?.variants[index],
+      if (
+        selectedElement &&
+        selectedElement.size &&
+        selectedElement?.quantity
+      ) {
+        return {
+          ...matchingElement,
           isMatching: true,
-          size: selectedElement.size || rowProduct.size, // Use rowProduct size if selectedElement.size is falsy
-          quantity: selectedElement.quantity || 0, // Use 0 if selectedElement.quantity is falsy
+          size: selectedElement.size,
+          quantity: selectedElement?.quantity,
         };
+      } else {
+        return {
+          ...matchingElement,
+          isMatching: true,
+        };
+      }
+    });
 
-        matchingElements.push(updatedElement);
-      });
-    }
-  }
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -118,232 +101,112 @@ export default function CartProductRow({ product }) {
   useEffect(() => {
     setMatchedVariant(matchingElements);
   }, []);
-
+  console.log({ rowProduct });
   return (
     <>
-      {matchedVariant?.length ? (
-        matchedVariant?.map((variant) => (
-          <tr key={product?._id}>
-            <td className="product-col ">
-              <div className="d-flex align-items-center">
-                <img
-                  className="cart-image"
-                  src={product?.thumbnail}
-                  alt="product"
-                />
-                <p
-                  title={product?.title}
-                  onClick={() => router.push(`/productDetails/${product._id}`)}
-                  className="product-title cart-product-title mb-0 ms-3"
-                >
-                  {product?.title?.length > 30
-                    ? `${product?.title.slice(0, 35)}...`
-                    : product?.title}
-                </p>
-              </div>
-            </td>
-            <td className="quantity-col">
-              <div
-                style={{ height: '60px' }}
-                className="product-quantity  d-flex align-items-center"
-              >
-                <div className="qty-container">
-                  <button
-                    onClick={() => handleQuantityDecrement(product)}
-                    className="qty-btn-minus btn-light"
-                    type="button"
-                  >
-                    <i className="fa fa-minus"></i>
-                  </button>
-                  <input
-                    type="text"
-                    name="qty"
-                    value={variant?.quantity}
-                    className="input-qty cart-input-qty"
-                  />
-                  <button
-                    onClick={() => handleQuantityIncrement(product)}
-                    className="qty-btn-plus btn-light"
-                    type="button"
-                  >
-                    <i className="fa fa-plus"></i>
-                  </button>
-                </div>
-              </div>
-            </td>
-            <td className="" style={{ width: '50px' }}>
-              <div
-                className="d-flex align-items-center justify-content-center"
-                style={{ height: '60px' }}
-              >
-                <p
-                  style={{
-                    backgroundColor: `rgba(${variant?.color.r}, ${variant?.color.g}, ${variant?.color.b}, ${variant?.color.a})`,
-                    width: '20px',
-                    height: '20px',
-                  }}
-                  className="product-select-color"
-                ></p>
-              </div>
-            </td>
-            <td>
+      {matchedVariant?.map((variant) => (
+        <tr key={product?._id}>
+          <td className="product-col ">
+            <div className="d-flex align-items-center">
+              <img
+                className="cart-image"
+                src={product?.thumbnail}
+                alt="product"
+              />
               <p
-                style={{ height: '60px', maxWidth: '40px' }}
-                className="text-uppercase my-auto d-flex align-items-center justify-content-center"
+                title={product?.title}
+                onClick={() => router.push(`/productDetails/${product._id}`)}
+                className="product-title cart-product-title mb-0 ms-3"
               >
-                {variant?.size}
+                {product?.title?.length > 30
+                  ? `${product?.title.slice(0, 35)}...`
+                  : product?.title}
               </p>
-            </td>
-            <td className="cart-price-col">
-              <p style={{ height: '60px' }} className=" cart-product-price">
-                {(variant?.price * currencyRate).toFixed(2)}
-                <br /> {currency}
-              </p>
-            </td>
-            <td className="total-col">
-              <p
-                className=" mb-0  cart-product-price"
-                style={{ height: '60px' }}
-              >
-                {(variant?.price * currencyRate * variant?.quantity).toFixed(2)}{' '}
-                <br />
-                {currency}
-              </p>
-            </td>
-            <td className="remove-col">
-              <div
-                style={{ height: '60px' }}
-                className="d-flex justify-content-center align-items-center"
-              >
+            </div>
+          </td>
+          <td className="quantity-col">
+            <div
+              style={{ height: '60px' }}
+              className="product-quantity  d-flex align-items-center"
+            >
+              <div className="qty-container">
                 <button
-                  style={{
-                    maxHeight: '30px',
-                    minHeight: '30px',
-                    width: '30px',
-                  }}
-                  onClick={() => handleRemove(product)}
-                  className=" btn-remove-cart "
+                  onClick={() => handleQuantityDecrement(product)}
+                  className="qty-btn-minus btn-light"
+                  type="button"
                 >
-                  <i className="fa-solid fa-xmark delete-icon"></i>
+                  <i className="fa fa-minus"></i>
+                </button>
+                <input
+                  type="text"
+                  name="qty"
+                  value={variant?.quantity}
+                  className="input-qty cart-input-qty"
+                />
+                <button
+                  onClick={() => handleQuantityIncrement(product)}
+                  className="qty-btn-plus btn-light"
+                  type="button"
+                >
+                  <i className="fa fa-plus"></i>
                 </button>
               </div>
-            </td>
-          </tr>
-        ))
-      ) : (
-        <>
-          <tr key={product?._id}>
-            <td className="product-col ">
-              <div className="d-flex align-items-center">
-                <img
-                  className="cart-image"
-                  src={product?.thumbnail}
-                  alt="product"
-                />
-                <p
-                  title={product?.title}
-                  onClick={() => router.push(`/productDetails/${product._id}`)}
-                  className="product-title cart-product-title mb-0 ms-3"
-                >
-                  {product?.title?.length > 30
-                    ? `${product?.title.slice(0, 35)}...`
-                    : product?.title}
-                </p>
-              </div>
-            </td>
-            <td className="quantity-col">
-              <div
-                style={{ height: '60px' }}
-                className="product-quantity  d-flex align-items-center"
-              >
-                <div className="qty-container">
-                  <button
-                    onClick={() => handleQuantityDecrement(product)}
-                    className="qty-btn-minus btn-light"
-                    type="button"
-                  >
-                    <i className="fa fa-minus"></i>
-                  </button>
-                  <input
-                    type="text"
-                    name="qty"
-                    value={rowProduct?.quantity}
-                    className="input-qty cart-input-qty"
-                  />
-                  <button
-                    onClick={() => handleQuantityIncrement(product)}
-                    className="qty-btn-plus btn-light"
-                    type="button"
-                  >
-                    <i className="fa fa-plus"></i>
-                  </button>
-                </div>
-              </div>
-            </td>
-            <td className="" style={{ width: '50px' }}>
-              <div
-                className="d-flex align-items-center justify-content-center"
-                style={{ height: '60px' }}
-              >
-                <p
-                  style={{
-                    // backgroundColor: `rgba(${variant?.color.r}, ${variant?.color.g}, ${variant?.color.b}, ${variant?.color.a})`,
-                    width: '20px',
-                    height: '20px',
-                  }}
-                  className="product-select-color"
-                >
-                  ----
-                </p>
-              </div>
-            </td>
-            <td>
+            </div>
+          </td>
+          <td className="" style={{ width: '50px' }}>
+            <div
+              className="d-flex align-items-center justify-content-center"
+              style={{ height: '60px' }}
+            >
               <p
-                style={{ height: '60px', maxWidth: '40px' }}
-                className="text-uppercase my-auto d-flex align-items-center justify-content-center"
+                style={{
+                  backgroundColor: `rgba(${variant?.color.r}, ${variant?.color.g}, ${variant?.color.b}, ${variant?.color.a})`,
+                  width: '20px',
+                  height: '20px',
+                }}
+                className="product-select-color"
+              ></p>
+            </div>
+          </td>
+          <td>
+            <p
+              style={{ height: '60px', maxWidth: '40px' }}
+              className="text-uppercase my-auto d-flex align-items-center justify-content-center"
+            >
+              {variant?.size}
+            </p>
+          </td>
+          <td className="cart-price-col">
+            <p style={{ height: '60px' }} className=" cart-product-price">
+              {(variant?.price * currencyRate).toFixed(2)}
+              <br /> {currency}
+            </p>
+          </td>
+          <td className="total-col">
+            <p className=" mb-0  cart-product-price" style={{ height: '60px' }}>
+              {(variant?.price * currencyRate * rowProduct?.quantity).toFixed(
+                2
+              )}{' '}
+              <br />
+              {currency}
+            </p>
+          </td>
+          <td className="remove-col">
+            <div
+              style={{ height: '60px' }}
+              className="d-flex justify-content-center align-items-center"
+            >
+              <button
+                style={{ maxHeight: '30px', minHeight: '30px', width: '30px' }}
+                onClick={() => handleRemove(product)}
+                className=" btn-remove-cart "
               >
-                ----
-              </p>
-            </td>
-            <td className="cart-price-col">
-              <p style={{ height: '60px' }} className=" cart-product-price">
-                {(product?.price * currencyRate).toFixed(2)}
-                <br /> {currency}
-              </p>
-            </td>
-            <td className="total-col">
-              <p
-                className=" mb-0  cart-product-price"
-                style={{ height: '60px' }}
-              >
-                {(product?.price * currencyRate * rowProduct?.quantity).toFixed(
-                  2
-                )}{' '}
-                <br />
-                {currency}
-              </p>
-            </td>
-            <td className="remove-col">
-              <div
-                style={{ height: '60px' }}
-                className="d-flex justify-content-center align-items-center"
-              >
-                <button
-                  style={{
-                    maxHeight: '30px',
-                    minHeight: '30px',
-                    width: '30px',
-                  }}
-                  onClick={() => handleRemove(product)}
-                  className=" btn-remove-cart "
-                >
-                  <i className="fa-solid fa-xmark delete-icon"></i>
-                </button>
-              </div>
-            </td>
-          </tr>
-        </>
-      )}
+                <i className="fa-solid fa-xmark delete-icon"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      ))}
     </>
   );
 }
