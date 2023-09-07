@@ -1,226 +1,56 @@
-.signin-container {
-  background-color: #23242a;
+.signin-container{
+  min-height: 120vh;
 }
-
-.box {
-  position: relative;
-  width: 380px;
-  height: 460px;
-  border-radius: 8px;
-  background: #1c1c1c;
-  overflow: hidden;
+.signup-container{
+  min-height: 120vh;
+}
+.user-login-container {
+  background-image: url('https://img.freepik.com/free-photo/luxury-plain-green-gradient-abstract-studio-background-empty-room-with-space-your-text-picture_1258-99418.jpg?w=740&t=st=1691678715~exp=1691679315~hmac=1bc4a98af61f3ac557ffb13ebe18133a6f602f3df4561331f9fcdb1dc88ce6e1');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.user-login-content{
   display: flex;
-  margin: auto;
+  align-items: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
-
-.box::before {
-  content: "";
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 380px;
-  height: 420px;
-  background: linear-gradient(0deg, transparent, #faa11b, #faa11b);
-  transform-origin: bottom right;
-  animation: animate 6s linear infinite;
-}
-
-.box::after {
-  content: "";
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 380px;
-  height: 420px;
-  background: linear-gradient(0deg, transparent, #faa11b, #faa11b);
-  transform-origin: bottom right;
-  animation: animate 6s linear infinite;
-  animation-delay: -3s;
-}
-
-@keyframes animate {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-.form {
-  position: absolute;
-  inset: 2px;
-  border-radius: 8px;
-  background: #28292d;
-  z-index: 10;
-  padding: 50px 40px;
-  display: flex;
-  flex-direction: column;
-}
-
-.form h2 {
-  color: #faa72c;
-  font-weight: 500;
-  text-align: center;
-  letter-spacing: 0, 1em;
-}
-
-.inputBox {
-  position: relative;
-  width: 300px;
-  margin-top: 35px;
-}
-
-.inputBox input {
-  position: relative;
-  width: 100%;
-  padding: 10px 9px 10px;
-  background: transparent;
-  border: none;
-  outline: none;
-  color: #23242a;
-  font-size: 1em;
-  letter-spacing: 0.05em;
-  z-index: 10;
-}
-
-.inputBox span {
-  position: absolute;
-  left: 0;
-  padding: 10px 10px 10px;
-  font-size: 1em;
-  color: #ffffff;
-  pointer-events: none;
-  letter-spacing: 0.05em;
-  transition: 0.5s;
-}
-
-.inputBox input:valid~span,
-.inputBox input:focus~span {
-  color: #45f3ff;
-  transform: translateX(0px) translateY(-34px);
-  font-size: 0.75em;
-}
-
-.inputBox i {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 2px;
-  background: #faa72c;
-  border-radius: 4px;
-  transition: 0.5s;
-  pointer-events: none;
-  z-index: 9;
-}
-
-.inputBox input:valid~i,
-.inputBox input:focus~i {
-  height: 44px;
-}
-
-.links {
-  display: flex;
-  justify-content: space-between;
-}
-
-.links a {
-  margin: 10px 0;
-  font-size: 00.75em;
-  color: #ffffff;
-  text-decoration: none;
-}
-
-.links a:hover,
-.links a:nth-child(2) {
-  color: #faa72c;
-}
-
-input[type="submit"] {
-  border: none;
-  outline: none;
-  background: #faa72c;
-  padding: 11px 25px;
-  width: 100px;
-
-  border-radius: 4px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-input[type="submit"]:active {
-  opacity: 0.8;
-}
-
-.cursor_pointer {
-  cursor: pointer;
-}
-
-
-.sign-in-container {
-  background-color: #fff;
-}
-
-.sign-in-content {
-  width: 60%;
-  margin: 0 auto;
-}
-
-.login-header {
-  display: flex;
-  justify-content: space-between;
-}
-
-.login-header .title-text {
-  color: #424242;
-}
-
-.form-container {
-  display: flex;
-  background-color: #eff0f5;
-}
-
-.form-container .left-content {
+.first-content , .second-content{
   width: 50%;
-  padding: 1.5rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+.first-content h1{
+  color: white;
+  font-size: 62px;
+}
+.first-content h6{
+  color: white;
+}
+.second-content .login-form{
+  padding: 3rem;
+  border-radius: 15px;
+  background: #f7f7f7;
 }
 
-.left-content .input-email,
-.input-password {
-  /* w-100 px-2 py-1 */
-  width: 100%;
-  padding-top: 0.25rem !important;
-  padding-bottom: 0.25rem !important;
-  padding-right: 0.5rem !important;
-  padding-left: 0.5rem !important;
-  background-color: #eff0f5;
-  border-radius: 5px;
-}
-
-.google-login-btn {
-  margin-top: 0.5rem;
-}
-
-.desktop-icon-container {
-  position: relative;
-}
-
-.signup-password-show-button {
-  position: absolute;
-  right: 8px;
-  top: -30px;
-  cursor: pointer;
-}
 
 @media screen and (max-width: 682px) {
-  .google-login-btn {
-    margin-top: 0rem;
+  .signin-container{
+    min-height: 103vh;
+  }
+  .signup-container{
+    min-height: auto;
+  }
+  .first-content{
+    display: none;
+  }
+  .second-content{
+    width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .second-content .login-form{
+    padding: 2rem;
   }
 
-  .sign-in-content {
-    width: 100%;
-    margin: 0 auto;
-  }
 }

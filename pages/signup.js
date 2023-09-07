@@ -14,6 +14,7 @@ import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import GoogleLogin from '../components/Shared/SocialLogin/GoogleLogin';
 import VerifiedEmailSent from '../components/Shared/Authenticaiotn/VerifiedEmailSent';
 import { setCookie } from '../utils/setCookie';
+import Layout from '../components/Layout';
 
 const signup = () => {
   const [showPass, setShowPass] = useState(false);
@@ -94,30 +95,26 @@ const signup = () => {
   }, [isSuccess, isLoading, isError, error, dispatch, data?.token, user]);
 
   return (
-    <div
-      style={{ minHeight: deviceHeight < 650 ? '120vh' : 'auto' }}
+    <Layout
       className=""
     >
-      <Header></Header>
-
       <>
-        <div style={{ minHeight: '120vh' }}>
+        <div className='signup-container'>
           <div className="user-login-container">
             <div className="">
-              <div className="d-flex align-items-center py-3 ">
-                <div className="w-50 px-5">
-                  <h1 className="text-white " style={{ fontSize: '52px' }}>
+              <div className="user-login-content ">
+                <div className="first-content">
+                  <h1 className="login-heading ">
                     Bangladesh Mart
                   </h1>
-                  <h6 className="text-white">
+                  <h6 >
                     Create a Bangladesh Mart account in 1 minutes and reach
                     millions of support today!
                   </h6>
                 </div>
-                <div className='w-50 px-5'>
+                <div className='second-content'>
                   <div
-                    className="login-form p-5 "
-                    style={{ borderRadius: '15px', background: '#f7f7f7' }}
+                    className="login-form"
                   >
                     <h2 className="text-center">Create an account</h2>
                     <p className="text-center">
@@ -242,7 +239,7 @@ const signup = () => {
           </div >
         </div >
       </>
-    </div>
+    </Layout>
   );
 };
 export default signup;
