@@ -8,7 +8,7 @@ import {
   addToCart,
   setCartProductsLocally,
 } from '../../features/cart/cartSlice';
-import { getProductPriceRange } from '../../helperHooks/getProductPriceRange';
+import { getProductPriceRangeForCard } from '../../helperHooks/getProductPriceRange';
 import { useHandleAddToCart } from '../../helperHooks/handleAddToCart';
 
 export default function Product({ product }) {
@@ -17,11 +17,11 @@ export default function Product({ product }) {
     (state) => state.currency
   );
 
-  const productHighestPrice = getProductPriceRange(
+  const productHighestPrice = getProductPriceRangeForCard(
     product?.variants,
     currencyRate
   ).highestPrice;
-  const productLowestPrice = getProductPriceRange(
+  const productLowestPrice = getProductPriceRangeForCard(
     product?.variants,
     currencyRate
   ).lowestPrice;

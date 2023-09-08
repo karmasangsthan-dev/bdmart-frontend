@@ -24,7 +24,7 @@ import MobileShareProduct from '../../components/ProductDescription/MobileShareP
 import YouMayAlsoLike from '../../components/ProductDescription/YouMayAlsoLike';
 import ProductQuestionAnswer from '../../components/ProductDescription/ProductQuestionAnswer';
 import { useHandleAddToCart } from '../../helperHooks/handleAddToCart';
-import { getProductPriceRange } from '../../helperHooks/getProductPriceRange';
+import { getProductPriceRangeDetails } from '../../helperHooks/getProductPriceRange';
 
 const SampleNextArrow = (props) => {
   const { onClick } = props;
@@ -281,12 +281,11 @@ const productNo = () => {
   if (!data?.status) {
     return <NotFoundPage></NotFoundPage>;
   }
-  const { highestPrice, lowestPrice } = getProductPriceRange(
+  const { highestPrice, lowestPrice } = getProductPriceRangeDetails(
     newProductStructure?.variants,
     currencyRate
   );
-  console.log({ highestPrice, lowestPrice });
-  console.log();
+
   return (
     <Layout title={`${product?.title ? product?.title : ''} Bangladesh Mart`}>
       <main className="mainnnnn" style={{ background: '#eff0f5' }}>

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Image from 'next/image';
 
-import { getProductPriceRange } from '../../helperHooks/getProductPriceRange';
+import { getProductPriceRangeForCard } from '../../helperHooks/getProductPriceRange';
 import { useHandleAddToCart } from '../../helperHooks/handleAddToCart';
 
 export default function JustForYouProductCard({ product }) {
@@ -13,11 +13,11 @@ export default function JustForYouProductCard({ product }) {
     (state) => state.currency
   );
 
-  const productHighestPrice = getProductPriceRange(
+  const productHighestPrice = getProductPriceRangeForCard(
     product?.variants,
     currencyRate
   ).highestPrice;
-  const productLowestPrice = getProductPriceRange(
+  const productLowestPrice = getProductPriceRangeForCard(
     product?.variants,
     currencyRate
   ).lowestPrice;

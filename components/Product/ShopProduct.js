@@ -6,7 +6,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useHandleAddToCart } from '../../helperHooks/handleAddToCart';
-import { getProductPriceRange } from '../../helperHooks/getProductPriceRange';
+import { getProductPriceRangeForCard } from '../../helperHooks/getProductPriceRange';
 
 export default function ShopProduct({ product }) {
   const dispatch = useDispatch();
@@ -14,11 +14,11 @@ export default function ShopProduct({ product }) {
     (state) => state.currency
   );
 
-  const productHighestPrice = getProductPriceRange(
+  const productHighestPrice = getProductPriceRangeForCard(
     product?.variants,
     currencyRate
   ).highestPrice;
-  const productLowestPrice = getProductPriceRange(
+  const productLowestPrice = getProductPriceRangeForCard(
     product?.variants,
     currencyRate
   ).lowestPrice;
