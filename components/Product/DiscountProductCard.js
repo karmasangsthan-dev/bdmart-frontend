@@ -81,7 +81,7 @@ export default function DiscountProductCard({ product }) {
             ) : (
               <span className="item-price">
                 {productLowestPrice} {currency}
-              </span>
+                </span>
             )}
           </div>
         </div>

@@ -24,6 +24,7 @@ import MobileShareProduct from '../../components/ProductDescription/MobileShareP
 import YouMayAlsoLike from '../../components/ProductDescription/YouMayAlsoLike';
 import ProductQuestionAnswer from '../../components/ProductDescription/ProductQuestionAnswer';
 import { useHandleAddToCart } from '../../helperHooks/handleAddToCart';
+import { getProductPriceRange } from '../../helperHooks/getProductPriceRange';
 
 const SampleNextArrow = (props) => {
   const { onClick } = props;
@@ -49,7 +50,9 @@ const SamplePrevArrow = (props) => {
 };
 
 const productNo = () => {
-  const [selectedSize, setSelectedSize] = useState('');
+  const [variant, setVariant] = useState();
+  const [selectedSize, setSelectedSize] = useState({});
+
   const settings = {
     dots: false,
     infinite: false,
@@ -101,18 +104,54 @@ const productNo = () => {
   const product = data?.data || {};
   const products = allData?.data || [];
 
-  const [variant, setVariant] = useState();
+  const updatedVariants = [];
+
+  for (let index = 0; index < product?.variants?.length; index++) {
+    const variant = product.variants[index];
+
+    if (variant) {
+      const matchingColorVariant = updatedVariants.find(
+        (v) =>
+          v.color.r === variant.color.r &&
+          v.color.g === variant.color.g &&
+          v.color.b === variant.color.b &&
+          v.color.a === variant.color.a
+      );
+
+      if (matchingColorVariant) {
+        matchingColorVariant.sizes.push({
+          size: variant.size,
+          oldPrice: variant.oldPrice,
+          price: variant.price,
+          stock: variant.stock,
+          status: variant.status,
+        });
+      } else if (!matchingColorVariant) {
+        const newVariant = {
+          color: variant?.color,
+          sizes: [
+            {
+              size: variant.size,
+              oldPrice: variant.oldPrice,
+              price: variant.price,
+              stock: variant.stock,
+              status: variant.status,
+            },
+          ],
+        };
+        updatedVariants.push(newVariant);
+      }
+    }
+  }
+
+  const newProductStructure = {
+    ...product,
+    variants: updatedVariants,
+  };
 
   function handleClick(event) {
     event.preventDefault();
   }
-
-  let productPrice;
-  if (currencyRate) {
-    productPrice = (product?.price * currencyRate).toFixed(2);
-  }
-  const discountPercentage =
-    ((product?.oldPrice - product?.price) / product?.oldPrice) * 100;
 
   const handleAddToCart = (product) => {
     if (variant?.size?.length && !selectedSize) {
@@ -230,11 +269,6 @@ const productNo = () => {
     setQuantity(quantity + 1);
   };
 
-  useEffect(() => {
-    if (product?.variants) {
-      setVariant(product?.variants[0]);
-    }
-  }, [product]);
   const handleQunatityDecrement = (id) => {
     if (quantity > 1) {
       setQuantity(quantity - 1);
@@ -247,6 +281,12 @@ const productNo = () => {
   if (!data?.status) {
     return <NotFoundPage></NotFoundPage>;
   }
+  const { highestPrice, lowestPrice } = getProductPriceRange(
+    newProductStructure?.variants,
+    currencyRate
+  );
+  console.log({ highestPrice, lowestPrice });
+  console.log();
   return (
     <Layout title={`${product?.title ? product?.title : ''} Bangladesh Mart`}>
       <main className="mainnnnn" style={{ background: '#eff0f5' }}>
@@ -335,79 +375,82 @@ const productNo = () => {
                 </div>
                 <div>
                   <h4 className="my-2">
-                    Price:{' '}
+                    Price :{' '}
                     <span style={{ color: '#f85606' }}>
-                      {(variant?.price * currencyRate).toFixed(2)} {currency}
+                      {!selectedSize?.price
+                        ? ` ${highestPrice} - ${lowestPrice} ${currency}  `
+                        : `${(selectedSize?.price * currencyRate).toFixed(
+                            2
+                          )} ${currency}`}
+                      {console.log({ selectedSize })}
                     </span>{' '}
                   </h4>
+
                   <div className="old-price">
                     <del>
-                      {(variant?.oldPrice * currencyRate).toFixed(2)} {currency}
+                      {(selectedSize?.oldPrice * currencyRate).toFixed(2)}{' '}
+                      {currency}
                     </del>
                     <span className="ms-2">
                       {' '}
-                      - {discountPercentage?.toFixed(2)}%
+                      {/* - {discountPercentage?.toFixed(2)}% */}
                     </span>
                   </div>
                 </div>
-
                 <div className="d-flex align-items-center gap-2 mt-2">
-                  <h6 style={{ minWidth: '50px' }}>Color:</h6>
-                  <div className="product-colors-nav">
-                    {product?.variants?.map((variantItem, index) => {
-                      return (
-                        <>
-                          {variant?._id === variantItem?._id ? (
-                            <a
-                              key={index}
-                              onClick={() => setVariant(variantItem)}
-                              style={{
-                                backgroundColor: `rgba(${variantItem.color.r}, ${variantItem.color.g}, ${variantItem.color.b}, ${variantItem.color.a})`,
-                              }}
-                              className="active"
-                            ></a>
-                          ) : (
-                            <a
-                              key={index}
-                              onClick={() => setVariant(variantItem)}
-                              style={{
-                                backgroundColor: `rgba(${variantItem.color.r}, ${variantItem.color.g}, ${variantItem.color.b}, ${variantItem.color.a})`,
-                              }}
-                            ></a>
-                          )}
-                        </>
-                      );
-                    })}
+                  <h6 style={{ minWidth: '40px' }}>Color:</h6>
+                  <div className="product-colors-nav mb-2">
+                    {newProductStructure?.variants &&
+                      newProductStructure?.variants?.map(
+                        (variantItem, index) => (
+                          <a
+                            key={index}
+                            onClick={() => setVariant(variantItem)}
+                            style={{
+                              backgroundColor: `rgba(${variantItem.color.r}, ${variantItem.color.g}, ${variantItem.color.b}, ${variantItem.color.a})`,
+                            }}
+                            className={`${
+                              variant?.color.r === variantItem?.color?.r &&
+                              variant?.color.g === variantItem?.color?.g &&
+                              variant?.color.b === variantItem?.color?.b &&
+                              variant?.color.a === variantItem?.color?.a
+                                ? 'active'
+                                : ''
+                            } `}
+                          ></a>
+                        )
+                      )}
                   </div>
-                </div>
-
+                </div>{' '}
                 <div className="d-flex align-items-center gap-2">
                   <h6 style={{ minWidth: '50px' }}>Size:</h6>
+
                   <Form.Select
                     className="product-description-size "
                     style={{ minWidth: '156px', maxWidth: '156px' }}
                     required
-                    onChange={(e) => setSelectedSize(e.target.value)}
+                    onChange={(e) =>
+                      setSelectedSize(JSON.parse(e.target.value))
+                    }
                     aria-label="Default select example"
                   >
-                    {/* {variant?.size?.length ? (
-                      <>
-                        <option>Select One</option>
-                        {variant?.size?.map((variantSize) => (
+                    <>
+                      <option value={JSON.stringify({})}>Select One</option>
+                      {variant?.sizes ? (
+                        variant?.sizes?.map((item) => (
                           <option
-                            value={variantSize}
+                            value={JSON.stringify(item)}
                             className="text-uppercase"
                           >
-                            {variantSize}
+                            {item?.size}
                           </option>
-                        ))}
-                      </>
-                    ) : (
-                      <option>None</option>
-                    )} */}
+                        ))
+                      ) : (
+                        <option>None</option>
+                      )}
+                    </>
                   </Form.Select>
                 </div>
-
                 <div className="product-quantity d-flex align-items-center gap-2 mt-2">
                   <h6 style={{ minWidth: '50px' }}>Qty:</h6>
                   <div className="">
@@ -500,7 +543,6 @@ const productNo = () => {
                     </button>
                   </div>
                 </div>
-
                 <ShareProduct></ShareProduct>
               </div>
               <div className="col-md-3 delevery-service-container">
