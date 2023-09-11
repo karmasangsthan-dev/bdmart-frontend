@@ -62,7 +62,7 @@ const CartFlottingButton = () => {
               />
             </svg>
           </span>
-          <span className="item-number-text">{totalProductQuantity} Items</span>
+          <span className="item-number-text">{totalProductQuantity ? totalProductQuantity :'No'} Items</span>
         </div>
         <div className="second-content">
           {(total * currencyRate).toFixed(2)} {currency}

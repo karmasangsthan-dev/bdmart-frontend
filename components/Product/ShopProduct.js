@@ -1,104 +1,44 @@
-import { Collapse, Rating } from '@mui/material';
-import Image from 'next/image';
-import Link from 'next/link';
+import { Rating } from '@mui/material';
+
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
-import { toast } from 'react-hot-toast';
-import Slider from 'react-slick';
-import { useAddToCartMutation } from '../../features/auth/authApi';
+import React from 'react';
+
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart } from '../../features/cart/cartSlice';
+
+import { useHandleAddToCart } from '../../helperHooks/handleAddToCart';
+import { getProductPriceRangeForCard } from '../../helperHooks/getProductPriceRange';
 
 export default function ShopProduct({ product }) {
+  const dispatch = useDispatch();
   const { code: currency, rate: currencyRate } = useSelector(
     (state) => state.currency
   );
 
-  let productPrice;
-  if (currencyRate) {
-    productPrice = (product?.price * currencyRate).toFixed(2);
-  }
+  const productHighestPrice = getProductPriceRangeForCard(
+    product?.variants,
+    currencyRate
+  ).highestPrice;
+  const productLowestPrice = getProductPriceRangeForCard(
+    product?.variants,
+    currencyRate
+  ).lowestPrice;
 
-  const discountPercentage =
-    ((product?.oldPrice - product?.price) / product?.oldPrice) * 100;
-  // const [token, setToken] = useState();
-  // const [cartProduct, setCartProduct] = useState({});
-  const dispatch = useDispatch();
-  // const user = useSelector((state) => state.auth?.user);
   const router = useRouter();
-  // useEffect(() => {
-  //   const token = localStorage.getItem("accessToken");
-  //   setToken(token);
-  // }, []);
 
-  // const [addProductToCart, { data, isSuccess, isLoading }] =
-  //   useAddToCartMutation();
-  const handleAddToCart = (product) => {
-    //   const alreadyAdded = !!user?.cart?.find(
-    //     (item) => item?.product?._id === product?._id
-    //   );
-    //   console.log(alreadyAdded);
-    //   if (user?.email) {
-    //     if (alreadyAdded) {
-    //       return toast.error("Product already added to cart!!!", {
-    //         id: "addToCart",
-    //       });
-    //     }
-    //     setCartProduct(product);
-    //     addProductToCart({ token, userId: user?._id, product: product?._id });
-    //   }
-    //   if (!user?.email) {
-    //     toast.error("Please, Login first !!!", { id: "addToCart" });
-    //   }
+  const { reviews } = product;
+  const totalReviews = reviews?.length;
+  const ratingsSum = reviews.reduce((sum, review) => sum + review.ratings, 0);
+  const averageRating = totalReviews ? ratingsSum / totalReviews : 0;
+  const sanitizedAverageRating = isNaN(averageRating) ? 0 : averageRating;
 
-    //   ----------------------------------------------------------
-
-    const cartProducts = localStorage.getItem('cartProducts');
-    if (cartProducts) {
-      const cart = JSON.parse(localStorage.getItem('cartProducts'));
-      const index = cart?.findIndex(
-        (cartProduct) => cartProduct?.id === product?._id
-      );
-      if (index !== -1) {
-        cart[index].quantity += 1;
-        toast.success('Updated Quantity', { id: 'addToCart' });
-      } else {
-        cart.push({ id: product?._id, quantity: 1, price: product?.price });
-        toast.success('Added to cart', { id: 'addToCart' });
-      }
-      localStorage.setItem('cartProducts', JSON.stringify(cart));
-    }
-    if (!cartProducts) {
-      const cart = [{ id: product?._id, quantity: 1, price: product?.price }];
-      localStorage.setItem('cartProducts', JSON.stringify(cart));
-      toast.success('Added to cart', { id: 'addToCart' });
-    }
-
-    dispatch(addToCart({ id: product?._id, price: product?.price }));
-  };
-  // useEffect(() => {
-  //   if (isLoading) {
-  //     toast.loading("Loading...", { id: "addToCart" });
-  //   }
-  //   if (isSuccess) {
-  //     dispatch(addToCart(cartProduct));s
-  //     toast.success("Added to cart", { id: "addToCart" });
-  //   }
-  // }, [isSuccess, isLoading]);
-  const getProductPriceRange = (variants) => {
-    let highestPrice = variants[0]?.price ? variants[0]?.price : 0;
-    let lowestPrice = variants[0]?.price ? variants[0]?.price : 0;
-
-    variants.forEach((variant) => {
-      if (variant.price > highestPrice) {
-        highestPrice = (variant.price * currencyRate).toFixed(2);
-      }
-      if (variant.price < lowestPrice) {
-        lowestPrice = (variant.price * currencyRate).toFixed(2);
-      }
+  const productAddToCart = (product) => {
+    useHandleAddToCart({
+      product,
+      selectedSize: product?.variants[0]?.size,
+      variant: product?.variants[0],
+      quantity: 1,
+      dispatch,
     });
-
-    return { highestPrice, lowestPrice };
   };
   return (
     <div className="mb-1 w-100 shop-page-product" key={product?._id}>
@@ -123,21 +63,29 @@ export default function ShopProduct({ product }) {
         </p>
 
         <div className="d-flex justify-content-between align-items-center">
-          <div>
-            <span className="item-price">{`${
-              getProductPriceRange(product?.variants).lowestPrice
-            } ${currency}`}</span>{' '}
-            -
-            <span className="item-price pl-2">{`${
-              getProductPriceRange(product?.variants).highestPrice
-            } ${currency}`}</span>
+          <div className="item-price">
+            {product?.variants?.length > 1 ? (
+              <>
+                <span className="item-price">
+                  {productLowestPrice} {currency}
+                </span>{' '}
+                -
+                <span className="item-price pl-2">
+                  {productHighestPrice} {currency}
+                </span>
+              </>
+            ) : (
+              <span className="item-price">
+                {productLowestPrice} {currency}
+              </span>
+            )}
           </div>
         </div>
         <div className="old-price">
           <del>
             {(product?.oldPrice * currencyRate).toFixed(2)} {currency}
           </del>
-          <span className="ms-2"> - {discountPercentage?.toFixed(2)}%</span>
+          {/* <span className="ms-2"> - {discountPercentage?.toFixed(2)}%</span> */}
         </div>
         <div className="d-flex align-items-center">
           <Rating
@@ -153,7 +101,7 @@ export default function ShopProduct({ product }) {
         <div id="">
           <button
             className="cart-btn w-100 "
-            onClick={() => handleAddToCart(product)}
+            onClick={() => productAddToCart(product)}
           >
             Add to Cart
             <i className="far plus-ico fa-plus-square text-white"></i>

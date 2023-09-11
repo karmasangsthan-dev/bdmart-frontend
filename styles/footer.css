@@ -138,6 +138,16 @@
 /* mobile design start here  */
 
 @media screen and (max-width: 682px) {
+    .follow-us-text{
+        text-align: center;
+    }
+    .icon-container{
+        justify-content: center;
+    }
+    .bottom-footer-container {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+    
     .footer-routes-container {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));

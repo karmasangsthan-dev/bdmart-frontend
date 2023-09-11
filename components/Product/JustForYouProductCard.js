@@ -1,51 +1,28 @@
 import { Rating } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart } from '../../features/cart/cartSlice';
-import { toast } from 'react-hot-toast';
+
 import Image from 'next/image';
 
-export default function JustForYouProductCard({ product }) {
+import { getProductPriceRangeForCard } from '../../helperHooks/getProductPriceRange';
+import { useHandleAddToCart } from '../../helperHooks/handleAddToCart';
 
+export default function JustForYouProductCard({ product }) {
+  const dispatch = useDispatch();
   const { code: currency, rate: currencyRate } = useSelector(
     (state) => state.currency
   );
 
-  let productPrice;
-  if (currencyRate) {
-    productPrice = (product?.price * currencyRate).toFixed(2);
-  }
-  const discountPercentage =
-    ((product?.oldPrice - product?.price) / product?.oldPrice) * 100;
-
-  const dispatch = useDispatch();
+  const productHighestPrice = getProductPriceRangeForCard(
+    product?.variants,
+    currencyRate
+  ).highestPrice;
+  const productLowestPrice = getProductPriceRangeForCard(
+    product?.variants,
+    currencyRate
+  ).lowestPrice;
 
   const router = useRouter();
-
-  const handleAddToCart = (product) => {
-    const cartProducts = localStorage.getItem('cartProducts');
-    if (cartProducts) {
-      const cart = JSON.parse(localStorage.getItem('cartProducts'));
-      const index = cart?.findIndex(
-        (cartProduct) => cartProduct?.id === product?._id
-      );
-      if (index !== -1) {
-        cart[index].quantity += 1;
-        toast.success('Updated Quantity', { id: 'addToCart' });
-      } else {
-        cart.push({ id: product?._id, quantity: 1, price: product?.price });
-        toast.success('Added to cart', { id: 'addToCart' });
-      }
-      localStorage.setItem('cartProducts', JSON.stringify(cart));
-    }
-    if (!cartProducts) {
-      const cart = [{ id: product?._id, quantity: 1, price: product?.price }];
-      localStorage.setItem('cartProducts', JSON.stringify(cart));
-      toast.success('Added to cart', { id: 'addToCart' });
-    }
-
-    dispatch(addToCart({ id: product?._id, price: product?.price }));
-  };
 
   const { reviews } = product;
   const totalReviews = reviews?.length;
@@ -53,20 +30,14 @@ export default function JustForYouProductCard({ product }) {
   const averageRating = totalReviews ? ratingsSum / totalReviews : 0;
   const sanitizedAverageRating = isNaN(averageRating) ? 0 : averageRating;
 
-  const getProductPriceRange = (variants) => {
-    let highestPrice = variants[0]?.price ? variants[0]?.price : 0;
-    let lowestPrice = variants[0]?.price ? variants[0]?.price : 0;
-
-    variants.forEach((variant) => {
-      if (variant.price > highestPrice) {
-        highestPrice = (variant.price * currencyRate).toFixed(2);
-      }
-      if (variant.price < lowestPrice) {
-        lowestPrice = (variant.price * currencyRate).toFixed(2);
-      }
+  const productAddToCart = (product) => {
+    useHandleAddToCart({
+      product,
+      selectedSize: product?.variants[0]?.size,
+      variant: product?.variants[0],
+      quantity: 1,
+      dispatch,
     });
-
-    return { highestPrice, lowestPrice };
   };
   return (
     <div className="mb-3" key={product?._id}>
@@ -95,21 +66,35 @@ export default function JustForYouProductCard({ product }) {
         </p>
 
         <div className="d-flex justify-content-between align-items-center">
-          <span className="item-price">
-            <div>
-              <span className="item-price">{`${getProductPriceRange(product?.variants).lowestPrice
-                } ${currency}`}</span>{' '}
-              -
-              <span className="item-price pl-2">{`${getProductPriceRange(product?.variants).highestPrice
-                } ${currency}`}</span>
-            </div>
-          </span>
+          <div className="item-price">
+            {product?.variants?.length > 1 ? (
+              <>
+                <span className="item-price">
+                  {productLowestPrice} {currency}
+                </span>{' '}
+                -
+                <span className="item-price pl-2">
+                  {productHighestPrice} {currency}
+                </span>
+              </>
+            ) : (
+              <span className="item-price">
+                {productLowestPrice} {currency}
+              </span>
+            )}
+          </div>
         </div>
         <div className="old-price">
-          <del>
-            {(product?.oldPrice * currencyRate).toFixed(2)} {currency}
-          </del>
-          <span className="ms-2"> - {discountPercentage?.toFixed(2)}%</span>
+          {!product?.variants?.length > 1 ? (
+            <>
+              <del>
+                {(product?.oldPrice * currencyRate).toFixed(2)} {currency}
+              </del>
+              {/* <span className="ms-2"> - {discountPercentage?.toFixed(2)}%</span> */}
+            </>
+          ) : (
+            <div style={{ height: '18px' }}></div>
+          )}
         </div>
         <div className="d-flex align-items-center">
           <Rating
@@ -123,19 +108,23 @@ export default function JustForYouProductCard({ product }) {
           </p>
         </div>
         <div id="">
-          {product?.variants?.length > 0 ? <button
-          onClick={()=>router.push(`/productDetails/${product?._id}`)}
-            className="cart-btn-see-options w-100 "
-          >
-            Select options
-            <i className="far plus-ico fa-plus-square text-white"></i>
-          </button> : <button
-            className="cart-btn w-100 "
-            onClick={() => handleAddToCart(product)}
-          >
-            Add to Cart
-            <i class="fa-solid plus-ico fa-cart-shopping text-white"></i>
-          </button>}
+          {product?.variants?.length > 1 ? (
+            <button
+              onClick={() => router.push(`/productDetails/${product?._id}`)}
+              className="cart-btn-see-options w-100 "
+            >
+              Select options
+              <i className="far plus-ico fa-plus-square text-white"></i>
+            </button>
+          ) : (
+            <button
+              className="cart-btn w-100 "
+              onClick={() => productAddToCart(product)}
+            >
+              Add to Cart
+              <i class="fa-solid plus-ico fa-cart-shopping text-white"></i>
+            </button>
+          )}
         </div>
       </div>
     </div>

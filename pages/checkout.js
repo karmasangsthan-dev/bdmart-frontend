@@ -116,7 +116,7 @@ const checkout = () => {
 
 
         <div className="checkout-container ">
-          <div className="d-flex checkout-full-content">
+          <div className="checkout-full-content">
             <div className="checkout-left-side">
               <div className="left-content">
                 <form onSubmit={handleCreateOrder}>

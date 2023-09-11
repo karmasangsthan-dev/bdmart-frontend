@@ -17,7 +17,6 @@ export default function CartProductRow({ product }) {
   );
   const rowProduct = cart?.find((item) => item.id == product?._id);
 
-
   const matchingElements = product?.variants
     .filter((element) =>
       rowProduct?.variants?.some(
@@ -127,7 +126,7 @@ export default function CartProductRow({ product }) {
           </td>
           <td className="quantity-col">
             <div
-              style={{ height: "60px" }}
+              style={{ height: '60px' }}
               className="product-quantity  d-flex align-items-center"
             >
               <div className="qty-container">
@@ -155,7 +154,10 @@ export default function CartProductRow({ product }) {
             </div>
           </td>
           <td className="" style={{ width: '50px' }}>
-            <div className='d-flex align-items-center justify-content-center' style={{ height: '60px' }} >
+            <div
+              className="d-flex align-items-center justify-content-center"
+              style={{ height: '60px' }}
+            >
               <p
                 style={{
                   backgroundColor: `rgba(${variant?.color.r}, ${variant?.color.g}, ${variant?.color.b}, ${variant?.color.a})`,
@@ -203,10 +205,8 @@ export default function CartProductRow({ product }) {
               </button>
             </div>
           </td>
-
         </tr>
       ))}
-
     </>
   );
 }
