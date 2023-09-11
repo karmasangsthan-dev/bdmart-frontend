@@ -113,6 +113,34 @@ buttton:focus {
   padding: 5px;
 }
 
+.require-auth-container {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  height: calc(100vh - 146px);
+}
+
+.require-auth-container .content-req {
+  margin-top: 20px;
+  width: 50%;
+  height: 50%;
+  box-shadow: 0 2px 10px 2px rgb(0 0 0 / 0.1), 0 0px 10px 2px rgb(0 0 0 / 0.1)
+}
+
+.require-auth-container button {
+  margin-top: 20px;
+  width: 200px;
+}
+
+.require-auth-container h4 {
+  padding-top: 2rem;
+  color: var(--primary-color);
+}
+
+.require-auth-container h6 {
+  color: #ff9800;
+}
+
 @media (max-width: 1094px) {}
 
 /*==========================================
@@ -1157,6 +1185,7 @@ MGA CONTENT NAV
   font-family: sans-serif;
   text-decoration: none;
 }
+
 .become-seller {
   display: inline-block;
   color: rgb(32, 32, 32);

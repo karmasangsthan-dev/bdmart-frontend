@@ -219,8 +219,7 @@ const signup = () => {
                     </div>
                     <div className='mt-3 seller-login-btn'>
                       <p className=''>Have an account ? <span onClick={() => router.push({
-                        pathname: "/signin",
-                        query: { redirect: router.asPath },
+                        pathname: "/signin"
                       })} className=''>Click for Login</span></p>
                     </div>
 

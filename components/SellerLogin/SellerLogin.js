@@ -48,6 +48,23 @@ const SellerLogin = () => {
     }
   }, [isSuccess, data, isError, error, isLoading]);
 
+  useEffect(() => {
+    if (user?.email) {
+      console.log('ok')
+      if (user?.providerId === "custom") {
+        localStorage.removeItem("accessToken");
+        dispatch(logOut());
+      }
+      if (user?.providerId === "firebase") {
+        try {
+          const success = signOut().then(() => {
+            localStorage.removeItem("accessToken");
+            dispatch(logOut());
+          });
+        } catch (error) { }
+      }
+    }
+  }, [user, dispatch, router])
   return (
     <div style={{ minHeight: '120vh' }}>
       <div className="seller-login-container">
