@@ -19,7 +19,7 @@ const Layout = ({ children, title = 'Bangladesh Mart' }) => {
   const { seller } = useSelector((state) => state.auth);
   const [getCartProducts, { data, isLoading, isSuccess }] =
     useGetCartProductsMutation();
-
+  console.log({ cartProducts: data });
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
     const sellerAccessToken = localStorage.getItem('sellerAccessToken');
@@ -29,7 +29,6 @@ const Layout = ({ children, title = 'Bangladesh Mart' }) => {
     if (sellerAccessToken) {
       dispatch(fetchSeller(sellerAccessToken));
     }
-
   }, [dispatch]);
 
   useEffect(() => {

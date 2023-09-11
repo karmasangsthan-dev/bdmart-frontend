@@ -34,7 +34,7 @@ export default function JustForYouProductCard({ product }) {
     useHandleAddToCart({
       product,
       selectedSize: product?.variants[0]?.size,
-      variant: product?.variants[0],
+      variantId: product?.variants[0]._id,
       quantity: 1,
       dispatch,
     });
