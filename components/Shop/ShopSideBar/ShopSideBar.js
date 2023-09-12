@@ -17,16 +17,11 @@ const ShopSideBar = ({ data, filter, setFilter, t }) => {
   const [priceRange, setPriceRange] = useState([]);
   let allBrands = [];
   let allCategory = [];
-  // /shop?category=Electronics&subCategory=Mobile%20Phones%20and%20Tablets
 
   const { category, subCategory, childCategory } = router.query;
 
   const { data: subCategoryData, isLoading: subCategoryLoading } =
     useGetSubCategoryQuery(category);
-
-  // const dataA = 'altaf';
-  // const { data: singleSubCategory, isLoading: singleSubCategoryLoading } =
-  //   useGetSingleSubCategoryQuery(dataA);
 
   useEffect(() => {
     setPriceRange([
@@ -321,9 +316,9 @@ const ShopSideBar = ({ data, filter, setFilter, t }) => {
                     ...(filter.price.length
                       ? filter.price
                       : [
-                          data?.lowestPriceProduct?.price,
-                          data?.highestPriceProduct?.price,
-                        ]),
+                        data?.lowestPriceProduct?.price,
+                        data?.highestPriceProduct?.price,
+                      ]),
                   ]}
                   onChange={handlePriceChange}
                   valueLabelDisplay="auto"

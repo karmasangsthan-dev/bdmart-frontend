@@ -26,6 +26,7 @@ import { useRouter } from "next/router";
 
 export default function Review({ review }) {
   const user = useSelector((state) => state?.auth?.user);
+  const seller = useSelector((state) => state?.auth?.seller);
   const [reviewReply, setReviewReply] = useState("");
   const [showReplyInput, setShowReplyInput] = useState(null);
   const [like, setLike] = useState(false);
@@ -72,6 +73,17 @@ export default function Review({ review }) {
       toast.success("Success");
     }
   }, [isSuccess]);
+  const handleNavigateInSignInPage = () => {
+    if (!seller?.email) {
+      router.push({
+        pathname: "/signin",
+        query: { redirect: router.asPath },
+      })
+    }
+    else {
+      toast.error('You are a seller, you cannot like any review')
+    }
+  }
 
   return (
     <div className="review-card  px-3 py-2 mb-3 ">
@@ -124,10 +136,7 @@ export default function Review({ review }) {
             <FaRegThumbsUp
 
               className="fs-6 review-like-btn"
-              onClick={() => router.push({
-                pathname: "/signin",
-                query: { redirect: router.asPath },
-              })}
+              onClick={() => handleNavigateInSignInPage()}
             />
           )}
           <span className="verified-purchage">

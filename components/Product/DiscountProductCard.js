@@ -68,12 +68,12 @@ export default function DiscountProductCard({ product }) {
 
         <div className="d-flex justify-content-between align-items-center">
           <div className="item-price">
-            {product?.variants?.length > 1 ? (
+          {product?.variants?.length > 1 ? (
               <>
                 <span className="item-price">
                   {productLowestPrice} {currency}
                 </span>{' '}
-                -
+                -{' '}
                 <span className="item-price pl-2">
                   {productHighestPrice} {currency}
                 </span>

@@ -214,7 +214,7 @@ const Header = () => {
                 <div className="cart-icon ms-4">
                   <Tooltip title="Cart">
                     <Link href="/cart">
-                      <Badge badgeContent={totalProductQuantity ? totalProductQuantity : 'error'} color="error">
+                      <Badge badgeContent={totalProductQuantity ? totalProductQuantity : '0'} color="error">
                         <Image
                           className="flag-img"
                           src="/images/cart.png"

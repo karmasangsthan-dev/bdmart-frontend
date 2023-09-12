@@ -25,6 +25,7 @@ const cart = () => {
     });
     return total.toFixed(2);
   };
+
   return (
     <Layout title="Cart - Bangladesh Mart">
       <div style={{ minHeight: '120vh' }}>
@@ -106,10 +107,7 @@ const cart = () => {
                       ) : (
                         cartProducts?.map((product, index) => {
                           return (
-                            <CartProductRow
-                              product={product}
-                              key={index}
-                            ></CartProductRow>
+                            <CartProductRow product={product} key={index} />
                           );
                         })
                       )}

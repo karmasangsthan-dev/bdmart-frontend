@@ -22,6 +22,7 @@ export default function MobileBottomNav() {
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const { cart } = useSelector((state) => state?.cart);
   const user = useSelector((state) => state?.auth?.user);
+  const seller = useSelector((state) => state?.auth?.seller);
   let totalProductQuantity = 0;
   for (const item of cart) {
     totalProductQuantity += item.quantity;
@@ -74,7 +75,7 @@ export default function MobileBottomNav() {
               onClick={() => router.push('/user/dashboard')}
               icon={<img src={user?.profilePicture} alt="User Profile" style={{ width: 32, height: 32, borderRadius: '50%' }} />}
             />
-          ) : (
+          ) : !seller?.email && (
             <BottomNavigationAction
               onClick={() => router.push('/user/dashboard')}
               className="my-2"
@@ -82,6 +83,16 @@ export default function MobileBottomNav() {
               icon={<CgProfile className="fs-1" />}
             />
           )}
+
+          {seller?.email && (
+            <BottomNavigationAction
+              className="my-2"
+              label="Profile"
+              onClick={() => router.push('/seller/dashboard')}
+              icon={<img src={seller?.profilePicture || 'https://www.pngmart.com/files/21/Admin-Profile-PNG-Clipart.png'} alt="seller profile" style={{ width: 32, height: 32, borderRadius: '50%' }} />}
+            />
+          )}
+
         </BottomNavigation>
       </Paper>
 
