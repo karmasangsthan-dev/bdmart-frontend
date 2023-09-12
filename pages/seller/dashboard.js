@@ -5,8 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import InactiveSellerDashboard from '../../components/Seller/InactiveSellerDashboard';
 import SellerLayoutDashboard from '../../components/Seller/SellerLayoutDashboard';
-import Loading from '../../components/Shared/Loading/Loading'
-import RequireAuthSeller from '../../components/Shared/RequireAuth/RequireAuthSeller';
 const dashboard = () => {
     const dispatch = useDispatch();
     const { seller, isLoading } = useSelector((state) => state.auth);
