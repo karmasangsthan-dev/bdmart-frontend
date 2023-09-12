@@ -32,8 +32,10 @@ export default function CartProductRow({ product }) {
     if (index !== -1) {
       cart[index].quantity += 1;
       localStorage.setItem('cartProducts', JSON.stringify(cart));
-      dispatch(increaseQuantity(item?.variant?._id));
-      dispatch(increaseQuantityForCartProducts(item?.variant?._id));
+      dispatch(increaseQuantity({ id: item?.variant?._id, quantity: 1 }));
+      dispatch(
+        increaseQuantityForCartProducts({ id: item?.variant?._id, quantity: 1 })
+      );
     }
   };
   const handleQuantityDecrement = (item) => {

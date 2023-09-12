@@ -1,5 +1,9 @@
 import { toast } from 'react-hot-toast';
-import { addToCart } from '../features/cart/cartSlice';
+import {
+  addToCart,
+  increaseQuantity,
+  increaseQuantityForCartProducts,
+} from '../features/cart/cartSlice';
 
 export const useHandleAddToCart = ({
   product,
@@ -11,7 +15,19 @@ export const useHandleAddToCart = ({
   const cartProducts = localStorage.getItem('cartProducts');
   if (cartProducts) {
     const cart = JSON.parse(localStorage.getItem('cartProducts'));
-
+    const isAvailable = cart.find((item) => item.variantId === variantId);
+    if (isAvailable) {
+      const index = cart?.findIndex(
+        (cartProduct) => cartProduct?.variantId === variantId
+      );
+      if (index !== -1) {
+        cart[index].quantity = cart[index].quantity + quantity;
+        localStorage.setItem('cartProducts', JSON.stringify(cart));
+        dispatch(increaseQuantity({ id: variantId, quantity }));
+        dispatch(increaseQuantityForCartProducts({ id: variantId, quantity }));
+      }
+      return toast.success('product quantity updated');
+    }
     cart.push({
       id: product?._id,
       variantId,
