@@ -51,20 +51,20 @@ const cartSlice = createSlice({
       state.cart = cartProducts;
     },
     increaseQuantity: (state, action) => {
-      const id = action.payload;
+      const { id, quantity } = action.payload;
       const existingItem = state.cart?.find((item) => item.variantId === id);
       if (existingItem) {
-        existingItem.quantity += 1;
+        existingItem.quantity += quantity;
       }
     },
     increaseQuantityForCartProducts: (state, action) => {
-      const id = action.payload;
+      const { id, quantity = 1 } = action.payload;
       const existingItem = state.cartProducts?.find(
         (item) => item.variant?._id === id
       );
       if (existingItem) {
         console.log(existingItem);
-        existingItem.variant.quantity += 1;
+        existingItem.variant.quantity += quantity;
       }
     },
     decreaseQuantity: (state, action) => {
