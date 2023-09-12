@@ -125,6 +125,7 @@ const productNo = () => {
           price: variant.price,
           stock: variant.stock,
           status: variant.status,
+          _id: variant?._id,
         });
       } else if (!matchingColorVariant) {
         const newVariant = {
@@ -136,6 +137,7 @@ const productNo = () => {
               price: variant.price,
               stock: variant.stock,
               status: variant.status,
+              _id: variant?._id,
             },
           ],
         };
@@ -154,59 +156,13 @@ const productNo = () => {
   }
 
   const handleAddToCart = (product) => {
-    if (variant?.size?.length && !selectedSize) {
-      return toast.error('Please select a size', { id: 'details' });
-    }
-    const cartProducts = localStorage.getItem('cartProducts');
-    if (cartProducts) {
-      const cart = JSON.parse(localStorage.getItem('cartProducts'));
-      const index = cart?.findIndex(
-        (cartProduct) => cartProduct?.id === product?._id
-      );
-      if (index !== -1) {
-        cart[index]?.variants?.push({
-          variantId: variant?._id,
-          size: selectedSize,
-          quantity,
-        });
-        toast.success('Updated Quantity', { id: 'addToCart' });
-      } else {
-        cart.push({
-          id: product?._id,
-
-          variants: [
-            {
-              variantId: variant?._id,
-              size: selectedSize,
-              quantity: 1,
-            },
-          ],
-        });
-        toast.success('Added to cart', { id: 'addToCart' });
-      }
-      localStorage.setItem('cartProducts', JSON.stringify(cart));
-    }
-    if (!cartProducts) {
-      const cart = [
-        {
-          id: product?._id,
-          variants: [
-            { variantId: variant?._id, size: selectedSize, quantity: 1 },
-          ],
-        },
-      ];
-      localStorage.setItem('cartProducts', JSON.stringify(cart));
-      toast.success('Added to cart', { id: 'addToCart' });
-    }
-
-    dispatch(
-      addToCart({
-        id: product?._id,
-        variantId: variant?._id,
-        size: selectedSize,
-        quantity,
-      })
-    );
+    useHandleAddToCart({
+      product,
+      variantId: selectedSize?._id,
+      quantity,
+      selectedSize: selectedSize?.size,
+      dispatch,
+    });
   };
 
   const productBuyNow = (product) => {
@@ -236,9 +192,6 @@ const productNo = () => {
     router.push('/checkout');
   };
 
-  const productAddToCart = (product) => {
-    useHandleAddToCart({ product, variant, quantity, selectedSize });
-  };
   const scrollToReviews = () => {
     const productReviewSection = document.getElementById(
       'productReviewSection'
@@ -516,7 +469,7 @@ const productNo = () => {
                   <div className="cart-btn-mobile ">
                     {product?.stock >= 1 ? (
                       <button
-                        onClick={() => productAddToCart(product)}
+                        onClick={() => handleAddToCart(product)}
                         className="mobile-add-to-cart-button"
                       >
                         Add to Cart

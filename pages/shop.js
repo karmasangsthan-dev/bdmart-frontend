@@ -66,7 +66,7 @@ const shop = () => {
                 t={t}
               />
             </aside>
-            <div style={{ paddingLeft: '20px' }} className="col-lg-10 pl-lg-5">
+            <div style={{ paddingLeft: '20px',paddingTop:'15px' }} className="col-lg-10 pl-lg-5">
               <div className="">
                 <div className="widget w-100 pb-3 d-flex justify-content-between align-items-center">
                   <p className="fs-6 d-sm-none d-lg-block">

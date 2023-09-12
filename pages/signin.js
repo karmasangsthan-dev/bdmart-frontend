@@ -29,6 +29,7 @@ const signin = () => {
   const { redirect } = query;
   const dispatch = useDispatch();
 
+  console.log({redirect})
 
   const handleCreateCustomerAccount = (e) => {
     e.preventDefault();
@@ -128,10 +129,7 @@ const signin = () => {
 
 
                     <div className='mt-3 seller-login-btn'>
-                      <p className=''>Haven't an account ? <span onClick={() => router.push({
-                        pathname: "/signup",
-                        query: { redirect: router.asPath },
-                      })} className=''>Click for Register</span></p>
+                      <p className=''>Haven't an account ? <span onClick={() => router.push('/signup')} className=''>Click for Register</span></p>
                     </div>
 
                     <p className="mobile-signin-divider">or sign in with</p>
