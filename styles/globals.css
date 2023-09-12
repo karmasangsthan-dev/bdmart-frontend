@@ -1618,6 +1618,9 @@ Check Box
 .form-check {
   margin-bottom: 22px;
 }
+.order-lg-first{
+  padding-top: 15px;
+}
 
 .sidebar-shop .form-check {
   padding-left: 0px;
