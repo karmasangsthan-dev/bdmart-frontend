@@ -29,6 +29,7 @@ import { Toaster } from "react-hot-toast";
 import Providers from "../app/provider";
 import { useEffect } from "react";
 import OfflineNotifier from "../components/OfflineNotifier";
+import NextNProgress from 'nextjs-progressbar';
 const App = ({ Component, pageProps }) => {
   useEffect(() => {
     import("bootstrap/dist/js/bootstrap.bundle.min.js").catch((error) =>
@@ -41,6 +42,7 @@ const App = ({ Component, pageProps }) => {
 
   return (
     <Providers>
+      <NextNProgress color="rgb(16 185 129/1)" options={{ trickleSpeed: 50, showSpinner: false }} />
       <Component {...pageProps} />
       <Toaster />
       <OfflineNotifier />
