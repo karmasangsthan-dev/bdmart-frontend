@@ -7,7 +7,7 @@ const privacyPolicy = () => {
             <div className='container pb-5' style={{ minHeight: '120vh' }}>
                 <h3>Privacy Policy - Bangladesh Mart</h3>
 
-                <p>Last updated: February 29, 2023</p>
+                <p>Last updated: February 22, 2023</p>
 
                 <p>At Bangladesh Mart, accessible from bangladeshmart dot com dot bd, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by Bangladesh Mart and how we use it. If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us.we may receive additional information about you such as your name, email address, phone number, the contents of the message and/or attachments you may send us, and any other information you may choose to provide. When you register for an Account, we may ask for your contact information, including items such as name, company name, address, email address, and telephone number. </p> <br />
                 <p>
