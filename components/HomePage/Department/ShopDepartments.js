@@ -215,7 +215,7 @@ const ShopDepartments = ({ t }) => {
         </div>
       }
 
-      <div className=" justify-content-center px-5 ">
+      <div className=" justify-content-center px-2 ">
         <div className="all-shop-department">
           {data?.data?.map((gal, index) => (
             <div key={index} className="">

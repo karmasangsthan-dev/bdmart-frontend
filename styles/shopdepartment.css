@@ -11,7 +11,7 @@
     .all-shop-department {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
+        
     }
     .shop-department-image{
         min-height: auto;
