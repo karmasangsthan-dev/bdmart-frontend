@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import CartProductRow from '../components/Cart/CartProductRow';
 import { useRouter } from 'next/router';
 import Skeleton from 'react-loading-skeleton';
+import { useCartProductsTotal } from '../helperHooks/useCartProductsTotal';
 
 const cart = () => {
   const router = useRouter();
@@ -14,17 +15,7 @@ const cart = () => {
     (state) => state.currency
   );
 
-  const calculateTotal = () => {
-    let total = 0;
-    cart?.forEach((cartItem) => {
-      const quantity = cartItem?.quantity;
-      const product = cartProducts?.find((p) => p?._id === cartItem?.id);
-      if (product?.price && quantity) {
-        total += product.price * quantity;
-      }
-    });
-    return total.toFixed(2);
-  };
+  const total = useCartProductsTotal(cartProducts);
 
   return (
     <Layout title="Cart - Bangladesh Mart">
@@ -124,7 +115,7 @@ const cart = () => {
                     <tr className="summary-total">
                       <td>Total:</td>
                       <td>
-                        {calculateTotal()} {currency}
+                        {total} {currency}
                       </td>
                     </tr>
                   </tbody>

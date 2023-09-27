@@ -284,7 +284,7 @@ const productNo = () => {
                 <div className="product-others-images d-flex justify-content-center">
                   <div style={{ width: '280px' }}>
                     <Slider className=" w-auto px-5" {...settings}>
-                      <div
+                      {/* <div
                         className="images-slider"
                         style={{ width: '52px', height: '52px' }}
                       >
@@ -310,7 +310,7 @@ const productNo = () => {
                           src={product?.thumbnail}
                           alt=""
                         />
-                      </div>
+                      </div> */}
                       {updatedVariants?.map((item, index) => (
                         <div
                           key={index}
@@ -475,7 +475,7 @@ const productNo = () => {
                 </div>
                 <div className="mt-2 d-lg-block d-sm-none">
                   <div id="cart-btn d-flex align-items-center justify-content-center ">
-                    {product?.stock >= 1 ? (
+                    {selectedSize?.stock >= 1 ? (
                       <button
                         type="submit"
                         onClick={() => handleAddToCart(product)}
