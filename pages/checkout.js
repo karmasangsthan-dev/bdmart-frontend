@@ -8,6 +8,7 @@ import { useGetCreateOrderMutation } from "../features/product/productApi";
 import { clearCart } from "../features/cart/cartSlice";
 import RequireAuth from "../components/Shared/RequireAuth/RequireAuth";
 import Link from "next/link";
+import { useCartProductsTotal } from "../helperHooks/useCartProductsTotal";
 
 const checkout = () => {
   const dispatch = useDispatch();
@@ -30,33 +31,48 @@ const checkout = () => {
     setSelectedPaymentMethod(event.target.value);
   };
 
-  const calculateTotal = () => {
-    let total = 0;
-    cart?.forEach((cartItem) => {
-      const quantity = cartItem?.quantity;
-      const product = cartProducts?.find((p) => p?._id === cartItem?.id);
-      if (product?.price && quantity) {
-        total += product.price * quantity;
-      }
-    });
-    return total.toFixed(2);
-  };
+  const total = useCartProductsTotal(cartProducts);
+
+  // const calculateTotal = () => {
+  //   let total = 0;
+  //   cart?.forEach((cartItem) => {
+  //     const quantity = cartItem?.quantity;
+  //     const product = cartProducts?.find((p) => p?._id === cartItem?.id);
+  //     if (product?.price && quantity) {
+  //       total += product.price * quantity;
+  //     }
+  //   });
+  //   return total.toFixed(2);
+  // };
 
   const handleCouponSubmit = (event) => {
     event.preventDefault();
     const name = event.target.coupon.value;
     toast.error(`Your coupon was invalid`);
-    
+
   };
+  console.log({ cartProducts });
 
   // Combine product data with quantity
   const productsWithQuantity = cartProducts?.map((product) => {
     const quantityObj = cart.find((item) => item.id === product._id);
     const quantity = quantityObj ? quantityObj.quantity : 0;
+    // Include other properties from the product
+    console.log({ product, quantityObj });
+    const { price, oldPrice, size, status, stock, _id, color, image } = product?.variant;
 
     return {
-      ...product,
       quantity,
+      title:product?.title,
+      thumbnail: product?.thumbnail,
+      price,
+      oldPrice,
+      color, 
+      image,
+      size,
+      status,
+      stock,
+      _id : product?._id,
     };
   });
   const handleCreateOrder = (event) => {
@@ -387,13 +403,18 @@ const checkout = () => {
                 <h2 className="order-summery-title">Order Summary</h2>
 
                 <div className="order-product-container">
+
                   {
-                    cartProducts?.map((product, i) => {
-                      return (
-                        <CheckoutCartItem key={i}
-                          product={product} ></CheckoutCartItem>
-                      )
-                    })
+                    !cartProducts ? (
+                      <p style={{ color: 'blue' }}>Loading products...</p>
+                    ) : (
+                      cartProducts?.map((product, i) => {
+                        return (
+                          <CheckoutCartItem key={i}
+                            product={product} ></CheckoutCartItem>
+                        )
+                      })
+                    )
                   }
                 </div>
 
@@ -416,7 +437,7 @@ const checkout = () => {
 
                 <div className="checkout-subtotal">
                   Subtotal
-                  <span className="">{calculateTotal()}{" "}{currency}</span>
+                  <span className="">{total.toFixed(2)}{" "}{currency}</span>
                 </div>
 
                 <div className="checkout-subtotal">
@@ -437,7 +458,7 @@ const checkout = () => {
                     lineHeight: "1.25rem"
                   }} className="d-flex align-items-center font-serif justify-content-between pt-4 text-sm uppercase">
                     TOTAL COST
-                    <span className="font-serif font-extrabold text-lg">{(Number(calculateTotal()) + 20.00).toFixed(2)}</span>
+                    <span className="font-serif font-extrabold text-lg">{(Number(total) + 20.00).toFixed(2)}</span>
                   </div>
                 </div>
               </div>

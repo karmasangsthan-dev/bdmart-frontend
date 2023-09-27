@@ -115,7 +115,7 @@ const cart = () => {
                     <tr className="summary-total">
                       <td>Total:</td>
                       <td>
-                        {total} {currency}
+                        {total.toFixed(2)} {currency}
                       </td>
                     </tr>
                   </tbody>
@@ -129,7 +129,7 @@ const cart = () => {
               </button>
               <button
                 onClick={() => router.push('/checkout')}
-                className="btn px-5 py-2 place-order-btn mt-2"
+                className="confirm-order-button d-flex align-items-center gap-2 mt-3"
               >
                 Proceed to checkout
               </button>
