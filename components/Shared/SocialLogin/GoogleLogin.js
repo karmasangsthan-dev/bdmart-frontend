@@ -4,9 +4,9 @@ import { FaGooglePlusG } from 'react-icons/fa';
 import auth from '../../../firebase.init';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
-import { googleLogin } from '../../../features/auth/authSlice';
 import { toast } from 'react-hot-toast';
 import { useSocialLoginMutation } from '../../../features/auth/authApi';
+import { googleLogin } from '../../../features/auth/authSlice';
 
 export default function GoogleLogin() {
   const router = useRouter();
@@ -27,12 +27,16 @@ export default function GoogleLogin() {
       const providerId = 'firebase';
       const profilePicture = user?.user?.photoURL;
       socialLogin({ email, fullName, providerId, profilePicture });
+
+      dispatch(googleLogin({ email, fullName, providerId, profilePicture }));
+      toast.success('Login successfully...!!')
+      router.push(redirect || '/');
     }
   }, [user]);
   useEffect(() => {
     if (isLoading) toast.loading('Loading...', { id: 'socialLogin' });
     if (isError) toast.error(error?.data?.error, { id: 'socialLogin' });
-    if (isSuccess) toast.success('Success', { id: 'socialLogin' });
+    if (isSuccess) toast.success('Login successfully...!!');
   }, [isLoading, isError, error, isSuccess]);
   return (
     <button

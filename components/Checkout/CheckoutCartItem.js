@@ -13,7 +13,7 @@ const CheckoutCartItem = ({ product }) => {
     <div className="main-product-div">
       <div className="checkout-product">
         <img
-          src={product?.thumbnail}
+          src={product?.variant?.image}
           width={40}
           height={40}
           alt={product?.title}
@@ -24,17 +24,25 @@ const CheckoutCartItem = ({ product }) => {
           className="checkout-product-link-button"
           href="/product/undefined"
         >
-          {product?.title}
+          {product?.title?.length > 30
+            ? `${product?.title.slice(0, 35)}...`
+            : product?.title}
         </a>
         <div className="d-flex justify-content-between">
-          <p className="checkout-product-price">Item Price {(product?.price * currencyRate).toFixed(2)}{" "}{currency} </p>
-          <p className="checkout-product-price " style={{color:'black',fontWeight:'bold'}}>x {rowProduct?.quantity}</p>
+          <p className="checkout-product-price">Item Price: {(product?.variant?.price * currencyRate).toFixed(2)}{" "} {currency} </p>
+          <p className="checkout-product-price " style={{ color: 'black', fontWeight: 'bold' }}>x {product?.variant.quantity}</p>
         </div>
 
 
         <div className="d-flex align-items-center justify-content-between">
           <div className="main-price">
-            <span>{rowProduct?.quantity * (product?.price * currencyRate).toFixed(2)}{" "}{currency}</span>
+            <span>{(
+              product?.variant?.price *
+              currencyRate *
+              product?.variant?.quantity
+            ).toFixed(2)}{' '}
+              {" "}
+              {currency}</span>
           </div>
         </div>
       </div>

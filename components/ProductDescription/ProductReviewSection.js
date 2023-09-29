@@ -20,14 +20,14 @@ const ProductReviewSection = ({ product }) => {
     1: 0,
   };
 
-  reviews.forEach(review => {
+  reviews?.forEach(review => {
     const rating = review.ratings;
     if (rating >= 1 && rating <= 5) {
       ratingsCount[rating] += 1;
     }
   });
 
-  const ratingsSum = reviews.reduce((sum, review) => sum + review.ratings, 0);
+  const ratingsSum = reviews?.reduce((sum, review) => sum + review.ratings, 0);
   const averageRating = totalReviews ? ratingsSum / totalReviews : 0;
 
 
