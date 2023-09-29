@@ -10,6 +10,9 @@ import {
 } from '../../features/cart/cartSlice';
 import { useRouter } from 'next/router';
 import { toast } from 'react-hot-toast';
+import { useHandleCartProductInc } from '../../helperHooks/cartProductIncrement';
+import { useHandleCartProductDec } from '../../helperHooks/cartProductDecrement';
+import { useHandleCartProductRemove } from '../../helperHooks/cartProductRemove';
 
 export default function CartProductRow({ product }) {
   const { code: currency, rate: currencyRate } = useSelector(
@@ -23,53 +26,7 @@ export default function CartProductRow({ product }) {
   if (currencyRate) {
     productPrice = (product?.price * currencyRate).toFixed(2);
   }
-
-  const handleQuantityIncrement = (item) => {
-    const cart = JSON.parse(localStorage.getItem('cartProducts'));
-    const index = cart?.findIndex(
-      (cartProduct) => cartProduct?.variantId === item?.variant?._id
-    );
-    if (index !== -1) {
-      cart[index].quantity += 1;
-      localStorage.setItem('cartProducts', JSON.stringify(cart));
-      dispatch(increaseQuantity({ id: item?.variant?._id, quantity: 1 }));
-      dispatch(
-        increaseQuantityForCartProducts({ id: item?.variant?._id, quantity: 1 })
-      );
-    }
-  };
-  const handleQuantityDecrement = (item) => {
-    const cart = JSON.parse(localStorage.getItem('cartProducts'));
-    const index = cart?.findIndex(
-      (cartProduct) => cartProduct?.variantId === item?.variant?._id
-    );
-    if (index !== -1) {
-      if (cart[index].quantity > 1) {
-        cart[index].quantity -= 1;
-        localStorage.setItem('cartProducts', JSON.stringify(cart));
-        dispatch(decreaseQuantity(item?.variant?._id));
-        dispatch(decreaseQuantityForCartProducts(item?.variant?._id));
-      } else {
-        toast.error(
-          "Sorry !! Quantity can't be reduced more. You can remove the product.",
-          {
-            id: 'cartProduct',
-          }
-        );
-      }
-    }
-  };
-
-  const handleRemove = (product) => {
-    // const productId = product?.product?._id;
-    // const userId = user?._id;
-    const cartsString = localStorage.getItem('cartProducts');
-    let cart = JSON.parse(cartsString);
-    cart = cart.filter((item) => item?.variantId !== product?.variant?._id);
-    localStorage.setItem('cartProducts', JSON.stringify(cart));
-    dispatch(removeFromCart(product?.variant._id));
-    dispatch(removeFromCartProducts(product?.variant?._id));
-  };
+  console.log({product});
 
   return (
     <>
@@ -78,7 +35,7 @@ export default function CartProductRow({ product }) {
           <div className="d-flex align-items-center">
             <img
               className="cart-image"
-              src={product?.thumbnail}
+              src={product?.variant?.image}
               alt="product"
             />
             <p
@@ -99,7 +56,9 @@ export default function CartProductRow({ product }) {
           >
             <div className="qty-container">
               <button
-                onClick={() => handleQuantityDecrement(product)}
+                onClick={() =>
+                  useHandleCartProductDec(product, dispatch, toast)
+                }
                 className="qty-btn-minus btn-light"
                 type="button"
               >
@@ -112,7 +71,7 @@ export default function CartProductRow({ product }) {
                 className="input-qty cart-input-qty"
               />
               <button
-                onClick={() => handleQuantityIncrement(product)}
+                onClick={() => useHandleCartProductInc(product, dispatch)}
                 className="qty-btn-plus btn-light"
                 type="button"
               >
@@ -147,7 +106,7 @@ export default function CartProductRow({ product }) {
         <td className="cart-price-col">
           <p style={{ height: '60px' }} className=" cart-product-price">
             {(product?.variant?.price * currencyRate).toFixed(2)}
-            <br /> {currency}
+            {" "} {currency}
           </p>
         </td>
         <td className="total-col">
@@ -157,7 +116,7 @@ export default function CartProductRow({ product }) {
               currencyRate *
               product?.variant?.quantity
             ).toFixed(2)}{' '}
-            <br />
+            {" "}
             {currency}
           </p>
         </td>
@@ -168,7 +127,7 @@ export default function CartProductRow({ product }) {
           >
             <button
               style={{ maxHeight: '30px', minHeight: '30px', width: '30px' }}
-              onClick={() => handleRemove(product)}
+              onClick={() => useHandleCartProductRemove(product, dispatch)}
               className=" btn-remove-cart "
             >
               <i className="fa-solid fa-xmark delete-icon"></i>

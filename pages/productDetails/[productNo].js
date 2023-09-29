@@ -100,6 +100,7 @@ const productNo = () => {
     (state) => state.currency
   );
   const [displayImage, setDisplayImage] = useState(null);
+  const [allImages, setAllImages] = useState([]);
   const [quantity, setQuantity] = useState(1);
   const product = data?.data || {};
   const products = allData?.data || [];
@@ -130,6 +131,7 @@ const productNo = () => {
       } else if (!matchingColorVariant) {
         const newVariant = {
           color: variant?.color,
+          image: variant?.image,
           sizes: [
             {
               size: variant.size,
@@ -282,22 +284,54 @@ const productNo = () => {
                 <div className="product-others-images d-flex justify-content-center">
                   <div style={{ width: '280px' }}>
                     <Slider className=" w-auto px-5" {...settings}>
-                      {product?.images.map((img, index) => (
+                      {/* <div
+                        className="images-slider"
+                        style={{ width: '52px', height: '52px' }}
+                      >
+                        <img
+                          onClick={() => {
+                            setDisplayImage(product?.thumbnail);
+                          }}
+                          style={{
+                            width: '52px',
+                            height: '50px',
+                            border: '1px solid #ddd',
+                            cursor: 'pointer',
+                          }}
+                          className={`img-fluid me-3 ${
+                            displayImage === product?.thumbnail
+                              ? 'border border-2 border-primary'
+                              : displayImage === null
+                              ? 'border border-2 border-primary'
+                              : ''
+                          }
+
+                           `}
+                          src={product?.thumbnail}
+                          alt=""
+                        />
+                      </div> */}
+                      {updatedVariants?.map((item, index) => (
                         <div
                           key={index}
                           className="images-slider"
                           style={{ width: '52px', height: '52px' }}
                         >
                           <img
-                            onClick={() => setDisplayImage(img)}
+                            onClick={() => {
+                              setDisplayImage(item?.image);
+                            }}
                             style={{
                               width: '52px',
                               height: '50px',
                               border: '1px solid #ddd',
                               cursor: 'pointer',
                             }}
-                            className="img-fluid me-3"
-                            src={img}
+                            className={`img-fluid me-3 ${
+                              displayImage === item?.image &&
+                              'border border-2 border-primary'
+                            } `}
+                            src={item?.image}
                             alt=""
                           />
                         </div>
@@ -334,15 +368,18 @@ const productNo = () => {
                         : `${(selectedSize?.price * currencyRate).toFixed(
                             2
                           )} ${currency}`}
-                      {console.log({ selectedSize })}
                     </span>{' '}
                   </h4>
 
                   <div className="old-price">
-                    <del>
-                      {(selectedSize?.oldPrice * currencyRate).toFixed(2)}{' '}
-                      {currency}
-                    </del>
+                    {selectedSize?.oldPrice ? (
+                      <del>
+                        {(selectedSize.oldPrice * currencyRate).toFixed(2)}{' '}
+                        {currency}
+                      </del>
+                    ) : (
+                      <span>Select a color & size</span>
+                    )}{' '}
                     <span className="ms-2">
                       {' '}
                       {/* - {discountPercentage?.toFixed(2)}% */}
@@ -357,7 +394,11 @@ const productNo = () => {
                         (variantItem, index) => (
                           <a
                             key={index}
-                            onClick={() => setVariant(variantItem)}
+                            onClick={() => {
+                              setVariant(variantItem);
+                              setSelectedSize({});
+                              setDisplayImage(variantItem?.image);
+                            }}
                             style={{
                               backgroundColor: `rgba(${variantItem.color.r}, ${variantItem.color.g}, ${variantItem.color.b}, ${variantItem.color.a})`,
                             }}
@@ -381,16 +422,17 @@ const productNo = () => {
                     className="product-description-size "
                     style={{ minWidth: '156px', maxWidth: '156px' }}
                     required
-                    onChange={(e) =>
-                      setSelectedSize(JSON.parse(e.target.value))
-                    }
+                    onChange={(e) => {
+                      setSelectedSize(JSON.parse(e.target.value));
+                    }}
                     aria-label="Default select example"
                   >
                     <>
                       <option value={JSON.stringify({})}>Select One</option>
                       {variant?.sizes ? (
-                        variant?.sizes?.map((item) => (
+                        variant?.sizes?.map((item, i) => (
                           <option
+                            key={item?._id}
                             value={JSON.stringify(item)}
                             className="text-uppercase"
                           >
@@ -433,7 +475,7 @@ const productNo = () => {
                 </div>
                 <div className="mt-2 d-lg-block d-sm-none">
                   <div id="cart-btn d-flex align-items-center justify-content-center ">
-                    {product?.stock >= 1 ? (
+                    {selectedSize?.stock >= 1 ? (
                       <button
                         type="submit"
                         onClick={() => handleAddToCart(product)}

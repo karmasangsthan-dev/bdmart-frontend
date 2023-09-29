@@ -82,7 +82,7 @@ const ProductQuestionAnswer = ({ product }) => {
             </div>
 
             {user?.email &&
-              product?.questionsAndAnswers.filter(
+              product?.questionsAndAnswers?.filter(
                 (qus) => qus.qusBy.email === user.email
               ).length > 0 && (
                 <div>
