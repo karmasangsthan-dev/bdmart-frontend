@@ -46,6 +46,9 @@ const Header = () => {
   for (const item of cart) {
     totalProductQuantity += item.quantity;
   }
+  const handleSearchSubmit = (event)=>{
+    event.preventDefault();
+  }
   useEffect(() => {
     setMobileSearchInput(document.getElementById('mobile-search-input'));
     setDesktopSearchInput(document.getElementById('desktop-search-input'));
@@ -113,7 +116,7 @@ const Header = () => {
                 </Link>
               </div>
               <div className="search-box">
-                <form className="example">
+                <form onSubmit={handleSearchSubmit} className="example">
                   <input
                     id="desktop-search-input"
                     onChange={(e) => setSearchText(e.target.value)}

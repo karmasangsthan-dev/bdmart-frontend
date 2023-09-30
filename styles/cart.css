@@ -256,12 +256,17 @@
     border-radius: 50%;
     border: 0.2rem solid #fff;
     margin-right: 0.9rem;
-    transition: box-shadow .35s ease,-webkit-box-shadow .35s ease;
+    transition: box-shadow .35s ease, -webkit-box-shadow .35s ease;
     background-repeat: no-repeat;
     background-position: 50%;
 }
+
 .product-colors-nav a.active {
     box-shadow: 0 0 0 0.1rem #ccc;
+}
+
+.product-colors-nav a:hover {
+    cursor: pointer;
 }
 
 .cart-product-price {
@@ -271,7 +276,7 @@
 }
 
 @media screen and (max-width: 682px) {
-    
+
     .cart-container {
         padding: 0 20px;
     }
