@@ -407,9 +407,14 @@ const productNo = () => {
                           <a
                             key={index}
                             onClick={() => {
-                              setVariant(variantItem);
-                              setSelectedSize({});
-                              setDisplayImage(variantItem?.image);
+                              if(variant !== variantItem){
+                                setVariant(variantItem);
+                                setSelectedSize({});
+                                setDisplayImage(variantItem?.image);
+                              }
+                              else{
+                                
+                              }
                             }}
                             style={{
                               backgroundColor: `rgba(${variantItem.color.r}, ${variantItem.color.g}, ${variantItem.color.b}, ${variantItem.color.a})`,
