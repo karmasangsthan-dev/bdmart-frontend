@@ -312,7 +312,7 @@ const productNo = () => {
                           alt=""
                         />
                       </div> */}
-                      {console.log(updatedVariants,'update')}
+                      {console.log(updatedVariants)}
                       {updatedVariants?.map((item, index) => (
                         <div
                           key={index}

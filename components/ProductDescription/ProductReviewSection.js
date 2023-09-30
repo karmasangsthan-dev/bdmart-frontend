@@ -1,15 +1,13 @@
-import { Pagination, Rating } from "@mui/material";
-import React, { useState } from "react";
-import { toast } from "react-hot-toast";
-import { FaRegThumbsUp, FaThumbsUp } from "react-icons/fa";
+import { Pagination, Rating } from '@mui/material';
+import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { FaRegThumbsUp, FaThumbsUp } from 'react-icons/fa';
 
-import { MdVerifiedUser } from "react-icons/md";
-import { useSelector } from "react-redux";
-import Review from "./Review";
+import { MdVerifiedUser } from 'react-icons/md';
+import { useSelector } from 'react-redux';
+import Review from './Review';
 
 const ProductReviewSection = ({ product }) => {
-
-
   const { reviews } = product;
   const totalReviews = reviews?.length;
   const ratingsCount = {
@@ -20,16 +18,15 @@ const ProductReviewSection = ({ product }) => {
     1: 0,
   };
 
-  reviews?.forEach(review => {
+  reviews?.forEach((review) => {
     const rating = review.ratings;
     if (rating >= 1 && rating <= 5) {
       ratingsCount[rating] += 1;
     }
   });
 
-  const ratingsSum = reviews?.reduce((sum, review) => sum + review.ratings, 0);
+  const ratingsSum = reviews?.reduce((sum, review) => sum + review?.ratings, 0);
   const averageRating = totalReviews ? ratingsSum / totalReviews : 0;
-
 
   return (
     <div className="review-section-container  my-5  product-description-container">
@@ -41,10 +38,10 @@ const ProductReviewSection = ({ product }) => {
           <div>
             <h1>
               {averageRating ? averageRating?.toFixed(0) : '0'}
-              <span style={{ fontSize: "25px", color: "#9e9e9e" }}>/5</span>
+              <span style={{ fontSize: '25px', color: '#9e9e9e' }}>/5</span>
             </h1>
             <Rating
-              style={{ fontSize: "33px" }}
+              style={{ fontSize: '33px' }}
               name="read-only"
               value={parseInt(averageRating ? averageRating : '5')}
               readOnly
@@ -76,23 +73,31 @@ const ProductReviewSection = ({ product }) => {
         </div>
       </div>
       <div className="product-reviews px-4">
-        <div
-          style={{
-
-
-          }}
-        >
-          {product?.reviews?.length > 0 && <h5 className="fs-6 mt-2">Product Reviews : ({product?.reviews?.length}) </h5>}
+        <div style={{}}>
+          {product?.reviews?.length > 0 && (
+            <h5 className="fs-6 mt-2">
+              Product Reviews : ({product?.reviews?.length}){' '}
+            </h5>
+          )}
         </div>
-
       </div>
       <div className="all-reviews">
-        {product?.reviews?.slice(0, 5).reverse().map((review) => (
-          <Review review={review} key={review?._id} />
-        ))}
+        {product?.reviews
+          ?.slice(0, 5)
+          .reverse()
+          .map((review) => (
+            <Review review={review} key={review?._id} />
+          ))}
       </div>
-      <div className='questions-pagination review-pagination py-4'>
-        <Pagination count={100} siblingCount={0}  boundaryCount={2} variant="outlined" color="primary" shape="rounded" />
+      <div className="questions-pagination review-pagination py-4">
+        <Pagination
+          count={100}
+          siblingCount={0}
+          boundaryCount={2}
+          variant="outlined"
+          color="primary"
+          shape="rounded"
+        />
       </div>
     </div>
   );
