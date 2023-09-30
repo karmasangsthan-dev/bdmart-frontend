@@ -311,6 +311,7 @@ const productNo = () => {
                           alt=""
                         />
                       </div> */}
+                      {console.log(updatedVariants)}
                       {updatedVariants?.map((item, index) => (
                         <div
                           key={index}
