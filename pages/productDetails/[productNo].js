@@ -109,6 +109,7 @@ const productNo = () => {
 
   for (let index = 0; index < product?.variants?.length; index++) {
     const variant = product.variants[index];
+    
 
     if (variant) {
       const matchingColorVariant = updatedVariants.find(
@@ -311,6 +312,7 @@ const productNo = () => {
                           alt=""
                         />
                       </div> */}
+                      {console.log(updatedVariants,'update')}
                       {updatedVariants?.map((item, index) => (
                         <div
                           key={index}
