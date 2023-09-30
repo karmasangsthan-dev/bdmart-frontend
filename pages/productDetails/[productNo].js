@@ -110,6 +110,7 @@ const productNo = () => {
   for (let index = 0; index < product?.variants?.length; index++) {
     const variant = product.variants[index];
 
+
     if (variant) {
       const matchingColorVariant = updatedVariants.find(
         (v) =>
@@ -220,6 +221,16 @@ const productNo = () => {
     cursor: 'not-allowed',
     opacity: '0.65',
   };
+  const buttonStyleForAddToCart = {
+    backgroundColor: 'rgb(16 185 129/1)',
+    borderColor: 'rgb(179 48 61)',
+    color: '#ffffff',
+    padding: '0.375rem 0.75rem',
+    fontSize: '1rem',
+    minWidth: '214px ',
+    height: '38px',
+    borderRadius: '0.25rem'
+  };
   const handleQunatityIncrement = (id) => {
     setQuantity(quantity + 1);
   };
@@ -311,6 +322,7 @@ const productNo = () => {
                           alt=""
                         />
                       </div> */}
+                      {console.log(updatedVariants)}
                       {updatedVariants?.map((item, index) => (
                         <div
                           key={index}
@@ -327,10 +339,9 @@ const productNo = () => {
                               border: '1px solid #ddd',
                               cursor: 'pointer',
                             }}
-                            className={`img-fluid me-3 ${
-                              displayImage === item?.image &&
+                            className={`img-fluid me-3 ${displayImage === item?.image &&
                               'border border-2 border-primary'
-                            } `}
+                              } `}
                             src={item?.image}
                             alt=""
                           />
@@ -363,11 +374,12 @@ const productNo = () => {
                   <h4 className="my-2">
                     Price :{' '}
                     <span style={{ color: '#f85606' }}>
+
                       {!selectedSize?.price
-                        ? ` ${highestPrice} - ${lowestPrice} ${currency}  `
+                        ? `${(lowestPrice * currencyRate).toFixed(2)} ${currency} - ${(highestPrice * currencyRate).toFixed(2)} ${currency}  `
                         : `${(selectedSize?.price * currencyRate).toFixed(
-                            2
-                          )} ${currency}`}
+                          2
+                        )} ${currency}`}
                     </span>{' '}
                   </h4>
 
@@ -395,21 +407,25 @@ const productNo = () => {
                           <a
                             key={index}
                             onClick={() => {
-                              setVariant(variantItem);
-                              setSelectedSize({});
-                              setDisplayImage(variantItem?.image);
+                              if(variant !== variantItem){
+                                setVariant(variantItem);
+                                setSelectedSize({});
+                                setDisplayImage(variantItem?.image);
+                              }
+                              else{
+                                
+                              }
                             }}
                             style={{
                               backgroundColor: `rgba(${variantItem.color.r}, ${variantItem.color.g}, ${variantItem.color.b}, ${variantItem.color.a})`,
                             }}
-                            className={`${
-                              variant?.color.r === variantItem?.color?.r &&
+                            className={`${variant?.color.r === variantItem?.color?.r &&
                               variant?.color.g === variantItem?.color?.g &&
                               variant?.color.b === variantItem?.color?.b &&
                               variant?.color.a === variantItem?.color?.a
-                                ? 'active'
-                                : ''
-                            } `}
+                              ? 'active'
+                              : ''
+                              } `}
                           ></a>
                         )
                       )}
@@ -423,24 +439,25 @@ const productNo = () => {
                     style={{ minWidth: '156px', maxWidth: '156px' }}
                     required
                     onChange={(e) => {
-                      setSelectedSize(JSON.parse(e.target.value));
+                      setSelectedSize(JSON?.parse(e?.target?.value));
                     }}
                     aria-label="Default select example"
                   >
                     <>
                       <option value={JSON.stringify({})}>Select One</option>
                       {variant?.sizes ? (
-                        variant?.sizes?.map((item, i) => (
-                          <option
+                        variant?.sizes?.map((item, i) => {
+                          console.log({item});
+                          return <option
                             key={item?._id}
                             value={JSON.stringify(item)}
                             className="text-uppercase"
                           >
                             {item?.size}
                           </option>
-                        ))
+                        })
                       ) : (
-                        <option>None</option>
+                        <option value=''>None</option>
                       )}
                     </>
                   </Form.Select>
@@ -474,7 +491,7 @@ const productNo = () => {
                   </div>
                 </div>
                 <div className="mt-2 d-lg-block d-sm-none">
-                  <div id="cart-btn d-flex align-items-center justify-content-center ">
+                  <div className=" d-flex align-items-center justify-content-start ">
                     {selectedSize?.stock >= 1 ? (
                       <button
                         type="submit"
@@ -485,17 +502,23 @@ const productNo = () => {
                         Add to Cart
                         <i className="far plus-ico fa-plus-square text-white"></i>
                       </button>
-                    ) : (
-                      <button
-                        title="Out of Stock"
-                        type="button"
-                        className="btn"
-                        style={buttonStyle}
-                        disabled
-                      >
-                        Out of Stock
-                      </button>
-                    )}
+                    ) : !selectedSize.length ? <button
+                      title="Add to cart"
+                      type="button"
+                      style={{ height: '38px' }}
+                      className="desktop-select-variant"
+                      onClick={() => toast.error('Please select color and size ')}
+                    >
+                      Add to cart
+                    </button> : <button
+                      title="Out of Stock"
+                      type="button"
+                      className="btn"
+                      style={buttonStyle}
+                      disabled
+                    >
+                      Out of Stock
+                    </button>}
                     <button
                       onClick={() => productBuyNow(product)}
                       style={{ height: '38px' }}
@@ -560,7 +583,7 @@ const productNo = () => {
         )}
       </main>
       <Footer></Footer>
-    </Layout>
+    </Layout >
   );
 };
 
