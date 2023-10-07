@@ -63,16 +63,16 @@ const checkout = () => {
 
     return {
       quantity,
-      title:product?.title,
+      title: product?.title,
       thumbnail: product?.thumbnail,
       price,
       oldPrice,
-      color, 
+      color,
       image,
       size,
       status,
       stock,
-      _id : product?._id,
+      _id: product?._id,
     };
   });
   const handleCreateOrder = (event) => {
@@ -437,7 +437,7 @@ const checkout = () => {
 
                 <div className="checkout-subtotal">
                   Subtotal
-                  <span className="">{total.toFixed(2)}{" "}{currency}</span>
+                  <span className="">{(total * currencyRate).toFixed(2)} {currency}</span>
                 </div>
 
                 <div className="checkout-subtotal">
@@ -458,7 +458,7 @@ const checkout = () => {
                     lineHeight: "1.25rem"
                   }} className="d-flex align-items-center font-serif justify-content-between pt-4 text-sm uppercase">
                     TOTAL COST
-                    <span className="font-serif font-extrabold text-lg">{(Number(total) + 20.00).toFixed(2)}</span>
+                    <span className="font-serif font-extrabold text-lg">{((Number(total * currencyRate)) + 20.00).toFixed(2)} {currency}</span>
                   </div>
                 </div>
               </div>

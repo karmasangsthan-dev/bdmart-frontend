@@ -1,340 +1,738 @@
-export const menuItems = [
+const megaMenuData = [
   {
-    category: "Appliances",
-    subCategory: [
+    mainCategoryName: "Appliances",
+    parentClassName: "nav-links here",
+    childClassName: "mega_content",
+    subCategories: [
       {
-        title: "Small Appliances",
-        items: [
-          "Coffee, Espresso & Tea Makers",
-          "Blenders & juicers",
-          "Slow Cookers & Multi Pots",
-          "Microwaves",
-          "Electric Grills & Skillets",
-          "Stand Mixers",
+        name: "Small Appliances",
+        childCategories: [
+          {
+            name: "Coffe,Espresso & Tea Makers",
+          },
+          {
+            name: "Blenders & juicers",
+          },
+          {
+            name: "Slow Cookers & Multi Pots",
+          },
+          {
+            name: "Microwaves",
+          },
+          {
+            name: "Electric Grills & Skillets",
+          },
+          {
+            name: "Stand Mixers",
+          },
         ],
       },
       {
-        title: "Vacuum Sealers",
-        items: [
-          "Product-Layout1",
-          "Product-Layout2",
-          "Product-Layout3",
-          "Product-Layout4",
-          "Product-Layout5",
-          "Product-Layout6",
+        name: "Vacuum Sealers",
+        childCategories: [
+          {
+            name: "Product-Layout1",
+          },
+          {
+            name: "Product-Layout2",
+          },
+          {
+            name: "Product-Layout3",
+          },
+          {
+            name: "Product-Layout4",
+          },
+          {
+            name: "Product-Layout5",
+          },
+          {
+            name: "Product-Layout6",
+          },
         ],
       },
       {
-        title: "Large Appliances",
-        items: [
-          "Refurbished Vacuums",
-          "Product-Layout2",
-          "Irons & Clothes Steamers",
-          "Product-Layout4",
-          "Product-Layout5",
-          "Product-Layout6",
+        name: "Large Appliances",
+        childCategories: [
+          {
+            name: "Refurbished Vacuums",
+          },
+          {
+            name: "Product-Layout2",
+          },
+          {
+            name: "Irons & Clothes Steamers",
+          },
+          {
+            name: "Product-Layout4",
+          },
+          {
+            name: "Product-Layout5",
+          },
+          {
+            name: "Product-Layout6",
+          },
         ],
       },
       {
-        title: "Air Conditioners",
-        items: [
-          "Refurbished Vacuums",
-          "Product-Layout2",
-          "Irons & Clothes Steamers",
-          "Product-Layout4",
-          "Product-Layout5",
-          "Product-Layout6",
+        name: "Air Conditioners",
+        childCategories: [
+          {
+            name: "Product-Layout1",
+          },
+          {
+            name: "Product-Layout2",
+          },
+          {
+            name: "Product-Layout3",
+          },
         ],
       },
       {
-        title: "Sewing Machines",
-        items: [
-          "Refurbished Vacuums",
-          "Product-Layout2",
-          "Irons & Clothes Steamers",
-          "Product-Layout4",
+        name: "Sewing Machines",
+        childCategories: [
+          {
+            name: "Product-Layout4",
+          },
+          {
+            name: "Product-Layout5",
+          },
+          {
+            name: "Product-Layout6",
+          },
         ],
       },
     ],
   },
   {
-    category: "Automotive",
-    subCategory: [
+    mainCategoryName: "Automotive",
+    parentClassName: "nav-links second",
+    childClassName: "mega_content megas",
+    htmlId: "mega_content",
+    subCategories: [
       {
-        title: "Water Purification",
-        items: [
-          "Upright Vacuums",
-          "Vacuums & Floorcare",
-          "Canister Vacuums",
-          "Microwaves",
-          "Electric Grills & Skillets",
-          "Robot Vacuums",
+        name: "Water Purification",
+        childCategories: [
+          {
+            name: "Upright Vacuums",
+          },
+          {
+            name: "Vacuums & Floorcare",
+          },
+          {
+            name: "Product Layout3",
+          },
+          {
+            name: "Canister Vacuums",
+          },
+          {
+            name: "Product Layout5",
+          },
+          {
+            name: "Robot Vacuums",
+          },
         ],
       },
       {
-        title: "Heating, Cooling & Air Quality",
-        items: [
-          "Humidifiers",
-          "Product-Layout2",
-          "Product-Layout3",
-          "Product-Layout4",
-          "Product-Layout5",
-          "Baby Food Makers",
+        name: "Heating, Cooling & Air...",
+        childCategories: [
+          {
+            name: "Humidifiers",
+          },
+          {
+            name: "Product-Layout2",
+          },
+          {
+            name: "Product-Layout3",
+          },
+          {
+            name: "Product-Layout4",
+          },
+          {
+            name: "Product-Layout5",
+          },
+          {
+            name: "Baby Food Makers",
+          },
         ],
       },
       {
-        title: "Baby Food & Bottle A...",
-        items: [
-          "Refurbished Vacuums",
-          "Baby Formula Makers",
-          "Irons & Clothes Steamers",
-          "Product-Layout4",
-          "Product-Layout5",
-          "Handvacs",
+        name: "Baby Food & Bottle A...",
+        childCategories: [
+          {
+            name: "Product-Layout1",
+          },
+          {
+            name: "Baby Formula Makers",
+          },
+          {
+            name: "Product-Layout3",
+          },
+          {
+            name: "Product-Layout4",
+          },
+          {
+            name: "Baby Formula Makers",
+          },
+          {
+            name: "Handvacs",
+          },
         ],
       },
       {
-        title: "Pet Friendly Vacuums",
-        items: [
-          "Stick Vacuums",
-          "Freezers & Ice Makers",
-          "Product-Layout3",
-          "Product-Layout4",
+        name: "Pet Friendly Vacuums",
+        childCategories: [
+          {
+            name: "Stick Vacuums",
+          },
+          {
+            name: "Freezers & Ice Makers",
+          },
+          {
+            name: "Product-Layout3",
+          },
         ],
       },
       {
-        title: "Refrigerators",
-        items: [
-          "Refurbished Vacuums",
-          "Product-Layout4",
-          "Irons & Clothes Steamers",
-          "Product-Layout4",
-        ],
-      },
-    ],
-  },
-  {
-    category: "Baby",
-    subCategory: [
-      {
-        title: "Specialty Appliances",
-        items: [
-          "Upright Vacuums",
-          "Vacuums & Floorcare",
-          "Canister Vacuums",
-          "Microwaves",
-          "Electric Grills & Skillets",
-          "Robot Vacuums",
-        ],
-      },
-      {
-        title: "Heating, Cooling & Air Quality",
-        items: [
-          "Humidifiers",
-          "Product-Layout2",
-          "Product-Layout3",
-          "Product-Layout4",
-          "Product-Layout5",
-          "Baby Food Makers",
-        ],
-      },
-      {
-        title: "Baby Food & Bottle A...",
-        items: [
-          "Refurbished Vacuums",
-          "Baby Formula Makers",
-          "Irons & Clothes Steamers",
-          "Product-Layout4",
-          "Product-Layout5",
-          "Handvacs",
-        ],
-      },
-      {
-        title: "Pet Friendly Vacuums",
-        items: [
-          "Stick Vacuums",
-          "Freezers & Ice Makers",
-          "Product-Layout3",
-          "Product-Layout4",
-        ],
-      },
-      {
-        title: "Refrigerators",
-        items: [
-          "Refurbished Vacuums",
-          "Product-Layout4",
-          "Irons & Clothes Steamers",
-          "Product-Layout4",
+        name: "Refrigerators",
+        childCategories: [
+          {
+            name: "Product-Layout4",
+          },
+          {
+            name: "Product-Layout5",
+          },
+          {
+            name: "Product-Layout6",
+          },
         ],
       },
     ],
   },
   {
-    category: "Baby",
-    subCategory: [
+    mainCategoryName: "Baby",
+    parentClassName: "nav-links second",
+    childClassName: "mega_content megas2",
+    htmlId: "mega_content",
+    subCategories: [
       {
-        title: "Specialty Appliances",
-        items: [
-          "Upright Vacuums",
-          "Vacuums & Floorcare",
-          "Canister Vacuums",
-          "Microwaves",
-          "Electric Grills & Skillets",
-          "Robot Vacuums",
+        name: "Specialty Appliances",
+        childCategories: [
+          {
+            name: "Over-The-Range Microwaves",
+          },
+          {
+            name: "Product Layout2",
+          },
+          {
+            name: "Product Layout3",
+          },
+          {
+            name: "Ovens & Ranges",
+          },
+          {
+            name: "Product Layout5",
+          },
+          {
+            name: "Product Layout6",
+          },
         ],
       },
       {
-        title: "Heating, Cooling & Air Quality",
-        items: [
-          "Humidifiers",
-          "Product-Layout2",
-          "Product-Layout3",
-          "Product-Layout4",
-          "Product-Layout5",
-          "Baby Food Makers",
+        name: "Product Layout",
+        childCategories: [
+          {
+            name: "Product-Layout1",
+          },
+          {
+            name: "Product-Layout2",
+          },
+          {
+            name: "Product-Layout3",
+          },
+          {
+            name: "Product-Layout4",
+          },
+          {
+            name: "Product-Layout5",
+          },
+          {
+            name: "Product-Layout6",
+          },
         ],
       },
       {
-        title: "Baby Food & Bottle A...",
-        items: [
-          "Refurbished Vacuums",
-          "Baby Formula Makers",
-          "Irons & Clothes Steamers",
-          "Product-Layout4",
-          "Product-Layout5",
-          "Handvacs",
+        name: "Product Layout",
+        childCategories: [
+          {
+            name: "Product-Layout1",
+          },
+          {
+            name: "Product-Layout2",
+          },
+          {
+            name: "Product-Layout3",
+          },
+          {
+            name: "Product-Layout4",
+          },
+          {
+            name: "Product-Layout5",
+          },
+          {
+            name: "Product-Layout6",
+          },
         ],
       },
       {
-        title: "Pet Friendly Vacuums",
-        items: [
-          "Stick Vacuums",
-          "Freezers & Ice Makers",
-          "Product-Layout3",
-          "Product-Layout4",
+        name: "Product Layout",
+        childCategories: [
+          {
+            name: "Product-Layout1",
+          },
+          {
+            name: "Product-Layout2",
+          },
+          {
+            name: "Product-Layout3",
+          },
         ],
       },
       {
-        title: "Refrigerators",
-        items: [
-          "Refurbished Vacuums",
-          "Product-Layout4",
-          "Irons & Clothes Steamers",
-          "Product-Layout4",
-        ],
-      },
-    ],
-  },
-  {
-    category: "Gift & Holidays",
-    subCategory: [
-      {
-        title: "Specialty Appliances",
-        items: [
-          "Upright Vacuums",
-          "Vacuums & Floorcare",
-          "Canister Vacuums",
-          "Microwaves",
-          "Electric Grills & Skillets",
-          "Robot Vacuums",
-        ],
-      },
-      {
-        title: "Heating, Cooling & Air Quality",
-        items: [
-          "Humidifiers",
-          "Product-Layout2",
-          "Product-Layout3",
-          "Product-Layout4",
-          "Product-Layout5",
-          "Baby Food Makers",
-        ],
-      },
-      {
-        title: "Baby Food & Bottle A...",
-        items: [
-          "Refurbished Vacuums",
-          "Baby Formula Makers",
-          "Irons & Clothes Steamers",
-          "Product-Layout4",
-          "Product-Layout5",
-          "Handvacs",
-        ],
-      },
-      {
-        title: "Pet Friendly Vacuums",
-        items: [
-          "Stick Vacuums",
-          "Freezers & Ice Makers",
-          "Product-Layout3",
-          "Product-Layout4",
-        ],
-      },
-      {
-        title: "Refrigerators",
-        items: [
-          "Refurbished Vacuums",
-          "Product-Layout4",
-          "Irons & Clothes Steamers",
-          "Product-Layout4",
+        name: "Product Layout",
+        childCategories: [
+          {
+            name: "Product-Layout1",
+          },
+          {
+            name: "Product-Layout2",
+          },
+          {
+            name: "Product-Layout3",
+          },
         ],
       },
     ],
   },
   {
-    category: " Gift & Holidays",
-    subCategory: [
+    mainCategoryName: "Clothing,Shoes & Accessories",
+    parentClassName: "nav-links second",
+    htmlId: "mega_content",
+    childClassName: "mega_content megas3",
+    subCategories: [
       {
-        title: " Shop all gifts & holidays",
-        items: [
-          "Over-The-Range Microwaves",
-          "Boxing Day",
-          "Canister Vacuums",
-          "Product Layout3",
-          "Electric Grills & Skillets",
-          "Robot Vacuums",
+        name: "Women",
+        childCategories: [
+          {
+            name: "Shop all women's clothing",
+          },
+          {
+            name: "Plus",
+          },
+          {
+            name: "Product Layout3",
+          },
+          {
+            name: "Product Layout4",
+          },
+          {
+            name: "Handbags & wallets",
+          },
+          {
+            name: "Product Layout6",
+          },
         ],
       },
       {
-        title: "Fresh Flowers - Delivered",
-        items: [
-          "Electronic gifts",
-          "Gifts for babies",
-          "Gifts for grandparents",
-          "Product-Layout4",
-          "Product-Layout5",
-          "Baby Food Makers",
+        name: "Men",
+        childCategories: [
+          {
+            name: "Shop all men's clothing",
+          },
+          {
+            name: "Big & tall",
+          },
+          {
+            name: "Product-Layout3",
+          },
+          {
+            name: "Wallets",
+          },
+          {
+            name: "Product-Layout5",
+          },
+          {
+            name: "Product-Layout6",
+          },
         ],
       },
       {
-        title: "Secret Santa & gift exchange.",
-        items: [
-          "Christmas",
-          "Baby Formula Makers",
-          "Irons & Clothes Steamers",
-          "Product-Layout4",
-          "Product-Layout5",
-          "Handvacs",
+        name: "kids",
+        childCategories: [
+          {
+            name: "Product-Layout1",
+          },
+          {
+            name: "Product-Layout2",
+          },
+          {
+            name: "Product-Layout3",
+          },
+          {
+            name: "Product-Layout4",
+          },
+          {
+            name: "Product-Layout5",
+          },
+          {
+            name: "Product-Layout6",
+          },
         ],
       },
       {
-        title: "Product Layout",
-        items: [
-          "Stick Vacuums",
-          "Freezers & Ice Makers",
-          "Product-Layout3",
-          "Product-Layout4",
+        name: "Shoes",
+        childCategories: [
+          {
+            name: "Shop all shoes",
+          },
+          {
+            name: "Women's shoes",
+          },
+          {
+            name: "Boys's shoes",
+          },
         ],
       },
       {
-        title: "Refrigerators",
-        items: [
-          "Refurbished Vacuums",
-          "Product-Layout4",
-          "Irons & Clothes Steamers",
-          "Product-Layout4",
+        name: "Juellary",
+        childCategories: [
+          {
+            name: "Product-Layout1",
+          },
+          {
+            name: "Product-Layout2",
+          },
+          {
+            name: "Product-Layout3",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    mainCategoryName: "Electronics",
+    parentClassName: "nav-links second",
+    htmlId: "mega_content",
+    childClassName: "mega_content megas4",
+    subCategories: [
+      {
+        name: "Laptop and computers",
+        childCategories: [
+          {
+            name: "Laptop"
+          },
+          {
+            name: "Keyboard And Mouce",
+          },
+          {
+            name: "Computer Monitor",
+          },
+          {
+            name: "Pc Gaming",
+          },
+          {
+            name: "Hard Drive and Storage",
+          },
+          {
+            name: "Networking",
+          }
+        ],
+      },
+      {
+        name: "Computers and Accessories",
+        childCategories: [
+          {
+            name: "Monitors",
+          },
+          {
+            name: "Product-Layout2",
+          },
+          {
+            name: "Product-Layout3",
+          },
+          {
+            name: "Shop-Rollback",
+          },
+          {
+            name: "Washers & Dryers",
+          },
+          {
+            name: "Vacuum Sealers",
+          },
+        ],
+      },
+      {
+        name: "Product Layout",
+        childCategories: [
+          {
+            name: "Shop Rollback",
+          },
+          {
+            name: "Product-Layout2",
+          },
+          {
+            name: "Shop Rollback",
+          },
+          {
+            name: "Product-Layout4",
+          },
+          {
+            name: "Washers & Dryers",
+          },
+          {
+            name: "Vacuum Sealers",
+          },
+        ],
+      },
+      {
+        name: "Shoes",
+        childCategories: [
+          {
+            name: "Shop all shoes",
+          },
+          {
+            name: "Women's shoes",
+          },
+          {
+            name: "Boys's shoes",
+          },
+        ],
+      },
+      {
+        name: "Juellary",
+        childCategories: [
+          {
+            name: "Product-Layout1",
+          },
+          {
+            name: "Product-Layout2",
+          },
+          {
+            name: "Product-Layout3",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    mainCategoryName: "Furniture",
+    parentClassName: "nav-links second",
+    htmlId: "mega_content",
+    childClassName: "mega_content megas5",
+    subCategories: [
+      {
+        name: "Bedroom Furniture",
+        childCategories: [
+          {
+            name: "Shop all women's clothing",
+          },
+          {
+            name: "Plus",
+          },
+          {
+            name: "Product Layout3",
+          },
+          {
+            name: "Product Layout4",
+          },
+          {
+            name: "Handbags & wallets",
+          },
+          {
+            name: "Product Layout6",
+          },
+        ],
+      },
+      {
+        name: "Office Furniture",
+        childCategories: [
+          {
+            name: "Shop all men's clothing",
+          },
+          {
+            name: "Big & tall",
+          },
+          {
+            name: "Product-Layout3",
+          },
+          {
+            name: "Wallets",
+          },
+          {
+            name: "Product-Layout5",
+          },
+          {
+            name: "Product-Layout6",
+          },
+        ],
+      },
+      {
+        name: "Living Room Furniture",
+        childCategories: [
+          {
+            name: "Product-Layout1",
+          },
+          {
+            name: "Product-Layout2",
+          },
+          {
+            name: "Product-Layout3",
+          },
+          {
+            name: "Product-Layout4",
+          },
+          {
+            name: "Product-Layout5",
+          },
+          {
+            name: "Product-Layout6",
+          },
+        ],
+      },
+      {
+        name: "Kids Furniture",
+        childCategories: [
+          {
+            name: "Shop all shoes",
+          },
+          {
+            name: "Women's shoes",
+          },
+          {
+            name: "Boys's shoes",
+          },
+        ],
+      },
+      {
+        name: "Kitchen Furniture",
+        childCategories: [
+          {
+            name: "Product-Layout1",
+          },
+          {
+            name: "Product-Layout2",
+          },
+          {
+            name: "Product-Layout3",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    mainCategoryName: "Gift & Holidays",
+    parentClassName: "nav-links second",
+    htmlId: "mega_content",
+    childClassName: "mega_content megas6",
+    subCategories: [
+      {
+        name: "Shop all gifts & holidays",
+        childCategories: [
+          {
+            name: "Shop all women's clothing",
+          },
+          {
+            name: "Plus",
+          },
+          {
+            name: "Product Layout3",
+          },
+          {
+            name: "Product Layout4",
+          },
+          {
+            name: "Handbags & wallets",
+          },
+          {
+            name: "Product Layout6",
+          },
+        ],
+      },
+      {
+        name: "Fresh flower - delivered",
+        childCategories: [
+          {
+            name: "Shop all men's clothing",
+          },
+          {
+            name: "Big & tall",
+          },
+          {
+            name: "Product-Layout3",
+          },
+          {
+            name: "Wallets",
+          },
+          {
+            name: "Product-Layout5",
+          },
+          {
+            name: "Product-Layout6",
+          },
+        ],
+      },
+      {
+        name: "Gift exhange",
+        childCategories: [
+          {
+            name: "Product-Layout1",
+          },
+          {
+            name: "Product-Layout2",
+          },
+          {
+            name: "Product-Layout3",
+          },
+          {
+            name: "Product-Layout4",
+          },
+          {
+            name: "Product-Layout5",
+          },
+          {
+            name: "Product-Layout6",
+          },
+        ],
+      },
+      {
+        name: "Product Layout",
+        childCategories: [
+          {
+            name: "Shop all shoes",
+          },
+          {
+            name: "Women's shoes",
+          },
+          {
+            name: "Boys's shoes",
+          },
+        ],
+      },
+      {
+        name: "Product Layout",
+        childCategories: [
+          {
+            name: "Product-Layout1",
+          },
+          {
+            name: "Product-Layout2",
+          },
+          {
+            name: "Product-Layout3",
+          },
         ],
       },
     ],
   },
 ];
+
+const jsonData = JSON.stringify(megaMenuData);

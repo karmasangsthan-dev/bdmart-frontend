@@ -10,7 +10,6 @@
         margin-left: 5px;
         color: orange;
         font-size: 30px;
-        margin-top: 23px;
     }
 }
 
@@ -74,9 +73,8 @@
         top: 58px;
         left: 0;
         bottom: 56px;
-        width: 60%;
+        width: 77%;
         background-color: white;
-        overflow-y: auto;
         color: black;
         transform: translateX(-100%);
         transition: left 0.3s ease;
@@ -85,6 +83,8 @@
     .close-category-sidebar {
         display: flex;
         justify-content: flex-end;
+        position: sticky;
+        top: 0px;
     }
     .close-category-sidebar svg{
         position: relative;
@@ -95,6 +95,9 @@
     .category-sidebar ul {
         list-style-type: none;
         padding-left: 5px;
+        margin-top: 20px;
+        max-height: 392px;
+        overflow-y: scroll;
     }
 
     .category-sidebar li {
