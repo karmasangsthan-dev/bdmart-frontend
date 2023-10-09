@@ -322,7 +322,6 @@ const productNo = () => {
                           alt=""
                         />
                       </div> */}
-                      {console.log(updatedVariants)}
                       {updatedVariants?.map((item, index) => (
                         <div
                           key={index}
@@ -407,14 +406,8 @@ const productNo = () => {
                           <a
                             key={index}
                             onClick={() => {
-                              if(variant !== variantItem){
-                                setVariant(variantItem);
-                                setSelectedSize({});
-                                setDisplayImage(variantItem?.image);
-                              }
-                              else{
-                                
-                              }
+                              setVariant(variantItem);
+                              setDisplayImage(variantItem?.image);
                             }}
                             style={{
                               backgroundColor: `rgba(${variantItem.color.r}, ${variantItem.color.g}, ${variantItem.color.b}, ${variantItem.color.a})`,
@@ -447,7 +440,6 @@ const productNo = () => {
                       <option value={JSON.stringify({})}>Select One</option>
                       {variant?.sizes ? (
                         variant?.sizes?.map((item, i) => {
-                          console.log({item});
                           return <option
                             key={item?._id}
                             value={JSON.stringify(item)}

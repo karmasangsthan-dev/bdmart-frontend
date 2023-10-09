@@ -14,6 +14,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { Badge } from "@mui/material";
 import { useSelector } from "react-redux";
+import MobileMegaMenu from "./MobileMegaMenu";
 
 export default function MobileBottomNav() {
   const router = useRouter();
@@ -62,7 +63,7 @@ export default function MobileBottomNav() {
             label="Cart"
             onClick={() => router.push('/cart')}
             icon={
-              <Badge badgeContent={totalProductQuantity ? totalProductQuantity : 'error'} color="error">
+              <Badge badgeContent={totalProductQuantity ? totalProductQuantity : '0'} color="error">
                 <AiOutlineShoppingCart className="fs-1" />
               </Badge>
             }
@@ -101,10 +102,8 @@ export default function MobileBottomNav() {
           <div className="close-category-sidebar">
             <AiOutlineCloseCircle onClick={handleOpenCategory} className="fs-2" />
           </div>
-          <ul>
-            <li>Category 1</li>
-            <li>Category 2</li>
-            <li>Category 3</li>
+          <ul className="main-ul">
+            <MobileMegaMenu></MobileMegaMenu>
           </ul>
         </div>
       )}

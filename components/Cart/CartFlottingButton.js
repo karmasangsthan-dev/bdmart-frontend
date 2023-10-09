@@ -1,12 +1,12 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useCartProductsTotal } from '../../helperHooks/useCartProductsTotal';
 
 const CartFlottingButton = () => {
   const router = useRouter();
   const { cart } = useSelector((state) => state?.cart);
   const { cartProducts } = useSelector((state) => state?.cart);
-  const [total, setTotal] = useState(0);
   const { code: currency, rate: currencyRate } = useSelector(
     (state) => state.currency
   );
@@ -16,19 +16,7 @@ const CartFlottingButton = () => {
   for (const item of cart) {
     totalProductQuantity += item.quantity;
   }
-  const calculateTotal = () => {
-    let total = 0;
-    cart?.forEach((cartItem) => {
-      const quantity = cartItem?.quantity;
-      total += cartItem.price * quantity;
-    });
-    setTotal(total.toFixed(2));
-  };
-
-  useEffect(() => {
-    calculateTotal();
-  }, [cart, cartProducts]);
-
+  const total = useCartProductsTotal(cartProducts);
   return (
     <button
       onClick={() => router.push('/cart')}

@@ -17,7 +17,6 @@ export const getProductPriceRangeDetails = (variants, currencyRate) => {
       }
     });
   });
-console.log({highestPrice,lowestPrice});
   return { highestPrice, lowestPrice };
 };
 export const getProductPriceRangeForCard = (variants, currencyRate) => {

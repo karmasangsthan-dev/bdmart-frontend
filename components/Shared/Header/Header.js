@@ -46,7 +46,7 @@ const Header = () => {
   for (const item of cart) {
     totalProductQuantity += item.quantity;
   }
-  const handleSearchSubmit = (event)=>{
+  const handleSearchSubmit = (event) => {
     event.preventDefault();
   }
   useEffect(() => {
@@ -93,8 +93,10 @@ const Header = () => {
     };
   }, []);
 
+  const isLoginPage = router.asPath === '/signin';
+  const isRegisterPage = router.asPath === '/signup';
   return (
-    <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
+    <header className={`header ${isScrolled ? 'scrolled' : ''}`} style={{ display: isLoginPage || isRegisterPage ? 'none' : 'block' }}>
       <ContactHeader user={user} />
 
       <div
@@ -230,13 +232,13 @@ const Header = () => {
                     </Link>
                   </Tooltip>
                 </div>
-                
+
               </div>
             </div>
           </div>
 
           {/* for mobile */}
-          <div className="main-strip-2 d-sm-block d-lg-none">
+          <div className="main-strip-2 d-sm-block d-lg-none" >
             <div className="">
               <form className="example col-12 p-2">
                 <input
