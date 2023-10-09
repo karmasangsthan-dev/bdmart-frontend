@@ -102,7 +102,7 @@ export default function MobileBottomNav() {
           <div className="close-category-sidebar">
             <AiOutlineCloseCircle onClick={handleOpenCategory} className="fs-2" />
           </div>
-          <ul>
+          <ul className="main-ul">
             <MobileMegaMenu></MobileMegaMenu>
           </ul>
         </div>

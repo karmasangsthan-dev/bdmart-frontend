@@ -5,8 +5,10 @@ import RequireAuth from '../../components/Shared/RequireAuth/RequireAuth'
 import DashboardLanding from '../../components/User/DashboardLanding/DashboardLanding'
 import { useSelector } from 'react-redux';
 import Loading from '../../components/Shared/Loading/Loading';
+import { useRouter } from 'next/router';
 const dashboard = () => {
     const { user, isLoading } = useSelector((state) => state?.auth);
+    const router = useRouter();
     console.log(user);
     if (isLoading) {
         return (
@@ -18,8 +20,12 @@ const dashboard = () => {
     if (!user?.email) {
         return (
             <Layout>
-                you are not user, please login
-
+                <div className="text-center w-full d-flex justify-content-center  align-items-center mt-5">
+                    <button onClick={() => router.push({
+                        pathname: "/signin",
+                        query: { redirect: router.asPath },
+                    })} className='update-profile-button'>Please Login</button>
+                </div>
             </Layout>
         )
     }

@@ -285,7 +285,7 @@ const Footer = () => {
                       <img
                         alt=""
                         aria-hidden="true"
-                        src="https://res.cloudinary.com/dfcztmnvh/image/upload/v1692502715/payment-logo_zlmmxg.webp"
+                        src="/images/payment/pay2.png"
                         style={{
                           display: "block",
                           maxWidth: "100%",
@@ -295,13 +295,13 @@ const Footer = () => {
                           opacity: 1,
                           border: 0,
                           margin: 0,
-                          padding: 0
+                          padding: 0,
                         }}
                       />
                     </span>
                     <img
                       alt="payment method"
-                      src="https://res.cloudinary.com/dfcztmnvh/image/upload/v1692502715/payment-logo_zlmmxg.webp"
+                      src="/images/payment/pay2.png"
                       decoding="async"
                       data-nimg="intrinsic"
                       className="w-full"
@@ -318,7 +318,8 @@ const Footer = () => {
                         minWidth: "100%",
                         maxWidth: "100%",
                         minHeight: "100%",
-                        maxHeight: "100%"
+                        maxHeight: "100%",
+                        
                       }}
 
                     />

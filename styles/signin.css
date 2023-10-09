@@ -1,5 +1,6 @@
 .signin-container {
   min-height: 120vh;
+
 }
 
 .signup-container {
@@ -44,7 +45,8 @@
 
 @media screen and (max-width: 682px) {
   .signin-container {
-    min-height: 103vh;
+    min-height: 114vh;
+    padding-bottom:70px ;
   }
 
   .signup-container {
