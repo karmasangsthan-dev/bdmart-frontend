@@ -1,15 +1,17 @@
 import "../styles/globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import 'cropperjs/dist/cropper.css';
 import "slick-carousel/slick/slick.css";
 import "react-loading-skeleton/dist/skeleton.css";
 import "slick-carousel/slick/slick-theme.css";
-import 'cropperjs/dist/cropper.css';
+
 import "../styles/slider.css";
 import "../styles/nav.css";
 import "../styles/responsive.css";
 import "../styles/signin.css";
 import '../styles/profile.css'
 import '../styles/loading.css'
+
 import '../styles/productDetails.css'
 import "../styles/notfoundpage.css"
 import '../styles/cart.css'
@@ -17,6 +19,7 @@ import '../styles/discount.css'
 import '../styles/contactHeader.css';
 import '../styles/order.css'
 import '../styles/invoice.css'
+// // ok 
 import '../styles/contact.css'
 import '../styles/footer.css'
 import '../styles/seller.css'

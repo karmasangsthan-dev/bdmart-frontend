@@ -115,7 +115,7 @@ const cart = () => {
                     <tr className="summary-total">
                       <td>Total:</td>
                       <td>
-                        {total.toFixed(2)} {currency}
+                        {(total * currencyRate).toFixed(2)} {currency}
                       </td>
                     </tr>
                   </tbody>

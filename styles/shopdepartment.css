@@ -4,16 +4,30 @@
     gap: 20px;
 
 }
-.shop-department-image{
+
+.shop-department-image {
     min-height: 129px;
 }
-@media screen and (max-width:682px) {
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+    .all-shop-department {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    .contact-header{
+        display: none;
+    }
+    
+
+}
+
+@media screen and (max-width:767px) {
     .all-shop-department {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        
+
     }
-    .shop-department-image{
+
+    .shop-department-image {
         min-height: auto;
     }
 }

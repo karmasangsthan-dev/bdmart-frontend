@@ -134,10 +134,20 @@ const productApi = apiSlice.injectEndpoints({
       }),
       // invalidatesTags: ["Cart"],
     }),
+    getAllProductsCategory: builder.query({
+      query: () => {
+        return {
+          url: `/category/category`,
+          method: "GET",
+        };
+      },
+      providesTags: ["Categories", "Category"],
+    }),
   }),
 });
 
 export const {
+  useGetAllProductsCategoryQuery,
   useGetProductsQuery,
   useGetSingleSubCategoryQuery,
   useGetAllProductsQuery,

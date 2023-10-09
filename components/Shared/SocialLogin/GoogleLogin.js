@@ -34,7 +34,7 @@ export default function GoogleLogin() {
     }
   }, [user]);
   useEffect(() => {
-    if (isLoading) toast.loading('Loading...', { id: 'socialLogin' });
+    // if (isLoading) toast.loading('Loading...', { id: 'socialLogin' });
     if (isError) toast.error(error?.data?.error, { id: 'socialLogin' });
     if (isSuccess) toast.success('Login successfully...!!');
   }, [isLoading, isError, error, isSuccess]);
