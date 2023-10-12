@@ -72,7 +72,8 @@ const checkout = () => {
       size,
       status,
       stock,
-      _id: product?._id,
+      productId: product?._id,
+      variantId: product?.variant?._id,
     };
   });
   const handleCreateOrder = (event) => {
