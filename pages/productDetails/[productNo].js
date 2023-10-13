@@ -107,6 +107,7 @@ const productNo = () => {
 
   const updatedVariants = [];
 
+
   for (let index = 0; index < product?.variants?.length; index++) {
     const variant = product.variants[index];
 
@@ -148,7 +149,6 @@ const productNo = () => {
       }
     }
   }
-
   const newProductStructure = {
     ...product,
     variants: updatedVariants,
@@ -232,7 +232,12 @@ const productNo = () => {
     borderRadius: '0.25rem'
   };
   const handleQunatityIncrement = (id) => {
-    setQuantity(quantity + 1);
+    if (quantity < 5) {
+      setQuantity(quantity + 1);
+    }
+    else{
+      toast.error('You cannot add more items in cart')
+    }
   };
 
   const handleQunatityDecrement = (id) => {
@@ -397,6 +402,7 @@ const productNo = () => {
                     </span>
                   </div>
                 </div>
+
                 <div className="d-flex align-items-center gap-2 mt-2">
                   <h6 style={{ minWidth: '40px' }}>Color:</h6>
                   <div className="product-colors-nav mb-2">
@@ -484,33 +490,41 @@ const productNo = () => {
                 </div>
                 <div className="mt-2 d-lg-block d-sm-none">
                   <div className=" d-flex align-items-center justify-content-start ">
-                    {selectedSize?.stock >= 1 ? (
+
+                    {console.log({ selectedSize })}
+                    {Object.keys(selectedSize).length === 0 && (
                       <button
-                        type="submit"
-                        onClick={() => handleAddToCart(product)}
-                        style={{ minWidth: '214px ', height: '38px' }}
-                        className="cart-btn px-3 py-1"
+                        title="Add to cart"
+                        type="button"
+                        style={{ height: '38px' }}
+                        className="desktop-select-variant"
+                        onClick={() => toast.error('Please select color and size ')}
                       >
                         Add to Cart
                         <i className="far plus-ico fa-plus-square text-white"></i>
                       </button>
-                    ) : !selectedSize.length ? <button
-                      title="Add to cart"
-                      type="button"
-                      style={{ height: '38px' }}
-                      className="desktop-select-variant"
-                      onClick={() => toast.error('Please select color and size ')}
+                    )}
+                    {
+                      selectedSize?.stock < 1 && <button
+                        title="Out of Stock"
+                        type="button"
+                        className="btn"
+                        style={buttonStyle}
+                        disabled
+                      >
+                        Out of Stock
+                      </button>
+                    }
+                    {selectedSize?.stock > 0 && <button
+                      type="submit"
+                      onClick={() => handleAddToCart(product)}
+                      style={{ minWidth: '214px ', height: '38px' }}
+                      className="cart-btn px-3 py-1"
                     >
-                      Add to cart
-                    </button> : <button
-                      title="Out of Stock"
-                      type="button"
-                      className="btn"
-                      style={buttonStyle}
-                      disabled
-                    >
-                      Out of Stock
+                      Add to Cart
+                      <i className="far plus-ico fa-plus-square text-white"></i>
                     </button>}
+
                     <button
                       onClick={() => productBuyNow(product)}
                       style={{ height: '38px' }}
