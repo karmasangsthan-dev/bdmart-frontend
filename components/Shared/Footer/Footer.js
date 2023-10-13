@@ -133,7 +133,7 @@ const Footer = () => {
         <div className="route-content">
           <a className="mr-3 lg:mr-12 xl:mr-12" rel="noreferrer" href="/">
             <Image
-              style={{ position: 'relative', right: '25px',bottom:'10px' }}
+              style={{ position: 'relative', right: '25px', bottom: '10px' }}
               alt="logo"
               src="/images/logo2.jpg"
               width={190}
@@ -250,6 +250,7 @@ const Footer = () => {
               </h5>
             </div>
             <div className="col-span-1 hidden lg:block md:block">
+
               <ul className="lg:text-right">
                 <li className="px-1 mb-2 md:mb-0 transition hover:opacity-80 inline-flex">
                   <span
@@ -319,7 +320,7 @@ const Footer = () => {
                         maxWidth: "100%",
                         minHeight: "100%",
                         maxHeight: "100%",
-                        
+
                       }}
 
                     />
