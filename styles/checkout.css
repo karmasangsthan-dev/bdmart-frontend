@@ -72,7 +72,6 @@
     font-weight: 500;
     font-size: .875rem;
     display: block;
-    margin-bottom: 0.5rem;
 }
 
 .personal-input .personal-relative {
@@ -406,6 +405,10 @@
     width: 100%;
     display: flex;
 
+}
+
+.select-method-text {
+    color: #718096;
 }
 
 .checkout-product-link-button {

@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
 import { useGetAllProductsCategoryQuery } from '../../../features/product/productApi';
+import { useRouter } from 'next/router';
 
 const MobileMegaMenu = () => {
+    const router = useRouter();
     const { data, isLoading, refetch } = useGetAllProductsCategoryQuery();
     const productCategories = data?.data;
     const [activeCategory, setActiveCategory] = useState(null);
+    const [activeChildCategory, setActiveChildCategory] = useState(null);
 
     const handleToggleSubcategories = (category) => {
         setActiveCategory(category === activeCategory ? null : category);
     };
+    const handleOpenChildCate = (subCate) => {
+        setActiveChildCategory(subCate === activeChildCategory ? null : subCate);
+    }
     return (
         <div className="relative grid gap-2 p-6" style={{ display: 'grid' }}>
             {isLoading && <p>Loading...</p>}
@@ -103,53 +109,91 @@ const MobileMegaMenu = () => {
                                 <ul className="sub-cate-ul " onClick={(e) => e.stopPropagation()}>
                                     {category?.subCategories?.map((subCat) => {
                                         return (
-                                            <li>
-                                                <span className="subCategoryLink">
-                                                    <span className="sub-cate-text">
-                                                        <svg
-                                                            stroke="currentColor"
-                                                            fill="currentColor"
-                                                            strokeWidth={0}
-                                                            viewBox="0 0 512 512"
-                                                            height="1em"
-                                                            width="1em"
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                        >
-                                                            <path
-                                                                fill="none"
-                                                                strokeLinecap="square"
-                                                                strokeLinejoin="round"
-                                                                strokeWidth={32}
-                                                                d="M400 256H112"
-                                                            />
-                                                        </svg>
+                                            <>
+                                                <li className='sub-cate-main-li' onClick={() => handleOpenChildCate(subCat)}>
+                                                    <span className="subCategoryLink">
+                                                        <span className="sub-cate-text">
+                                                            <svg
+                                                                stroke="currentColor"
+                                                                fill="currentColor"
+                                                                strokeWidth={0}
+                                                                viewBox="0 0 512 512"
+                                                                height="1em"
+                                                                width="1em"
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                            >
+                                                                <path
+                                                                    fill="none"
+                                                                    strokeLinecap="square"
+                                                                    strokeLinejoin="round"
+                                                                    strokeWidth={32}
+                                                                    d="M400 256H112"
+                                                                />
+                                                            </svg>
+                                                        </span>
+                                                        {subCat?.subCategoryTitle}
+
                                                     </span>
-                                                    {subCat?.subCategoryTitle}
+                                                    {
+                                                        subCat?.childCategories.length > 0 && (
+                                                            <svg
+                                                                stroke="currentColor"
+                                                                fill="currentColor"
+                                                                strokeWidth={0}
+                                                                viewBox="0 0 512 512"
+                                                                height="1em"
+                                                                width="1em"
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                            >
+                                                                <path
+                                                                    fill="none"
+                                                                    strokeLinecap="round"
+                                                                    strokeLinejoin="round"
+                                                                    strokeWidth={48}
+                                                                    d="M184 112l144 144-144 144"
+                                                                />
+                                                            </svg>
 
-                                                </span>
+                                                        )
+                                                    }
+                                                </li>
+
+                                                {/* child cate  */}
                                                 {
-                                                    subCat?.childCategories.length > 0 && (
-                                                        <svg
-                                                            stroke="currentColor"
-                                                            fill="currentColor"
-                                                            strokeWidth={0}
-                                                            viewBox="0 0 512 512"
-                                                            height="1em"
-                                                            width="1em"
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                        >
-                                                            <path
-                                                                fill="none"
-                                                                strokeLinecap="round"
-                                                                strokeLinejoin="round"
-                                                                strokeWidth={48}
-                                                                d="M184 112l144 144-144 144"
-                                                            />
-                                                        </svg>
+                                                    activeChildCategory === subCat && <ul onClick={(e) => e.stopPropagation()} className='child-cate-nav-content'>
+                                                        {subCat?.childCategories?.map(childCate => {
+                                                            return (
+                                                                <li onClick={()=> router.push(`/shop?category=${category?.category}&subCategory=${subCat?.subCategoryTitle}&childCategory=${childCate?.childCategoryTitle}`)} className='subCategoryLink'>
+                                                                    <span className="sub-cate-text">
+                                                                        {
 
-                                                    )
+                                                                        }
+                                                                        <svg
+                                                                            stroke="currentColor"
+                                                                            fill="currentColor"
+                                                                            strokeWidth={0}
+                                                                            viewBox="0 0 512 512"
+                                                                            height="1em"
+                                                                            width="1em"
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                        >
+                                                                            <path
+                                                                                fill="none"
+                                                                                strokeLinecap="square"
+                                                                                strokeLinejoin="round"
+                                                                                strokeWidth={32}
+                                                                                d="M400 256H112"
+                                                                            />
+                                                                        </svg>
+                                                                    </span>
+                                                                    {childCate?.childCategoryTitle}</li>
+                                                            )
+                                                        })}
+                                                    </ul>
                                                 }
-                                            </li>
+
+                                            </>
+
                                         )
                                     })}
                                 </ul>
