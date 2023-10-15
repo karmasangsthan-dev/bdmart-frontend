@@ -30,6 +30,7 @@
     box-shadow: none;
 }
 
+
 @media screen and (max-width: 682px) {
 
     .search-box-mobile input,
@@ -117,7 +118,7 @@
         padding-top: 0.25rem;
         margin-top: 0;
     }
-    .sub-cate-ul li{
+    .sub-cate-main-li{
         cursor: pointer;
         display: flex;
         align-items: center;

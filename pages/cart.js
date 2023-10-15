@@ -24,8 +24,14 @@ const cart = () => {
           <div className="row cart-container">
             <div className="col-lg-9">
               {cart?.length < 1 ? (
-                <div>
-                  <p>Your Cart Is Empty. Please add cart at first</p>
+                <div className='empty-cart-div'>
+                  <div className='di1'>
+                    <img width="48" height="48" src="https://img.icons8.com/color/48/high-priority.png" alt="high-priority" />
+                  </div>
+                  <div className='di2'>
+                    <img width="35" height="35" src="https://img.icons8.com/color/48/add-shopping-cart--v1.png" alt="shopping-cart" />
+                    <p>Your Cart Is Empty. Please add product at first</p>
+                  </div>
                 </div>
               ) : (
                 <div className="cart-table table-responsive">

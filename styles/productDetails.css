@@ -362,6 +362,13 @@ textarea:focus {
     cursor: pointer;
 }
 
+.share-icon {
+    display: flex;
+    margin-bottom: 0px;
+}
+
+
+
 @media screen and (max-width: 682px) {
     .product-description-container {
         /* margin-left: 10px;
