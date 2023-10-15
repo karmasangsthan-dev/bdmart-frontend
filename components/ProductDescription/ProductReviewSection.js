@@ -89,16 +89,17 @@ const ProductReviewSection = ({ product }) => {
             <Review review={review} key={review?._id} />
           ))}
       </div>
-      <div className="questions-pagination review-pagination py-4">
+
+      {totalReviews.length && <div className="questions-pagination review-pagination py-4">
         <Pagination
-          count={100}
+          count={1}
           siblingCount={0}
           boundaryCount={2}
           variant="outlined"
           color="primary"
           shape="rounded"
         />
-      </div>
+      </div>}
     </div>
   );
 };

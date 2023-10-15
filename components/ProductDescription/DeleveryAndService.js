@@ -53,21 +53,7 @@ const DeleveryAndService = ({ product }) => {
     return (
         <div>
             <div className="delivery-info">
-                {/* <h5>Delivery</h5>
-                <div className="d-flex">
-                    <div className="me-2">
-                        <img
-                            width="20"
-                            height="20"
-                            src="https://img.icons8.com/color/48/marker--v1.png"
-                            alt="marker--v1"
-                        />
-                    </div>
-                    <div className="d-flex justify-content-between  gap-2 w-100">
-                        <p>Dhaka, Dhaka North, Banani Road No. 12 - 19 </p>
-                        <p className="text-info">CHANGE</p>
-                    </div>
-                </div> */}
+                
                 <div className="d-flex mt-2">
                     <div className="me-2">
                         <img
@@ -89,10 +75,9 @@ const DeleveryAndService = ({ product }) => {
                                 product.deleveryTime ? <p>{product.deleveryTime.split(' ')[0]} day(s)</p> : <p>1-2 day(s)</p>
                             }
                         </div>
-                        <p>$ 2</p>
                     </div>
                 </div>
-                <div className="d-flex">
+                <div className="d-flex mt-2">
                     <div className="me-2">
                         <img
                             width="20"
@@ -101,7 +86,7 @@ const DeleveryAndService = ({ product }) => {
                             alt="cash-in-hand"
                         />
                     </div>
-                    <div className="d-flex justify-content-between align-items-center w-100">
+                    <div className="d-flex justify-content-between align-items-center w-100 ">
                         <div>
                             {product?.isCashOnDelevery === 'Yes' ? <p>Cash on Delivery Available</p> : <p className='text-danger'>Cash on Delivery is Unavailable</p>}
                         </div>
@@ -110,7 +95,7 @@ const DeleveryAndService = ({ product }) => {
             </div>
             <div className="service-info ">
                 <h4>Service</h4>
-                <div className="d-flex">
+                <div className="d-flex ">
                     <div className="me-2">
                         <img
                             width="20"
@@ -125,7 +110,7 @@ const DeleveryAndService = ({ product }) => {
                         </div>
                     </div>
                 </div>
-                <div className="d-flex">
+                <div className="d-flex mt-2">
                     <div className="me-2">
                         <img
                             width="20"

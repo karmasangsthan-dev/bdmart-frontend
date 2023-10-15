@@ -25,6 +25,7 @@ import YouMayAlsoLike from '../../components/ProductDescription/YouMayAlsoLike';
 import ProductQuestionAnswer from '../../components/ProductDescription/ProductQuestionAnswer';
 import { useHandleAddToCart } from '../../helperHooks/handleAddToCart';
 import { getProductPriceRangeDetails } from '../../helperHooks/getProductPriceRange';
+import { getProductOldPriceRange } from '../../helperHooks/getProductOldPriceRange';
 
 const SampleNextArrow = (props) => {
   const { onClick } = props;
@@ -235,7 +236,7 @@ const productNo = () => {
     if (quantity < 5) {
       setQuantity(quantity + 1);
     }
-    else{
+    else {
       toast.error('You cannot add more items in cart')
     }
   };
@@ -257,6 +258,10 @@ const productNo = () => {
     currencyRate
   );
 
+  const { highestOldPrice, lowestOldPrice } = getProductOldPriceRange(
+    newProductStructure?.variants,
+    currencyRate
+  );
   return (
     <Layout title={`${product?.title ? product?.title : ''} Bangladesh Mart`}>
       <main className="mainnnnn" style={{ background: '#eff0f5' }}>
@@ -357,7 +362,7 @@ const productNo = () => {
               </div>
 
               <div className="col-lg-5 col-md-5 col-sm-12 product-details-information">
-                <h3 className="text-capitalize">Name: {product?.title}</h3>
+                <h3 className="text-capitalize">{product?.title}</h3>
                 <div className="d-flex justiy-content-center">
                   <div className="ratings">
                     <Rating
@@ -394,7 +399,15 @@ const productNo = () => {
                         {currency}
                       </del>
                     ) : (
-                      <span>Select a color & size</span>
+                      <>
+                        <del>
+                          {(lowestOldPrice * currencyRate).toFixed(2)} {currency}
+                        </del> 
+                        <span>{' - '}</span>
+                        <del>
+                          {(highestOldPrice * currencyRate).toFixed(2)} {currency}
+                        </del> 
+                      </>
                     )}{' '}
                     <span className="ms-2">
                       {' '}
@@ -566,7 +579,7 @@ const productNo = () => {
                     </button>
                   </div>
                 </div>
-                <ShareProduct></ShareProduct>
+                <ShareProduct productNo={productNo}></ShareProduct>
               </div>
               <div className="col-md-3 delevery-service-container">
                 <DeleveryAndService product={product}></DeleveryAndService>
