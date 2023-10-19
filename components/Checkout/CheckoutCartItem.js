@@ -22,7 +22,7 @@ const CheckoutCartItem = ({ product }) => {
       <div className="checkout-product-content">
         <a
           className="checkout-product-link-button"
-          href="/product/undefined"
+          href={`/productDetails/${product?._id}`}
         >
           {product?.title?.length > 30
             ? `${product?.title.slice(0, 35)}...`
