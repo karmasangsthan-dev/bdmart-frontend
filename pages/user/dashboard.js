@@ -20,7 +20,8 @@ const dashboard = () => {
     if (!user?.email) {
         return (
             <Layout>
-                <div className="text-center w-full d-flex justify-content-center  align-items-center mt-5">
+                <div className="text-center w-full d-flex justify-content-center  align-items-center mt-5 gap-3" style={{flexDirection:'column'}}>
+                    <p>You haven't logged in. Please login before access dashboard</p>
                     <button onClick={() => router.push({
                         pathname: "/signin",
                         query: { redirect: router.asPath },

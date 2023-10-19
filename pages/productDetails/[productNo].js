@@ -453,10 +453,10 @@ const productNo = () => {
                     onChange={(e) => {
                       setSelectedSize(JSON?.parse(e?.target?.value));
                     }}
-                    aria-label="Default select example"
+                    
                   >
                     <>
-                      <option value={JSON.stringify({})}>Select One</option>
+                      <option value={JSON.stringify({})}>-- Select One --</option>
                       {variant?.sizes ? (
                         variant?.sizes?.map((item, i) => {
                           return <option
