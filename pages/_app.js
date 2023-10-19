@@ -28,6 +28,7 @@ import '../styles/mobileSignin.css'
 import '../styles/productQuestions.css'
 import '../styles/userDashboard.css'
 import '../styles/checkout.css'
+import '../styles/payment.css'
 import { Toaster } from "react-hot-toast";
 import Providers from "../app/provider";
 import { useEffect } from "react";

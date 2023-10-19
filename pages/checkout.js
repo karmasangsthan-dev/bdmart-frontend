@@ -29,6 +29,8 @@ const checkout = () => {
     toast.error(`Your coupon was invalid`);
 
   };
+  const totalPriceForOnlinePay = ((Number(total * currencyRate)) + 20.00).toFixed(2);
+  console.log({ totalPriceForOnlinePay });
 
   const productsWithQuantity = cartProducts?.map((product) => {
     const quantityObj = cart.find((item) => item.id === product._id);
@@ -65,14 +67,14 @@ const checkout = () => {
   }, [isLoading, isSuccess, isError]);
 
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    address: '',
-    city: '',
-    country: '',
-    postcode: '',
+    firstName: 'altaf',
+    lastName: 'hossen',
+    email: 'a@b.com',
+    phone: '04152454',
+    address: 'maluher',
+    city: 'barishal',
+    country: 'bangladesh',
+    postcode: '8530',
     shippingMethod: 'FedEx',
     selectedPaymentMethod: 'cashOnDelevery',
   });
@@ -85,18 +87,39 @@ const checkout = () => {
     console.log({ formData });
   };
 
-  const handleOrderOnlinePay = async () => {
-    const data = {};
-    const response = await fetch('http://localhost:8080/api/v1/payment/initiate-payment', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
+  const orderData = {
+    name: formData?.firstName + ' ' + formData?.lastName,
+    country: formData?.country,
+    address: formData?.address,
+    city: formData?.city,
+    postcode: formData?.postcode,
+    phone: formData?.phone,
+    billingEmail: formData?.email,
+    userEmail: user?.email,
+    products: productsWithQuantity,
+    paymentMethod: formData?.selectedPaymentMethod,
+    currency,
+    currencyRate,
+  };
 
-    const responseData = await response.json();
-    window.location.replace(responseData?.url)
+  const handleOrderOnlinePay = async () => {
+
+    if (currency === 'BDT') {
+      const data = { price: totalPriceForOnlinePay, currency, currencyRate, orderData };
+      const response = await fetch('http://localhost:8080/api/v1/payment/initiate-payment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      const responseData = await response.json();
+      window.location.href = responseData?.url
+    }
+    else {
+      toast.error('Please select BDT currency for payment. Others currency under development.')
+    }
   }
 
   return (
@@ -122,7 +145,6 @@ const checkout = () => {
                         />
                       </div>
                     </div>
-                    {console.log(formData)}
                     <div className="personal-input">
                       <label htmlFor="">Last Name</label>
                       <div className="personal-relative">
