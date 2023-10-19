@@ -8,7 +8,7 @@ const PaymentSuccess = ({ TxID }) => {
     const [paymentErrorUi, setPaymentErrorUi] = useState(false)
     const [paymentSuccess, setPaymentSuccess] = useState(false);
     const [isLoaing, setIsLoading] = useState(false);
-    const url = `http://localhost:8080/api/v1/payment/check-payment?transactionId=${TxID}&token=${token}`
+    const url = `${process.env.NEXT_PUBLIC_BACKEND_SITE_LINK}/api/v1/payment/check-payment?transactionId=${TxID}&token=${token}`
     const router = useRouter();
     useEffect(() => {
         const token = localStorage.getItem('accessToken');
