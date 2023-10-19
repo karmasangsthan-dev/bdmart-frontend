@@ -106,7 +106,7 @@ const checkout = () => {
 
     if (currency === 'BDT') {
       const data = { price: totalPriceForOnlinePay, currency, currencyRate, orderData };
-      const response = await fetch('http://localhost:8080/api/v1/payment/initiate-payment', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_SITE_LINK}/api/v1/payment/initiate-payment`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
