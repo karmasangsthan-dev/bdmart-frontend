@@ -123,6 +123,17 @@ const Header = () => {
     }
   };
 
+  const handleNavigateHome = () => {
+    if (router.asPath !== '/') {
+      router.push('/')
+    }
+  }
+  const handleNavigateCart = () => {
+    if (router.asPath !== '/cart') {
+      router.push('/cart')
+    }
+  }
+
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
@@ -146,16 +157,15 @@ const Header = () => {
         <div id="nav_Bar" className="navBar ">
           <div className="main-strip-2 d-sm-none d-lg-block">
             <div id="strip" className="strip-2">
-              <div className="logo ms-2">
-                <Link href="/">
-                  <Image
-                    className="flag-img"
-                    src="/images/logo2.jpg"
-                    alt="country"
-                    width={190}
-                    height={70}
-                  />
-                </Link>
+              <div onClick={handleNavigateHome} className="logo ms-2">
+                <Image
+                  style={{ cursor: 'pointer' }}
+                  className="flag-img "
+                  src="/images/logo2.jpg"
+                  alt="country"
+                  width={190}
+                  height={70}
+                />
               </div>
               <div className="search-box">
                 <form onSubmit={handleSearchSubmit} className="example">
@@ -259,7 +269,7 @@ const Header = () => {
                             );
                           })}
                         </div>
-                        
+
                       </div>
                     </div>
                   </form>
@@ -273,19 +283,18 @@ const Header = () => {
                   {!user?.email && seller?.email && <SellerNavMenu></SellerNavMenu>}
                 </div>
                 <div className="cart-icon ms-4">
-                  <Tooltip title="Cart">
-                    <Link href="/cart">
-                      <Badge badgeContent={totalProductQuantity ? totalProductQuantity : '0'} color="error">
-                        <Image
-                          className="flag-img"
-                          src="/images/cart.png"
-                          alt="country"
-                          width={45}
-                          height={40}
-                          loading="eager"
-                        />
-                      </Badge>
-                    </Link>
+                  <Tooltip onClick={handleNavigateCart} title="Cart">
+                    <Badge badgeContent={totalProductQuantity ? totalProductQuantity : '0'} color="error">
+                      <Image
+                        style={{ cursor: 'pointer' }}
+                        className="flag-img"
+                        src="/images/cart.png"
+                        alt="country"
+                        width={45}
+                        height={40}
+                        loading="eager"
+                      />
+                    </Badge>
                   </Tooltip>
                 </div>
 
