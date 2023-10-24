@@ -28,7 +28,7 @@ const Footer = () => {
             <li className="">
               <Link
                 className=""
-                href="/contact-us"
+                href="/contact"
               >
                 Contact Us
               </Link>
@@ -97,36 +97,36 @@ const Footer = () => {
           </h3>
           <ul className="">
             <li className="">
-              <a
+              <Link
                 className=""
-                href="/#"
+                href="/user/dashboard"
               >
                 Dashboard
-              </a>
+              </Link>
             </li>
             <li className="">
-              <a
+              <Link
                 className=""
-                href="/#"
+                href="/user/my-orders"
               >
                 My Orders
-              </a>
+              </Link>
             </li>
             <li className="">
-              <a
+              <Link
                 className=""
-                href="/#"
+                href="/user/my-orders"
               >
                 Recent Orders
-              </a>
+              </Link>
             </li>
             <li className="">
-              <a
+              <Link
                 className=""
-                href="/#"
+                href="/user/update-profile"
               >
                 Updated Profile
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

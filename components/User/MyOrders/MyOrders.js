@@ -69,11 +69,7 @@ const MyOrders = () => {
                                             <tbody>
                                                 {
                                                     data?.map((order, index) => {
-                                                        let totalAmount = 0;
-                                                        for (let i = 0; i < order?.products?.length; i++) {
-                                                            totalAmount =
-                                                                totalAmount + order?.products[i].quantity * order?.products[i].price;
-                                                        };
+                                                        
                                                         return (
                                                             <tr key={index}>
                                                                 <td className='order-id'><span>#{order?.invoiceId ? order?.invoiceId : 'Not Found'}</span></td>
@@ -81,7 +77,7 @@ const MyOrders = () => {
 
                                                                 <td className='order-date'><span>{order?.paymentMethod === 'cashOnDelevery' && 'Cash On Delevery'}</span></td>
                                                                 <td className='order-date'><span>{order?.status}</span></td>
-                                                                <td className='order-date '><span>{totalAmount}{" "}{order?.currency}</span></td>
+                                                                <td className='order-date '><span>{order?.totalPrice}{" "}{order?.currency}</span></td>
                                                                 <td className='order-date-details'><span onClick={() => router.push(`/order/${order?._id}`)} className='order-details-btn'>Details</span></td>
                                                             </tr>
                                                         )
