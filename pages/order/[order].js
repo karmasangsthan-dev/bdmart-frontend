@@ -8,17 +8,38 @@ import Layout from "../../components/Layout";
 import { useGetSingleOrderByIdQuery } from "../../features/product/productApi";
 import Footer from "../../components/Shared/Footer/Footer";
 import Loading from "../../components/Shared/Loading/Loading";
+import axios from "axios";
 
-const Order = () => {
+export async function getServerSideProps(context) {
+    
+    try {
+        const url = `${process.env.NEXT_PUBLIC_BACKEND_SITE_LINK}/api/v1/order/order/${context.params.order}`
+        const response = await axios.get(url);
+        const order = response.data;
+        console.log({ url });
+        return {
+            props: {
+                orderData: order,
+            },
+        };
+    } catch (error) {
+        return {
+            props: {
+                orderData: { error: 'API Request Error' },
+            },
+        };
+    }
+}
+
+
+const Order = ({ orderData: data }) => {
     const router = useRouter();
     const componentRef = useRef();
     const dispatch = useDispatch();
+    console.log({ data });
 
-    const {
-        query: { order },
-    } = router;
 
-    const { data, isLoading: orderLoading } = useGetSingleOrderByIdQuery(order);
+    // const { data, isLoading: orderLoading } = useGetSingleOrderByIdQuery(order);
     let totalAmount = 0;
     for (let i = 0; i < data?.products?.length; i++) {
         totalAmount =
@@ -51,14 +72,14 @@ const Order = () => {
 
     return (
         <Layout title="Invoice - Bangladesh Mart">
-            {orderLoading ? (
+            {1 == 2 ? (
                 <div className='d-flex justify-content-center align-items-center'>
                     <div className="spinner1"></div>
                 </div>
             ) : (
                 <div className="invoice-container" style={{ height: "120vh" }}>
                     <div className="mx-5 px-5 mt-4 rounded-2 py-2" style={{ backgroundColor: "rgb(209 250 229/1)" }}>
-                        
+
                         {data?.paid === true ? <label>Thank you <span style={{ color: 'rgb(5 150 105/1)', fontWeight: '700' }}>{data?.name.charAt(0).toUpperCase() + data?.name.substring(1)}</span>, Your payment has been successfully processed and your order has been confirmed</label> : <label>Thank you <span style={{ color: 'rgb(5 150 105/1)', fontWeight: '700' }}>{data?.name}</span>, Your order have been received !</label>}
                     </div>
                     <div id="invoice-content " >
@@ -160,7 +181,7 @@ const Order = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {data?.products.map((product, i) => (
+                                        {data?.products?.map((product, i) => (
                                             <tr className="" key={i}>
                                                 <td className="ps-3">{i + 1}</td>
                                                 <td>{product?.title}</td>
