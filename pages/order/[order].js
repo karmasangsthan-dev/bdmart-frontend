@@ -8,17 +8,38 @@ import Layout from "../../components/Layout";
 import { useGetSingleOrderByIdQuery } from "../../features/product/productApi";
 import Footer from "../../components/Shared/Footer/Footer";
 import Loading from "../../components/Shared/Loading/Loading";
+import axios from "axios";
 
-const Order = () => {
+export async function getServerSideProps(context) {
+    
+    try {
+        const url = `${process.env.NEXT_PUBLIC_BACKEND_SITE_LINK}/api/v1/order/order/${context.params.order}`
+        const response = await axios.get(url);
+        const order = response.data;
+        console.log({ url });
+        return {
+            props: {
+                orderData: order,
+            },
+        };
+    } catch (error) {
+        return {
+            props: {
+                orderData: { error: 'API Request Error' },
+            },
+        };
+    }
+}
+
+
+const Order = ({ orderData: data }) => {
     const router = useRouter();
     const componentRef = useRef();
     const dispatch = useDispatch();
+    console.log({ data });
 
-    const {
-        query: { order },
-    } = router;
 
-    const { data, isLoading: orderLoading } = useGetSingleOrderByIdQuery(order);
+    // const { data, isLoading: orderLoading } = useGetSingleOrderByIdQuery(order);
     let totalAmount = 0;
     for (let i = 0; i < data?.products?.length; i++) {
         totalAmount =
@@ -48,17 +69,18 @@ const Order = () => {
             return ""; // Fallback value if the date string is invalid
         }
     }
-    
+
     return (
         <Layout title="Invoice - Bangladesh Mart">
-            {orderLoading ? (
+            {1 == 2 ? (
                 <div className='d-flex justify-content-center align-items-center'>
                     <div className="spinner1"></div>
                 </div>
             ) : (
                 <div className="invoice-container" style={{ height: "120vh" }}>
                     <div className="mx-5 px-5 mt-4 rounded-2 py-2" style={{ backgroundColor: "rgb(209 250 229/1)" }}>
-                        <label>Thank you <span style={{ color: 'rgb(5 150 105/1)', fontWeight: '700' }}>{data?.name}</span>, Your order have been received !</label>
+
+                        {data?.paid === true ? <label>Thank you <span style={{ color: 'rgb(5 150 105/1)', fontWeight: '700' }}>{data?.name.charAt(0).toUpperCase() + data?.name.substring(1)}</span>, Your payment has been successfully processed and your order has been confirmed</label> : <label>Thank you <span style={{ color: 'rgb(5 150 105/1)', fontWeight: '700' }}>{data?.name}</span>, Your order have been received !</label>}
                     </div>
                     <div id="invoice-content " >
 
@@ -84,7 +106,19 @@ const Order = () => {
                                             </span>
                                         }
                                         {
-                                            data?.status !== 'successful' && <span
+                                            data?.status === 'confirmed' && <span
+                                                style={{
+                                                    borderRadius: "9999px",
+                                                    color: "white",
+                                                    fontSize: ".75rem",
+                                                }}
+                                                className="ms-2 px-2 bg-success"
+                                            >
+                                                Confirmed
+                                            </span>
+                                        }
+                                        {
+                                            data?.status !== 'successful' && data?.status !== 'confirmed' && <span
                                                 style={{
                                                     borderRadius: "9999px",
                                                     backgroundColor: "rgb(227 216 106)",
@@ -100,7 +134,7 @@ const Order = () => {
                                 </div>
                                 <div>
                                     <img
-                                    style={{marginRight:'-20px'}}
+                                        style={{ marginRight: '-20px' }}
                                         src="https://res.cloudinary.com/dfcztmnvh/image/upload/v1687640964/_images_logo2-removebg-preview_jhkefd.png"
                                         alt="bd-mart"
                                         width={150}
@@ -147,7 +181,7 @@ const Order = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {data?.products.map((product, i) => (
+                                        {data?.products?.map((product, i) => (
                                             <tr className="" key={i}>
                                                 <td className="ps-3">{i + 1}</td>
                                                 <td>{product?.title}</td>
@@ -166,18 +200,19 @@ const Order = () => {
                                 <div>
                                     <h6>PAYMENT METHOD</h6>
                                     <p>{data?.paymentMethod === 'cashOnDelevery' && "Cash on delevery"}</p>
+                                    <p>{data?.paymentMethod === 'onlinePay' && "Online Payment"}</p>
                                 </div>
                                 <div>
                                     <h6>SHIPPING COST</h6>
-                                    <p>20 {data?.currency}</p>
+                                    <p>{data?.shippingCost ? data?.shippingCost?.toFixed(2) : '0.00'} {data?.currency}</p>
                                 </div>
                                 <div className="text-start">
                                     <h6>DISCOUNT</h6>
-                                    <p>$0.00</p>
+                                    <p>0.00 {data?.currency}</p>
                                 </div>
                                 <div className="text-start">
                                     <h6>TOTAL AMOUNT</h6>
-                                    <p className="text-danger fw-bold">${totalAmount}</p>
+                                    <p className="text-danger fw-bold">{totalAmount} {data?.currency}</p>
                                 </div>
                             </div>
                         </div>

@@ -3,13 +3,13 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useGetAllOrdersByEmailQuery } from '../../../features/product/productApi';
 
-const Dashboard = () => {
+
+
+const Dashboard = ({ orders: data }) => {
     const user = useSelector((state) => state.auth.user);
     const router = useRouter();
-    const { data, isLoading: orderLoading } = useGetAllOrdersByEmailQuery(
-        user.email
-    );
 
+    console.log({ data });
     const formatDate = (dateString) => {
         if (!dateString) {
             return ""; // Fallback value when the date string is undefined or falsy
