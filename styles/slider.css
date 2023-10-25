@@ -8,6 +8,8 @@
   box-sizing: border-box;
 }
 
+
+
 main {
   width: 100%;
   margin: 0px auto;
@@ -46,7 +48,7 @@ main {
 .plus-ico {
   text-align: right !important;
   font-size: 18px;
-  margin-left: 30px;
+  margin-left: 15px;
   margin-top: 5px;
 }
 
@@ -62,9 +64,10 @@ main {
   /* width: 180px; */
   margin-bottom: 10px;
 }
+
 .cart-btn-see-options {
   color: white;
-  background-color:rgb(50, 171, 219);
+  background-color: rgb(50, 171, 219);
   font-family: Arial, Helvetica, sans-serif;
   margin-top: 5px;
   outline: none;
@@ -138,6 +141,7 @@ main .card-header {
     justify-content: center;
     /* margin-top: 0px; */
   }
+
 }
 
 .card-arrow p span {
@@ -258,6 +262,7 @@ p.star {
     font-size: 18px !important;
     font-weight: bold;
   }
+
   .bestselling-title {
     margin-top: 20px;
   }
@@ -278,8 +283,7 @@ p.star {
 }
 
 .control-btn .prev {
-  background: url('https://www.jiomart.com/assets/version1685987373/ds2web/jds-icons/angle-left-primary-icon.svg')
-    center no-repeat !important;
+  background: url('https://www.jiomart.com/assets/version1685987373/ds2web/jds-icons/angle-left-primary-icon.svg') center no-repeat !important;
   left: 5px;
   display: flex;
   color: black;
@@ -288,8 +292,7 @@ p.star {
 }
 
 .control-btn .next {
-  background: url('https://www.jiomart.com/assets/version1685987373/ds2web/jds-icons/angle-right-primary-icon.svg')
-    center no-repeat !important;
+  background: url('https://www.jiomart.com/assets/version1685987373/ds2web/jds-icons/angle-right-primary-icon.svg') center no-repeat !important;
   right: 5px;
   display: flex;
   justify-content: center;
@@ -310,3 +313,21 @@ p.star {
   color: white;
   cursor: pointer;
 } */
+
+
+@media screen and (max-width: 479px) {
+
+  .plus-ico {
+    text-align: right !important;
+    font-size: 15px;
+    margin-left: 10px;
+    margin-top: 5px;
+  }
+
+  .cart-btn {
+    margin-bottom: 10px;
+    height: auto;
+    padding: 2px 0px;
+  }
+
+}

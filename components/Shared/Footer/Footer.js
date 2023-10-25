@@ -133,7 +133,7 @@ const Footer = () => {
         <div className="route-content">
           <a className="mr-3 lg:mr-12 xl:mr-12" rel="noreferrer" href="/">
             <Image
-              style={{ position: 'relative', right: '25px',bottom:'10px' }}
+              style={{ position: 'relative', right: '25px', bottom: '10px' }}
               alt="logo"
               src="/images/logo2.jpg"
               width={190}
@@ -250,6 +250,7 @@ const Footer = () => {
               </h5>
             </div>
             <div className="col-span-1 hidden lg:block md:block">
+
               <ul className="lg:text-right">
                 <li className="px-1 mb-2 md:mb-0 transition hover:opacity-80 inline-flex">
                   <span
@@ -285,7 +286,7 @@ const Footer = () => {
                       <img
                         alt=""
                         aria-hidden="true"
-                        src="https://res.cloudinary.com/dfcztmnvh/image/upload/v1692502715/payment-logo_zlmmxg.webp"
+                        src="/images/payment/pay2.png"
                         style={{
                           display: "block",
                           maxWidth: "100%",
@@ -295,13 +296,13 @@ const Footer = () => {
                           opacity: 1,
                           border: 0,
                           margin: 0,
-                          padding: 0
+                          padding: 0,
                         }}
                       />
                     </span>
                     <img
                       alt="payment method"
-                      src="https://res.cloudinary.com/dfcztmnvh/image/upload/v1692502715/payment-logo_zlmmxg.webp"
+                      src="/images/payment/pay2.png"
                       decoding="async"
                       data-nimg="intrinsic"
                       className="w-full"
@@ -318,7 +319,8 @@ const Footer = () => {
                         minWidth: "100%",
                         maxWidth: "100%",
                         minHeight: "100%",
-                        maxHeight: "100%"
+                        maxHeight: "100%",
+
                       }}
 
                     />

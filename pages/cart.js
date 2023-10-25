@@ -24,8 +24,14 @@ const cart = () => {
           <div className="row cart-container">
             <div className="col-lg-9">
               {cart?.length < 1 ? (
-                <div>
-                  <p>Your Cart Is Empty. Please add cart at first</p>
+                <div className='empty-cart-div'>
+                  <div className='di1'>
+                    <img width="48" height="48" src="https://img.icons8.com/color/48/high-priority.png" alt="high-priority" />
+                  </div>
+                  <div className='di2'>
+                    <img width="35" height="35" src="https://img.icons8.com/color/48/add-shopping-cart--v1.png" alt="shopping-cart" />
+                    <p>Your Cart Is Empty. Please add product at first</p>
+                  </div>
                 </div>
               ) : (
                 <div className="cart-table table-responsive">
@@ -115,7 +121,7 @@ const cart = () => {
                     <tr className="summary-total">
                       <td>Total:</td>
                       <td>
-                        {total} {currency}
+                        {(total * currencyRate).toFixed(2)} {currency}
                       </td>
                     </tr>
                   </tbody>
@@ -129,7 +135,7 @@ const cart = () => {
               </button>
               <button
                 onClick={() => router.push('/checkout')}
-                className="btn px-5 py-2 place-order-btn mt-2"
+                className="confirm-order-button d-flex align-items-center gap-2 mt-3"
               >
                 Proceed to checkout
               </button>

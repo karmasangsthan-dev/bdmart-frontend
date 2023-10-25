@@ -26,6 +26,7 @@ export default function CartProductRow({ product }) {
   if (currencyRate) {
     productPrice = (product?.price * currencyRate).toFixed(2);
   }
+  console.log({product});
 
   return (
     <>
@@ -105,7 +106,7 @@ export default function CartProductRow({ product }) {
         <td className="cart-price-col">
           <p style={{ height: '60px' }} className=" cart-product-price">
             {(product?.variant?.price * currencyRate).toFixed(2)}
-            <br /> {currency}
+            {" "} {currency}
           </p>
         </td>
         <td className="total-col">
@@ -115,7 +116,7 @@ export default function CartProductRow({ product }) {
               currencyRate *
               product?.variant?.quantity
             ).toFixed(2)}{' '}
-            <br />
+            {" "}
             {currency}
           </p>
         </td>

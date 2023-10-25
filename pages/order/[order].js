@@ -165,11 +165,11 @@ const Order = () => {
                             >
                                 <div>
                                     <h6>PAYMENT METHOD</h6>
-                                    <p>{data?.paymentMethod || "Not Found"}</p>
+                                    <p>{data?.paymentMethod === 'cashOnDelevery' && "Cash on delevery"}</p>
                                 </div>
                                 <div>
                                     <h6>SHIPPING COST</h6>
-                                    <p>20 $</p>
+                                    <p>20 {data?.currency}</p>
                                 </div>
                                 <div className="text-start">
                                     <h6>DISCOUNT</h6>

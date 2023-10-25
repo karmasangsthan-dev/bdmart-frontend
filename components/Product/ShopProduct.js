@@ -69,7 +69,7 @@ export default function ShopProduct({ product }) {
                 <span className="item-price">
                   {productLowestPrice} {currency}
                 </span>{' '}
-                -
+                -{' '}
                 <span className="item-price pl-2">
                   {productHighestPrice} {currency}
                 </span>

@@ -25,6 +25,7 @@ import YouMayAlsoLike from '../../components/ProductDescription/YouMayAlsoLike';
 import ProductQuestionAnswer from '../../components/ProductDescription/ProductQuestionAnswer';
 import { useHandleAddToCart } from '../../helperHooks/handleAddToCart';
 import { getProductPriceRangeDetails } from '../../helperHooks/getProductPriceRange';
+import { getProductOldPriceRange } from '../../helperHooks/getProductOldPriceRange';
 
 const SampleNextArrow = (props) => {
   const { onClick } = props;
@@ -107,8 +108,10 @@ const productNo = () => {
 
   const updatedVariants = [];
 
+
   for (let index = 0; index < product?.variants?.length; index++) {
     const variant = product.variants[index];
+
 
     if (variant) {
       const matchingColorVariant = updatedVariants.find(
@@ -147,7 +150,6 @@ const productNo = () => {
       }
     }
   }
-
   const newProductStructure = {
     ...product,
     variants: updatedVariants,
@@ -220,8 +222,23 @@ const productNo = () => {
     cursor: 'not-allowed',
     opacity: '0.65',
   };
+  const buttonStyleForAddToCart = {
+    backgroundColor: 'rgb(16 185 129/1)',
+    borderColor: 'rgb(179 48 61)',
+    color: '#ffffff',
+    padding: '0.375rem 0.75rem',
+    fontSize: '1rem',
+    minWidth: '214px ',
+    height: '38px',
+    borderRadius: '0.25rem'
+  };
   const handleQunatityIncrement = (id) => {
-    setQuantity(quantity + 1);
+    if (quantity < 5) {
+      setQuantity(quantity + 1);
+    }
+    else {
+      toast.error('You cannot add more items in cart')
+    }
   };
 
   const handleQunatityDecrement = (id) => {
@@ -241,6 +258,10 @@ const productNo = () => {
     currencyRate
   );
 
+  const { highestOldPrice, lowestOldPrice } = getProductOldPriceRange(
+    newProductStructure?.variants,
+    currencyRate
+  );
   return (
     <Layout title={`${product?.title ? product?.title : ''} Bangladesh Mart`}>
       <main className="mainnnnn" style={{ background: '#eff0f5' }}>
@@ -311,7 +332,6 @@ const productNo = () => {
                           alt=""
                         />
                       </div> */}
-                      {console.log(updatedVariants)}
                       {updatedVariants?.map((item, index) => (
                         <div
                           key={index}
@@ -328,10 +348,9 @@ const productNo = () => {
                               border: '1px solid #ddd',
                               cursor: 'pointer',
                             }}
-                            className={`img-fluid me-3 ${
-                              displayImage === item?.image &&
+                            className={`img-fluid me-3 ${displayImage === item?.image &&
                               'border border-2 border-primary'
-                            } `}
+                              } `}
                             src={item?.image}
                             alt=""
                           />
@@ -343,7 +362,7 @@ const productNo = () => {
               </div>
 
               <div className="col-lg-5 col-md-5 col-sm-12 product-details-information">
-                <h3 className="text-capitalize">Name: {product?.title}</h3>
+                <h3 className="text-capitalize">{product?.title}</h3>
                 <div className="d-flex justiy-content-center">
                   <div className="ratings">
                     <Rating
@@ -364,11 +383,12 @@ const productNo = () => {
                   <h4 className="my-2">
                     Price :{' '}
                     <span style={{ color: '#f85606' }}>
+
                       {!selectedSize?.price
-                        ? ` ${highestPrice} - ${lowestPrice} ${currency}  `
+                        ? `${(lowestPrice * currencyRate).toFixed(2)} ${currency} - ${(highestPrice * currencyRate).toFixed(2)} ${currency}  `
                         : `${(selectedSize?.price * currencyRate).toFixed(
-                            2
-                          )} ${currency}`}
+                          2
+                        )} ${currency}`}
                     </span>{' '}
                   </h4>
 
@@ -379,7 +399,15 @@ const productNo = () => {
                         {currency}
                       </del>
                     ) : (
-                      <span>Select a color & size</span>
+                      <>
+                        <del>
+                          {(lowestOldPrice * currencyRate).toFixed(2)} {currency}
+                        </del> 
+                        <span>{' - '}</span>
+                        <del>
+                          {(highestOldPrice * currencyRate).toFixed(2)} {currency}
+                        </del> 
+                      </>
                     )}{' '}
                     <span className="ms-2">
                       {' '}
@@ -387,6 +415,7 @@ const productNo = () => {
                     </span>
                   </div>
                 </div>
+
                 <div className="d-flex align-items-center gap-2 mt-2">
                   <h6 style={{ minWidth: '40px' }}>Color:</h6>
                   <div className="product-colors-nav mb-2">
@@ -397,20 +426,18 @@ const productNo = () => {
                             key={index}
                             onClick={() => {
                               setVariant(variantItem);
-                              setSelectedSize({});
                               setDisplayImage(variantItem?.image);
                             }}
                             style={{
                               backgroundColor: `rgba(${variantItem.color.r}, ${variantItem.color.g}, ${variantItem.color.b}, ${variantItem.color.a})`,
                             }}
-                            className={`${
-                              variant?.color.r === variantItem?.color?.r &&
+                            className={`${variant?.color.r === variantItem?.color?.r &&
                               variant?.color.g === variantItem?.color?.g &&
                               variant?.color.b === variantItem?.color?.b &&
                               variant?.color.a === variantItem?.color?.a
-                                ? 'active'
-                                : ''
-                            } `}
+                              ? 'active'
+                              : ''
+                              } `}
                           ></a>
                         )
                       )}
@@ -424,24 +451,24 @@ const productNo = () => {
                     style={{ minWidth: '156px', maxWidth: '156px' }}
                     required
                     onChange={(e) => {
-                      setSelectedSize(JSON.parse(e.target.value));
+                      setSelectedSize(JSON?.parse(e?.target?.value));
                     }}
-                    aria-label="Default select example"
+                    
                   >
                     <>
-                      <option value={JSON.stringify({})}>Select One</option>
+                      <option value={JSON.stringify({})}>-- Select One --</option>
                       {variant?.sizes ? (
-                        variant?.sizes?.map((item, i) => (
-                          <option
+                        variant?.sizes?.map((item, i) => {
+                          return <option
                             key={item?._id}
                             value={JSON.stringify(item)}
                             className="text-uppercase"
                           >
                             {item?.size}
                           </option>
-                        ))
+                        })
                       ) : (
-                        <option>None</option>
+                        <option value=''>None</option>
                       )}
                     </>
                   </Form.Select>
@@ -475,19 +502,23 @@ const productNo = () => {
                   </div>
                 </div>
                 <div className="mt-2 d-lg-block d-sm-none">
-                  <div id="cart-btn d-flex align-items-center justify-content-center ">
-                    {selectedSize?.stock >= 1 ? (
+                  <div className=" d-flex align-items-center justify-content-start ">
+
+                    {console.log({ selectedSize })}
+                    {Object.keys(selectedSize).length === 0 && (
                       <button
-                        type="submit"
-                        onClick={() => handleAddToCart(product)}
-                        style={{ minWidth: '214px ', height: '38px' }}
-                        className="cart-btn px-3 py-1"
+                        title="Add to cart"
+                        type="button"
+                        style={{ height: '38px' }}
+                        className="desktop-select-variant"
+                        onClick={() => toast.error('Please select color and size ')}
                       >
                         Add to Cart
                         <i className="far plus-ico fa-plus-square text-white"></i>
                       </button>
-                    ) : (
-                      <button
+                    )}
+                    {
+                      selectedSize?.stock < 1 && <button
                         title="Out of Stock"
                         type="button"
                         className="cart-btn px-3 py-1"
@@ -498,7 +529,17 @@ const productNo = () => {
                       >
                         Add To Cart
                       </button>
-                    )}
+                    }
+                    {selectedSize?.stock > 0 && <button
+                      type="submit"
+                      onClick={() => handleAddToCart(product)}
+                      style={{ minWidth: '214px ', height: '38px' }}
+                      className="cart-btn px-3 py-1"
+                    >
+                      Add to Cart
+                      <i className="far plus-ico fa-plus-square text-white"></i>
+                    </button>}
+
                     <button
                       onClick={() => productBuyNow(product)}
                       style={{ height: '38px' }}
@@ -542,7 +583,7 @@ const productNo = () => {
                     </button>
                   </div>
                 </div>
-                <ShareProduct></ShareProduct>
+                <ShareProduct productNo={productNo}></ShareProduct>
               </div>
               <div className="col-md-3 delevery-service-container">
                 <DeleveryAndService product={product}></DeleveryAndService>
@@ -565,7 +606,7 @@ const productNo = () => {
         )}
       </main>
       <Footer></Footer>
-    </Layout>
+    </Layout >
   );
 };
 

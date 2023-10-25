@@ -45,6 +45,8 @@ a {
   color: black;
 }
 
+
+
 .here {
   margin-top: 0px !important;
 }
@@ -638,20 +640,20 @@ form.example::after {
   }
 }
 
-@media (max-width: 925px) {
+
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
   .example input {
-    width: 450px !important;
+    width: 100% !important;
   }
 
-  .cart-icon {
-    margin-top: 13px;
-    margin-left: 40px;
-  }
+
 }
+
 
 @media (max-width: 850px) {
   .example input {
-    width: 320px !important;
+    width: 100% !important;
   }
 
   .cart-icon {
@@ -666,10 +668,7 @@ form.example::after {
 }
 
 @media (max-width: 721px) {
-  .example input {
-    width: 250px !important;
-    font-size: 15px !important;
-  }
+
 
   .cart-icon {
     margin-top: 13px;
@@ -679,7 +678,7 @@ form.example::after {
 
 @media (max-width: 640px) {
   .example input {
-    width: 250px !important;
+    width: 100% !important;
     font-size: 15px !important;
   }
 
@@ -1618,7 +1617,8 @@ Check Box
 .form-check {
   margin-bottom: 22px;
 }
-.order-lg-first{
+
+.order-lg-first {
   padding-top: 15px;
 }
 
@@ -2327,6 +2327,13 @@ a.slide_btn {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 20px;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .just-for-you-loading-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
 }
 
 @media only screen and (max-width: 576px) {

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { useSelector } from 'react-redux';
 
@@ -33,18 +33,41 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileSearchInput, setMobileSearchInput] = useState(null);
   const [desktopSearchInput, setDesktopSearchInput] = useState(null);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [inputFocused, setInputFocused] = useState(false);
   const { cart } = useSelector((state) => state?.cart);
+  const suggestionRef = useRef(null);
+  const inputRef = useRef(null);
+
+
   const { data, isLoading, isError, error, refetch } =
     useGetSearchProductQuery(searchText);
+  const searchProduct = data?.data;
 
   useEffect(() => {
-    refetch();
+    if (searchProduct?.length !== undefined) {
+      setShowSuggestions(true)
+    }
   }, [searchText]);
+
 
   let totalProductQuantity = 0;
 
   for (const item of cart) {
     totalProductQuantity += item.quantity;
+  }
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+  }
+
+  const handleInputChange = (event) => {
+    setSearchText(event.target.value)
+    if (searchText.length > 0) {
+      setInputFocused(true); // Set inputFocused to true if there are search results.
+    } else {
+      setInputFocused(false); // Reset inputFocused if there are no results.
+    }
   }
   useEffect(() => {
     setMobileSearchInput(document.getElementById('mobile-search-input'));
@@ -60,21 +83,7 @@ const Header = () => {
       desktopSearchInput.value = '';
     }
   };
-  // useEffect(() => {
-  //   window.addEventListener("scroll", function () {
-  //     let header = this.document.querySelector("#strip2");
-  //     let bar = this.document.querySelector("#nav_Bar");
-  //     let strip = this.document.querySelector("#strip");
-  //     let bod = document.querySelector("#accordion_body");
-  //     let stick = this.document.querySelector("#sec_bar");
 
-  //     bar?.classList.toggle("removeBar", window.scrollY > 0);
-  //     header?.classList.toggle("sticky", window.scrollY > 0);
-  //     stick?.classList.toggle("stic", window.scrollY > 0);
-  //     bod?.classList.toggle("main-bod", window.scrollY > 0);
-  //     strip?.classList.toggle("strip-2-mar", window.scrollY > 0);
-  //   });
-  // }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -90,8 +99,55 @@ const Header = () => {
     };
   }, []);
 
+
+
+  const isLoginPage = router.asPath === '/signin';
+  const isRegisterPage = router.asPath === '/signup';
+
+  useEffect(() => {
+    if (inputFocused === true) {
+      setShowSuggestions(true)
+    }
+  }, [inputFocused])
+
+  const handleClickOutside = (e) => {
+    if (suggestionRef.current && !suggestionRef.current.contains(e.target)) {
+
+      if (inputRef.current && inputRef.current.contains(e.target)) {
+        if (searchProduct?.length > 0) {
+          setShowSuggestions(true);
+        }
+      } else {
+        setShowSuggestions(false);
+      }
+    }
+  };
+
+  const handleNavigateHome = () => {
+    if (router.asPath !== '/') {
+      router.push('/')
+    }
+  }
+  const handleNavigateCart = () => {
+    if (router.asPath !== '/cart') {
+      router.push('/cart')
+    }
+  }
+
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+
+
+
   return (
-    <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
+    <header className={`header ${isScrolled ? 'scrolled' : ''}`} style={{ display: isLoginPage || isRegisterPage ? 'none' : 'block' }}>
       <ContactHeader user={user} />
 
       <div
@@ -101,26 +157,28 @@ const Header = () => {
         <div id="nav_Bar" className="navBar ">
           <div className="main-strip-2 d-sm-none d-lg-block">
             <div id="strip" className="strip-2">
-              <div className="logo ms-2">
-                <Link href="/">
-                  <Image
-                    className="flag-img"
-                    src="/images/logo2.jpg"
-                    alt="country"
-                    width={190}
-                    height={70}
-                  />
-                </Link>
+              <div onClick={handleNavigateHome} className="logo ms-2">
+                <Image
+                  style={{ cursor: 'pointer' }}
+                  className="flag-img "
+                  src="/images/logo2.jpg"
+                  alt="country"
+                  width={190}
+                  height={70}
+                />
               </div>
               <div className="search-box">
-                <form className="example">
+                <form onSubmit={handleSearchSubmit} className="example">
                   <input
                     id="desktop-search-input"
-                    onChange={(e) => setSearchText(e.target.value)}
+                    onChange={handleInputChange}
                     type="text"
                     placeholder={t.homePage.header.searchTitle}
                     name="search"
+                    ref={inputRef}
                     autoComplete="off"
+                    onFocus={() => setInputFocused(true)}
+                    onBlur={() => setInputFocused(false)}
                   />
                   <div
                     style={{ position: 'relative' }}
@@ -148,8 +206,8 @@ const Header = () => {
                   </button>
                 </form>
 
-                {data?.data?.length > 0 && (
-                  <form className="example">
+                {showSuggestions && searchText?.length > 0 && searchProduct?.length > 0 && (
+                  <form ref={suggestionRef} className="example">
                     <div
                       style={{
                         display: 'block',
@@ -160,7 +218,13 @@ const Header = () => {
                     >
                       <div className="search-details">
                         <div>
-                          {data?.data?.map((product, i) => {
+                          {searchProduct?.length > 0 && searchProduct?.map((product, i) => {
+                            const lowestPrice = Math.min(
+                              ...product.variants.map((variant) => variant.price)
+                            );
+                            const highestPrice = Math.max(
+                              ...product.variants.map((variant) => variant.price)
+                            );
                             return (
                               <div
                                 onClick={() =>
@@ -179,26 +243,33 @@ const Header = () => {
                                 <div className="ms-3">
                                   <div className="name">{product?.title}</div>
                                   <div className="price">
-                                    <span
+                                    {lowestPrice !== highestPrice && <span
                                       style={{ fontWeight: '600' }}
                                       className="text-danger"
                                     >
-                                      {(product?.price * currencyRate).toFixed(
+                                      {(lowestPrice * currencyRate).toFixed(
+                                        2
+                                      )} {currency}{' '}{'-'}{' '}{(highestPrice * currencyRate).toFixed(
                                         2
                                       )}{' '}
                                       <span> {currency}</span>
-                                    </span>
+                                    </span>}
+                                    {lowestPrice === highestPrice && <span
+                                      style={{ fontWeight: '600' }}
+                                      className="text-danger"
+                                    >
+                                      {(lowestPrice * currencyRate).toFixed(
+                                        2
+                                      )}
+                                      <span> {currency}</span>
+                                    </span>}
                                   </div>
                                 </div>
                               </div>
                             );
                           })}
                         </div>
-                        <div className="d-flex justify-content-center my-3">
-                          <span className="btn btn-info text-center ">
-                            See All Results
-                          </span>
-                        </div>
+
                       </div>
                     </div>
                   </form>
@@ -212,28 +283,27 @@ const Header = () => {
                   {!user?.email && seller?.email && <SellerNavMenu></SellerNavMenu>}
                 </div>
                 <div className="cart-icon ms-4">
-                  <Tooltip title="Cart">
-                    <Link href="/cart">
-                      <Badge badgeContent={totalProductQuantity ? totalProductQuantity : '0'} color="error">
-                        <Image
-                          className="flag-img"
-                          src="/images/cart.png"
-                          alt="country"
-                          width={45}
-                          height={40}
-                          loading="eager"
-                        />
-                      </Badge>
-                    </Link>
+                  <Tooltip onClick={handleNavigateCart} title="Cart">
+                    <Badge badgeContent={totalProductQuantity ? totalProductQuantity : '0'} color="error">
+                      <Image
+                        style={{ cursor: 'pointer' }}
+                        className="flag-img"
+                        src="/images/cart.png"
+                        alt="country"
+                        width={45}
+                        height={40}
+                        loading="eager"
+                      />
+                    </Badge>
                   </Tooltip>
                 </div>
-                
+
               </div>
             </div>
           </div>
 
           {/* for mobile */}
-          <div className="main-strip-2 d-sm-block d-lg-none">
+          <div className="main-strip-2 d-sm-block d-lg-none" >
             <div className="">
               <form className="example col-12 p-2">
                 <input
@@ -288,7 +358,7 @@ const Header = () => {
                   >
                     <div className="search-details">
                       <div>
-                        {data?.data?.map((product, i) => {
+                        {searchProduct?.map((product, i) => {
                           return (
                             <div
                               onClick={() =>

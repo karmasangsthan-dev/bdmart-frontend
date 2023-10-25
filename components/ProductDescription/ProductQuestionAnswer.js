@@ -82,7 +82,7 @@ const ProductQuestionAnswer = ({ product }) => {
             </div>
 
             {user?.email &&
-              product?.questionsAndAnswers.filter(
+              product?.questionsAndAnswers?.filter(
                 (qus) => qus.qusBy.email === user.email
               ).length > 0 && (
                 <div>
@@ -135,14 +135,15 @@ const ProductQuestionAnswer = ({ product }) => {
             );
           })}
       </div>
-      <div className="questions-pagination ">
+      {product?.questionsAndAnswers?.length > 0 && <div className="questions-pagination ">
         <Pagination
-          count={10}
+          count={product?.questionsAndAnswers?.length || 5 / 5}
           variant="outlined"
           color="primary"
           shape="rounded"
         />
-      </div>
+      </div>}
+
     </div>
   );
 };
