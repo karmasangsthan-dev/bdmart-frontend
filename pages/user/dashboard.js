@@ -6,7 +6,8 @@ import DashboardLanding from '../../components/User/DashboardLanding/DashboardLa
 import { useSelector } from 'react-redux';
 import Loading from '../../components/Shared/Loading/Loading';
 import { useRouter } from 'next/router';
-const dashboard = () => {
+import axios from 'axios';
+const dashboard = ({orders}) => {
     const { user, isLoading } = useSelector((state) => state?.auth);
     const router = useRouter();
     console.log(user);
@@ -17,10 +18,11 @@ const dashboard = () => {
             </Layout>
         )
     }
+    console.log({orders});
     if (!user?.email) {
         return (
             <Layout>
-                <div className="text-center w-full d-flex justify-content-center  align-items-center mt-5 gap-3" style={{flexDirection:'column'}}>
+                <div className="text-center w-full d-flex justify-content-center  align-items-center mt-5 gap-3" style={{ flexDirection: 'column' }}>
                     <p>You haven't logged in. Please login before access dashboard</p>
                     <button onClick={() => router.push({
                         pathname: "/signin",
@@ -37,7 +39,7 @@ const dashboard = () => {
                 <div className="dashboard-container-content">
 
                     <SideBar></SideBar>
-                    <DashboardLanding></DashboardLanding>
+                    <DashboardLanding orders={orders}></DashboardLanding>
                 </div>
             </div>
         </div>
@@ -45,5 +47,29 @@ const dashboard = () => {
 
     </Layout>
 };
+
+
+
+export async function getServerSideProps(context) {
+
+    try {
+        const url = `${process.env.NEXT_PUBLIC_BACKEND_SITE_LINK}/api/v1/order/order/email/web.altaf.3@gmail.com`
+        const response = await axios.get(url);
+        const ordersData = response.data;
+        console.log({ url });
+        return {
+            props: {
+                orders: ordersData,
+            },
+        };
+    } catch (error) {
+        return {
+            props: {
+                orders: { error: 'API Request Error' },
+            },
+        };
+    }
+}
+
 
 export default dashboard;

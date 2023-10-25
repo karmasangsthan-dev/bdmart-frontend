@@ -68,7 +68,7 @@ const ProductDescription = ({ product }) => {
                         </ul>
                     </div>
                     <div className='mt-3'>
-                        <p className='what-in-box'><span style={{ fontWeight: 'bold' }}>What’s in the box:</span> <span className='ms-5'>{product?.whatInTheBox ? whatInTheBox : 'BUY 1 GET 1, Square LED Digital Sports Watch , Water Resistance LED Wrist Watch, COMBO OFFER'}</span></p>
+                        <p className='what-in-box'><span style={{ fontWeight: 'bold' }}>What’s in the box:</span> <span className='ms-5'>{product?.whatInTheBox ? product?.whatInTheBox : 'BUY 1 GET 1, Square LED Digital Sports Watch , Water Resistance LED Wrist Watch, COMBO OFFER'}</span></p>
                     </div>
                 </div>
             </div>
