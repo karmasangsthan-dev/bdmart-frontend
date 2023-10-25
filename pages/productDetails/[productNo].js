@@ -490,11 +490,13 @@ const productNo = () => {
                       <button
                         title="Out of Stock"
                         type="button"
-                        className="btn"
+                        className="cart-btn px-3 py-1"
                         style={buttonStyle}
-                        disabled
+                        onClick={() =>
+                          toast.error('Please Select a color and size')
+                        }
                       >
-                        Out of Stock
+                        Add To Cart
                       </button>
                     )}
                     <button
@@ -524,9 +526,11 @@ const productNo = () => {
                         type="button"
                         className="btn"
                         style={buttonStyle}
-                        disabled
+                        onClick={() =>
+                          toast.error('Please Select a color and size')
+                        }
                       >
-                        Out of Stock
+                        Add To Cart
                       </button>
                     )}
                     <button

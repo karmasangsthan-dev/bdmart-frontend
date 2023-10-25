@@ -1,5 +1,5 @@
 export const getProductPriceRangeDetails = (variants, currencyRate) => {
-  console.log(variants);
+  console.log({ currencyRate });
   let highestPrice = variants[0]?.sizes[0]?.price
     ? variants[0]?.sizes[0]?.price
     : 0;
@@ -10,15 +10,16 @@ export const getProductPriceRangeDetails = (variants, currencyRate) => {
   variants.forEach((variant) => {
     variant.sizes.forEach((size) => {
       const sizePrice = size.price * currencyRate;
+      console.log(typeof sizePrice);
       if (sizePrice > highestPrice) {
-        highestPrice = sizePrice.toFixed(2);
+        highestPrice = Number(sizePrice * currencyRate);
       }
       if (sizePrice < lowestPrice) {
-        lowestPrice = sizePrice.toFixed(2);
+        lowestPrice = Number(sizePrice * currencyRate);
       }
     });
   });
-
+  console.log({ highestPrice, lowestPrice });
   return { highestPrice, lowestPrice };
 };
 export const getProductPriceRangeForCard = (variants, currencyRate) => {
