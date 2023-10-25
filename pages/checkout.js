@@ -41,8 +41,8 @@ const checkout = () => {
       quantity,
       title: product?.title,
       thumbnail: product?.thumbnail,
-      price,
-      oldPrice,
+      price: Number(price * currencyRate).toFixed(2),
+      oldPrice: Number(oldPrice * currencyRate).toFixed(2),
       color,
       image,
       size,
@@ -100,6 +100,7 @@ const checkout = () => {
     paymentMethod: formData?.selectedPaymentMethod,
     currency,
     currencyRate,
+    shippingCost: 20.00,
   };
 
   const handleOrderOnlinePay = async () => {
@@ -118,6 +119,7 @@ const checkout = () => {
       window.location.href = responseData?.url
     }
     else {
+      console.log({ orderData });
       toast.error('Please select BDT currency for payment. Others currency under development.')
     }
   }
