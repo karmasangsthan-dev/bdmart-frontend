@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /user/dashboard/
+Disallow: /invoice/
+Disallow: /user/my-orders/
