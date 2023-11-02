@@ -26,7 +26,6 @@ export default function CartProductRow({ product }) {
   if (currencyRate) {
     productPrice = (product?.price * currencyRate).toFixed(2);
   }
-  console.log({product});
 
   return (
     <>
