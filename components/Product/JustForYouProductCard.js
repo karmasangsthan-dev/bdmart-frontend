@@ -122,7 +122,7 @@ export default function JustForYouProductCard({ product }) {
               onClick={() => productAddToCart(product)}
             >
               Add to Cart
-              <i class="fa-solid plus-ico fa-cart-shopping text-white"></i>
+              <i className="fa-solid plus-ico fa-cart-shopping text-white"></i>
             </button>
           )}
         </div>

@@ -23,14 +23,11 @@ const checkout = () => {
   );
 
   const total = useCartProductsTotal(cartProducts);
-  const handleCouponSubmit = (event) => {
-    event.preventDefault();
-    const name = event.target.coupon.value;
-    toast.error(`Your coupon was invalid`);
 
-  };
-  const totalPriceForOnlinePay = ((Number(total * currencyRate)) + 20.00).toFixed(2);
-  console.log({ totalPriceForOnlinePay });
+
+
+  const orderTotalPriceForCheckout = ((Number(total * currencyRate)) + 20.00).toFixed(2);
+
 
   const productsWithQuantity = cartProducts?.map((product) => {
     const quantityObj = cart.find((item) => item.id === product._id);
@@ -53,18 +50,7 @@ const checkout = () => {
     };
   });
 
-  useEffect(() => {
-    if (isLoading) {
-      toast.loading("Loading...", { id: "createOrder" });
-    }
 
-    if (isSuccess) {
-      toast.success("Successfully created Order...!!", { id: "createOrder" });
-      dispatch(clearCart());
-      localStorage.removeItem("cartProducts");
-      router.push("/user/my-orders");
-    }
-  }, [isLoading, isSuccess, isError]);
 
   const [formData, setFormData] = useState({
     firstName: 'altaf',
@@ -101,12 +87,13 @@ const checkout = () => {
     currency,
     currencyRate,
     shippingCost: 20.00,
+    totalPrice: orderTotalPriceForCheckout
   };
 
   const handleOrderOnlinePay = async () => {
 
     if (currency === 'BDT') {
-      const data = { price: totalPriceForOnlinePay, currency, currencyRate, orderData };
+      const data = { price: orderTotalPriceForCheckout, currency, currencyRate, orderData };
       const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_SITE_LINK}/api/v1/payment/initiate-payment`, {
         method: 'POST',
         headers: {
@@ -122,6 +109,41 @@ const checkout = () => {
       console.log({ orderData });
       toast.error('Please select BDT currency for payment. Others currency under development.')
     }
+  }
+  const handleOrderCOD = async () => {
+    const url = `${process.env.NEXT_PUBLIC_BACKEND_SITE_LINK}/api/v1/order/order`
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(orderData),
+    });
+
+    if (response.status === 200) {
+      toast.success("Successfully created Order...!!", { id: "createOrder" });
+      dispatch(clearCart());
+      localStorage.removeItem("cartProducts");
+      router.push("/user/my-orders");
+    } else {
+
+      throw new Error(response.statusText);
+    }
+  }
+
+  // handle coupon 
+  const handleCouponSubmit = (event) => {
+    event.preventDefault();
+
+    const name = event.target.coupon.value;
+    checkCouponIsValid(name)
+  };
+
+  const checkCouponIsValid = async (code) => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_SITE_LINK}/api/v1/coupon/${code}`, {
+      method: 'GET',
+    });
+    console.log({response});
   }
 
   return (
@@ -386,8 +408,7 @@ const checkout = () => {
                     </div>
                     <div className="personal-input">
                       {formData.selectedPaymentMethod === "cashOnDelevery" && <button
-                        type="submit"
-                        disabled=""
+                        onClick={handleOrderCOD}
                         className="confirm-order-button d-flex align-items-center gap-2"
                       >
                         Confirm Order

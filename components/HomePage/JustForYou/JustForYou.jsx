@@ -27,7 +27,6 @@ const JustForYou = ({ t }) => {
       setProducts((prev) => [...prev, ...data.data]);
     }
   }, [data?.data]);
-  console.log({ isLoading });
   return (
     <section>
       <div className="mb-5">

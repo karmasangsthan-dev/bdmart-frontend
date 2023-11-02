@@ -27,10 +27,10 @@ export default function GoogleLogin() {
       const providerId = 'firebase';
       const profilePicture = user?.user?.photoURL;
       socialLogin({ email, fullName, providerId, profilePicture });
-
       dispatch(googleLogin({ email, fullName, providerId, profilePicture }));
       toast.success('Login successfully...!!')
       router.push(redirect || '/');
+      
     }
   }, [user]);
   useEffect(() => {
