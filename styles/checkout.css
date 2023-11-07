@@ -9,7 +9,7 @@
 .checkout-full-content {
     display: flex;
     max-width: 1280px;
-    padding-top: 3rem;
+    padding-top: 2rem;
     padding-bottom: 3rem;
     width: 100%;
 }
@@ -260,7 +260,6 @@
     display: flex;
     align-items: center;
     width: 100%;
-    margin-top: 1rem;
 }
 
 .coupon-content {
@@ -421,7 +420,11 @@
     text-overflow: ellipsis;
     text-decoration: inherit;
 }
-
+.coupon-status p{
+    font-size: 12px;
+    margin-top: 0.5rem;
+    color: rgb(25, 135, 84);
+}
 .checkout-product-price {
     color: rgb(156 163 175/1);
     font-size: .75rem;
