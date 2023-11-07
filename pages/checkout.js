@@ -22,12 +22,13 @@ const checkout = () => {
     (state) => state.currency
   );
 
+  const [couponData, setCouponData] = useState(null);
+
   const total = useCartProductsTotal(cartProducts);
 
 
 
-  const orderTotalPriceForCheckout = ((Number(total * currencyRate)) + 20.00).toFixed(2);
-
+  const orderTotalPriceForCheckout = ((Number(total * currencyRate))).toFixed(2) - (couponData?.discountAmount ? couponData?.discountAmount : 0);
 
   const productsWithQuantity = cartProducts?.map((product) => {
     const quantityObj = cart.find((item) => item.id === product._id);
@@ -87,7 +88,8 @@ const checkout = () => {
     currency,
     currencyRate,
     shippingCost: 20.00,
-    totalPrice: orderTotalPriceForCheckout
+    totalPrice: orderTotalPriceForCheckout,
+    coupon : couponData,
   };
 
   const handleOrderOnlinePay = async () => {
@@ -132,18 +134,47 @@ const checkout = () => {
   }
 
   // handle coupon 
-  const handleCouponSubmit = (event) => {
+  const handleCouponSubmit = async (event) => {
     event.preventDefault();
 
-    const name = event.target.coupon.value;
-    checkCouponIsValid(name)
+    const code = event.target.coupon.value;
+    const data = await couponValid(code);
+    if (data) {
+      const { code, discountType, discountValue } = data;
+      if (discountType === 'percentage') {
+        const discountAmount = calculateDiscountAmount((total * currencyRate).toFixed(2), discountValue)
+        const newCouponData = { code, discountType, discountAmount, discountValue, couponStatus: `Congratulations !! You have got ${discountValue}% discount` }
+        setCouponData(newCouponData);
+
+        toast.success('Congratulations !! You have got 20% discount')
+      }
+      console.log(discountType);
+    }
+    if (!data) {
+
+    }
+
+
   };
 
-  const checkCouponIsValid = async (code) => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_SITE_LINK}/api/v1/coupon/${code}`, {
-      method: 'GET',
-    });
-    console.log({response});
+  const calculateDiscountAmount = (originalPrice, discountPercentage) => {
+    const discountAmount = parseInt(discountPercentage * parseInt(originalPrice) / 100);
+    return discountAmount;
+  }
+
+
+  const couponValid = async (code) => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_SITE_LINK}/api/v1/coupon/${code}`);
+    const data = await response.json();
+
+    if (data?.data) {
+      return data?.data;
+    }
+    if (!data?.data) {
+      setCouponData({})
+      toast.error('Coupon not exist')
+    }
+
   }
 
   return (
@@ -490,6 +521,7 @@ const checkout = () => {
 
                 <div className="coupon-container">
                   <form onSubmit={handleCouponSubmit} className="w-100">
+
                     <div className="coupon-content">
                       <input
                         name="coupon"
@@ -500,6 +532,9 @@ const checkout = () => {
                       <button className="">
                         Apply
                       </button>
+                    </div>
+                    <div className="coupon-status">
+                      {couponData?.couponStatus && <p>{couponData?.couponStatus}</p>}
                     </div>
                   </form>
                 </div>
@@ -519,7 +554,7 @@ const checkout = () => {
                 <div className="checkout-subtotal-discount">
                   Discount
                   <span className="">
-                    $0.00
+                    {couponData?.discountAmount ? couponData?.discountAmount.toFixed(2) : "0.00"} {currency}
                   </span>
                 </div>
                 <div className=" mt-4" style={{ borderTopWidth: '1px', borderColor: "#e5e7eb", borderTopStyle: 'solid' }}>
@@ -528,8 +563,9 @@ const checkout = () => {
                     lineHeight: "1.25rem"
                   }} className="d-flex align-items-center font-serif justify-content-between pt-4 text-sm uppercase">
                     TOTAL COST
-                    <span className="font-serif font-extrabold text-lg">{((Number(total * currencyRate)) + 20.00).toFixed(2)} {currency}</span>
+                    <span className="font-serif font-extrabold text-lg">{orderTotalPriceForCheckout} {currency}</span>
                   </div>
+                  {console.log((couponData?.discountAmount ? couponData?.discountAmount : Number(0)))}
                 </div>
               </div>
 
