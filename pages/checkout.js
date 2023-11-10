@@ -54,14 +54,14 @@ const checkout = () => {
 
 
   const [formData, setFormData] = useState({
-    firstName: 'altaf',
-    lastName: 'hossen',
-    email: 'a@b.com',
-    phone: '04152454',
-    address: 'maluher',
-    city: 'barishal',
-    country: 'bangladesh',
-    postcode: '8530',
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    address: '',
+    city: '',
+    country: '',
+    postcode: '',
     shippingMethod: 'FedEx',
     selectedPaymentMethod: 'cashOnDelevery',
   });

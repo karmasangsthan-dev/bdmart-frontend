@@ -1,0 +1,33 @@
+.about-page-thumbnail {
+    min-height: calc(100vh - 146px);
+    background: url('/images/about/about2.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: flex-end;
+    user-select: none;
+}
+
+.about-page-thumbnail .preview-content {
+    color: white;
+    text-align: center;
+    width: 100vw;
+    margin-bottom: 70px;
+}
+.preview-content h1{
+    font-size: 45px;
+}
+.details-content{
+    padding: 30px 20px;
+}
+.about-us .our-story, .our-mission, .maps{
+    padding: 30px;
+}
+.our-story, .our-mission, .maps h2{
+    text-align: center;
+    margin-bottom: 20px;
+}
+.our-story, .our-mission, .maps p{
+    text-align: center;
+    
+}
