@@ -24,6 +24,7 @@ const checkout = () => {
 
   const [couponData, setCouponData] = useState(null);
 
+
   const total = useCartProductsTotal(cartProducts);
 
 
@@ -89,7 +90,7 @@ const checkout = () => {
     currencyRate,
     shippingCost: 20.00,
     totalPrice: orderTotalPriceForCheckout,
-    coupon : couponData,
+    coupon: couponData,
   };
 
   const handleOrderOnlinePay = async () => {
@@ -139,7 +140,8 @@ const checkout = () => {
 
     const code = event.target.coupon.value;
     const data = await couponValid(code);
-    if (data) {
+
+    if (data?.currency === currency) {
       const { code, discountType, discountValue } = data;
       if (discountType === 'percentage') {
         const discountAmount = calculateDiscountAmount((total * currencyRate).toFixed(2), discountValue)
@@ -150,12 +152,14 @@ const checkout = () => {
       }
       console.log(discountType);
     }
-    if (!data) {
-
+    else {
+      toast.error('Invalid coupon')
     }
-
-
   };
+
+  useEffect(() => {
+    setCouponData({})
+  }, [currency])
 
   const calculateDiscountAmount = (originalPrice, discountPercentage) => {
     const discountAmount = parseInt(discountPercentage * parseInt(originalPrice) / 100);

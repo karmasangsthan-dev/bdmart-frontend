@@ -1,10 +1,11 @@
 import Image from 'next/image';
-import React from 'react';
-import Map from './Maps';
-import LeafletMap from './Maps';
+import React, { useEffect, useState } from 'react';
 import Maps from './Maps';
 
+
 const AboutPage = () => {
+    
+
     return (
         <div className='about-us'>
             <div className='about-page-thumbnail'>
@@ -20,7 +21,7 @@ const AboutPage = () => {
                 </div>
                 <div className="our-mission">
                     <h2>Our Mission</h2>
-                    <p>As part of the Alibaba Group, our mission is to make it easy to do business anywhere. </p>
+                    <p>As part of the Bangladesh Mart Group, our mission is to make it easy to do business anywhere. </p>
 
                     <p>We do this by giving suppliers the tools necessary to reach a global audience for their products, and by helping buyers find products and suppliers quickly and efficiently.</p>
                 </div>
@@ -28,6 +29,7 @@ const AboutPage = () => {
                     <h2>Our Location</h2>
                     <Maps></Maps>
                 </div>
+                
             </div>
 
         </div>
