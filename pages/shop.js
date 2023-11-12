@@ -66,7 +66,7 @@ const shop = () => {
                 t={t}
               />
             </aside>
-            <div style={{ paddingLeft: '20px',paddingTop:'15px' }} className="col-lg-10 pl-lg-5">
+            <div style={{ paddingLeft: '20px', paddingTop: '15px' }} className="col-lg-10 pl-lg-5">
               <div className="">
                 <div className="widget w-100 pb-3 d-flex justify-content-between align-items-center">
                   <p className="fs-6 d-sm-none d-lg-block">
@@ -166,6 +166,7 @@ const shop = () => {
                     </div>
                   ) : (
                     <div className="shop-products">
+
                       {products?.data?.map((product, index) => (
                         <ShopProduct
                           product={product}
@@ -177,7 +178,14 @@ const shop = () => {
                   )}
                 </div>
               </div>
-              {!loading && (
+              {
+                products?.data?.length < 1 &&
+                <div className='d-flex align-items-center justify-content-center'>
+                  <img width="40" height="40" src="https://img.icons8.com/color/48/nothing-found.png" alt="noting"/>
+                  <p>Sorry !! There have no product.</p>
+                </div>
+              }
+              {!loading && products?.data?.length > 0 && (
                 <div className=" shop-pagination">
                   <ShopPagination
                     setSort={setSort}
