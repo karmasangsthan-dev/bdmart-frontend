@@ -8,12 +8,12 @@ const PaymentSuccess = ({ TxID }) => {
         router.push(`/`)
     }
     const handleShowInvoice = () => {
-        router.push(`/`)
+        router.push(`/user/my-orders`)
     }
 
 
     return (
-        <>
+        <div className='payment-success-container'>
             <div className="payment-content">
                 <img
                     src="https://cdn-icons-png.flaticon.com/512/148/148767.png"
@@ -27,10 +27,10 @@ const PaymentSuccess = ({ TxID }) => {
                     <h6>Transaction Id: {TxID}</h6>
                 </div>
                 <div>
-                    <button onClick={handleShowInvoice}>Show Order Details</button>
+                    <button onClick={handleShowInvoice}>See Order Details</button>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 

@@ -1,10 +1,13 @@
 import React from 'react';
 import Layout from '../components/Layout';
+import AboutPage from '../components/AboutPage/AboutPage';
+import Footer from '../components/Shared/Footer/Footer';
 
 const aboutUs = () => {
     return (
         <Layout>
-            <p>This is about page in bangladesh mart</p>
+            <AboutPage></AboutPage>
+            <Footer></Footer>
         </Layout>
     );
 };

@@ -13,16 +13,8 @@ const RequreAuth = (WrappedComponent) => {
     if (!user?.email) {
       return (
         <Layout>
-          <div className="text-center w-full d-flex justify-content-center  align-items-center ">
-            {/* <p style={{ cursor: 'pointer' }}
-              onClick={() => router.push({
-                pathname: "/signin",
-                query: { redirect: router.asPath },
-              })}
-              className=" border-0 bg-warning d-inline-block px-3 py-2 rounded"
-            >
-              Please Login
-            </p> */}
+          <div className="text-center w-full d-flex justify-content-center  align-items-center mt-5 gap-3" style={{ flexDirection: 'column' }}>
+            <p>You haven't logged in. Please login at first.</p>
             <button onClick={() => router.push({
               pathname: "/signin",
               query: { redirect: router.asPath },
