@@ -26,9 +26,7 @@ export default function GoogleLogin() {
       const fullName = user?.user?.displayName;
       const providerId = "firebase";
       const profilePicture = user?.user?.photoURL;
-      // socialLogin({ email, fullName, providerId, profilePicture });
-      console.log({ come: true });
-
+      socialLogin({ email, fullName, providerId, profilePicture });
       dispatch(googleLogin({ email, fullName, providerId, profilePicture }));
       toast.success("Login successfully...!!");
       router.push(redirect || "/");
