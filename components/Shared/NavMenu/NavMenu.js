@@ -20,6 +20,7 @@ import { en } from "../../../locales/en";
 import { bn } from "../../../locales/bn";
 const NavMenu = () => {
   const router = useRouter();
+
   const [signOut, loading, error] = useSignOut(auth);
   // const [userSocial, loading2, error2] = useAuthState(auth);
   const dispatch = useDispatch();
@@ -32,8 +33,8 @@ const NavMenu = () => {
   const handleClick = (event) => {
     const route = router.pathname;
 
-    if (!route.includes('/user')) {
-      router.push('/user/dashboard');
+    if (!route.includes("/user")) {
+      router.push(`/user/dashboard/${user?.email}`);
     }
   };
 
@@ -50,7 +51,7 @@ const NavMenu = () => {
           dispatch(logOut());
           toast.success("Logout successful", { id: "logout" });
         });
-      } catch (error) { }
+      } catch (error) {}
     }
   };
   const handleClose = () => {
@@ -90,7 +91,6 @@ const NavMenu = () => {
             </IconButton>
           </Tooltip>
         </Box>
-
       </>
     </div>
   );

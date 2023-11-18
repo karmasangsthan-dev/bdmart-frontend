@@ -73,7 +73,6 @@ export default function ContactHeader({ user }) {
           <div className="content-hd">
             <span className="wrapper-hd">
               <svg
-
                 stroke="currentColor"
                 fill="none"
                 strokeWidth={2}
@@ -93,46 +92,63 @@ export default function ContactHeader({ user }) {
               </a>
             </span>
             <div className="contact-right-part">
-              <a className="font-medium hover:text-emerald-600" href="/about-us">
+              <a
+                className="font-medium hover:text-emerald-600"
+                href="/about-us"
+              >
                 {" "}
                 About Us
               </a>
               <span className="mx-2">|</span>
-              <Link className="font-medium hover:text-emerald-600" href="/contact">
+              <Link
+                className="font-medium hover:text-emerald-600"
+                href="/contact"
+              >
                 {" "}
                 Contact Us
               </Link>
               <span className="mx-2">|</span>
-              <button onClick={() => router.push('/user/dashboard')} className="font-medium hover:text-emerald-600">
+              <button
+                onClick={() => router.push(`/user/dashboard/${user?.email}`)}
+                className="font-medium hover:text-emerald-600"
+              >
                 My account
               </button>
               <span className="mx-2">|</span>
 
-              {user?.email === undefined && seller?.email === undefined ? <>
-                
-                <button onClick={() => router.push({
-                  pathname: "/signin",
-                  query: { redirect: router.asPath },
-                })} className="d-flex align-items-center ">
-                  <span className="me-1 d-flex align-items-center">
-                    <svg
-                      stroke="currentColor"
-                      fill="none"
-                      strokeWidth={2}
-                      viewBox="0 0 24 24"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      height="1em"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                      <circle cx={12} cy={7} r={4} />
-                    </svg>
-                  </span>
-                  Login
-                </button>
-              </> : <></>}
+              {user?.email === undefined && seller?.email === undefined ? (
+                <>
+                  <button
+                    onClick={() =>
+                      router.push({
+                        pathname: "/signin",
+                        query: { redirect: router.asPath },
+                      })
+                    }
+                    className="d-flex align-items-center "
+                  >
+                    <span className="me-1 d-flex align-items-center">
+                      <svg
+                        stroke="currentColor"
+                        fill="none"
+                        strokeWidth={2}
+                        viewBox="0 0 24 24"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        height="1em"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                        <circle cx={12} cy={7} r={4} />
+                      </svg>
+                    </span>
+                    Login
+                  </button>
+                </>
+              ) : (
+                <></>
+              )}
               {/* {!seller?.email ? <button onClick={() => router.push({
                 pathname: "/signin",
                 query: { redirect: router.asPath },
@@ -156,18 +172,24 @@ export default function ContactHeader({ user }) {
                 Login S
               </button> : <></>} */}
 
+              {!seller?.email && user?.email ? (
+                <ContactHeaderLogOut></ContactHeaderLogOut>
+              ) : (
+                <></>
+              )}
 
-              {!seller?.email && user?.email ? <ContactHeaderLogOut></ContactHeaderLogOut> : <></>}
-
-              {seller?.email && !user?.email ? <>
-                <span className="mx-2">|</span>
-                <ContactHeaderSellerLogOut></ContactHeaderSellerLogOut>
-              </> : <></>}
+              {seller?.email && !user?.email ? (
+                <>
+                  <span className="mx-2">|</span>
+                  <ContactHeaderSellerLogOut></ContactHeaderSellerLogOut>
+                </>
+              ) : (
+                <></>
+              )}
             </div>
           </div>
         </div>
       </div>
-
     </>
   );
 }

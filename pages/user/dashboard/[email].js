@@ -1,17 +1,20 @@
-import React from "react";
-import Layout from "../../components/Layout";
-import SideBar from "../../components/User/SideBar/SideBar";
-import RequireAuth from "../../components/Shared/RequireAuth/RequireAuth";
-import DashboardLanding from "../../components/User/DashboardLanding/DashboardLanding";
+import React, { useEffect } from "react";
+import Layout from "../../../components/Layout";
+import SideBar from "../../../components/User/SideBar/SideBar";
+import RequireAuth from "../../../components/Shared/RequireAuth/RequireAuth";
+import DashboardLanding from "../../../components/User/DashboardLanding/DashboardLanding";
 import { useSelector } from "react-redux";
-import Loading from "../../components/Shared/Loading/Loading";
+import Loading from "../../../components/Shared/Loading/Loading";
 import { useRouter } from "next/router";
 import axios from "axios";
 const dashboard = ({ orders }) => {
   const { user, isLoading } = useSelector((state) => state?.auth);
-
   const router = useRouter();
-  console.log(user);
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    // router.query.token = token;
+  }, [user]);
   if (isLoading) {
     return (
       <Layout>
@@ -59,10 +62,11 @@ const dashboard = ({ orders }) => {
 };
 
 export async function getServerSideProps(context) {
-  const email = context;
-  console.log({ email });
   try {
-    const url = `${process.env.NEXT_PUBLIC_BACKEND_SITE_LINK}/api/v1/order/order/email/web.altaf.3@gmail.com`;
+    const email = context?.query?.email;
+    const token = context?.query?.token;
+    console.log(context);
+    const url = `${process.env.NEXT_PUBLIC_BACKEND_SITE_LINK}/api/v1/order/order/email/${email}`;
     const response = await axios.get(url);
     const ordersData = response.data;
     console.log({ url });
