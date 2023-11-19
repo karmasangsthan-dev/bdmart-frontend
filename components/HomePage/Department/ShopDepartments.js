@@ -218,9 +218,8 @@ const ShopDepartments = ({ t }) => {
       <div className=" justify-content-center px-2 ">
         <div className="all-shop-department">
           {data?.data?.map((gal, index) => (
-            <div key={index} className="">
+            <div onClick={() => router.push(`/shop?category=${gal?.category}`)} key={index} className="">
               <div
-                onClick={() => router.push(`/shop?category=${gal?.category}`)}
                 className="gallery-img d-flex justify-content-center"
               >
                 {/* <Image
