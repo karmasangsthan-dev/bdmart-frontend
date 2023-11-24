@@ -402,11 +402,11 @@ const productNo = () => {
                       <>
                         <del>
                           {(lowestOldPrice * currencyRate).toFixed(2)} {currency}
-                        </del> 
+                        </del>
                         <span>{' - '}</span>
                         <del>
                           {(highestOldPrice * currencyRate).toFixed(2)} {currency}
-                        </del> 
+                        </del>
                       </>
                     )}{' '}
                     <span className="ms-2">
@@ -453,7 +453,7 @@ const productNo = () => {
                     onChange={(e) => {
                       setSelectedSize(JSON?.parse(e?.target?.value));
                     }}
-                    
+
                   >
                     <>
                       <option value={JSON.stringify({})}>-- Select One --</option>
@@ -504,7 +504,6 @@ const productNo = () => {
                 <div className="mt-2 d-lg-block d-sm-none">
                   <div className=" d-flex align-items-center justify-content-start ">
 
-                    {console.log({ selectedSize })}
                     {Object.keys(selectedSize).length === 0 && (
                       <button
                         title="Add to cart"
@@ -551,16 +550,20 @@ const productNo = () => {
                 {/* mobile add to cart button  */}
                 <div className="mt-2 d-lg-none d-sm-block">
                   <div className="cart-btn-mobile ">
-                    {product?.stock >= 1 ? (
+                    {Object.keys(selectedSize).length === 0 && (
                       <button
-                        onClick={() => handleAddToCart(product)}
-                        className="mobile-add-to-cart-button"
+                        title="Add to cart"
+                        type="button"
+                        style={{ height: '38px' }}
+                        className="desktop-select-variant"
+                        onClick={() => toast.error('Please select color and size ')}
                       >
                         Add to Cart
                         <i className="far plus-ico fa-plus-square text-white"></i>
                       </button>
-                    ) : (
-                      <button
+                    )}
+                    {
+                      selectedSize?.stock < 1 && <button
                         title="Out of Stock"
                         type="button"
                         className="btn"
@@ -569,14 +572,27 @@ const productNo = () => {
                       >
                         Out of Stock
                       </button>
-                    )}
+                    }
+                    {selectedSize?.stock > 0 && <button
+                      type="submit"
+                      onClick={() => handleAddToCart(product)}
+                      style={{ width: '100%', height: '38px', margin: 0 }}
+                      className="cart-btn px-3 py-1"
+                    >
+                      Add to Cart
+                      <i className="far plus-ico fa-plus-square text-white"></i>
+                    </button>}
+
+
+
                     <button
                       style={{ height: '38px' }}
-                      className="mobile-buy-now-button"
+                      className="mobile-buy-now-button desktop-select-variant"
                     >
                       Buy Now
                       <i className="far plus-ico fa-plus-square text-white"></i>
                     </button>
+
                   </div>
                 </div>
                 <ShareProduct productNo={productNo}></ShareProduct>
