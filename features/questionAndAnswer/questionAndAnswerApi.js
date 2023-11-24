@@ -3,10 +3,14 @@ import apiSlice from "../api/apiSlice";
 const questionAndAnswerApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     createQuestion: builder.mutation({
-      query: ({ productId, ...data }) => {
+      query: ({token, productId, ...data }) => {
+        console.log({token,productId});
         return {
           url: `/question/${productId}`,
           method: "POST",
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
           body: data,
         };
       },
