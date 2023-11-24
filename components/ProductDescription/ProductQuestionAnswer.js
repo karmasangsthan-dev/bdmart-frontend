@@ -7,6 +7,7 @@ import { useCreateQuestionMutation } from "../../features/questionAndAnswer/ques
 import QuesAndAnswer from "./QuesAndAnswer";
 
 const ProductQuestionAnswer = ({ product }) => {
+  const token = localStorage.getItem("accessToken");
   const user = useSelector((state) => state?.auth?.user);
   const [question, setQuestion] = useState("");
   const router = useRouter();
@@ -23,10 +24,11 @@ const ProductQuestionAnswer = ({ product }) => {
       },
       productId: product?._id,
     };
+
     if (!question) {
       toast.error("Please write your question at first...!!");
     } else {
-      createQus(myQuestionData);
+      createQus({ token, ...myQuestionData });
       elem.value = "";
     }
   };
