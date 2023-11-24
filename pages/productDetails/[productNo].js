@@ -210,13 +210,13 @@ const productNo = () => {
     });
   };
 
-  const buttonStyle = {
+  const disableButtonStyle = {
     backgroundColor: 'rgb(179 48 61)',
     borderColor: 'rgb(179 48 61)',
     color: '#ffffff',
     padding: '0.375rem 0.75rem',
     fontSize: '1rem',
-    minWidth: '214px ',
+    width: '100%',
     height: '38px',
     borderRadius: '0.25rem',
     cursor: 'not-allowed',
@@ -502,7 +502,7 @@ const productNo = () => {
                   </div>
                 </div>
                 <div className="mt-2 d-lg-block d-sm-none">
-                  <div className=" d-flex align-items-center justify-content-start ">
+                  <div className=" d-flex align-items-center justify-content-between " style={{gap:'10px'}}>
 
                     {Object.keys(selectedSize).length === 0 && (
                       <button
@@ -521,7 +521,7 @@ const productNo = () => {
                         title="Out of Stock"
                         type="button"
                         className="btn"
-                        style={buttonStyle}
+                        style={disableButtonStyle}
                         disabled
                       >
                         Out of Stock
@@ -530,8 +530,8 @@ const productNo = () => {
                     {selectedSize?.stock > 0 && <button
                       type="submit"
                       onClick={() => handleAddToCart(product)}
-                      style={{ minWidth: '214px ', height: '38px' }}
-                      className="cart-btn px-3 py-1"
+                      style={{ width: '100% ', height: '38px' ,padding:'3px 10px'}}
+                      className="cart-btn py-1 m-0"
                     >
                       Add to Cart
                       <i className="far plus-ico fa-plus-square text-white"></i>
@@ -540,7 +540,7 @@ const productNo = () => {
                     <button
                       onClick={() => productBuyNow(product)}
                       style={{ height: '38px' }}
-                      className="desktop-buy-now-button"
+                      className="desktop-buy-now-button m-0"
                     >
                       Buy Now
                       <i className="far plus-ico fa-plus-square text-white"></i>
@@ -567,7 +567,7 @@ const productNo = () => {
                         title="Out of Stock"
                         type="button"
                         className="btn"
-                        style={buttonStyle}
+                        style={disableButtonStyle}
                         disabled
                       >
                         Out of Stock

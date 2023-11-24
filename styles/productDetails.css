@@ -313,7 +313,7 @@ textarea:focus {
 .desktop-buy-now-button {
     margin-left: 10px;
     display: inline-block !important;
-    width: 214px;
+    width: 100%;
     padding: 3px 10px;
     border: none;
     outline: none;
