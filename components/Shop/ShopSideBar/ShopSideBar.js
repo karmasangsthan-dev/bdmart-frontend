@@ -2,9 +2,11 @@ import { Collapse, Slider } from '@mui/material';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import {
+  useGetCategoriesQuery,
   useGetSingleSubCategoryQuery,
   useGetSubCategoryQuery,
 } from '../../../features/product/productApi';
+import toast from 'react-hot-toast';
 
 const ShopSideBar = ({ data, filter, setFilter, t }) => {
   const router = useRouter();
@@ -13,7 +15,7 @@ const ShopSideBar = ({ data, filter, setFilter, t }) => {
   const [brandOpen, setBrandOpen] = useState(false);
   const [priceOpen, setPriceOpen] = useState(true);
   const [childCategoryOpen, setChildCategoryOpen] = useState(false);
-
+  const { data: mainCategoryData, isLoading, isError, error } = useGetCategoriesQuery();
   const [priceRange, setPriceRange] = useState([]);
   let allBrands = [];
   let allCategory = [];
@@ -91,7 +93,7 @@ const ShopSideBar = ({ data, filter, setFilter, t }) => {
       `/shop?category=${category}&subCategory=${subCategory}&childCategory=${childCategoryData?.childCategoryTitle}`
     );
   };
-  console.log({ category, subCategory, childCategory });
+  console.log({ data });
   useEffect(() => {
     setFilter((prevFilter) => ({
       ...prevFilter,
@@ -146,9 +148,8 @@ const ShopSideBar = ({ data, filter, setFilter, t }) => {
             className="shop-categories mb-3 pb-2"
           >
             <div
-              aria-controls="example-collapse-text"
-              aria-expanded={catOpen}
-              className="d-flex justify-content-between align-items-center mt-3 "
+              className="d-flex justify-content-between align-items-center mt-3 shop-main-category-title"
+              onClick={() => router.push('/shop')}
             >
               <h5>{t.shopPage.sideNav.categoryTitle}</h5>
               <i className="fa fa-caret-down"></i>
@@ -156,7 +157,7 @@ const ShopSideBar = ({ data, filter, setFilter, t }) => {
             <Collapse in={true}>
               <div id="example-collapse-text">
                 {/* sub category coll  */}
-                <div
+                {category && <div
                   style={{ cursor: 'pointer' }}
                   onClick={() => router.push(`/shop?category=${category}`)}
                   aria-controls="example-collapse-text"
@@ -165,7 +166,15 @@ const ShopSideBar = ({ data, filter, setFilter, t }) => {
                 >
                   <h6 style={{ color: 'rgb(5 150 105/1)' }}>{category} </h6>
                   {catOpen && <i className="fa fa-caret-down"></i>}
-                </div>
+                </div>}
+                {!category && mainCategoryData?.data?.map((singleCate) => <div
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => router.push(`/shop?category=${singleCate?.category}`)}
+                  className="shop-sidebar-category"
+                >
+                  <h6 style={{ color: 'rgb(5 150 105/1)' }}>{singleCate?.category}</h6>
+                  {catOpen && <i className="fa-solid fa-caret-right"></i>}
+                </div>)}
                 <Collapse in={true}>
                   {category && !subCategory && (
                     <div id="example-collapse-text">
