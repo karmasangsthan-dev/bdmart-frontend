@@ -366,7 +366,9 @@ textarea:focus {
     display: flex;
     margin-bottom: 0px;
 }
-
+.shop-main-category-title{
+    cursor: pointer;
+}
 
 
 @media screen and (max-width: 682px) {
