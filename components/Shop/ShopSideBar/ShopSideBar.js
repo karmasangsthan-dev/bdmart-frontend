@@ -1,4 +1,4 @@
-import { Collapse, Slider } from '@mui/material';
+import { Collapse, Rating, Slider } from '@mui/material';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import {
@@ -13,14 +13,16 @@ const ShopSideBar = ({ data, filter, setFilter, t }) => {
 
   const [catOpen, setCatOpen] = useState(true);
   const [brandOpen, setBrandOpen] = useState(false);
+  const [ratingOpen, setRatingOpen] = useState(true);
+  const [selectedRating, setSelectedRating] = useState(null);
   const [priceOpen, setPriceOpen] = useState(true);
   const [childCategoryOpen, setChildCategoryOpen] = useState(false);
   const { data: mainCategoryData, isLoading, isError, error } = useGetCategoriesQuery();
   const [priceRange, setPriceRange] = useState([]);
   let allBrands = [];
   let allCategory = [];
-
-  const { category, subCategory, childCategory } = router.query;
+  const { pathname, query } = router;
+  const { category, subCategory, childCategory, rating } = router.query;
 
   const { data: subCategoryData, isLoading: subCategoryLoading } =
     useGetSubCategoryQuery(category);
@@ -338,6 +340,84 @@ const ShopSideBar = ({ data, filter, setFilter, t }) => {
               </div>
             </Collapse>
           </div>
+
+          {/* rating start from here  */}
+
+          <div style={{ marginTop: '7px' }} className=" ">
+            <div
+              onClick={() => setRatingOpen(!ratingOpen)}
+              className="d-flex justify-content-between align-items-center"
+            >
+              <h5>{t.shopPage.sideNav.ratingTitle}</h5>
+              <i className="fa fa-caret-down"></i>
+            </div>
+            <Collapse in={ratingOpen}>
+              <div className='shop-sidebar-ratings'>
+                <div className={`rating-div ${rating === "5" ? `selected-rating-div` : ''}`} onClick={() => {
+                  setSelectedRating(5);
+
+                  const rating = 5;
+                  const updatedQuery = { ...query, rating };
+                  router.replace({
+                    pathname,
+                    query: updatedQuery,
+                  });
+                }}>
+                  <Rating name="read-only" value={5} readOnly />
+                </div>
+                <div className={`rating-div mt-1 ${rating === "4" ? `selected-rating-div` : ''}`} onClick={() => {
+                  setSelectedRating(4);
+
+                  const rating = 4;
+                  const updatedQuery = { ...query, rating };
+                  router.push({
+                    pathname,
+                    query: updatedQuery,
+                  });
+                }}>
+                  <Rating name="read-only" value={4} readOnly />
+                  <p className="ms-2">and Up</p>
+                </div>
+                <div className={`rating-div mt-1 ${rating === "3" ? `selected-rating-div` : ''}`} onClick={() => {
+                  setSelectedRating(3);
+                  const rating = 3;
+                  const updatedQuery = { ...query, rating };
+                  router.push({
+                    pathname,
+                    query: updatedQuery,
+                  });
+                }}>
+                  <Rating name="read-only" value={3} readOnly />
+                  <p className="ms-2">and Up</p>
+                </div>
+                <div className={`rating-div mt-1 ${rating === "2" ? `selected-rating-div` : ''}`} onClick={() => {
+                  setSelectedRating(2);
+                  const rating = 2;
+                  const updatedQuery = { ...query, rating };
+                  router.push({
+                    pathname,
+                    query: updatedQuery,
+                  });
+                }}>
+                  <Rating name="read-only" value={2} readOnly />
+                  <p className="ms-2">and Up</p>
+                </div>
+                <div className={`rating-div mt-1 ${rating === "1" ? `selected-rating-div` : ''}`} onClick={() => {
+                  setSelectedRating(1);
+                  const rating = 1;
+                  const updatedQuery = { ...query, rating };
+                  router.push({
+                    pathname,
+                    query: updatedQuery,
+                  });
+                }}>
+                  <Rating name="read-only" value={1} readOnly />
+                  <p className="ms-2">and Up</p>
+                </div>
+              </div>
+            </Collapse>
+          </div>
+
         </div>
       </aside>
     </div>

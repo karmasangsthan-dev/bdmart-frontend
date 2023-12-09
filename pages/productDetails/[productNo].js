@@ -451,7 +451,9 @@ const productNo = () => {
                     style={{ minWidth: '156px', maxWidth: '156px' }}
                     required
                     onChange={(e) => {
-                      setSelectedSize(JSON?.parse(e?.target?.value));
+                      if (e.target.value) {
+                        setSelectedSize(JSON?.parse(e?.target?.value))
+                      }
                     }}
 
                   >
@@ -502,7 +504,7 @@ const productNo = () => {
                   </div>
                 </div>
                 <div className="mt-2 d-lg-block d-sm-none">
-                  <div className=" d-flex align-items-center justify-content-between " style={{gap:'10px'}}>
+                  <div className=" d-flex align-items-center justify-content-between " style={{ gap: '10px' }}>
 
                     {Object.keys(selectedSize).length === 0 && (
                       <button
@@ -530,7 +532,7 @@ const productNo = () => {
                     {selectedSize?.stock > 0 && <button
                       type="submit"
                       onClick={() => handleAddToCart(product)}
-                      style={{ width: '100% ', height: '38px' ,padding:'3px 10px'}}
+                      style={{ width: '100% ', height: '38px', padding: '3px 10px' }}
                       className="cart-btn py-1 m-0"
                     >
                       Add to Cart
