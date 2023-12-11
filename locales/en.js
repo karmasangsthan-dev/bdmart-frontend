@@ -40,6 +40,7 @@ export const en = {
       categoryTitle: "Category",
       brandTitle: "Brand",
       priceTitle: "Price",
+      ratingTitle: "Rating",
     },
     allProducts: {
       productsCountTitle: "Total Products",

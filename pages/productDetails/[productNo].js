@@ -454,7 +454,9 @@ const productNo = () => {
                     style={{ minWidth: "156px", maxWidth: "156px" }}
                     required
                     onChange={(e) => {
-                      setSelectedSize(JSON?.parse(e?.target?.value));
+                      if (e.target.value) {
+                        setSelectedSize(JSON?.parse(e?.target?.value));
+                      }
                     }}
                   >
                     <>

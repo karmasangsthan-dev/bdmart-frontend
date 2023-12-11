@@ -1,26 +1,33 @@
-import { Collapse, Slider } from '@mui/material';
-import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import { Collapse, Rating, Slider } from "@mui/material";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 import {
   useGetCategoriesQuery,
   useGetSingleSubCategoryQuery,
   useGetSubCategoryQuery,
-} from '../../../features/product/productApi';
-import toast from 'react-hot-toast';
+} from "../../../features/product/productApi";
+import toast from "react-hot-toast";
 
 const ShopSideBar = ({ data, filter, setFilter, t }) => {
   const router = useRouter();
 
   const [catOpen, setCatOpen] = useState(true);
   const [brandOpen, setBrandOpen] = useState(false);
+  const [ratingOpen, setRatingOpen] = useState(true);
+  const [selectedRating, setSelectedRating] = useState(null);
   const [priceOpen, setPriceOpen] = useState(true);
   const [childCategoryOpen, setChildCategoryOpen] = useState(false);
-  const { data: mainCategoryData, isLoading, isError, error } = useGetCategoriesQuery();
+  const {
+    data: mainCategoryData,
+    isLoading,
+    isError,
+    error,
+  } = useGetCategoriesQuery();
   const [priceRange, setPriceRange] = useState([]);
   let allBrands = [];
   let allCategory = [];
-
-  const { category, subCategory, childCategory } = router.query;
+  const { pathname, query } = router;
+  const { category, subCategory, childCategory, rating } = router.query;
 
   const { data: subCategoryData, isLoading: subCategoryLoading } =
     useGetSubCategoryQuery(category);
@@ -65,19 +72,19 @@ const ShopSideBar = ({ data, filter, setFilter, t }) => {
     setFilter({ ...filter, price: newValue });
     setPriceRange(newValue);
 
-    if (typeof onChange === 'function') {
+    if (typeof onChange === "function") {
       onChange(newValue);
     }
   };
 
   const handleSetSubCategory = (subC) => {
     setChildCategoryOpen(
-      childCategoryOpen === subC?.subCategoryTitle ? '' : subC?.subCategoryTitle
+      childCategoryOpen === subC?.subCategoryTitle ? "" : subC?.subCategoryTitle
     );
     setFilter({
       ...filter,
       subCategory: subC?.subCategoryTitle,
-      childCategory: '',
+      childCategory: "",
     });
     router.push(
       `/shop?category=${category}&subCategory=${subC?.subCategoryTitle}`
@@ -97,11 +104,12 @@ const ShopSideBar = ({ data, filter, setFilter, t }) => {
   useEffect(() => {
     setFilter((prevFilter) => ({
       ...prevFilter,
-      category: category ? category : '',
-      subCategory: subCategory ? subCategory : '',
-      childCategory: childCategory ? childCategory : '',
+      category: category ? category : "",
+      subCategory: subCategory ? subCategory : "",
+      childCategory: childCategory ? childCategory : "",
+      ratings: selectedRating ? selectedRating?.toString() : "",
     }));
-  }, [category, subCategory, childCategory]);
+  }, [category, subCategory, childCategory, selectedRating]);
   useEffect(() => {
     const handleResize = () => {
       const deviceWidth = window.innerWidth;
@@ -116,9 +124,9 @@ const ShopSideBar = ({ data, filter, setFilter, t }) => {
       }
     };
     handleResize();
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -134,22 +142,28 @@ const ShopSideBar = ({ data, filter, setFilter, t }) => {
             <p className="fw-bold">{t.shopPage.sideNav.filterTitle}:</p>
             <p
               onClick={() =>
-                setFilter({ category: '', size: '', brand: [], price: [] })
+                setFilter({
+                  category: "",
+                  size: "",
+                  brand: [],
+                  price: [],
+                  rating: "",
+                })
               }
               className="text-danger px-2 rounded fw-bold"
-              style={{ cursor: 'pointer' }}
+              style={{ cursor: "pointer" }}
               href="#"
             >
               {t.shopPage.sideNav.clearTitle}
             </p>
           </div>
           <div
-            style={{ borderBottom: '0.1rem solid #ebebeb' }}
+            style={{ borderBottom: "0.1rem solid #ebebeb" }}
             className="shop-categories mb-3 pb-2"
           >
             <div
               className="d-flex justify-content-between align-items-center mt-3 shop-main-category-title"
-              onClick={() => router.push('/shop')}
+              onClick={() => router.push("/shop")}
             >
               <h5>{t.shopPage.sideNav.categoryTitle}</h5>
               <i className="fa fa-caret-down"></i>
@@ -157,24 +171,33 @@ const ShopSideBar = ({ data, filter, setFilter, t }) => {
             <Collapse in={true}>
               <div id="example-collapse-text">
                 {/* sub category coll  */}
-                {category && <div
-                  style={{ cursor: 'pointer' }}
-                  onClick={() => router.push(`/shop?category=${category}`)}
-                  aria-controls="example-collapse-text"
-                  aria-expanded={catOpen}
-                  className="shop-sidebar-category"
-                >
-                  <h6 style={{ color: 'rgb(5 150 105/1)' }}>{category} </h6>
-                  {catOpen && <i className="fa fa-caret-down"></i>}
-                </div>}
-                {!category && mainCategoryData?.data?.map((singleCate) => <div
-                  style={{ cursor: 'pointer' }}
-                  onClick={() => router.push(`/shop?category=${singleCate?.category}`)}
-                  className="shop-sidebar-category"
-                >
-                  <h6 style={{ color: 'rgb(5 150 105/1)' }}>{singleCate?.category}</h6>
-                  {catOpen && <i className="fa-solid fa-caret-right"></i>}
-                </div>)}
+                {category && (
+                  <div
+                    style={{ cursor: "pointer" }}
+                    onClick={() => router.push(`/shop?category=${category}`)}
+                    aria-controls="example-collapse-text"
+                    aria-expanded={catOpen}
+                    className="shop-sidebar-category"
+                  >
+                    <h6 style={{ color: "rgb(5 150 105/1)" }}>{category} </h6>
+                    {catOpen && <i className="fa fa-caret-down"></i>}
+                  </div>
+                )}
+                {!category &&
+                  mainCategoryData?.data?.map((singleCate) => (
+                    <div
+                      style={{ cursor: "pointer" }}
+                      onClick={() =>
+                        router.push(`/shop?category=${singleCate?.category}`)
+                      }
+                      className="shop-sidebar-category"
+                    >
+                      <h6 style={{ color: "rgb(5 150 105/1)" }}>
+                        {singleCate?.category}
+                      </h6>
+                      {catOpen && <i className="fa-solid fa-caret-right"></i>}
+                    </div>
+                  ))}
                 <Collapse in={true}>
                   {category && !subCategory && (
                     <div id="example-collapse-text">
@@ -257,7 +280,7 @@ const ShopSideBar = ({ data, filter, setFilter, t }) => {
           {/* {subCategoryData?.map((subC, index) => <p className="shop-sub-category-item" key={index}>{subC?.title}</p>)} */}
 
           <div
-            style={{ borderBottom: '0.1rem solid #ebebeb' }}
+            style={{ borderBottom: "0.1rem solid #ebebeb" }}
             className="mb-3 pb-2"
           >
             <div
@@ -293,7 +316,7 @@ const ShopSideBar = ({ data, filter, setFilter, t }) => {
           </div>
           {/* price range  */}
 
-          <div style={{ borderBottom: '0.1rem solid #ebebeb' }} className=" ">
+          <div style={{ borderBottom: "0.1rem solid #ebebeb" }} className=" ">
             <div
               onClick={() => setPriceOpen(!priceOpen)}
               aria-controls="example-collapse-text"
@@ -307,11 +330,11 @@ const ShopSideBar = ({ data, filter, setFilter, t }) => {
               <div className="price-range-slider">
                 <div className="">
                   <p className="text-center">
-                    {' '}
+                    {" "}
                     $
                     {filter.price.length
                       ? filter.price[0]
-                      : data?.lowestPriceProduct?.price}{' '}
+                      : data?.lowestPriceProduct?.price}{" "}
                     - $
                     {filter.price.length
                       ? filter.price[1]
@@ -325,9 +348,9 @@ const ShopSideBar = ({ data, filter, setFilter, t }) => {
                     ...(filter.price.length
                       ? filter.price
                       : [
-                        data?.lowestPriceProduct?.price,
-                        data?.highestPriceProduct?.price,
-                      ]),
+                          data?.lowestPriceProduct?.price,
+                          data?.highestPriceProduct?.price,
+                        ]),
                   ]}
                   onChange={handlePriceChange}
                   valueLabelDisplay="auto"
@@ -335,6 +358,108 @@ const ShopSideBar = ({ data, filter, setFilter, t }) => {
                   max={data?.highestPriceProduct?.price}
                   color="primary"
                 />
+              </div>
+            </Collapse>
+          </div>
+
+          {/* rating start from here  */}
+
+          <div style={{ marginTop: "7px" }} className=" ">
+            <div
+              onClick={() => setRatingOpen(!ratingOpen)}
+              className="d-flex justify-content-between align-items-center"
+            >
+              <h5>{t.shopPage.sideNav.ratingTitle}</h5>
+              <i className="fa fa-caret-down"></i>
+            </div>
+            <Collapse in={ratingOpen}>
+              <div className="shop-sidebar-ratings">
+                <div
+                  className={`rating-div ${
+                    rating === "5" ? `selected-rating-div` : ""
+                  }`}
+                  onClick={() => {
+                    setSelectedRating(5);
+
+                    const rating = 5;
+                    const updatedQuery = { ...query, rating };
+                    router.replace({
+                      pathname,
+                      query: updatedQuery,
+                    });
+                  }}
+                >
+                  <Rating name="read-only" value={5} readOnly />
+                </div>
+                <div
+                  className={`rating-div mt-1 ${
+                    rating === "4" ? `selected-rating-div` : ""
+                  }`}
+                  onClick={() => {
+                    setSelectedRating(4);
+
+                    const rating = 4;
+                    const updatedQuery = { ...query, rating };
+                    router.push({
+                      pathname,
+                      query: updatedQuery,
+                    });
+                  }}
+                >
+                  <Rating name="read-only" value={4} readOnly />
+                  <p className="ms-2">and Up</p>
+                </div>
+                <div
+                  className={`rating-div mt-1 ${
+                    rating === "3" ? `selected-rating-div` : ""
+                  }`}
+                  onClick={() => {
+                    setSelectedRating(3);
+                    const rating = 3;
+                    const updatedQuery = { ...query, rating };
+                    router.push({
+                      pathname,
+                      query: updatedQuery,
+                    });
+                  }}
+                >
+                  <Rating name="read-only" value={3} readOnly />
+                  <p className="ms-2">and Up</p>
+                </div>
+                <div
+                  className={`rating-div mt-1 ${
+                    rating === "2" ? `selected-rating-div` : ""
+                  }`}
+                  onClick={() => {
+                    setSelectedRating(2);
+                    const rating = 2;
+                    const updatedQuery = { ...query, rating };
+                    router.push({
+                      pathname,
+                      query: updatedQuery,
+                    });
+                  }}
+                >
+                  <Rating name="read-only" value={2} readOnly />
+                  <p className="ms-2">and Up</p>
+                </div>
+                <div
+                  className={`rating-div mt-1 ${
+                    rating === "1" ? `selected-rating-div` : ""
+                  }`}
+                  onClick={() => {
+                    setSelectedRating(1);
+                    const rating = 1;
+                    const updatedQuery = { ...query, rating };
+                    router.push({
+                      pathname,
+                      query: updatedQuery,
+                    });
+                  }}
+                >
+                  <Rating name="read-only" value={1} readOnly />
+                  <p className="ms-2">and Up</p>
+                </div>
               </div>
             </Collapse>
           </div>
