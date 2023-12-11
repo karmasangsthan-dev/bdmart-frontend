@@ -4,7 +4,7 @@ const MobileShareProduct = () => {
     return (
         <div className="share mt-4 d-lg-none d-sm-block">
             <div className="d-flex align-items-center" style={{marginLeft:'20px',marginBottom:'20px'}}>
-                <h6 className="mt-1">Share:</h6>
+                <h5 className="mb-0">Share:</h5>
                 <div className="share-buttons ms-2">
                     <a
                         href="https://www.facebook.com/sharer/sharer.php?u=https://example.com"

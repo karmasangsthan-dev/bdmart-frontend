@@ -25,10 +25,11 @@ const ProductQuestionAnswer = ({ product }) => {
       productId: product?._id,
       token: token,
     };
+
     if (!question) {
       toast.error("Please write your question at first...!!");
     } else {
-      createQus(myQuestionData);
+      createQus({ token, ...myQuestionData });
       elem.value = "";
     }
   };
@@ -119,7 +120,7 @@ const ProductQuestionAnswer = ({ product }) => {
           Other questions answered by Bangladesh Mart (
           {
             product?.questionsAndAnswers?.filter(
-              (qus) => qus.qusBy.email !== user.email
+              (qus) => qus.qusBy.email !== user?.email
             ).length
           }
           )
@@ -128,7 +129,7 @@ const ProductQuestionAnswer = ({ product }) => {
 
       <div className="all-qna product-questions">
         {product?.questionsAndAnswers
-          ?.filter((qus) => qus.qusBy.email !== user.email)
+          ?.filter((qus) => qus.qusBy.email !== user?.email)
           .slice()
           .reverse()
           .map((question, index) => {

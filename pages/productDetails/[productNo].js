@@ -1,38 +1,38 @@
-import { useRouter } from 'next/router';
-import Layout from '../../components/Layout';
-import { Breadcrumbs, Link, Rating } from '@mui/material';
-import { Breadcrumb, Form, Tab, Tabs } from 'react-bootstrap';
-import { toast } from 'react-hot-toast';
-import { useEffect, useState } from 'react';
-import { FaFacebookF } from 'react-icons/fa';
-import Image from 'next/image';
+import { useRouter } from "next/router";
+import Layout from "../../components/Layout";
+import { Breadcrumbs, Link, Rating } from "@mui/material";
+import { Breadcrumb, Form, Tab, Tabs } from "react-bootstrap";
+import { toast } from "react-hot-toast";
+import { useEffect, useState } from "react";
+import { FaFacebookF } from "react-icons/fa";
+import Image from "next/image";
 import {
   useGetAllProductsQuery,
   useGetProductDetailsQuery,
-} from '../../features/product/productApi';
-import ProductDescription from '../../components/ProductDescription/ProductDescription';
-import Footer from '../../components/Shared/Footer/Footer';
-import NotFoundPage from '../404';
-import Loading from '../../components/Shared/Loading/Loading';
-import { useDispatch, useSelector } from 'react-redux';
-import { addToCart } from '../../features/cart/cartSlice';
-import Slider from 'react-slick';
-import ProductReviewSection from '../../components/ProductDescription/ProductReviewSection';
-import ShareProduct from '../../components/ProductDescription/ShareProduct';
-import DeleveryAndService from '../../components/ProductDescription/DeleveryAndService';
-import MobileShareProduct from '../../components/ProductDescription/MobileShareProduct';
-import YouMayAlsoLike from '../../components/ProductDescription/YouMayAlsoLike';
-import ProductQuestionAnswer from '../../components/ProductDescription/ProductQuestionAnswer';
-import { useHandleAddToCart } from '../../helperHooks/handleAddToCart';
-import { getProductPriceRangeDetails } from '../../helperHooks/getProductPriceRange';
-import { getProductOldPriceRange } from '../../helperHooks/getProductOldPriceRange';
+} from "../../features/product/productApi";
+import ProductDescription from "../../components/ProductDescription/ProductDescription";
+import Footer from "../../components/Shared/Footer/Footer";
+import NotFoundPage from "../404";
+import Loading from "../../components/Shared/Loading/Loading";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../../features/cart/cartSlice";
+import Slider from "react-slick";
+import ProductReviewSection from "../../components/ProductDescription/ProductReviewSection";
+import ShareProduct from "../../components/ProductDescription/ShareProduct";
+import DeleveryAndService from "../../components/ProductDescription/DeleveryAndService";
+import MobileShareProduct from "../../components/ProductDescription/MobileShareProduct";
+import YouMayAlsoLike from "../../components/ProductDescription/YouMayAlsoLike";
+import ProductQuestionAnswer from "../../components/ProductDescription/ProductQuestionAnswer";
+import { useHandleAddToCart } from "../../helperHooks/handleAddToCart";
+import { getProductPriceRangeDetails } from "../../helperHooks/getProductPriceRange";
+import { getProductOldPriceRange } from "../../helperHooks/getProductOldPriceRange";
 
 const SampleNextArrow = (props) => {
   const { onClick } = props;
   return (
     <div className="control-btn" onClick={onClick}>
       <button
-        style={{ width: '30px', height: '30px', top: '33%' }}
+        style={{ width: "30px", height: "30px", top: "33%" }}
         className="next"
       ></button>
     </div>
@@ -43,7 +43,7 @@ const SamplePrevArrow = (props) => {
   return (
     <div className="control-btn" onClick={onClick}>
       <button
-        style={{ width: '30px', height: '30px', top: '33%' }}
+        style={{ width: "30px", height: "30px", top: "33%" }}
         className="prev"
       ></button>
     </div>
@@ -92,7 +92,7 @@ const productNo = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const {
-    query: { productNo = '648106e4461f21c48500d099' },
+    query: { productNo = "648106e4461f21c48500d099" },
   } = router;
 
   const { data: allData, isLoading: allDataLoading } = useGetAllProductsQuery();
@@ -108,10 +108,8 @@ const productNo = () => {
 
   const updatedVariants = [];
 
-
   for (let index = 0; index < product?.variants?.length; index++) {
     const variant = product.variants[index];
-
 
     if (variant) {
       const matchingColorVariant = updatedVariants.find(
@@ -170,35 +168,35 @@ const productNo = () => {
   };
 
   const productBuyNow = (product) => {
-    const cartProducts = localStorage.getItem('cartProducts');
+    const cartProducts = localStorage.getItem("cartProducts");
     if (cartProducts) {
-      const cart = JSON.parse(localStorage.getItem('cartProducts'));
+      const cart = JSON.parse(localStorage.getItem("cartProducts"));
       const index = cart?.findIndex(
         (cartProduct) => cartProduct?.id === product?._id
       );
       if (index !== -1) {
         cart[index].quantity += 1;
-        toast.success('Updated Quantity', { id: 'addToCart' });
+        toast.success("Updated Quantity", { id: "addToCart" });
       } else {
         cart.push({ id: product?._id, quantity: 1 });
-        toast.success('Added to cart', { id: 'addToCart' });
+        toast.success("Added to cart", { id: "addToCart" });
       }
-      localStorage.setItem('cartProducts', JSON.stringify(cart));
+      localStorage.setItem("cartProducts", JSON.stringify(cart));
     }
     if (!cartProducts) {
       const cart = [{ id: product?._id, quantity: 1 }];
-      localStorage.setItem('cartProducts', JSON.stringify(cart));
-      toast.success('Added to cart', { id: 'addToCart' });
+      localStorage.setItem("cartProducts", JSON.stringify(cart));
+      toast.success("Added to cart", { id: "addToCart" });
     }
 
     dispatch(addToCart({ id: product?._id }));
 
-    router.push('/checkout');
+    router.push("/checkout");
   };
 
   const scrollToReviews = () => {
     const productReviewSection = document.getElementById(
-      'productReviewSection'
+      "productReviewSection"
     );
     const offset = 157;
 
@@ -206,38 +204,37 @@ const productNo = () => {
 
     window.scrollTo({
       top: targetScrollTop,
-      behavior: 'smooth',
+      behavior: "smooth",
     });
   };
 
-  const buttonStyle = {
-    backgroundColor: 'rgb(179 48 61)',
-    borderColor: 'rgb(179 48 61)',
-    color: '#ffffff',
-    padding: '0.375rem 0.75rem',
-    fontSize: '1rem',
-    minWidth: '214px ',
-    height: '38px',
-    borderRadius: '0.25rem',
-    cursor: 'not-allowed',
-    opacity: '0.65',
+  const disableButtonStyle = {
+    backgroundColor: "rgb(179 48 61)",
+    borderColor: "rgb(179 48 61)",
+    color: "#ffffff",
+    padding: "0.375rem 0.75rem",
+    fontSize: "1rem",
+    width: "100%",
+    height: "38px",
+    borderRadius: "0.25rem",
+    cursor: "not-allowed",
+    opacity: "0.65",
   };
   const buttonStyleForAddToCart = {
-    backgroundColor: 'rgb(16 185 129/1)',
-    borderColor: 'rgb(179 48 61)',
-    color: '#ffffff',
-    padding: '0.375rem 0.75rem',
-    fontSize: '1rem',
-    minWidth: '214px ',
-    height: '38px',
-    borderRadius: '0.25rem'
+    backgroundColor: "rgb(16 185 129/1)",
+    borderColor: "rgb(179 48 61)",
+    color: "#ffffff",
+    padding: "0.375rem 0.75rem",
+    fontSize: "1rem",
+    minWidth: "214px ",
+    height: "38px",
+    borderRadius: "0.25rem",
   };
   const handleQunatityIncrement = (id) => {
     if (quantity < 5) {
       setQuantity(quantity + 1);
-    }
-    else {
-      toast.error('You cannot add more items in cart')
+    } else {
+      toast.error("You cannot add more items in cart");
     }
   };
 
@@ -263,16 +260,16 @@ const productNo = () => {
     currencyRate
   );
   return (
-    <Layout title={`${product?.title ? product?.title : ''} Bangladesh Mart`}>
-      <main className="mainnnnn" style={{ background: '#eff0f5' }}>
+    <Layout title={`${product?.title ? product?.title : ""} Bangladesh Mart`}>
+      <main className="mainnnnn" style={{ background: "#eff0f5" }}>
         {data?.status && (
           <div
-            style={{ minHeight: '120vh', maxWidth: '1200px' }}
+            style={{ minHeight: "120vh", maxWidth: "1200px" }}
             className="container "
           >
             <div className="pt-2" role="presentation" onClick={handleClick}>
               <Breadcrumb className="breadcrumb-container">
-                <Breadcrumb.Item onClick={() => router.push('/')}>
+                <Breadcrumb.Item onClick={() => router.push("/")}>
                   Home
                 </Breadcrumb.Item>
                 <Breadcrumb.Item href="">Description</Breadcrumb.Item>
@@ -289,9 +286,9 @@ const productNo = () => {
             <div className="d-flex flex-wrap mt-2 pt-3 margin-mobile-10px-x rounded bg-white product-description-container">
               <div
                 style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  margin: 'auto',
+                  display: "flex",
+                  flexDirection: "column",
+                  margin: "auto",
                 }}
                 className="col-lg-4 col-md-5 col-sm-12 "
               >
@@ -303,7 +300,7 @@ const productNo = () => {
                   />
                 </div>
                 <div className="product-others-images d-flex justify-content-center">
-                  <div style={{ width: '280px' }}>
+                  <div style={{ width: "280px" }}>
                     <Slider className=" w-auto px-5" {...settings}>
                       {/* <div
                         className="images-slider"
@@ -336,21 +333,22 @@ const productNo = () => {
                         <div
                           key={index}
                           className="images-slider"
-                          style={{ width: '52px', height: '52px' }}
+                          style={{ width: "52px", height: "52px" }}
                         >
                           <img
                             onClick={() => {
                               setDisplayImage(item?.image);
                             }}
                             style={{
-                              width: '52px',
-                              height: '50px',
-                              border: '1px solid #ddd',
-                              cursor: 'pointer',
+                              width: "52px",
+                              height: "50px",
+                              border: "1px solid #ddd",
+                              cursor: "pointer",
                             }}
-                            className={`img-fluid me-3 ${displayImage === item?.image &&
-                              'border border-2 border-primary'
-                              } `}
+                            className={`img-fluid me-3 ${
+                              displayImage === item?.image &&
+                              "border border-2 border-primary"
+                            } `}
                             src={item?.image}
                             alt=""
                           />
@@ -372,52 +370,56 @@ const productNo = () => {
                     />
                   </div>
                   <div onClick={scrollToReviews} className="">
-                    ({' '}
+                    ({" "}
                     <span className="ratings-texts">
                       {product?.reviews?.length} Reviews
-                    </span>{' '}
+                    </span>{" "}
                     )
                   </div>
                 </div>
                 <div>
                   <h4 className="my-2">
-                    Price :{' '}
-                    <span style={{ color: '#f85606' }}>
-
+                    Price :{" "}
+                    <span style={{ color: "#f85606" }}>
                       {!selectedSize?.price
-                        ? `${(lowestPrice * currencyRate).toFixed(2)} ${currency} - ${(highestPrice * currencyRate).toFixed(2)} ${currency}  `
+                        ? `${(lowestPrice * currencyRate).toFixed(
+                            2
+                          )} ${currency} - ${(
+                            highestPrice * currencyRate
+                          ).toFixed(2)} ${currency}  `
                         : `${(selectedSize?.price * currencyRate).toFixed(
-                          2
-                        )} ${currency}`}
-                    </span>{' '}
+                            2
+                          )} ${currency}`}
+                    </span>{" "}
                   </h4>
 
                   <div className="old-price">
                     {selectedSize?.oldPrice ? (
                       <del>
-                        {(selectedSize.oldPrice * currencyRate).toFixed(2)}{' '}
+                        {(selectedSize.oldPrice * currencyRate).toFixed(2)}{" "}
                         {currency}
                       </del>
                     ) : (
                       <>
                         <del>
-                          {(lowestOldPrice * currencyRate).toFixed(2)} {currency}
-                        </del> 
-                        <span>{' - '}</span>
+                          {(lowestOldPrice * currencyRate).toFixed(2)}{" "}
+                          {currency}
+                        </del>
+                        <span>{" - "}</span>
                         <del>
-                          {(highestOldPrice * currencyRate).toFixed(2)} {currency}
-                        </del> 
+                          {(highestOldPrice * currencyRate).toFixed(2)}{" "}
+                          {currency}
+                        </del>
                       </>
-                    )}{' '}
+                    )}{" "}
                     <span className="ms-2">
-                      {' '}
+                      {" "}
                       {/* - {discountPercentage?.toFixed(2)}% */}
                     </span>
                   </div>
                 </div>
-
                 <div className="d-flex align-items-center gap-2 mt-2">
-                  <h6 style={{ minWidth: '40px' }}>Color:</h6>
+                  <h6 style={{ minWidth: "40px" }}>Color:</h6>
                   <div className="product-colors-nav mb-2">
                     {newProductStructure?.variants &&
                       newProductStructure?.variants?.map(
@@ -431,50 +433,54 @@ const productNo = () => {
                             style={{
                               backgroundColor: `rgba(${variantItem.color.r}, ${variantItem.color.g}, ${variantItem.color.b}, ${variantItem.color.a})`,
                             }}
-                            className={`${variant?.color.r === variantItem?.color?.r &&
+                            className={`${
+                              variant?.color.r === variantItem?.color?.r &&
                               variant?.color.g === variantItem?.color?.g &&
                               variant?.color.b === variantItem?.color?.b &&
                               variant?.color.a === variantItem?.color?.a
-                              ? 'active'
-                              : ''
-                              } `}
+                                ? "active"
+                                : ""
+                            } `}
                           ></a>
                         )
                       )}
                   </div>
-                </div>{' '}
+                </div>{" "}
                 <div className="d-flex align-items-center gap-2">
-                  <h6 style={{ minWidth: '50px' }}>Size:</h6>
+                  <h6 style={{ minWidth: "50px" }}>Size:</h6>
 
                   <Form.Select
                     className="product-description-size "
-                    style={{ minWidth: '156px', maxWidth: '156px' }}
+                    style={{ minWidth: "156px", maxWidth: "156px" }}
                     required
                     onChange={(e) => {
                       setSelectedSize(JSON?.parse(e?.target?.value));
                     }}
-                    
                   >
                     <>
-                      <option value={JSON.stringify({})}>-- Select One --</option>
+                      <option value={JSON.stringify({})}>
+                        -- Select One --
+                      </option>
                       {variant?.sizes ? (
                         variant?.sizes?.map((item, i) => {
-                          return <option
-                            key={item?._id}
-                            value={JSON.stringify(item)}
-                            className="text-uppercase"
-                          >
-                            {item?.size}
-                          </option>
+                          return (
+                            <option
+                              key={item?._id}
+                              value={JSON.stringify(item)}
+                              className="text-uppercase"
+                            >
+                              {item?.size}
+                            </option>
+                          );
                         })
                       ) : (
-                        <option value=''>None</option>
+                        <option value="">None</option>
                       )}
                     </>
                   </Form.Select>
                 </div>
                 <div className="product-quantity d-flex align-items-center gap-2 mt-2">
-                  <h6 style={{ minWidth: '50px' }}>Qty:</h6>
+                  <h6 style={{ minWidth: "50px" }}>Qty:</h6>
                   <div className="">
                     <div className="qty-container">
                       <button
@@ -502,48 +508,55 @@ const productNo = () => {
                   </div>
                 </div>
                 <div className="mt-2 d-lg-block d-sm-none">
-                  <div className=" d-flex align-items-center justify-content-start ">
-
-                    {console.log({ selectedSize })}
+                  <div
+                    className=" d-flex align-items-center justify-content-between "
+                    style={{ gap: "10px" }}
+                  >
                     {Object.keys(selectedSize).length === 0 && (
                       <button
                         title="Add to cart"
                         type="button"
-                        style={{ height: '38px' }}
+                        style={{ height: "38px" }}
                         className="desktop-select-variant"
-                        onClick={() => toast.error('Please select color and size ')}
+                        onClick={() =>
+                          toast.error("Please select color and size ")
+                        }
                       >
                         Add to Cart
                         <i className="far plus-ico fa-plus-square text-white"></i>
                       </button>
                     )}
-                    {
-                      selectedSize?.stock < 1 && <button
+                    {selectedSize?.stock < 1 && (
+                      <button
                         title="Out of Stock"
                         type="button"
-                        className="cart-btn px-3 py-1"
-                        style={buttonStyle}
-                        onClick={() =>
-                          toast.error('Please Select a color and size')
-                        }
+                        className="btn"
+                        style={disableButtonStyle}
+                        disabled
                       >
                         Add To Cart
                       </button>
-                    }
-                    {selectedSize?.stock > 0 && <button
-                      type="submit"
-                      onClick={() => handleAddToCart(product)}
-                      style={{ minWidth: '214px ', height: '38px' }}
-                      className="cart-btn px-3 py-1"
-                    >
-                      Add to Cart
-                      <i className="far plus-ico fa-plus-square text-white"></i>
-                    </button>}
+                    )}
+                    {selectedSize?.stock > 0 && (
+                      <button
+                        type="submit"
+                        onClick={() => handleAddToCart(product)}
+                        style={{
+                          width: "100% ",
+                          height: "38px",
+                          padding: "3px 10px",
+                        }}
+                        className="cart-btn py-1 m-0"
+                      >
+                        Add to Cart
+                        <i className="far plus-ico fa-plus-square text-white"></i>
+                      </button>
+                    )}
 
                     <button
                       onClick={() => productBuyNow(product)}
-                      style={{ height: '38px' }}
-                      className="desktop-buy-now-button"
+                      style={{ height: "38px" }}
+                      className="desktop-buy-now-button m-0"
                     >
                       Buy Now
                       <i className="far plus-ico fa-plus-square text-white"></i>
@@ -553,30 +566,46 @@ const productNo = () => {
                 {/* mobile add to cart button  */}
                 <div className="mt-2 d-lg-none d-sm-block">
                   <div className="cart-btn-mobile ">
-                    {product?.stock >= 1 ? (
+                    {Object.keys(selectedSize).length === 0 && (
                       <button
-                        onClick={() => handleAddToCart(product)}
-                        className="mobile-add-to-cart-button"
+                        title="Add to cart"
+                        type="button"
+                        style={{ height: "38px" }}
+                        className="desktop-select-variant"
+                        onClick={() =>
+                          toast.error("Please select color and size ")
+                        }
                       >
                         Add to Cart
                         <i className="far plus-ico fa-plus-square text-white"></i>
                       </button>
-                    ) : (
+                    )}
+                    {selectedSize?.stock < 1 && (
                       <button
                         title="Out of Stock"
                         type="button"
                         className="btn"
-                        style={buttonStyle}
-                        onClick={() =>
-                          toast.error('Please Select a color and size')
-                        }
+                        style={disableButtonStyle}
+                        disabled
                       >
                         Add To Cart
                       </button>
                     )}
+                    {selectedSize?.stock > 0 && (
+                      <button
+                        type="submit"
+                        onClick={() => handleAddToCart(product)}
+                        style={{ width: "100%", height: "38px", margin: 0 }}
+                        className="cart-btn px-3 py-1"
+                      >
+                        Add to Cart
+                        <i className="far plus-ico fa-plus-square text-white"></i>
+                      </button>
+                    )}
+
                     <button
-                      style={{ height: '38px' }}
-                      className="mobile-buy-now-button"
+                      style={{ height: "38px" }}
+                      className="mobile-buy-now-button desktop-select-variant"
                     >
                       Buy Now
                       <i className="far plus-ico fa-plus-square text-white"></i>
@@ -606,7 +635,7 @@ const productNo = () => {
         )}
       </main>
       <Footer></Footer>
-    </Layout >
+    </Layout>
   );
 };
 
