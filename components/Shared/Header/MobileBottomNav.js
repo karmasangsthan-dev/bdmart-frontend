@@ -33,8 +33,6 @@ export default function MobileBottomNav() {
     setIsCategoryOpen(!isCategoryOpen); // Open the category sidebar
   };
 
-
-
   return (
     <Box className="d-lg-none d-xl-none d-xxl-none d-inline">
       <CssBaseline />
@@ -49,21 +47,31 @@ export default function MobileBottomNav() {
         }}
         elevation={3}
       >
-        <BottomNavigation
-          style={{ height: 'auto' }}
-          showLabels
+        <BottomNavigation style={{ height: "auto" }} showLabels>
+          <BottomNavigationAction
+            onClick={handleOpenCategory}
+            className="my-2"
+            label="Category"
+            icon={<Category />}
+          />
 
-        >
-          <BottomNavigationAction onClick={handleOpenCategory} className="my-2" label="Category" icon={<Category />} />
-
-          <BottomNavigationAction onClick={() => router.push('/')} className="my-2" label="Home" icon={<Home />} value="/" />
+          <BottomNavigationAction
+            onClick={() => router.push("/")}
+            className="my-2"
+            label="Home"
+            icon={<Home />}
+            value="/"
+          />
 
           <BottomNavigationAction
             className="my-2"
             label="Cart"
-            onClick={() => router.push('/cart')}
+            onClick={() => router.push("/cart")}
             icon={
-              <Badge badgeContent={totalProductQuantity ? totalProductQuantity : '0'} color="error">
+              <Badge
+                badgeContent={totalProductQuantity ? totalProductQuantity : "0"}
+                color="error"
+              >
                 <AiOutlineShoppingCart className="fs-1" />
               </Badge>
             }
@@ -73,34 +81,58 @@ export default function MobileBottomNav() {
             <BottomNavigationAction
               className="my-2"
               label="Profile"
-              onClick={() => router.push('/user/dashboard')}
-              icon={<img src={user?.profilePicture} alt="User Profile" style={{ width: 32, height: 32, borderRadius: '50%' }} />}
+              onClick={() => router.push(`/user/dashboard/${user?.email}`)}
+              icon={
+                <img
+                  src={user?.profilePicture}
+                  alt="User Profile"
+                  style={{ width: 32, height: 32, borderRadius: "50%" }}
+                />
+              }
             />
-          ) : !seller?.email && (
-            <BottomNavigationAction
-              onClick={() => router.push('/user/dashboard')}
-              className="my-2"
-              label="Profile"
-              icon={<CgProfile className="fs-1" />}
-            />
+          ) : (
+            !seller?.email && (
+              <BottomNavigationAction
+                onClick={() => router.push(`/user/dashboard/${user?.email}`)}
+                className="my-2"
+                label="Profile"
+                icon={<CgProfile className="fs-1" />}
+              />
+            )
           )}
 
           {seller?.email && (
             <BottomNavigationAction
               className="my-2"
               label="Profile"
-              onClick={() => router.push('/seller/dashboard')}
-              icon={<img src={seller?.profilePicture || 'https://www.pngmart.com/files/21/Admin-Profile-PNG-Clipart.png'} alt="seller profile" style={{ width: 32, height: 32, borderRadius: '50%' }} />}
+              onClick={() => router.push("/seller/dashboard")}
+              icon={
+                <img
+                  src={
+                    seller?.profilePicture ||
+                    "https://www.pngmart.com/files/21/Admin-Profile-PNG-Clipart.png"
+                  }
+                  alt="seller profile"
+                  style={{ width: 32, height: 32, borderRadius: "50%" }}
+                />
+              }
             />
           )}
-
         </BottomNavigation>
       </Paper>
 
       {isCategoryOpen && (
-        <div className="category-sidebar" style={{ transform: isCategoryOpen ? 'translateX(0%)' : 'translateX(-100%)' }}>
+        <div
+          className="category-sidebar"
+          style={{
+            transform: isCategoryOpen ? "translateX(0%)" : "translateX(-100%)",
+          }}
+        >
           <div className="close-category-sidebar">
-            <AiOutlineCloseCircle onClick={handleOpenCategory} className="fs-2" />
+            <AiOutlineCloseCircle
+              onClick={handleOpenCategory}
+              className="fs-2"
+            />
           </div>
           <ul className="main-ul">
             <MobileMegaMenu></MobileMegaMenu>

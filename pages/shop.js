@@ -1,27 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import Layout from '../components/Layout';
-import { Button, Collapse, Container, Navbar, Nav } from 'react-bootstrap';
-import ShopProduct from '../components/Product/ShopProduct';
-import ShopSideBar from '../components/Shop/ShopSideBar/ShopSideBar';
+import React, { useEffect, useState } from "react";
+import Layout from "../components/Layout";
+import { Button, Collapse, Container, Navbar, Nav } from "react-bootstrap";
+import ShopProduct from "../components/Product/ShopProduct";
+import ShopSideBar from "../components/Shop/ShopSideBar/ShopSideBar";
 import {
   useGetAllProductsQuery,
   useGetProductsQuery,
   useGetSubCategoryQuery,
-} from '../features/product/productApi';
-import { useSelector } from 'react-redux';
-import InfiniteScroll from 'react-infinite-scroll-component';
-import Skeleton from 'react-loading-skeleton';
-import { useRouter } from 'next/router';
-import ShopPagination from '../components/Shared/Pagination/ShopPagination';
-import { en } from '../locales/en';
-import { bn } from '../locales/bn';
-import DiscountProductCard from '../components/Product/DiscountProductCard';
-import { Rating } from '@mui/material';
+} from "../features/product/productApi";
+import { useSelector } from "react-redux";
+import InfiniteScroll from "react-infinite-scroll-component";
+import Skeleton from "react-loading-skeleton";
+import { useRouter } from "next/router";
+import ShopPagination from "../components/Shared/Pagination/ShopPagination";
+import { en } from "../locales/en";
+import { bn } from "../locales/bn";
+import DiscountProductCard from "../components/Product/DiscountProductCard";
+import { Rating } from "@mui/material";
 
 const shop = () => {
   const router = useRouter();
   const { locale } = router;
-  const t = locale === 'en' ? en : bn;
+  const t = locale === "en" ? en : bn;
 
   const user = useSelector((state) => state.auth.user);
   const [allProducts, setAllProducts] = useState([]);
@@ -33,12 +33,13 @@ const shop = () => {
   });
 
   const [filter, setFilter] = useState({
-    category: '',
-    subCategory: '',
-    childCategory: '',
-    size: '',
+    category: "",
+    subCategory: "",
+    childCategory: "",
+    size: "",
     brand: [],
     price: [],
+    ratings: "",
   });
   console.log(filter);
   const { data, isLoading } = useGetAllProductsQuery({
@@ -55,7 +56,7 @@ const shop = () => {
 
   return (
     <Layout title="Shop - Bangladesh Mart">
-      <div style={{ minHeight: '120vh' }} className="shop page-content">
+      <div style={{ minHeight: "120vh" }} className="shop page-content">
         <div className="ps-4 ms-2 pe-3">
           <div className="row ">
             <aside className="col-lg-2 order-lg-first">
@@ -66,7 +67,10 @@ const shop = () => {
                 t={t}
               />
             </aside>
-            <div style={{ paddingLeft: '20px', paddingTop: '15px' }} className="col-lg-10 pl-lg-5">
+            <div
+              style={{ paddingLeft: "20px", paddingTop: "15px" }}
+              className="col-lg-10 pl-lg-5"
+            >
               <div className="">
                 <div className="widget w-100 pb-3 d-flex justify-content-between align-items-center">
                   <p className="fs-6 d-sm-none d-lg-block">
@@ -125,14 +129,14 @@ const shop = () => {
                             <Skeleton
                               className="d-flex mx-auto mt-2"
                               style={{
-                                width: '92%',
-                                minHeight: '188px',
-                                maxHeight: '189px',
+                                width: "92%",
+                                minHeight: "188px",
+                                maxHeight: "189px",
                               }}
                             />
                             <div className="product-details-card p-2">
                               <div
-                                style={{ marginTop: '-14px' }}
+                                style={{ marginTop: "-14px" }}
                                 className="product-title "
                               >
                                 <span>
@@ -141,22 +145,22 @@ const shop = () => {
                               </div>
                               <div className="product-price">
                                 <p className="mb-0 ">
-                                  <Skeleton style={{ width: '50px' }} />
+                                  <Skeleton style={{ width: "50px" }} />
                                 </p>
                               </div>
                               <div className="old-price">
-                                <del style={{ display: 'inline-block' }}>
-                                  <Skeleton style={{ width: '50px' }} />
+                                <del style={{ display: "inline-block" }}>
+                                  <Skeleton style={{ width: "50px" }} />
                                 </del>
                                 <span className="ms-1">
-                                  <Skeleton style={{ width: '30px' }} />
+                                  <Skeleton style={{ width: "30px" }} />
                                 </span>
                               </div>
                               <div className="d-flex align-items-center">
-                                <Skeleton style={{ width: '80px' }} />
+                                <Skeleton style={{ width: "80px" }} />
                                 <Skeleton
                                   className="ms-1"
-                                  style={{ width: '30px' }}
+                                  style={{ width: "30px" }}
                                 />
                               </div>
                             </div>
@@ -166,7 +170,6 @@ const shop = () => {
                     </div>
                   ) : (
                     <div className="shop-products">
-
                       {products?.data?.map((product, index) => (
                         <ShopProduct
                           product={product}
@@ -178,13 +181,17 @@ const shop = () => {
                   )}
                 </div>
               </div>
-              {
-                products?.data?.length < 1 &&
-                <div className='d-flex align-items-center justify-content-center'>
-                  <img width="40" height="40" src="https://img.icons8.com/color/48/nothing-found.png" alt="noting"/>
+              {products?.data?.length < 1 && (
+                <div className="d-flex align-items-center justify-content-center">
+                  <img
+                    width="40"
+                    height="40"
+                    src="https://img.icons8.com/color/48/nothing-found.png"
+                    alt="noting"
+                  />
                   <p>Sorry !! There have no product.</p>
                 </div>
-              }
+              )}
               {!loading && products?.data?.length > 0 && (
                 <div className=" shop-pagination">
                   <ShopPagination
