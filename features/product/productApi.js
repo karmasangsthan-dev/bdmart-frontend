@@ -18,7 +18,6 @@ const productApi = apiSlice.injectEndpoints({
     }),
     getSectionBasedProducts: builder.query({
       query: ({ section }) => {
-        console.log('section', section);
         return {
           url: `/products/section?section=${section}`,
           method: 'GET',

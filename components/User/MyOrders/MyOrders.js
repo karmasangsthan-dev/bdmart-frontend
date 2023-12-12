@@ -69,7 +69,6 @@ const MyOrders = () => {
                                             <tbody>
                                                 {
                                                     data?.map((order, index) => {
-                                                        console.log({order});
                                                         return (
                                                             <tr key={index}>
                                                                 <td className='order-id'><span>#{order?.invoiceId ? order?.invoiceId : 'Not Found'}</span></td>

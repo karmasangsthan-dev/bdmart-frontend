@@ -26,10 +26,12 @@ export default function ShopProduct({ product }) {
   const router = useRouter();
 
   const { reviews } = product;
-  const totalReviews = reviews?.length;
-  const ratingsSum = reviews.reduce((sum, review) => sum + review.ratings, 0);
-  const averageRating = totalReviews ? ratingsSum / totalReviews : 0;
-  const sanitizedAverageRating = isNaN(averageRating) ? 0 : averageRating;
+
+  const totalRatings = reviews.reduce((sum, review) => sum + review.ratings, 0);
+  const averageRating = totalRatings / reviews.length;
+  
+  // Display average rating out of 5
+  const averageRatingOutOf5 = averageRating.toFixed(1);
 
   const productAddToCart = (product) => {
     useHandleAddToCart({
@@ -91,11 +93,11 @@ export default function ShopProduct({ product }) {
           <Rating
             style={{ fontSize: "15px", marginLeft: "-3px" }}
             name="read-only"
-            value={Math.ceil(product?.rating || 0)}
+            value={parseInt(averageRatingOutOf5 ? averageRatingOutOf5 : 0)}
             readOnly
           />
           <p className="mb-0 ms-1" style={{ fontSize: "13px" }}>
-            ({Math.floor(product?.rating || 0)})
+            ({Math.floor(reviews?.length || 0)})
           </p>
         </div>
         <div id="">

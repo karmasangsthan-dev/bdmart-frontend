@@ -421,28 +421,34 @@ const productNo = () => {
                 <div className="d-flex align-items-center gap-2 mt-2">
                   <h6 style={{ minWidth: "40px" }}>Color:</h6>
                   <div className="product-colors-nav mb-2">
+                    
                     {newProductStructure?.variants &&
                       newProductStructure?.variants?.map(
-                        (variantItem, index) => (
-                          <a
-                            key={index}
-                            onClick={() => {
-                              setVariant(variantItem);
-                              setDisplayImage(variantItem?.image);
-                            }}
-                            style={{
-                              backgroundColor: `rgba(${variantItem.color.r}, ${variantItem.color.g}, ${variantItem.color.b}, ${variantItem.color.a})`,
-                            }}
-                            className={`${
-                              variant?.color.r === variantItem?.color?.r &&
-                              variant?.color.g === variantItem?.color?.g &&
-                              variant?.color.b === variantItem?.color?.b &&
-                              variant?.color.a === variantItem?.color?.a
-                                ? "active"
-                                : ""
-                            } `}
-                          ></a>
-                        )
+                        (variantItem, index) => {
+                          
+                          return (
+                            <a
+                              key={index}
+                              onClick={() => {
+                                setVariant(variantItem);
+                                setDisplayImage(variantItem?.image);
+                              }}
+                              style={{
+                                
+                                border: variantItem?.color.r == '252' && variantItem?.color.g == '252' && variantItem?.color.b == '252'  ? `1px solid #ddd` : '1px solid #eee',
+                                backgroundColor: `rgba(${variantItem.color.r}, ${variantItem.color.g}, ${variantItem.color.b}, ${variantItem.color.a})`,
+                              }}
+                              className={`${
+                                variant?.color.r === variantItem?.color?.r &&
+                                variant?.color.g === variantItem?.color?.g &&
+                                variant?.color.b === variantItem?.color?.b &&
+                                variant?.color.a === variantItem?.color?.a
+                                  ? "active"
+                                  : ""
+                              } `}
+                            ></a>
+                          )
+                        }
                       )}
                   </div>
                 </div>{" "}

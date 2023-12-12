@@ -34,7 +34,7 @@ const NavMenu = () => {
     const route = router.pathname;
 
     if (!route.includes("/user")) {
-      router.push(`/user/dashboard/${user?.email}`);
+      router.push(`/user/dashboard`);
     }
   };
 

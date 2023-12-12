@@ -72,7 +72,6 @@ const checkout = () => {
       ...formData,
       [name]: value,
     });
-    console.log({ formData });
   };
 
   const orderData = {
@@ -109,7 +108,6 @@ const checkout = () => {
       window.location.href = responseData?.url
     }
     else {
-      console.log({ orderData });
       toast.error('Please select BDT currency for payment. Others currency under development.')
     }
   }
@@ -150,7 +148,6 @@ const checkout = () => {
 
         toast.success('Congratulations !! You have got 20% discount')
       }
-      console.log(discountType);
     }
     else {
       toast.error('Invalid coupon')
@@ -569,7 +566,7 @@ const checkout = () => {
                     TOTAL COST
                     <span className="font-serif font-extrabold text-lg">{orderTotalPriceForCheckout} {currency}</span>
                   </div>
-                  {console.log((couponData?.discountAmount ? couponData?.discountAmount : Number(0)))}
+                  
                 </div>
               </div>
 
