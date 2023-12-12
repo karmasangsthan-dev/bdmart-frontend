@@ -95,7 +95,6 @@ const ShopSideBar = ({ data, filter, setFilter, t }) => {
       `/shop?category=${category}&subCategory=${subCategory}&childCategory=${childCategoryData?.childCategoryTitle}`
     );
   };
-  console.log({ data });
   useEffect(() => {
     setFilter((prevFilter) => ({
       ...prevFilter,
