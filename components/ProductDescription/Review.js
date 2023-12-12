@@ -25,6 +25,7 @@ import { MoreVert } from "@mui/icons-material";
 import { useRouter } from "next/router";
 
 export default function Review({ review }) {
+  const token = localStorage.getItem("accessToken");
   const user = useSelector((state) => state?.auth?.user);
   const seller = useSelector((state) => state?.auth?.seller);
   const [reviewReply, setReviewReply] = useState("");
@@ -38,7 +39,6 @@ export default function Review({ review }) {
   const [likeOnReview, { isSuccess: success, isError: isErr }] =
     useLikeOnReviewMutation();
   const [unLikeReview] = useUnLikeReviewMutation();
-  useLikeOnReviewMutation();
 
   const formattedDate = (createdAt) => {
     const date = new Date(createdAt);
@@ -56,16 +56,16 @@ export default function Review({ review }) {
     }
     const repliedBy = "Bangladesh Mart";
     const reviewId = review?._id;
-    makeReply({ repliedBy, reply: reviewReply, reviewId });
+    makeReply({ repliedBy, reply: reviewReply, reviewId, token });
   };
 
   const handleLike = () => {
     setLike(!like);
-    likeOnReview({ reviewId: review?._id, email: user?.email });
+    likeOnReview({ reviewId: review?._id, email: user?.email, token });
   };
   const handleUnlike = () => {
     setLike(!like);
-    unLikeReview({ reviewId: review?._id, email: user?.email });
+    unLikeReview({ reviewId: review?._id, email: user?.email, token });
   };
 
   useEffect(() => {
@@ -78,12 +78,11 @@ export default function Review({ review }) {
       router.push({
         pathname: "/signin",
         query: { redirect: router.asPath },
-      })
+      });
+    } else {
+      toast.error("You are a seller, you cannot like any review");
     }
-    else {
-      toast.error('You are a seller, you cannot like any review')
-    }
-  }
+  };
 
   return (
     <div className="review-card  px-3 py-2 mb-3 ">
@@ -129,12 +128,14 @@ export default function Review({ review }) {
                   onClick={handleUnlike}
                 />
               ) : (
-                <FaRegThumbsUp className="fs-6 review-like-btn" onClick={handleLike} />
+                <FaRegThumbsUp
+                  className="fs-6 review-like-btn"
+                  onClick={handleLike}
+                />
               )}
             </span>
           ) : (
             <FaRegThumbsUp
-
               className="fs-6 review-like-btn"
               onClick={() => handleNavigateInSignInPage()}
             />

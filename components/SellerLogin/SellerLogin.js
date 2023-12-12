@@ -50,7 +50,6 @@ const SellerLogin = () => {
 
   useEffect(() => {
     if (user?.email) {
-      console.log('ok')
       if (user?.providerId === "custom") {
         localStorage.removeItem("accessToken");
         dispatch(logOut());

@@ -4,7 +4,6 @@ import Layout from '../../components/Layout';
 const productDetails = () => {
     function handleClick(event) {
         event.preventDefault();
-        console.info('You clicked a breadcrumb.');
     }
     return (
         <Layout>

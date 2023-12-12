@@ -41,6 +41,7 @@ export const bn = {
       categoryTitle: "ক্যাটাগরি",
       brandTitle: "ব্র্যান্ড",
       priceTitle: "মূল্য",
+      ratingTitle: "রেটিং",
     },
     allProducts: {
       productsCountTitle: "সর্বমোট পণ্য",

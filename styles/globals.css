@@ -2289,6 +2289,23 @@ a.slide_btn {
   margin-top: 0.5rem;
 }
 
+.shop-sidebar-ratings .rating-div {
+  display: flex;
+  align-items: center;
+  padding: 3px 2px;
+}
+.shop-sidebar-ratings .rating-div:hover {
+  cursor: pointer;
+  background-color: rgb(224, 224, 224);
+}
+.shop-sidebar-ratings .selected-rating-div {
+  background-color: rgb(224, 224, 224) !important;
+}
+.shop-sidebar-ratings .rating-div p{
+  color: #727272;
+  font-size: 13px;
+}
+
 /* .shop-sidebar-category:hover{
   background-color: rgb(245 245 245/1);
 } */

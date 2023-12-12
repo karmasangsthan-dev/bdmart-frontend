@@ -6,85 +6,59 @@ import { FaUserFriends } from "react-icons/fa";
 import { BsApple } from "react-icons/bs";
 import Link from "next/link";
 import Image from "next/image";
-
+import { useSelector } from "react-redux";
 
 const Footer = () => {
+  const { user, isLoading } = useSelector((state) => state?.auth);
+
   return (
     <footer className="footer-section ">
       <div className="footer-routes-container">
         <div className="route-content">
-          <h3 className="">
-            Company
-          </h3>
+          <h3 className="">Company</h3>
           <ul className="">
             <li className="">
-              <Link
-                className=""
-                href="/about-us"
-              >
+              <Link className="" href="/about-us">
                 About Us
               </Link>
             </li>
             <li className="">
-              <Link
-                className=""
-                href="/contact"
-              >
+              <Link className="" href="/contact">
                 Contact Us
               </Link>
             </li>
             <li className="">
-              <Link
-                className=""
-                href="/#"
-              >
+              <Link className="" href="/#">
                 Careers
               </Link>
             </li>
             <li className="">
-              <a
-                className=""
-                href="/#"
-              >
+              <a className="" href="/#">
                 Latest News
               </a>
             </li>
           </ul>
         </div>
         <div className="route-content">
-          <h3 className="">
-            Top Category
-          </h3>
+          <h3 className="">Top Category</h3>
           <ul className="">
             <li className="">
-              <a
-                className=""
-                href="/search?Category=fish--meat"
-              >
+              <a className="" href="/search?Category=fish--meat">
                 Fish &amp; Meat
               </a>
             </li>
             <li className="">
-              <a
-                className=""
-                href="/search?Category=drinks"
-              >
+              <a className="" href="/search?Category=drinks">
                 Soft Drinks
               </a>
             </li>
             <li className="">
-              <a
-                className=""
-                href="/search?Category=baby-care"
-              >
+              <a className="" href="/search?Category=baby-care">
                 Baby Care
               </a>
             </li>
             <li className="">
-              <a
-                className=""
-                href="/search?Category=beauty--health"
-              >
+              <a className="" href="/search?Category=beauty--health">
                 {" "}
                 Beauty &amp; Health
               </a>
@@ -92,39 +66,25 @@ const Footer = () => {
           </ul>
         </div>
         <div className="route-content">
-          <h3 className="">
-            My Account
-          </h3>
+          <h3 className="">My Account</h3>
           <ul className="">
             <li className="">
-              <Link
-                className=""
-                href="/user/dashboard"
-              >
+              <Link className="" href={`/user/dashboard/${user?.email}`}>
                 Dashboard
               </Link>
             </li>
             <li className="">
-              <Link
-                className=""
-                href="/user/my-orders"
-              >
+              <Link className="" href="/user/my-orders">
                 My Orders
               </Link>
             </li>
             <li className="">
-              <Link
-                className=""
-                href="/user/my-orders"
-              >
+              <Link className="" href="/user/my-orders">
                 Recent Orders
               </Link>
             </li>
             <li className="">
-              <Link
-                className=""
-                href="/user/update-profile"
-              >
+              <Link className="" href="/user/update-profile">
                 Updated Profile
               </Link>
             </li>
@@ -133,7 +93,7 @@ const Footer = () => {
         <div className="route-content">
           <a className="mr-3 lg:mr-12 xl:mr-12" rel="noreferrer" href="/">
             <Image
-              style={{ position: 'relative', right: '25px', bottom: '10px' }}
+              style={{ position: "relative", right: "25px", bottom: "10px" }}
               alt="logo"
               src="/images/logo2.jpg"
               width={190}
@@ -141,9 +101,14 @@ const Footer = () => {
             />
           </a>
           <div className="leading-7 font-sans text-sm text-gray-600 ">
-            <p className=""> 1020 Vatara Road, Notun Bazar, Dhaka 1212, Bangladesh</p>
+            <p className="">
+              {" "}
+              1020 Vatara Road, Notun Bazar, Dhaka 1212, Bangladesh
+            </p>
             <p className="my-1">Tell: 01223334455</p>
-            <p className="my-1 d-sm-none d-lg-block">Email: contact@bangladeshmart.com.bd</p>
+            <p className="my-1 d-sm-none d-lg-block">
+              Email: contact@bangladeshmart.com.bd
+            </p>
           </div>
         </div>
       </div>
@@ -152,9 +117,7 @@ const Footer = () => {
         <div className="footer-div-1">
           <div className="bottom-footer-container">
             <div className="col-span-1">
-              <span className="follow-us-text">
-                Follow Us
-              </span>
+              <span className="follow-us-text">Follow Us</span>
               <ul className="icon-container ps-0">
                 <li className="social-icon">
                   <a
@@ -244,13 +207,14 @@ const Footer = () => {
               </ul>
             </div>
             <div className="call-us-now">
-              <p className="text-base leading-7 font-medium block">Call Us Now!</p>
+              <p className="text-base leading-7 font-medium block">
+                Call Us Now!
+              </p>
               <h5 className="text-2xl font-bold text-emerald-500 leading-7">
                 +012345-67900
               </h5>
             </div>
             <div className="col-span-1 hidden lg:block md:block">
-
               <ul className="lg:text-right">
                 <li className="px-1 mb-2 md:mb-0 transition hover:opacity-80 inline-flex">
                   <span
@@ -266,7 +230,7 @@ const Footer = () => {
                       margin: 0,
                       padding: 0,
                       position: "relative",
-                      maxWidth: "100%"
+                      maxWidth: "100%",
                     }}
                   >
                     <span
@@ -280,7 +244,7 @@ const Footer = () => {
                         border: 0,
                         margin: 0,
                         padding: 0,
-                        maxWidth: "100%"
+                        maxWidth: "100%",
                       }}
                     >
                       <img
@@ -320,9 +284,7 @@ const Footer = () => {
                         maxWidth: "100%",
                         minHeight: "100%",
                         maxHeight: "100%",
-
                       }}
-
                     />
                     <noscript />
                   </span>
@@ -331,7 +293,6 @@ const Footer = () => {
             </div>
           </div>
         </div>
-
       </div>
     </footer>
   );

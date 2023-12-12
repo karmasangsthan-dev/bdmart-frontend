@@ -29,7 +29,6 @@ const signin = () => {
   const { redirect } = query;
   const dispatch = useDispatch();
 
-  console.log({redirect})
 
   const handleCreateCustomerAccount = (e) => {
     e.preventDefault();
