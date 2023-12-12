@@ -19,7 +19,6 @@ const MobileMegaMenu = () => {
         <div className="relative grid gap-2 p-6" style={{ display: 'grid' }}>
             {isLoading && <p>Loading...</p>}
             {productCategories?.map(category => {
-                console.log({ category });
                 return (
                     <div onClick={() => handleToggleSubcategories(category)}>
                         <a

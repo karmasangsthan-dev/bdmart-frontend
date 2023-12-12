@@ -262,7 +262,7 @@
 }
 
 .product-colors-nav a.active {
-    box-shadow: 0 0 0 0.1rem #ccc;
+    box-shadow: 0 0px 0px 0.2rem #5d5d5d;
 }
 
 .product-colors-nav a:hover {

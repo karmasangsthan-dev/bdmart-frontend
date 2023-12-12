@@ -37,7 +37,6 @@ export default function ResetPassword() {
   //     </div>
   //   );
   // }
-  console.log({ isLoading, isSuccess, isError, error });
   return (
     <Layout>
       <mainr

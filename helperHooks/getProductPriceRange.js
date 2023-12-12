@@ -8,7 +8,7 @@ export const getProductPriceRangeDetails = (variants, currencyRate) => {
 
   variants.forEach((variant) => {
     variant.sizes.forEach((size) => {
-      const sizePrice = size.price ;
+      const sizePrice = size.price;
       if (sizePrice > highestPrice) {
         highestPrice = sizePrice;
       }

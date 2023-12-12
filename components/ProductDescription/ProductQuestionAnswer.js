@@ -23,6 +23,7 @@ const ProductQuestionAnswer = ({ product }) => {
         email: user?.email,
       },
       productId: product?._id,
+      token: token,
     };
 
     if (!question) {
@@ -137,15 +138,16 @@ const ProductQuestionAnswer = ({ product }) => {
             );
           })}
       </div>
-      {product?.questionsAndAnswers?.length > 0 && <div className="questions-pagination ">
-        <Pagination
-          count={product?.questionsAndAnswers?.length || 5 / 5}
-          variant="outlined"
-          color="primary"
-          shape="rounded"
-        />
-      </div>}
-
+      {product?.questionsAndAnswers?.length > 0 && (
+        <div className="questions-pagination ">
+          <Pagination
+            count={product?.questionsAndAnswers?.length || 5 / 5}
+            variant="outlined"
+            color="primary"
+            shape="rounded"
+          />
+        </div>
+      )}
     </div>
   );
 };

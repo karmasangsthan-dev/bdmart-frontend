@@ -16,7 +16,6 @@ export async function getServerSideProps(context) {
         const url = `${process.env.NEXT_PUBLIC_BACKEND_SITE_LINK}/api/v1/order/order/${context.params.order}`
         const response = await axios.get(url);
         const order = response.data;
-        console.log({ url });
         return {
             props: {
                 orderData: order,
@@ -36,7 +35,6 @@ const Order = ({ orderData: data }) => {
     const router = useRouter();
     const componentRef = useRef();
     const dispatch = useDispatch();
-    console.log({ data });
 
 
     // const { data, isLoading: orderLoading } = useGetSingleOrderByIdQuery(order);

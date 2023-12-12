@@ -83,9 +83,7 @@ const ProductReviewSection = ({ product }) => {
       </div>
       <div className="all-reviews">
         {product?.reviews
-          ?.slice(0, 5)
-          .reverse()
-          .map((review) => (
+          ?.map((review) => (
             <Review review={review} key={review?._id} />
           ))}
       </div>

@@ -3,8 +3,7 @@ import apiSlice from "../api/apiSlice";
 const questionAndAnswerApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     createQuestion: builder.mutation({
-      query: ({token, productId, ...data }) => {
-        console.log({token,productId});
+      query: ({ token, productId, ...data }) => {
         return {
           url: `/question/${productId}`,
           method: "POST",
@@ -17,9 +16,12 @@ const questionAndAnswerApi = apiSlice.injectEndpoints({
       invalidatesTags: ["QuestionAndAnswer", "Product"],
     }),
     makeAnswer: builder.mutation({
-      query: ({ questionId, ...data }) => ({
+      query: ({ token, questionId, ...data }) => ({
         url: `/question/ans/${questionId}`,
         method: "PATCH",
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
         body: data,
       }),
       invalidatesTags: ["QuestionAndAnswer", "Product"],

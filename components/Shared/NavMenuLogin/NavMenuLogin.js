@@ -21,7 +21,6 @@ import { bn } from "../../../locales/bn";
 const NavMenuLogin = () => {
     const router = useRouter();
     const handleNavigate = () => {
-        console.log({ router })
         if (router.pathname !== '/signin' && router.pathname !== '/signup') {
             router.push({
                 pathname: "/signin",

@@ -55,7 +55,6 @@ export const googleLogin = createAsyncThunk(
       }
     );
     const result = await response.json();
-    console.log(result);
     if (result?.status == 1) {
       localStorage.setItem('accessToken', result?.token);
       return result?.data;
@@ -76,7 +75,6 @@ const authSlice = createSlice({
     },
 
     setUser: (state, action) => {
-      console.log(action.payload);
       state.user = action.payload;
       state.isLoading = false;
       state.isSuccess = true;
