@@ -11,7 +11,7 @@ import { Cropper } from "react-cropper";
 import { toast } from "react-hot-toast";
 
 const review = () => {
-  const token = localStorage.getItem("accessToken");
+  const [token, setToken] = useState();
   const router = useRouter();
   const componentRef = useRef();
   const fileInputRef = useRef(null);
@@ -30,6 +30,13 @@ const review = () => {
   );
   const [createReview, { isSuccess, isLoading: createLoading, isError }] =
     useCreateReviewMutation();
+
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    setToken(token);
+  }, []);
+
   useEffect(() => {
     if (createLoading) {
       toast.loading("Loading...");
@@ -220,9 +227,9 @@ const review = () => {
                                         {product?.title?.length < 40
                                           ? product?.title
                                           : `${product?.title?.slice(
-                                              0,
-                                              40
-                                            )}...`}
+                                            0,
+                                            40
+                                          )}...`}
                                       </td>
                                       <td
                                         className="d-lg-block d-sm-none"
