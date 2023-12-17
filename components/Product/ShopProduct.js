@@ -91,11 +91,11 @@ export default function ShopProduct({ product }) {
           <Rating
             style={{ fontSize: "15px", marginLeft: "-3px" }}
             name="read-only"
-            value={Math.ceil(product?.rating || 0)}
+            value={Math.floor(product?.averageRating || 0)}
             readOnly
           />
           <p className="mb-0 ms-1" style={{ fontSize: "13px" }}>
-            ({Math.floor(product?.rating || 0)})
+            ({Math.floor(product?.averageRating || 0)})
           </p>
         </div>
         <div id="">

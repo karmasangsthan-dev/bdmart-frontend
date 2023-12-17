@@ -1,11 +1,11 @@
-import { Rating } from '@mui/material';
-import { useRouter } from 'next/router';
-import { useDispatch, useSelector } from 'react-redux';
+import { Rating } from "@mui/material";
+import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
 
-import Image from 'next/image';
+import Image from "next/image";
 
-import { getProductPriceRangeForCard } from '../../helperHooks/getProductPriceRange';
-import { useHandleAddToCart } from '../../helperHooks/handleAddToCart';
+import { getProductPriceRangeForCard } from "../../helperHooks/getProductPriceRange";
+import { useHandleAddToCart } from "../../helperHooks/handleAddToCart";
 
 export default function JustForYouProductCard({ product }) {
   const dispatch = useDispatch();
@@ -50,14 +50,14 @@ export default function JustForYouProductCard({ product }) {
             objectFit="contain"
             onClick={() => router.push(`/productDetails/${product._id}`)}
             className=""
-            style={{ width: '100%', height: '100%' }}
+            style={{ width: "100%", height: "100%" }}
             src={product?.thumbnail}
             alt={product?.title}
           />
         </div>
         <p
           onClick={() => router.push(`/productDetails/${product._id}`)}
-          style={{ minHeight: '42px', cursor: 'pointer' }}
+          style={{ minHeight: "42px", cursor: "pointer" }}
           className="item-name mt-2 mb-0 text-capitalize"
         >
           {product?.title?.length > 30
@@ -71,8 +71,8 @@ export default function JustForYouProductCard({ product }) {
               <>
                 <span className="item-price">
                   {productLowestPrice} {currency}
-                </span>{' '}
-                -{' '}
+                </span>{" "}
+                -{" "}
                 <span className="item-price pl-2">
                   {productHighestPrice} {currency}
                 </span>
@@ -93,18 +93,18 @@ export default function JustForYouProductCard({ product }) {
               {/* <span className="ms-2"> - {discountPercentage?.toFixed(2)}%</span> */}
             </>
           ) : (
-            <div style={{ height: '18px' }}></div>
+            <div style={{ height: "18px" }}></div>
           )}
         </div>
         <div className="d-flex align-items-center">
           <Rating
-            style={{ fontSize: '15px', marginLeft: '-3px' }}
+            style={{ fontSize: "15px", marginLeft: "-3px" }}
             name="read-only"
-            value={parseInt(sanitizedAverageRating)}
+            value={Math.floor(product?.averageRating || 0)}
             readOnly
           />
-          <p className="mb-0 ms-1" style={{ fontSize: '13px' }}>
-            ({parseInt(totalReviews)})
+          <p className="mb-0 ms-1" style={{ fontSize: "13px" }}>
+            ({Math.floor(product?.averageRating || 0)})
           </p>
         </div>
         <div id="">
