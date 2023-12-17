@@ -1,10 +1,55 @@
-export const getProductPriceRangeDetails = (variants, currencyRate) => {
-  let highestPrice = variants[0]?.sizes[0]?.price
-    ? variants[0]?.sizes[0]?.price
-    : 0;
-  let lowestPrice = variants[0]?.sizes[0]?.price
-    ? variants[0]?.sizes[0]?.price
-    : 0;
+export const getProductPriceRangeDetails = (product) => {
+
+  const updatedVariants = [];
+
+  for (let index = 0; index < product?.variants?.length; index++) {
+    const variant = product.variants[index];
+
+    if (variant) {
+      const matchingColorVariant = updatedVariants.find(
+        (v) =>
+          v.color.r === variant.color.r &&
+          v.color.g === variant.color.g &&
+          v.color.b === variant.color.b &&
+          v.color.a === variant.color.a
+      );
+
+      if (matchingColorVariant) {
+        matchingColorVariant.sizes.push({
+          size: variant.size,
+          oldPrice: variant.oldPrice,
+          price: variant.price,
+          stock: variant.stock,
+          status: variant.status,
+          _id: variant?._id,
+        });
+      } else if (!matchingColorVariant) {
+        const newVariant = {
+          color: variant?.color,
+          image: variant?.image,
+          sizes: [
+            {
+              size: variant.size,
+              oldPrice: variant.oldPrice,
+              price: variant.price,
+              stock: variant.stock,
+              status: variant.status,
+              _id: variant?._id,
+            },
+          ],
+        };
+        updatedVariants.push(newVariant);
+      }
+    }
+  }
+
+
+  const variants = updatedVariants;
+
+  let highestPrice = variants[0]?.sizes[0]?.price ? variants[0]?.sizes[0]?.price : 0;
+
+  let lowestPrice = variants[0]?.sizes[0]?.price ? variants[0]?.sizes[0]?.price : 0;
+
 
   variants.forEach((variant) => {
     variant.sizes.forEach((size) => {
@@ -19,6 +64,10 @@ export const getProductPriceRangeDetails = (variants, currencyRate) => {
   });
   return { highestPrice, lowestPrice };
 };
+
+
+
+
 export const getProductPriceRangeForCard = (variants, currencyRate) => {
   let highestPrice = variants[0]?.price ? variants[0]?.price : 0;
   let lowestPrice = variants[0]?.price ? variants[0]?.price : 0;
@@ -31,6 +80,26 @@ export const getProductPriceRangeForCard = (variants, currencyRate) => {
       lowestPrice = (variant.price * currencyRate).toFixed(2);
     }
   });
-
   return { highestPrice, lowestPrice };
+};
+export const getShopPageProductDiscountLowestHighestPrice = (variants) => {
+  let oldLowestPrice = Number.MAX_VALUE;
+  let oldHighestPrice = Number.MIN_VALUE;
+
+  // Iterate through the array
+  variants.forEach(variant => {
+    // Check if the variant has an "oldPrice" property
+    if (variant.oldPrice !== undefined) {
+      // Update the old lowest and highest prices if necessary
+      if (variant.oldPrice < oldLowestPrice) {
+        oldLowestPrice = variant.oldPrice;
+      }
+      if (variant.oldPrice > oldHighestPrice) {
+        oldHighestPrice = variant.oldPrice;
+      }
+    }
+  });
+
+
+  return { oldLowestPrice, oldHighestPrice };
 };

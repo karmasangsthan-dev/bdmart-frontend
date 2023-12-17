@@ -4,7 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Image from "next/image";
 
-import { getProductPriceRangeForCard } from "../../helperHooks/getProductPriceRange";
+import {
+  getProductPriceRangeDetails,
+  getProductPriceRangeForCard,
+} from "../../helperHooks/getProductPriceRange";
 import { useHandleAddToCart } from "../../helperHooks/handleAddToCart";
 
 export default function JustForYouProductCard({ product }) {
@@ -13,22 +16,65 @@ export default function JustForYouProductCard({ product }) {
     (state) => state.currency
   );
 
-  const productHighestPrice = getProductPriceRangeForCard(
-    product?.variants,
-    currencyRate
-  ).highestPrice;
-  const productLowestPrice = getProductPriceRangeForCard(
-    product?.variants,
-    currencyRate
-  ).lowestPrice;
+  const updatedVariants = [];
+
+  for (let index = 0; index < product?.variants?.length; index++) {
+    const variant = product.variants[index];
+
+    if (variant) {
+      const matchingColorVariant = updatedVariants.find(
+        (v) =>
+          v.color.r === variant.color.r &&
+          v.color.g === variant.color.g &&
+          v.color.b === variant.color.b &&
+          v.color.a === variant.color.a
+      );
+
+      if (matchingColorVariant) {
+        matchingColorVariant.sizes.push({
+          size: variant.size,
+          oldPrice: variant.oldPrice,
+          price: variant.price,
+          stock: variant.stock,
+          status: variant.status,
+          _id: variant?._id,
+        });
+      } else if (!matchingColorVariant) {
+        const newVariant = {
+          color: variant?.color,
+          image: variant?.image,
+          sizes: [
+            {
+              size: variant.size,
+              oldPrice: variant.oldPrice,
+              price: variant.price,
+              stock: variant.stock,
+              status: variant.status,
+              _id: variant?._id,
+            },
+          ],
+        };
+        updatedVariants.push(newVariant);
+      }
+    }
+  }
+  const newProductStructure = {
+    ...product,
+    variants: updatedVariants,
+  };
+
+  const { highestPrice, lowestPrice } = getProductPriceRangeDetails(product);
 
   const router = useRouter();
 
   const { reviews } = product;
   const totalReviews = reviews?.length;
-  const ratingsSum = reviews.reduce((sum, review) => sum + review.ratings, 0);
-  const averageRating = totalReviews ? ratingsSum / totalReviews : 0;
-  const sanitizedAverageRating = isNaN(averageRating) ? 0 : averageRating;
+
+  const totalRatings = reviews.reduce((sum, review) => sum + review.ratings, 0);
+  const averageRating = totalRatings / reviews.length;
+
+  // Display average rating out of 5
+  const averageRatingOutOf5 = averageRating.toFixed(1);
 
   const productAddToCart = (product) => {
     useHandleAddToCart({
@@ -67,19 +113,27 @@ export default function JustForYouProductCard({ product }) {
 
         <div className="d-flex justify-content-between align-items-center">
           <div className="item-price">
-            {product?.variants?.length > 1 ? (
-              <>
-                <span className="item-price">
-                  {productLowestPrice} {currency}
-                </span>{" "}
-                -{" "}
-                <span className="item-price pl-2">
-                  {productHighestPrice} {currency}
-                </span>
-              </>
+            {product?.variants?.length > 0 ? (
+              product?.variants?.length === 1 ? (
+                <>
+                  <span className="item-price">
+                    {(lowestPrice * currencyRate).toFixed(2)} {currency}
+                  </span>
+                </>
+              ) : (
+                <>
+                  <span className="item-price">
+                    {(lowestPrice * currencyRate).toFixed(2)} {currency}
+                  </span>{" "}
+                  -{" "}
+                  <span className="item-price pl-2">
+                    {(highestPrice * currencyRate).toFixed(2)} {currency}
+                  </span>
+                </>
+              )
             ) : (
               <span className="item-price">
-                {productLowestPrice} {currency}
+                <span style={{ color: "red" }}>00.00</span> {currency}
               </span>
             )}
           </div>

@@ -41,7 +41,6 @@ const shop = () => {
     price: [],
     ratings: "",
   });
-  console.log(filter);
   const { data, isLoading } = useGetAllProductsQuery({
     perPage: page,
   });

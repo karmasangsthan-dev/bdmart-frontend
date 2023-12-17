@@ -32,10 +32,12 @@ const ShopSideBar = ({ data, filter, setFilter, t }) => {
   const { data: subCategoryData, isLoading: subCategoryLoading } =
     useGetSubCategoryQuery(category);
 
+  
+
   useEffect(() => {
     setPriceRange([
-      data?.lowestPriceProduct.price,
-      data?.highestPriceProduct.price,
+      data?.lowestPriceProduct?.price,
+      data?.highestPriceProduct?.price,
     ]);
   }, [data?.lowestPriceProduct, data?.highestPriceProduct]);
   data?.allResult?.map((product) => {
@@ -100,7 +102,6 @@ const ShopSideBar = ({ data, filter, setFilter, t }) => {
       `/shop?category=${category}&subCategory=${subCategory}&childCategory=${childCategoryData?.childCategoryTitle}`
     );
   };
-  console.log({ data });
   useEffect(() => {
     setFilter((prevFilter) => ({
       ...prevFilter,
@@ -348,9 +349,9 @@ const ShopSideBar = ({ data, filter, setFilter, t }) => {
                     ...(filter.price.length
                       ? filter.price
                       : [
-                          data?.lowestPriceProduct?.price,
-                          data?.highestPriceProduct?.price,
-                        ]),
+                        data?.lowestPriceProduct?.price,
+                        data?.highestPriceProduct?.price,
+                      ]),
                   ]}
                   onChange={handlePriceChange}
                   valueLabelDisplay="auto"
@@ -375,9 +376,8 @@ const ShopSideBar = ({ data, filter, setFilter, t }) => {
             <Collapse in={ratingOpen}>
               <div className="shop-sidebar-ratings">
                 <div
-                  className={`rating-div ${
-                    rating === "5" ? `selected-rating-div` : ""
-                  }`}
+                  className={`rating-div ${rating === "5" ? `selected-rating-div` : ""
+                    }`}
                   onClick={() => {
                     setSelectedRating(5);
 
@@ -392,9 +392,8 @@ const ShopSideBar = ({ data, filter, setFilter, t }) => {
                   <Rating name="read-only" value={5} readOnly />
                 </div>
                 <div
-                  className={`rating-div mt-1 ${
-                    rating === "4" ? `selected-rating-div` : ""
-                  }`}
+                  className={`rating-div mt-1 ${rating === "4" ? `selected-rating-div` : ""
+                    }`}
                   onClick={() => {
                     setSelectedRating(4);
 
@@ -410,9 +409,8 @@ const ShopSideBar = ({ data, filter, setFilter, t }) => {
                   <p className="ms-2">and Up</p>
                 </div>
                 <div
-                  className={`rating-div mt-1 ${
-                    rating === "3" ? `selected-rating-div` : ""
-                  }`}
+                  className={`rating-div mt-1 ${rating === "3" ? `selected-rating-div` : ""
+                    }`}
                   onClick={() => {
                     setSelectedRating(3);
                     const rating = 3;
@@ -427,9 +425,8 @@ const ShopSideBar = ({ data, filter, setFilter, t }) => {
                   <p className="ms-2">and Up</p>
                 </div>
                 <div
-                  className={`rating-div mt-1 ${
-                    rating === "2" ? `selected-rating-div` : ""
-                  }`}
+                  className={`rating-div mt-1 ${rating === "2" ? `selected-rating-div` : ""
+                    }`}
                   onClick={() => {
                     setSelectedRating(2);
                     const rating = 2;
@@ -444,9 +441,8 @@ const ShopSideBar = ({ data, filter, setFilter, t }) => {
                   <p className="ms-2">and Up</p>
                 </div>
                 <div
-                  className={`rating-div mt-1 ${
-                    rating === "1" ? `selected-rating-div` : ""
-                  }`}
+                  className={`rating-div mt-1 ${rating === "1" ? `selected-rating-div` : ""
+                    }`}
                   onClick={() => {
                     setSelectedRating(1);
                     const rating = 1;

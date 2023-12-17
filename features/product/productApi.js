@@ -18,7 +18,6 @@ const productApi = apiSlice.injectEndpoints({
     }),
     getSectionBasedProducts: builder.query({
       query: ({ section }) => {
-        console.log('section', section);
         return {
           url: `/products/section?section=${section}`,
           method: 'GET',
@@ -40,6 +39,31 @@ const productApi = apiSlice.injectEndpoints({
         return {
           url: `/products/bulk?${queryParams.toString()}`,
           method: 'GET',
+        };
+      },
+      providesTags: ['Products'],
+    }),
+    getJustForYouProducts: builder.query({
+      query: (params = {}) => {
+        const { pageNumber, perPage, token, ...restParams } = params;
+        if (!token) {
+          return null; 
+        }
+        
+        const queryParams = new URLSearchParams(restParams);
+        if (pageNumber) {
+          queryParams.append('pageNumber', pageNumber);
+        }
+        if (perPage) {
+          queryParams.append('perPage', perPage);
+        }
+
+        return {
+          url: `/products/just-for-you/bulk?${queryParams.toString()}`,
+          method: 'GET',
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
         };
       },
       providesTags: ['Products'],
@@ -161,4 +185,5 @@ export const {
   useGetCreateOrderMutation,
   useGetSubCategoryQuery,
   useGetCategoriesQuery,
+  useGetJustForYouProductsQuery,
 } = productApi;

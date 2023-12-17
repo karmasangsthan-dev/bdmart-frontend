@@ -11,7 +11,7 @@ import { Cropper } from "react-cropper";
 import { toast } from "react-hot-toast";
 
 const review = () => {
-  const token = localStorage.getItem("accessToken");
+  const [token, setToken] = useState();
   const router = useRouter();
   const componentRef = useRef();
   const fileInputRef = useRef(null);
@@ -30,6 +30,13 @@ const review = () => {
   );
   const [createReview, { isSuccess, isLoading: createLoading, isError }] =
     useCreateReviewMutation();
+
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    setToken(token);
+  }, []);
+
   useEffect(() => {
     if (createLoading) {
       toast.loading("Loading...", { id: 1 });
@@ -115,6 +122,7 @@ const review = () => {
     data.append("review", reviewText);
     data.append("ratings", ratings);
     data.append("reviewedBy", reviewedBy);
+    console.log({ productId });
     createReview({ data, productId, token });
   };
   // crop confirm handler
@@ -201,53 +209,56 @@ const review = () => {
                               </thead>
                               <tbody>
                                 {data?.map((order, index) =>
-                                  order?.products.map((product, i) => (
-                                    <tr key={index}>
-                                      <td>{index + 1}</td>
-                                      <td>
-                                        <img
-                                          width={40}
-                                          height={40}
-                                          src={product?.thumbnail}
-                                          alt=""
-                                        />
-                                      </td>
-                                      <td
-                                        className="d-sm-block d-lg-none"
-                                        style={{
-                                          minWidth: "130px",
-                                          minHeight: "65px",
-                                        }}
-                                      >
-                                        {product?.title?.length < 40
-                                          ? product?.title
-                                          : `${product?.title?.slice(
+                                  order?.products.map((product, i) => {
+                                    console.log(product,'product under review');
+                                    return (
+                                      <tr key={index}>
+                                        <td>{index + 1}</td>
+                                        <td>
+                                          <img
+                                            width={40}
+                                            height={40}
+                                            src={product?.thumbnail}
+                                            alt=""
+                                          />
+                                        </td>
+                                        <td
+                                          className="d-sm-block d-lg-none"
+                                          style={{
+                                            minWidth: "130px",
+                                            minHeight: "65px",
+                                          }}
+                                        >
+                                          {product?.title?.length < 40
+                                            ? product?.title
+                                            : `${product?.title?.slice(
                                               0,
                                               40
                                             )}...`}
-                                      </td>
-                                      <td
-                                        className="d-lg-block d-sm-none"
-                                        style={{
-                                          minWidth: "130px",
-                                          minHeight: "57px",
-                                        }}
-                                      >
-                                        {product?.title}
-                                      </td>
-
-                                      <td>
-                                        <button
-                                          onClick={() =>
-                                            handleOpenReviewModal(product)
-                                          }
-                                          className="btn btn-info text-white d-flex align-items-center mx-auto"
+                                        </td>
+                                        <td
+                                          className="d-lg-block d-sm-none"
+                                          style={{
+                                            minWidth: "130px",
+                                            minHeight: "57px",
+                                          }}
                                         >
-                                          +
-                                        </button>
-                                      </td>
-                                    </tr>
-                                  ))
+                                          {product?.title}
+                                        </td>
+
+                                        <td>
+                                          <button
+                                            onClick={() =>
+                                              handleOpenReviewModal(product)
+                                            }
+                                            className="btn btn-info text-white d-flex align-items-center mx-auto"
+                                          >
+                                            +
+                                          </button>
+                                        </td>
+                                      </tr>
+                                    )
+                                  })
                                 )}
                               </tbody>
                             </Table>

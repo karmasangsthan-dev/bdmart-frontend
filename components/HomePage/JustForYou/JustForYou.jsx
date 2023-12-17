@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useGetAllProductsQuery } from '../../../features/product/productApi';
+import { useGetJustForYouProductsQuery } from '../../../features/product/productApi';
 import { Rating } from '@mui/material';
 import Skeleton from 'react-loading-skeleton';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -7,17 +7,25 @@ import { useRouter } from 'next/router';
 import DiscountProductCard from '../../Product/DiscountProductCard';
 import { useSelector } from 'react-redux';
 import JustForYouProductCard from '../../Product/JustForYouProductCard';
+import Loading from '../../Shared/Loading/Loading';
 
 const JustForYou = ({ t }) => {
+  const [token, setToken] = useState();
   const router = useRouter();
   const [page, setPage] = useState(12);
   const [products, setProducts] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
-  const { data, isLoading, refetch } = useGetAllProductsQuery({
+  
+  const { data, isLoading, refetch } = useGetJustForYouProductsQuery({
     perPage: page,
     pageNumber,
+    token
   });
 
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    setToken(token);
+  }, []);
   const { currency, currencyRate } = useSelector((state) => state.currency);
   const loadMoreProduct = () => {
     setPageNumber((prev) => prev + 1);

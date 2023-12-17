@@ -38,7 +38,7 @@ const SideBar = () => {
       <div className="sticky-top-dashboard">
         <UserProfileInfo user={user}></UserProfileInfo>
         <div className="sidebar-content">
-          <Link href={`/user/dashboard/${user?.email}`}>
+          <Link href={`/user/dashboard`}>
             <span
               className={`sidebar-item ${
                 textPath === "dashboard" && "active-nav-bg"

@@ -63,7 +63,6 @@ const cartSlice = createSlice({
         (item) => item.variant?._id === id
       );
       if (existingItem) {
-        console.log(existingItem);
         existingItem.variant.quantity += quantity;
       }
     },
@@ -79,13 +78,11 @@ const cartSlice = createSlice({
     },
     decreaseQuantityForCartProducts: (state, action) => {
       const id = action.payload;
-      console.log(id);
       const existingItem = state.cartProducts?.find(
         (item) => item.variant?._id === id
       );
 
       if (existingItem) {
-        console.log(existingItem);
         if (existingItem.variant.quantity > 1) {
           existingItem.variant.quantity -= 1;
         }
