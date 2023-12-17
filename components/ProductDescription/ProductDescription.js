@@ -4,29 +4,15 @@ import { Tab, Tabs } from 'react-bootstrap';
 import AddReview from './AddReview';
 
 const ProductDescription = ({ product }) => {
-    var liData2 = [
-        'LED Digital display',
-        'Gender: Unisex',
-        'Silicone Band',
-        'Band Width: approx. 0.87"(2.2cm)',
-        'Case Size: approx. 1.57" x 1.30"(4*3.3cm)',
-        'Case Thickness: approx. 0.47"(1.2cm)',
-        'Total Length: approx. 10.63"(27cm)',
-        'Red LED light display',
-        'Time and date display',
-        'Battery: CR2016, Rechargeable',
-        "Waterproof: Daily life\'s water-resistant, but not for bathing, swimming, diving, etc",
-        'Quantity: 1 Pc'
-    ];
-
-    var liData = product?.details?.length > 0 ? product?.details : liData2;
-
     
+    const arrayOfStrings = product?.keyFeatures?.map(obj => `${obj?.title} ${obj?.desc}`);
+    var liData = arrayOfStrings || [];
+
 
     // Split the liData into two separate arrays
     // split the li data into two separate arrays 
-    var leftSide = liData.slice(0, Math.ceil(liData?.length / 2));
-    var rightSide = liData.slice(Math.ceil(liData?.length / 2));
+    var leftSide = liData?.slice(0, Math.ceil(liData?.length / 2));
+    var rightSide = liData?.slice(Math.ceil(liData?.length / 2));
 
     return (
         <div className='product-description-container '>

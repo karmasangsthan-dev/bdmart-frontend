@@ -43,6 +43,31 @@ const productApi = apiSlice.injectEndpoints({
       },
       providesTags: ['Products'],
     }),
+    getJustForYouProducts: builder.query({
+      query: (params = {}) => {
+        const { pageNumber, perPage, token, ...restParams } = params;
+        if (!token) {
+          return null; 
+        }
+        
+        const queryParams = new URLSearchParams(restParams);
+        if (pageNumber) {
+          queryParams.append('pageNumber', pageNumber);
+        }
+        if (perPage) {
+          queryParams.append('perPage', perPage);
+        }
+
+        return {
+          url: `/products/just-for-you/bulk?${queryParams.toString()}`,
+          method: 'GET',
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        };
+      },
+      providesTags: ['Products'],
+    }),
     getProductDetails: builder.query({
       query: (id) => {
         return {
@@ -160,4 +185,5 @@ export const {
   useGetCreateOrderMutation,
   useGetSubCategoryQuery,
   useGetCategoriesQuery,
+  useGetJustForYouProductsQuery,
 } = productApi;

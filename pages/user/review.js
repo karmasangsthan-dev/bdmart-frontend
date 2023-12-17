@@ -112,7 +112,7 @@ const review = () => {
     }
     // const data = new
     const reviewedBy = user?._id;
-    const productId = reviewProduct?._id;
+    const productId = reviewProduct?.productId;
     const data = new FormData();
     finalImages?.forEach((file, index) => {
       data.append("images", file);
@@ -120,6 +120,7 @@ const review = () => {
     data.append("review", reviewText);
     data.append("ratings", ratings);
     data.append("reviewedBy", reviewedBy);
+    console.log({ productId });
     createReview({ data, productId, token });
   };
   // crop confirm handler
@@ -206,53 +207,56 @@ const review = () => {
                               </thead>
                               <tbody>
                                 {data?.map((order, index) =>
-                                  order?.products.map((product, i) => (
-                                    <tr key={index}>
-                                      <td>{index + 1}</td>
-                                      <td>
-                                        <img
-                                          width={40}
-                                          height={40}
-                                          src={product?.thumbnail}
-                                          alt=""
-                                        />
-                                      </td>
-                                      <td
-                                        className="d-sm-block d-lg-none"
-                                        style={{
-                                          minWidth: "130px",
-                                          minHeight: "65px",
-                                        }}
-                                      >
-                                        {product?.title?.length < 40
-                                          ? product?.title
-                                          : `${product?.title?.slice(
-                                            0,
-                                            40
-                                          )}...`}
-                                      </td>
-                                      <td
-                                        className="d-lg-block d-sm-none"
-                                        style={{
-                                          minWidth: "130px",
-                                          minHeight: "57px",
-                                        }}
-                                      >
-                                        {product?.title}
-                                      </td>
-
-                                      <td>
-                                        <button
-                                          onClick={() =>
-                                            handleOpenReviewModal(product)
-                                          }
-                                          className="btn btn-info text-white d-flex align-items-center mx-auto"
+                                  order?.products.map((product, i) => {
+                                    console.log(product,'product under review');
+                                    return (
+                                      <tr key={index}>
+                                        <td>{index + 1}</td>
+                                        <td>
+                                          <img
+                                            width={40}
+                                            height={40}
+                                            src={product?.thumbnail}
+                                            alt=""
+                                          />
+                                        </td>
+                                        <td
+                                          className="d-sm-block d-lg-none"
+                                          style={{
+                                            minWidth: "130px",
+                                            minHeight: "65px",
+                                          }}
                                         >
-                                          +
-                                        </button>
-                                      </td>
-                                    </tr>
-                                  ))
+                                          {product?.title?.length < 40
+                                            ? product?.title
+                                            : `${product?.title?.slice(
+                                              0,
+                                              40
+                                            )}...`}
+                                        </td>
+                                        <td
+                                          className="d-lg-block d-sm-none"
+                                          style={{
+                                            minWidth: "130px",
+                                            minHeight: "57px",
+                                          }}
+                                        >
+                                          {product?.title}
+                                        </td>
+
+                                        <td>
+                                          <button
+                                            onClick={() =>
+                                              handleOpenReviewModal(product)
+                                            }
+                                            className="btn btn-info text-white d-flex align-items-center mx-auto"
+                                          >
+                                            +
+                                          </button>
+                                        </td>
+                                      </tr>
+                                    )
+                                  })
                                 )}
                               </tbody>
                             </Table>
