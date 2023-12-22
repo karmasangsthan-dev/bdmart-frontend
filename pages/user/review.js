@@ -39,10 +39,10 @@ const review = () => {
 
   useEffect(() => {
     if (createLoading) {
-      toast.loading("Loading...");
+      toast.loading("Loading...", { id: 1 });
     }
     if (isSuccess) {
-      toast.success("Review added successfully...!!");
+      toast.success("Review added successfully...!!", { id: 1 });
       setShow(false);
       setSelectedImages([]);
       setReviewText("");
@@ -79,7 +79,7 @@ const review = () => {
           } else {
             setShow(true);
             setSelectedImages([]);
-            toast.error("You can select only maximum 3 images");
+            toast.error("You can select only maximum 3 images", { id: 1 });
             if (fileInputRef.current) {
               fileInputRef.current.value = "";
             }
@@ -95,19 +95,21 @@ const review = () => {
   // handle review submit
   const handleSubmit = () => {
     if (finalImages?.length < 1 && !reviewText) {
-      toast.error("Please select images and enter your review details");
+      toast.error("Please select images and enter your review details", {
+        id: 1,
+      });
       return;
     }
     if (finalImages?.length >= 1 && !reviewText) {
-      toast.error("Please add a review details");
+      toast.error("Please add a review details", { id: 1 });
       return;
     }
     if (reviewText && finalImages?.length < 1) {
-      toast.error("Please select at least 1 image");
+      toast.error("Please select at least 1 image", { id: 1 });
       return;
     }
     if (!ratings) {
-      toast.error("Please rate your experience with us !!!");
+      toast.error("Please rate your experience with us !!!", { id: 1 });
       return;
     }
     // const data = new
