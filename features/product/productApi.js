@@ -46,10 +46,8 @@ const productApi = apiSlice.injectEndpoints({
     getJustForYouProducts: builder.query({
       query: (params = {}) => {
         const { pageNumber, perPage, token, ...restParams } = params;
-        if (!token) {
-          return null; 
-        }
-        
+
+
         const queryParams = new URLSearchParams(restParams);
         if (pageNumber) {
           queryParams.append('pageNumber', pageNumber);
@@ -57,13 +55,15 @@ const productApi = apiSlice.injectEndpoints({
         if (perPage) {
           queryParams.append('perPage', perPage);
         }
+        if (token) {
+          queryParams.append('token', token);
+        }
+
+        console.log({ token });
 
         return {
           url: `/products/just-for-you/bulk?${queryParams.toString()}`,
-          method: 'GET',
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
+          method: 'GET'
         };
       },
       providesTags: ['Products'],

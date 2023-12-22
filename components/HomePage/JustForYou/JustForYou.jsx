@@ -10,7 +10,7 @@ import JustForYouProductCard from '../../Product/JustForYouProductCard';
 import Loading from '../../Shared/Loading/Loading';
 
 const JustForYou = ({ t }) => {
-  const [token, setToken] = useState();
+  const [token, setToken] = useState('');
   const router = useRouter();
   const [page, setPage] = useState(12);
   const [products, setProducts] = useState([]);
