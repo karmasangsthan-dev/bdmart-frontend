@@ -1,18 +1,20 @@
-import { Rating } from '@mui/material';
-import { useRouter } from 'next/router';
-import { useDispatch, useSelector } from 'react-redux';
+import { Rating } from "@mui/material";
+import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
 
-import Image from 'next/image';
+import Image from "next/image";
 
-import { getProductPriceRangeDetails, getProductPriceRangeForCard } from '../../helperHooks/getProductPriceRange';
-import { useHandleAddToCart } from '../../helperHooks/handleAddToCart';
+import {
+  getProductPriceRangeDetails,
+  getProductPriceRangeForCard,
+} from "../../helperHooks/getProductPriceRange";
+import { useHandleAddToCart } from "../../helperHooks/handleAddToCart";
 
 export default function JustForYouProductCard({ product }) {
   const dispatch = useDispatch();
   const { code: currency, rate: currencyRate } = useSelector(
     (state) => state.currency
   );
-
 
   const updatedVariants = [];
 
@@ -61,10 +63,7 @@ export default function JustForYouProductCard({ product }) {
     variants: updatedVariants,
   };
 
-
-
-  const { highestPrice, lowestPrice } = getProductPriceRangeDetails(product
-  );
+  const { highestPrice, lowestPrice } = getProductPriceRangeDetails(product);
 
   const router = useRouter();
 
@@ -97,14 +96,14 @@ export default function JustForYouProductCard({ product }) {
             objectFit="contain"
             onClick={() => router.push(`/productDetails/${product._id}`)}
             className=""
-            style={{ width: '100%', height: '100%' }}
-            src={product?.thumbnail}
+            style={{ width: "100%", height: "100%" }}
+            src={product?.thumbnail ? product?.thumbnail : 'https://res.cloudinary.com/dfcztmnvh/image/upload/v1705051863/products/icon-image-not-found-free-vector_pczipx.jpg' }
             alt={product?.title}
           />
         </div>
         <p
           onClick={() => router.push(`/productDetails/${product._id}`)}
-          style={{ minHeight: '42px', cursor: 'pointer' }}
+          style={{ minHeight: "42px", cursor: "pointer" }}
           className="item-name mt-2 mb-0 text-capitalize"
         >
           {product?.title?.length > 30
@@ -114,23 +113,27 @@ export default function JustForYouProductCard({ product }) {
 
         <div className="d-flex justify-content-between align-items-center">
           <div className="item-price">
-            {product?.variants?.length > 0 ? product?.variants?.length === 1 ? <>
-              <span className="item-price">
-                {(lowestPrice * currencyRate).toFixed(2)} {currency}
-              </span>
-            </> : (
-              <>
-                <span className="item-price">
-                  {(lowestPrice * currencyRate).toFixed(2)} {currency}
-                </span>{' '}
-                -{' '}
-                <span className="item-price pl-2">
-                  {(highestPrice * currencyRate).toFixed(2)} {currency}
-                </span>
-              </>
+            {product?.variants?.length > 0 ? (
+              product?.variants?.length === 1 ? (
+                <>
+                  <span className="item-price">
+                    {(lowestPrice * currencyRate).toFixed(2)} {currency}
+                  </span>
+                </>
+              ) : (
+                <>
+                  <span className="item-price">
+                    {(lowestPrice * currencyRate).toFixed(2)} {currency}
+                  </span>{" "}
+                  -{" "}
+                  <span className="item-price pl-2">
+                    {(highestPrice * currencyRate).toFixed(2)} {currency}
+                  </span>
+                </>
+              )
             ) : (
               <span className="item-price">
-                <span style={{ color: 'red' }}>00.00</span> {currency}
+                <span style={{ color: "red" }}>00.00</span> {currency}
               </span>
             )}
           </div>
@@ -144,18 +147,18 @@ export default function JustForYouProductCard({ product }) {
               {/* <span className="ms-2"> - {discountPercentage?.toFixed(2)}%</span> */}
             </>
           ) : (
-            <div style={{ height: '18px' }}></div>
+            <div style={{ height: "18px" }}></div>
           )}
         </div>
         <div className="d-flex align-items-center">
           <Rating
-            style={{ fontSize: '15px', marginLeft: '-3px' }}
+            style={{ fontSize: "15px", marginLeft: "-3px" }}
             name="read-only"
-            value={parseInt(averageRatingOutOf5 ? averageRatingOutOf5 : 0)}
+            value={Math.floor(product?.averageRating || 0)}
             readOnly
           />
-          <p className="mb-0 ms-1" style={{ fontSize: '13px' }}>
-            ({parseInt(totalReviews)})
+          <p className="mb-0 ms-1" style={{ fontSize: "13px" }}>
+            ({Math.floor(product?.averageRating || 0)})
           </p>
         </div>
         <div id="">

@@ -6,7 +6,10 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { useHandleAddToCart } from "../../helperHooks/handleAddToCart";
-import { getProductPriceRangeForCard, getShopPageProductDiscountLowestHighestPrice } from "../../helperHooks/getProductPriceRange";
+import {
+  getProductPriceRangeForCard,
+  getShopPageProductDiscountLowestHighestPrice,
+} from "../../helperHooks/getProductPriceRange";
 
 export default function ShopProduct({ product }) {
   const dispatch = useDispatch();
@@ -22,11 +25,8 @@ export default function ShopProduct({ product }) {
     product?.variants,
     currencyRate
   ).lowestPrice;
-  const { oldLowestPrice, oldHighestPrice } = getShopPageProductDiscountLowestHighestPrice(
-    product?.variants
-  );
-
-
+  const { oldLowestPrice, oldHighestPrice } =
+    getShopPageProductDiscountLowestHighestPrice(product?.variants);
 
   const router = useRouter();
 
@@ -49,9 +49,6 @@ export default function ShopProduct({ product }) {
   };
 
   console.log({ variant: product?.variants });
-
-
-
 
   return (
     <div className="mb-1 w-100 shop-page-product" key={product?._id}>
@@ -98,21 +95,20 @@ export default function ShopProduct({ product }) {
           <del>
             {(oldLowestPrice * currencyRate).toFixed(2)} {currency}
           </del>
-          {' - '}
+          {" - "}
           <del>
             {(oldHighestPrice * currencyRate).toFixed(2)} {currency}
           </del>
-          
         </div>
         <div className="d-flex align-items-center">
           <Rating
             style={{ fontSize: "15px", marginLeft: "-3px" }}
             name="read-only"
-            value={parseInt(averageRatingOutOf5 ? averageRatingOutOf5 : 0)}
+            value={Math.floor(product?.averageRating || 0)}
             readOnly
           />
           <p className="mb-0 ms-1" style={{ fontSize: "13px" }}>
-            ({Math.floor(reviews?.length || 0)})
+            ({Math.floor(product?.averageRating || 0)})
           </p>
         </div>
         <div id="">
