@@ -251,13 +251,11 @@ const productNo = () => {
     return <NotFoundPage></NotFoundPage>;
   }
   const { highestPrice, lowestPrice } = getProductPriceRangeDetails(
-    newProductStructure?.variants,
-    currencyRate
+    product
   );
 
   const { highestOldPrice, lowestOldPrice } = getProductOldPriceRange(
-    newProductStructure?.variants,
-    currencyRate
+    product
   );
   return (
     <Layout title={`${product?.title ? product?.title : ""} Bangladesh Mart`}>
@@ -345,10 +343,9 @@ const productNo = () => {
                               border: "1px solid #ddd",
                               cursor: "pointer",
                             }}
-                            className={`img-fluid me-3 ${
-                              displayImage === item?.image &&
+                            className={`img-fluid me-3 ${displayImage === item?.image &&
                               "border border-2 border-primary"
-                            } `}
+                              } `}
                             src={item?.image}
                             alt=""
                           />
@@ -383,13 +380,13 @@ const productNo = () => {
                     <span style={{ color: "#f85606" }}>
                       {!selectedSize?.price
                         ? `${(lowestPrice * currencyRate).toFixed(
-                            2
-                          )} ${currency} - ${(
-                            highestPrice * currencyRate
-                          ).toFixed(2)} ${currency}  `
+                          2
+                        )} ${currency} - ${(
+                          highestPrice * currencyRate
+                        ).toFixed(2)} ${currency}  `
                         : `${(selectedSize?.price * currencyRate).toFixed(
-                            2
-                          )} ${currency}`}
+                          2
+                        )} ${currency}`}
                     </span>{" "}
                   </h4>
 
@@ -421,11 +418,11 @@ const productNo = () => {
                 <div className="d-flex align-items-center gap-2 mt-2">
                   <h6 style={{ minWidth: "40px" }}>Color:</h6>
                   <div className="product-colors-nav mb-2">
-                    
+
                     {newProductStructure?.variants &&
                       newProductStructure?.variants?.map(
                         (variantItem, index) => {
-                          
+
                           return (
                             <a
                               key={index}
@@ -434,18 +431,17 @@ const productNo = () => {
                                 setDisplayImage(variantItem?.image);
                               }}
                               style={{
-                                
-                                border: variantItem?.color.r == '252' && variantItem?.color.g == '252' && variantItem?.color.b == '252'  ? `1px solid #ddd` : '1px solid #eee',
+
+                                border: variantItem?.color.r == '252' && variantItem?.color.g == '252' && variantItem?.color.b == '252' ? `1px solid #ddd` : '1px solid #eee',
                                 backgroundColor: `rgba(${variantItem.color.r}, ${variantItem.color.g}, ${variantItem.color.b}, ${variantItem.color.a})`,
                               }}
-                              className={`${
-                                variant?.color.r === variantItem?.color?.r &&
-                                variant?.color.g === variantItem?.color?.g &&
-                                variant?.color.b === variantItem?.color?.b &&
-                                variant?.color.a === variantItem?.color?.a
+                              className={`${variant?.color.r === variantItem?.color?.r &&
+                                  variant?.color.g === variantItem?.color?.g &&
+                                  variant?.color.b === variantItem?.color?.b &&
+                                  variant?.color.a === variantItem?.color?.a
                                   ? "active"
                                   : ""
-                              } `}
+                                } `}
                             ></a>
                           )
                         }

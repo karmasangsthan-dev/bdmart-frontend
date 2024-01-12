@@ -6,7 +6,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { useHandleAddToCart } from "../../helperHooks/handleAddToCart";
-import { getProductPriceRangeForCard } from "../../helperHooks/getProductPriceRange";
+import { getProductPriceRangeForCard, getShopPageProductDiscountLowestHighestPrice } from "../../helperHooks/getProductPriceRange";
 
 export default function ShopProduct({ product }) {
   const dispatch = useDispatch();
@@ -22,6 +22,11 @@ export default function ShopProduct({ product }) {
     product?.variants,
     currencyRate
   ).lowestPrice;
+  const { oldLowestPrice, oldHighestPrice } = getShopPageProductDiscountLowestHighestPrice(
+    product?.variants
+  );
+
+
 
   const router = useRouter();
 
@@ -29,7 +34,7 @@ export default function ShopProduct({ product }) {
 
   const totalRatings = reviews.reduce((sum, review) => sum + review.ratings, 0);
   const averageRating = totalRatings / reviews.length;
-  
+
   // Display average rating out of 5
   const averageRatingOutOf5 = averageRating.toFixed(1);
 
@@ -42,6 +47,12 @@ export default function ShopProduct({ product }) {
       dispatch,
     });
   };
+
+  console.log({ variant: product?.variants });
+
+
+
+
   return (
     <div className="mb-1 w-100 shop-page-product" key={product?._id}>
       <div className="product-link bestselling-product-container  border p-3 rounded-3 shadow">
@@ -85,9 +96,13 @@ export default function ShopProduct({ product }) {
         </div>
         <div className="old-price">
           <del>
-            {(product?.oldPrice * currencyRate).toFixed(2)} {currency}
+            {(oldLowestPrice * currencyRate).toFixed(2)} {currency}
           </del>
-          {/* <span className="ms-2"> - {discountPercentage?.toFixed(2)}%</span> */}
+          {' - '}
+          <del>
+            {(oldHighestPrice * currencyRate).toFixed(2)} {currency}
+          </del>
+          
         </div>
         <div className="d-flex align-items-center">
           <Rating

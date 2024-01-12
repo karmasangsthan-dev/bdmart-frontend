@@ -63,9 +63,7 @@ export default function JustForYouProductCard({ product }) {
 
 
 
-  const { highestPrice, lowestPrice } = getProductPriceRangeDetails(
-    newProductStructure?.variants,
-    currencyRate
+  const { highestPrice, lowestPrice } = getProductPriceRangeDetails(product
   );
 
   const router = useRouter();
@@ -79,7 +77,6 @@ export default function JustForYouProductCard({ product }) {
   // Display average rating out of 5
   const averageRatingOutOf5 = averageRating.toFixed(1);
 
-  console.log({ highestPrice, lowestPrice });
   const productAddToCart = (product) => {
     useHandleAddToCart({
       product,
