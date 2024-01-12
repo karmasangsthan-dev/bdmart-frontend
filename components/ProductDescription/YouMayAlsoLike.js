@@ -6,10 +6,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import Loading from '../Shared/Loading/Loading';
 import Skeleton from 'react-loading-skeleton';
+import { getProductPriceRangeDetails, getProductPriceRangeForCard, getShopPageProductDiscountLowestHighestPrice } from '../../helperHooks/getProductPriceRange';
+import toast from 'react-hot-toast';
+import { addToCart } from '../../features/cart/cartSlice';
+import { useHandleAddToCart } from '../../helperHooks/handleAddToCart';
+import { getProductOldPriceRange } from '../../helperHooks/getProductOldPriceRange';
 
 const YouMayAlsoLike = ({ allDataLoading, product, products }) => {
-    const dataP = products?.filter(pro => pro?.category?.category === product?.category?.category)
+    const newDatap = products?.filter(pro => pro?.category?.category === product?.category?.category);
 
+    const dataP = newDatap.filter(allPro => allPro._id !== product?._id)
 
     const { code: currency, rate: currencyRate } = useSelector(
         (state) => state.currency
@@ -19,66 +25,28 @@ const YouMayAlsoLike = ({ allDataLoading, product, products }) => {
     if (currencyRate) {
         productPrice = (product?.price * currencyRate).toFixed(2);
     }
-    const discountPercentage =
-        ((product?.oldPrice - product?.price) / product?.oldPrice) * 100;
-    // const [token, setToken] = useState();
-    // const [cartProduct, setCartProduct] = useState({});
+
     const dispatch = useDispatch();
-    // const user = useSelector((state) => state.auth?.user);
     const router = useRouter();
-    // useEffect(() => {
-    //   const token = localStorage.getItem("accessToken");
-    //   setToken(token);
-    // }, []);
 
-    // const [addProductToCart, { data, isSuccess, isLoading }] =
-    //   useAddToCartMutation();
-    const handleAddToCart = (product) => {
-        //   const alreadyAdded = !!user?.cart?.find(
-        //     (item) => item?.product?._id === product?._id
-        //   );
-        //   console.log(alreadyAdded);
-        //   if (user?.email) {
-        //     if (alreadyAdded) {
-        //       return toast.error("Product already added to cart!!!", {
-        //         id: "addToCart",
-        //       });
-        //     }
-        //     setCartProduct(product);
-        //     addProductToCart({ token, userId: user?._id, product: product?._id });
-        //   }
-        //   if (!user?.email) {
-        //     toast.error("Please, Login first !!!", { id: "addToCart" });
-        //   }
+    const productAddToCart = (product) => {
 
-        //   ----------------------------------------------------------
 
-        const cartProducts = localStorage.getItem("cartProducts");
-        if (cartProducts) {
-            const cart = JSON.parse(localStorage.getItem("cartProducts"));
-            const index = cart?.findIndex(
-                (cartProduct) => cartProduct?.id === product?._id
-            );
-            if (index !== -1) {
-                cart[index].quantity += 1;
-                toast.success("Updated Quantity", { id: "addToCart" });
-            } else {
-                cart.push({ id: product?._id, quantity: 1 });
-                toast.success("Added to cart", { id: "addToCart" });
-            }
-            localStorage.setItem("cartProducts", JSON.stringify(cart));
-        }
-        if (!cartProducts) {
-            const cart = [{ id: product?._id, quantity: 1 }];
-            localStorage.setItem("cartProducts", JSON.stringify(cart));
-            toast.success("Added to cart", { id: "addToCart" });
-        }
-
-        dispatch(addToCart({ id: product?._id }));
+        useHandleAddToCart({
+            product,
+            selectedSize: product?.variants[0]?.size,
+            variantId: product?.variants[0]._id,
+            quantity: 1,
+            dispatch,
+        });
     };
     const isLargeDevice = useMediaQuery('(min-width: 992px)');
 
     const productsLimit = isLargeDevice ? 5 : 6;
+
+
+
+
 
     return (
         <div className='pb-5'>
@@ -145,6 +113,17 @@ const YouMayAlsoLike = ({ allDataLoading, product, products }) => {
                                         <div className="shop-product-details ">
                                             {dataP?.slice(0, productsLimit)
                                                 .map((d, index) => {
+
+
+
+                                                    const { highestPrice, lowestPrice } = getProductPriceRangeDetails(d);
+
+
+
+                                                    const { highestOldPrice, lowestOldPrice } = getProductOldPriceRange(
+                                                        d
+                                                    );
+                                                    console.log({ highestPrice, lowestPrice });
                                                     return (
                                                         <div className="mb-3 " key={index}>
                                                             <div className="product-link bestselling-product-container  border p-3 rounded shadow bg-white">
@@ -168,17 +147,34 @@ const YouMayAlsoLike = ({ allDataLoading, product, products }) => {
                                                                 </p>
 
                                                                 <div className="d-flex justify-content-between align-items-center">
-                                                                    <span className="item-price">
-                                                                        {(d?.price * currencyRate).toFixed(2)}
-                                                                        <span className='ms-1'>{currency}</span>
 
-                                                                    </span>
+                                                                    {d?.variants.length === 1 ? <span className="item-price">
+                                                                        <>
+                                                                            {(highestPrice * currencyRate).toFixed(2)}
+                                                                            <span className='ms-1'>{currency}</span>
+                                                                        </>
+                                                                    </span> : <span className="item-price">
+                                                                        {(lowestPrice * currencyRate).toFixed(2)}
+
+                                                                        <>
+                                                                            {' - '}
+                                                                            {(highestPrice * currencyRate).toFixed(2)}
+                                                                            <span className='ms-1'>{currency}</span>
+                                                                        </>
+                                                                    </span>}
                                                                 </div>
                                                                 <div className="old-price">
                                                                     <del>
-                                                                        {(d?.oldPrice * currencyRate).toFixed(2)} {currency}
-                                                                    </del>
-                                                                    <span className="ms-2"> - {(((d?.oldPrice - d?.price) / d?.oldPrice) * 100).toFixed(2)}%</span>
+                                                                        {(lowestOldPrice * currencyRate).toFixed(2)}
+                                                                    </del> {' '}
+                                                                    {d?.variants?.length !== 1 && (
+                                                                        <>
+                                                                            <span>{' - '}</span>
+                                                                            <del>
+                                                                                {(highestOldPrice * currencyRate).toFixed(2)}
+                                                                            </del>{' '}
+                                                                            {currency}</>
+                                                                    )}
                                                                 </div>
                                                                 <div className="d-flex align-items-center">
                                                                     <Rating
@@ -192,13 +188,23 @@ const YouMayAlsoLike = ({ allDataLoading, product, products }) => {
                                                                     </p>
                                                                 </div>
                                                                 <div id="">
-                                                                    <button
-                                                                        className="cart-btn w-100 "
-                                                                        onClick={() => handleAddToCart(d)}
-                                                                    >
-                                                                        Add to Cart
-                                                                        <i className="far plus-ico fa-plus-square text-white"></i>
-                                                                    </button>
+                                                                    {d?.variants?.length > 1 ? (
+                                                                        <button
+                                                                            onClick={() => router.push(`/productDetails/${product?._id}`)}
+                                                                            className="cart-btn-see-options w-100 "
+                                                                        >
+                                                                            Select options
+                                                                            <i className="far plus-ico fa-plus-square text-white"></i>
+                                                                        </button>
+                                                                    ) : (
+                                                                        <button
+                                                                            className="cart-btn w-100 "
+                                                                            onClick={() => productAddToCart(product)}
+                                                                        >
+                                                                            Add to Cart
+                                                                            <i className="fa-solid plus-ico fa-cart-shopping text-white"></i>
+                                                                        </button>
+                                                                    )}
                                                                 </div>
                                                             </div>
                                                         </div>
