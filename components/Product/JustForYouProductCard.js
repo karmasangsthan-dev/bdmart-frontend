@@ -97,7 +97,7 @@ export default function JustForYouProductCard({ product }) {
             onClick={() => router.push(`/productDetails/${product._id}`)}
             className=""
             style={{ width: "100%", height: "100%" }}
-            src={product?.thumbnail}
+            src={product?.thumbnail ? product?.thumbnail : 'https://res.cloudinary.com/dfcztmnvh/image/upload/v1705051863/products/icon-image-not-found-free-vector_pczipx.jpg' }
             alt={product?.title}
           />
         </div>

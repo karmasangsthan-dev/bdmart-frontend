@@ -14,6 +14,7 @@ import axios from "axios";
 import FixedBottomNavigation from "../components/Shared/Header/MobileBottomNav";
 import MobileBottomNav from "../components/Shared/Header/MobileBottomNav";
 import CartFlottingButton from "../components/Cart/CartFlottingButton";
+import Support from "../components/Support/Support";
 
 export default function Home({ data }) {
   const { locale } = useRouter();
@@ -29,6 +30,8 @@ export default function Home({ data }) {
       <Discount t={t} />
       <JustForYou t={t} />
       <Footer />
+
+      <Support></Support>
     </Layout>
   );
 }
