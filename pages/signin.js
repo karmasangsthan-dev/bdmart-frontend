@@ -128,7 +128,8 @@ const signin = () => {
 
 
                     <div className='mt-3 seller-login-btn'>
-                      <p className=''>Haven't an account ? <span onClick={() => router.push('/signup')} className=''>Click for Register</span></p>
+                      <p className=''>Forget password ? <span onClick={() => router.push('/forget-password')} className=''>Click here to reset</span></p>
+                      <p className='mt-2'>Haven't an account ? <span onClick={() => router.push('/signup')} className=''>Click for Register</span></p>
                     </div>
 
                     <p className="mobile-signin-divider">or sign in with</p>
