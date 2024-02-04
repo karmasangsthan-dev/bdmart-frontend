@@ -40,9 +40,9 @@ const styles = {
   },
 };
 
-const BestSelling = ({ t }) => {
+const BestSelling = ({ t, data = [] }) => {
   const [isFound, setIsFound] = useState(1);
-  const { data, isLoading, isError, error } = useGetSectionBasedProductsQuery({
+  const { data2, isLoading, isError, error } = useGetSectionBasedProductsQuery({
     section: "bestSelling",
   });
 

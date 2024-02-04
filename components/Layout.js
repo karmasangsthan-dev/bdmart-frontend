@@ -12,7 +12,7 @@ import { useGetCartProductsMutation } from '../features/product/productApi';
 
 import MobileBottomNav from './Shared/Header/MobileBottomNav';
 
-const Layout = ({ children, title = 'Bangladesh Mart' }) => {
+const Layout = ({ children, title = 'Bangladesh Mart', metaData }) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { user } = useSelector((state) => state.auth);
@@ -46,6 +46,10 @@ const Layout = ({ children, title = 'Bangladesh Mart' }) => {
     <>
       <Head>
         <title>{title}</title>
+        <meta name="title" content={metaData?.title} />
+        <meta property="og:title" content={metaData?.title} />
+        <meta property="og:description" content={metaData?.description} />
+        <meta property="og:image" content={metaData?.thumbnail} />
       </Head>
       <Script
         src="https://kit.fontawesome.com/a3939c0da5.js"
