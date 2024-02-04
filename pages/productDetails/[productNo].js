@@ -26,6 +26,7 @@ import ProductQuestionAnswer from "../../components/ProductDescription/ProductQu
 import { useHandleAddToCart } from "../../helperHooks/handleAddToCart";
 import { getProductPriceRangeDetails } from "../../helperHooks/getProductPriceRange";
 import { getProductOldPriceRange } from "../../helperHooks/getProductOldPriceRange";
+import Head from "next/head";
 
 const SampleNextArrow = (props) => {
   const { onClick } = props;
@@ -49,6 +50,7 @@ const SamplePrevArrow = (props) => {
     </div>
   );
 };
+
 
 const productNo = () => {
   const [variant, setVariant] = useState();
@@ -257,8 +259,14 @@ const productNo = () => {
   const { highestOldPrice, lowestOldPrice } = getProductOldPriceRange(
     product
   );
+
+console.log({product});
   return (
-    <Layout title={`${product?.title ? product?.title : ""} Bangladesh Mart`}>
+    <Layout
+      title={`${product?.title ? product?.title : ""} Bangladesh Mart`}
+      metaData={{title: product?.title,description:product?.description,thumbnail: product?.thumbnail}}
+      >
+      
       <main className="mainnnnn" style={{ background: "#eff0f5" }}>
         {data?.status && (
           <div
@@ -436,11 +444,11 @@ const productNo = () => {
                                 backgroundColor: `rgba(${variantItem.color.r}, ${variantItem.color.g}, ${variantItem.color.b}, ${variantItem.color.a})`,
                               }}
                               className={`${variant?.color.r === variantItem?.color?.r &&
-                                  variant?.color.g === variantItem?.color?.g &&
-                                  variant?.color.b === variantItem?.color?.b &&
-                                  variant?.color.a === variantItem?.color?.a
-                                  ? "active"
-                                  : ""
+                                variant?.color.g === variantItem?.color?.g &&
+                                variant?.color.b === variantItem?.color?.b &&
+                                variant?.color.a === variantItem?.color?.a
+                                ? "active"
+                                : ""
                                 } `}
                             ></a>
                           )
@@ -639,7 +647,7 @@ const productNo = () => {
         )}
       </main>
       <Footer></Footer>
-    </Layout>
+    </Layout >
   );
 };
 
