@@ -2294,14 +2294,17 @@ a.slide_btn {
   align-items: center;
   padding: 3px 2px;
 }
+
 .shop-sidebar-ratings .rating-div:hover {
   cursor: pointer;
   background-color: rgb(224, 224, 224);
 }
+
 .shop-sidebar-ratings .selected-rating-div {
   background-color: rgb(224, 224, 224) !important;
 }
-.shop-sidebar-ratings .rating-div p{
+
+.shop-sidebar-ratings .rating-div p {
   color: #727272;
   font-size: 13px;
 }
@@ -2338,6 +2341,43 @@ a.slide_btn {
   margin-top: 3rem;
   margin-bottom: 4rem;
 }
+
+
+/* rfq styles start from here  */
+.rfq-container{
+  min-height: 100vh;
+}
+
+
+.rfq-container .rfq-banner {
+  background-image: url('../public/images/rfq/banner1.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 80vh;
+  position: relative;
+}
+
+.rfq-container .rfq-banner button {
+  padding: 7px 2%;
+  background-color: rgb(7, 165, 112);
+  color: white;
+  display: flex;
+  font-size: 24px;
+  border-radius: 4px;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 60%;
+}
+
+.rfq-container .rfq-banner button:hover {
+  background-color: rgb(3, 158, 106);
+
+}
+
+
+
+/* rfq styles ends from here  */
 
 .just-for-you-loading-container {
   display: grid;

@@ -40,11 +40,11 @@ export default function Home({ bestSelling }) {
 
 export async function getServerSideProps() {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_SITE_LINK}/api/v1/products/section?section=bestSelling`
-  const responseBestSelling = await fetch(url);
-  const bestSelling = await responseBestSelling.json();
-
+    const responseBestSelling = await fetch(url);
+    const bestSelling = await responseBestSelling.json();
+    return {
+      props: { bestSelling },
+    };
   // Return the data as props
-  return {
-    props: { bestSelling },
-  };
+
 }
