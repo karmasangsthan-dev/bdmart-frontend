@@ -41,16 +41,11 @@ const styles = {
 };
 
 const BestSelling = ({ t, data = [] }) => {
-  const [isFound, setIsFound] = useState(1);
-  const { data2, isLoading, isError, error } = useGetSectionBasedProductsQuery({
-    section: "bestSelling",
-  });
-
-  useEffect(() => {
-    if (error?.data?.status === 0) {
-      setIsFound(0)
-    }
-  }, [isError, error])
+  const [isFound, setIsFound] = useState(0);
+  const [isServerError, setIsServerError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  
+  
 
   const settings = {
     dots: false,
@@ -102,6 +97,7 @@ const BestSelling = ({ t, data = [] }) => {
     ],
   };
 
+
   return (
     <section>
       <div className="px-2">
@@ -113,7 +109,8 @@ const BestSelling = ({ t, data = [] }) => {
           </div>
         </div>
 
-        {isLoading || isFound === 0 ? (
+
+        { isLoading  ? (
           <div className="">
             <Slider {...settings}>
               {[1, 2, 3, 4, 5, 6].map((product, i) => {
