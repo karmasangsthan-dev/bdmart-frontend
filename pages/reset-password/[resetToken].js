@@ -39,12 +39,12 @@ export default function ResetPassword() {
   // }
   return (
     <Layout>
-      <mainr
+      <main
         className="mainnnnn forget-margin  "
         style={{ background: "#eff0f5", marginTop: "-15px" }}
       >
         {content}
-      </mainr>
+      </main>
     </Layout>
   );
 }
