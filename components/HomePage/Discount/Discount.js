@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { useGetAllProductsQuery, useGetSectionBasedProductsQuery } from "../../../features/product/productApi";
 import Slider from "react-slick";
 import { Rating } from "@mui/material";
 import Skeleton from "react-loading-skeleton";
 import { useRouter } from "next/router";
 import DiscountProductCard from "../../Product/DiscountProductCard";
+import loadProductsData from "../../../helperHooks/getLoadProducts";
+import getLoadProducts from "../../../helperHooks/getLoadProducts";
 
 const SampleNextArrow = (props) => {
   const { onClick } = props;
@@ -25,9 +27,11 @@ const SamplePrevArrow = (props) => {
   );
 };
 
-const Discount = ({ t }) => {
+
+const Discount =  ({ t, data }) => {
   const router = useRouter();
-  const { data, isLoading } = useGetSectionBasedProductsQuery({ section: 'discount' });
+  const [isLoading, setIsLoading] = useState(false);
+  
   const settings = {
     dots: false,
     infinite: true,
@@ -47,7 +51,7 @@ const Discount = ({ t }) => {
         },
       },
       {
-        breakpoint: 768, 
+        breakpoint: 768,
         settings: {
           slidesToShow: 3,
           slidesToScroll: 1,
