@@ -862,8 +862,8 @@ const MegaMenu = () => {
               <div className=" ">
                 <ul className="mb-0 d-flex justify-content-center align-items-center">
                   <LanguageSelector></LanguageSelector>
-                  <li onClick={() => router.push('/privacy-policy')} className="inner-li">Privacy Policy</li>
-                  <li className="inner-li">Terms & Conditions</li>
+                  <Link className="inner-li" href='/privacy-policy'>Privacy Policy</Link>
+                  <Link className="inner-li" href='/terms-and-conditions'>Terms & Conditions</Link>
                 </ul>
 
               </div>
