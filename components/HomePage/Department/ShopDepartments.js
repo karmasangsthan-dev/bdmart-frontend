@@ -110,10 +110,11 @@ const SamplePrevArrow = (props) => {
 };
 
 
-const ShopDepartments = ({ t }) => {
+const ShopDepartments = ({ t,data }) => {
   const router = useRouter();
   const [isFound, setIsFound] = useState(1);
-  const { data, isLoading , isError, error } = useGetCategoriesQuery();
+  const [isLoading, setIsLoading] = useState(false);
+  // const { data, isLoading , isError, error } = useGetCategoriesQuery();
 
   const settings = {
     dots: false,
