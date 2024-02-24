@@ -99,8 +99,6 @@ const Header = () => {
   }, []);
 
 
-
-  console.log({router:router?.asPath});
   const isLoginPage = router.asPath === '/signin';
   const isRegisterPage = router.asPath === '/signup';
 
