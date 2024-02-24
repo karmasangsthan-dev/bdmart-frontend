@@ -6,7 +6,7 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import toast from 'react-hot-toast';
-import { useGetSearchProductQuery } from '../../features/product/productApi';
+import { useGetCreateRFQMutation, useGetSearchProductQuery } from '../../features/product/productApi';
 
 const RfqForm = () => {
     const router = useRouter();
@@ -19,6 +19,7 @@ const RfqForm = () => {
         color: '',
         size: ''
     });
+    const [getCreateRFQ, { isSuccess: isSuccessRFQ, isError: isErrorRFQ, error: errorRFQ }] = useGetCreateRFQMutation();
     const [selectedModalData, setSelectedModalData] = useState({
         color: '',
         size: '',
@@ -31,7 +32,7 @@ const RfqForm = () => {
     const [clearAllProductsShowModal, setClearAllProductsShowModal] = useState(false);
     const [clearLastProductsShowModal, setClearLastProductsShowModal] = useState(false);
 
-    const { data, isLoading, isError, error, refetch } =
+    const { data, isLoading: isSearchLoading, isError, error, refetch } =
         useGetSearchProductQuery(productText);
 
     const searchProducts = data?.data;
@@ -126,9 +127,33 @@ const RfqForm = () => {
     console.log(rfqProducts);
 
     const handleSubmitRfq = (event) => {
-        event.preventDefault()
-        toast.error('Thanks but this features right now under development !!')
+        event.preventDefault();
+        const firstName = event.target.firstName.value
+        const lastName = event.target.lastName.value;
+        const fullName = firstName + (' ') + lastName;
+        const phoneNo = event.target.tel.value
+        const company = event.target.company.value
+        const role = event.target.role.value
+        const notes = event.target.notes.value
+        const PONumber = event.target.PONumber.value
+        const doNotShip = event.target.doNotShip.value
+        const assignTo = event.target.assignTo.value
+
+        const data = { fullName, phoneNo, company, role, notes, PONumber, doNotShip, assignTo }
+        getCreateRFQ(data)
+
     }
+
+    useEffect(() => {
+        console.log({ errorRFQ });
+        if (isSuccessRFQ) {
+            toast.success("Successfully submitted request for quote !!", { id: "getCreateRFQ" });
+            router.push('/submit-rfq')
+        }
+        else if (isErrorRFQ) {
+            toast.error(errorRFQ?.data?.error, { id: "getCreateRFQ" });
+        }
+    }, [isSuccessRFQ, isErrorRFQ])
     return (
         <div className='rfq-container'>
             <div className="rfq-banner py-3">
@@ -139,11 +164,11 @@ const RfqForm = () => {
                         <div className='first'>
                             <div>
                                 <label htmlFor='firstName' className='custom-required-asterisk'>First Name</label>
-                                <input className='form-control mt-1 ' type="text" placeholder='First Name' id='firstName' />
+                                <input className='form-control mt-1 ' type="text" placeholder='First Name' name='firstName' id='firstName' />
                             </div>
                             <div>
                                 <label htmlFor='lastName' className='custom-required-asterisk'>Last Name</label>
-                                <input className='form-control mt-1' type="text" placeholder='Last Name' id='lastName' />
+                                <input className='form-control mt-1' type="text" placeholder='Last Name' id='lastName' name='lastName' />
                             </div>
                         </div>
                         <div className=' first mt-3'>
@@ -170,7 +195,7 @@ const RfqForm = () => {
                         </div>
                         <div className=' mt-3'>
                             <div>
-                                <label className='custom-required-asterisk' htmlFor="">Notes</label>
+                                <label className='custom-required-asterisk' htmlFor="notes">Notes</label>
                                 <textarea className='form-control mt-1' id="notes" name="notes" />
                             </div>
                         </div>
@@ -183,13 +208,13 @@ const RfqForm = () => {
                             <div>
                                 <label htmlFor="">Do not ship later than</label>
                                 <input className='form-control mt-1' type="date" id='ship'
-                                    name='role' placeholder='Do not ship later than' />
+                                    name='doNotShip' placeholder='Do not ship later than' />
                             </div>
                         </div>
                         <div className=' first mt-3'>
                             <div>
-                                <label htmlFor="">Assigned To</label>
-                                <input className='form-control mt-1' type="text" placeholder='Assigned To' name='assigned' id='assigned' />
+                                <label htmlFor="assigned">Assigned To</label>
+                                <input className='form-control mt-1' type="text" placeholder='Assigned To' name='assignTo' id='assigned' />
                             </div>
 
                         </div>

@@ -158,6 +158,14 @@ const productApi = apiSlice.injectEndpoints({
       }),
       // invalidatesTags: ["Cart"],
     }),
+    getCreateRFQ: builder.mutation({
+      query: (data) => ({
+        url: `/order/request-for-quote`,
+        method: 'POST',
+        body: data,
+      }),
+      // invalidatesTags: ["Cart"],
+    }),
     getAllProductsCategory: builder.query({
       query: () => {
         return {
@@ -186,4 +194,5 @@ export const {
   useGetSubCategoryQuery,
   useGetCategoriesQuery,
   useGetJustForYouProductsQuery,
+  useGetCreateRFQMutation,
 } = productApi;
