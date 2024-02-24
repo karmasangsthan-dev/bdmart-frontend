@@ -43,7 +43,6 @@ const Header = () => {
   const { data, isLoading, isError, error, refetch } =
     useGetSearchProductQuery(searchText);
   const searchProduct = data?.data;
-
   useEffect(() => {
     if (searchProduct?.length !== undefined) {
       setShowSuggestions(true)

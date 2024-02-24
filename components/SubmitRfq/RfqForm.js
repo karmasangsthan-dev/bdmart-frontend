@@ -6,6 +6,7 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import toast from 'react-hot-toast';
+import { useGetSearchProductQuery } from '../../features/product/productApi';
 
 const RfqForm = () => {
     const router = useRouter();
@@ -18,11 +19,24 @@ const RfqForm = () => {
         color: '',
         size: ''
     });
+    const [selectedModalData, setSelectedModalData] = useState({
+        color: '',
+        size: '',
+        quantity: ''
+    });
+    console.log({ rfqProducts });
+    const [variant, setVariant] = useState();
     const [productText, setProductText] = useState('')
     const [showModal, setShowModal] = useState(false);
+    const [clearAllProductsShowModal, setClearAllProductsShowModal] = useState(false);
+    const [clearLastProductsShowModal, setClearLastProductsShowModal] = useState(false);
 
+    const { data, isLoading, isError, error, refetch } =
+        useGetSearchProductQuery(productText);
+
+    const searchProducts = data?.data;
+    console.log({ searchProducts });
     const handleClose = () => setShowModal(false);
-    const handleShow = () => setShowModal(true);
     useEffect(() => {
         if (productText.length > 0) {
             setShowSuggetions(true)
@@ -42,12 +56,58 @@ const RfqForm = () => {
 
         }
     }, [selectedProduct])
+    const handleClearAllProducts = () => {
+        setClearAllProductsShowModal(true)
+    }
 
-    const data = [
-        { id: 1, image: 'https://static.vecteezy.com/system/resources/thumbnails/015/100/086/small/mango-transparent-background-free-png.png', title: 'Cute Mango fruites' },
-        { id: 2, image: 'https://png.pngtree.com/element_our/png/20181129/vector-illustration-of-fresh-red-apple-with-single-leaf-png_248312.jpg', title: 'Sweet Apples' },
-        { id: 3, image: 'https://static.vecteezy.com/system/resources/thumbnails/015/100/086/small/mango-transparent-background-free-png.png', title: 'Cute Mango fruites' }
-    ]
+    const updatedVariants = [];
+
+    for (let index = 0; index < selectedProduct?.variants?.length; index++) {
+        const variant = selectedProduct.variants[index];
+
+        if (variant) {
+            const matchingColorVariant = updatedVariants.find(
+                (v) =>
+                    v.color.r === variant.color.r &&
+                    v.color.g === variant.color.g &&
+                    v.color.b === variant.color.b &&
+                    v.color.a === variant.color.a
+            );
+
+            if (matchingColorVariant) {
+                matchingColorVariant.sizes.push({
+                    size: variant.size,
+                    oldPrice: variant.oldPrice,
+                    price: variant.price,
+                    stock: variant.stock,
+                    status: variant.status,
+                    _id: variant?._id,
+                });
+            } else if (!matchingColorVariant) {
+                const newVariant = {
+                    color: variant?.color,
+                    image: variant?.image,
+                    sizes: [
+                        {
+                            size: variant.size,
+                            oldPrice: variant.oldPrice,
+                            price: variant.price,
+                            stock: variant.stock,
+                            status: variant.status,
+                            _id: variant?._id,
+                        },
+                    ],
+                };
+                updatedVariants.push(newVariant);
+            }
+        }
+    }
+    const newProductStructure = {
+        ...selectedProduct,
+        variants: updatedVariants,
+    };
+
+
     const handleSelectedProductToRFQ = ({ selectedProduct, selectedProductExtraData }) => {
         const updatedProduct = {
             ...selectedProduct,
@@ -55,11 +115,17 @@ const RfqForm = () => {
         };
         setRfqProducts([...rfqProducts, updatedProduct]);
         setSelectedProduct({})
+        setVariant({})
+        setSelectedModalData({
+            color: '',
+            size: '',
+            quantity: ''
+        })
         handleClose();
     }
     console.log(rfqProducts);
 
-    const handleSubmitRfq =(event)=>{
+    const handleSubmitRfq = (event) => {
         event.preventDefault()
         toast.error('Thanks but this features right now under development !!')
     }
@@ -72,39 +138,39 @@ const RfqForm = () => {
                     <form onSubmit={handleSubmitRfq} className='create-rfq-form'>
                         <div className='first'>
                             <div>
-                                <label htmlFor="">First Name</label>
-                                <input className='form-control mt-1' type="text" placeholder='First Name' id='firstName' />
+                                <label htmlFor='firstName' className='custom-required-asterisk'>First Name</label>
+                                <input className='form-control mt-1 ' type="text" placeholder='First Name' id='firstName' />
                             </div>
                             <div>
-                                <label htmlFor="">Last Name</label>
+                                <label htmlFor='lastName' className='custom-required-asterisk'>Last Name</label>
                                 <input className='form-control mt-1' type="text" placeholder='Last Name' id='lastName' />
                             </div>
                         </div>
                         <div className=' first mt-3'>
                             <div>
-                                <label htmlFor="">Email Address</label>
+                                <label htmlFor="email" className='custom-required-asterisk'>Email Address</label>
                                 <input className='form-control mt-1' type="email" placeholder='Email Address' name='email' id='email' />
                             </div>
                             <div>
-                                <label htmlFor="">Phone Number</label>
+                                <label className='custom-required-asterisk' htmlFor="tel">Phone Number</label>
                                 <input className='form-control mt-1' type="tel" id='tel'
                                     name='tel' placeholder='Phone Number' />
                             </div>
                         </div>
                         <div className=' first mt-3'>
                             <div>
-                                <label htmlFor="">Company</label>
-                                <input className='form-control mt-1' type="text" placeholder='Company' name='compnay' id='compnay' />
+                                <label className='custom-required-asterisk' htmlFor="company">Company</label>
+                                <input className='form-control mt-1' type="text" placeholder='Company' name='company' id='company' />
                             </div>
                             <div>
-                                <label htmlFor="">Role</label>
+                                <label htmlFor="role">Role</label>
                                 <input className='form-control mt-1' type="text" id='role'
                                     name='role' placeholder='Role' />
                             </div>
                         </div>
                         <div className=' mt-3'>
                             <div>
-                                <label htmlFor="">Notes</label>
+                                <label className='custom-required-asterisk' htmlFor="">Notes</label>
                                 <textarea className='form-control mt-1' id="notes" name="notes" />
                             </div>
                         </div>
@@ -147,7 +213,7 @@ const RfqForm = () => {
                             <div className='rfq-product-suggetions-container'>
                                 {showSuggestions && <div className='rfq-product-suggetions'>
                                     <ul>
-                                        {data?.slice(0, 5).map(product => {
+                                        {searchProducts?.length && searchProducts?.map(product => {
                                             return (
                                                 <li onClick={() => setSelectedProduct(product)} key={product?.id}><img style={{ marginRight: '5px' }} width='20' src={product?.image} alt="" />{product?.title}</li>
                                             )
@@ -176,7 +242,15 @@ const RfqForm = () => {
                                                         <th scope="row">{index + 1}</th>
                                                         <td>{product?.title}</td>
                                                         <td>{product?.quantity}</td>
-                                                        <td>{product?.color}</td>
+                                                        <td className='product-colors-nav-rfq'>
+                                                            <a
+                                                                style={{
+                                                                    border: `${product?.color === 'rgba(255, 255, 255, 1)' ? '2px solid gray' : 'none'}`,
+                                                                    backgroundColor: product?.color,
+                                                                }}
+
+                                                            ></a>
+                                                        </td>
                                                         <td>{product?.size}</td>
                                                     </tr>
                                                 )
@@ -192,25 +266,13 @@ const RfqForm = () => {
                             </div>
                             {
                                 rfqProducts?.length > 0 && <div className='d-flex justify-content-between'>
-                                    <button onClick={() => {
-                                        const a = window.confirm('Are you sure want to delete last item ??')
-                                        if (a) {
-                                            toast.success('Removed...')
-                                        }
-                                    }}
+                                    <button onClick={() => setClearLastProductsShowModal(true)}
                                         type='button' className='btn  btn-warning mt-3'>Clear Last Product</button>
                                     <button
-                                        onClick={() => {
-                                            const a = window.confirm('Are you sure want to delete all items ??')
-                                            if (a) {
-                                                setRfqProducts([])
-                                                toast.success('Removed all...')
-                                            }
-                                        }}
+                                        onClick={() => setClearAllProductsShowModal(true)}
                                         type='button' className='btn btn-danger mt-3'>Clear All Products</button>
                                 </div>
                             }
-
                         </div>
                         <div className='checkbox-container'>
                             <input type="checkbox" class="form-check-input" id="checkbox" checked={isChecked} onChange={() => setIsChecked(!isChecked)} />
@@ -232,57 +294,137 @@ const RfqForm = () => {
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                            <img className='d-flex mx-auto border p-2 rounded-circle' style={{ width: '70px', height: '70px', cursor: 'pointer' }} src={selectedProduct?.image} alt="" />
+                        <Form.Group className="mb-3">
+                            <img className='d-flex mx-auto border p-2 rounded-circle' style={{ width: '70px', height: '70px', cursor: 'pointer' }} src={selectedProduct?.thumbnail} alt="" />
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                            <Form.Label>Quantity</Form.Label>
+
+                        <Form.Group
+                            className="mb-3 product-colors-nav-rfq"
+                        >
+                            <Form.Label className='custom-required-asterisk'>Select Color: </Form.Label>
+                            <div className='d-flex ms-4'>
+                                {newProductStructure?.variants &&
+                                    newProductStructure?.variants?.map(
+                                        (variantItem, index) => {
+
+                                            return (
+                                                <a
+                                                    key={index}
+                                                    onClick={(e) => {
+                                                        setSelectedModalData(prevState => ({ ...prevState, color: `rgba(${variantItem.color.r}, ${variantItem.color.g}, ${variantItem.color.b}, ${variantItem.color.a})` }))
+                                                        setSelectedProductExtraData(prevState => ({ ...prevState, color: `rgba(${variantItem.color.r}, ${variantItem.color.g}, ${variantItem.color.b}, ${variantItem.color.a})` }));
+                                                        setVariant(variantItem);
+                                                        console.log(`altaf rgba(${variantItem.color.r}, ${variantItem.color.g}, ${variantItem.color.b}, ${variantItem.color.a})`);
+                                                    }}
+                                                    style={{
+
+                                                        border: variantItem?.color.r == '252' && variantItem?.color.g == '252' && variantItem?.color.b == '252' ? `1px solid #ddd` : '1px solid #eee',
+                                                        backgroundColor: `rgba(${variantItem.color.r}, ${variantItem.color.g}, ${variantItem.color.b}, ${variantItem.color.a})`,
+                                                    }}
+                                                    className={`${variant?.color?.r === variantItem?.color?.r &&
+                                                        variant?.color.g === variantItem?.color?.g &&
+                                                        variant?.color.b === variantItem?.color?.b &&
+                                                        variant?.color.a === variantItem?.color?.a
+                                                        ? "active"
+                                                        : ""
+                                                        } `}
+                                                ></a>
+                                            )
+                                        }
+                                    )}
+                            </div>
+                        </Form.Group>
+                        <Form.Group
+                            className="mb-3"
+                        >
+                            <Form.Label htmlFor='size1' className='custom-required-asterisk'>Select Size</Form.Label>
+                            <select onChange={(e) => {
+                                setSelectedModalData(prevState => ({ ...prevState, size: e.target.value }))
+                                setSelectedProductExtraData(prevState => ({ ...prevState, size: e.target.value }))
+                            }} className='form-control' id='size1'>
+                                <option selected >--Select Size--</option>
+                                {variant?.sizes ? (
+                                    variant?.sizes?.map((item, i) => {
+                                        return (
+                                            <option
+                                                key={item?._id}
+                                                className="text-uppercase"
+                                            >
+                                                {item?.size}
+                                            </option>
+                                        );
+                                    })
+                                ) : (
+                                    <option value="">None</option>
+                                )}
+                            </select>
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label htmlFor='quantity1' className='custom-required-asterisk'>Quantity</Form.Label>
                             <Form.Control
-                                onChange={(e) => setSelectedProductExtraData(prevState => ({ ...prevState, quantity: e.target.value }))}
+                                onChange={(e) => {
+                                    setSelectedProductExtraData(prevState => ({ ...prevState, quantity: e.target.value }))
+                                    setSelectedModalData(prevState => ({ ...prevState, quantity: e.target.value }))
+                                }}
                                 type="number"
                                 id='quantity1'
                                 placeholder="Quantity"
                             />
                         </Form.Group>
-                        <Form.Group
-                            className="mb-3"
-                            controlId="exampleForm.ControlTextarea1"
-                        >
-                            <Form.Label>Select Color</Form.Label>
-                            <select onChange={(e) => setSelectedProductExtraData(prevState => ({ ...prevState, color: e.target.value }))} className='form-control'>
-                                <option selected >--Select color--</option>
-                                <option >Red</option>
-                                <option >White</option>
-                                <option >Orange</option>
-                                <option >SM</option>
-                            </select>
-                        </Form.Group>
-                        <Form.Group
-                            className="mb-3"
-                            controlId="exampleForm.ControlTextarea1"
-                        >
-                            <Form.Label>Select Size</Form.Label>
-                            <select onChange={(e) => setSelectedProductExtraData(prevState => ({ ...prevState, size: e.target.value }))} className='form-control'>
-                                <option selected >--Select Size--</option>
-                                <option >XL</option>
-                                <option >L</option>
-                                <option >M</option>
-                                <option >SM</option>
-                            </select>
-                        </Form.Group>
-
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="danger" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button onClick={() => handleSelectedProductToRFQ({ selectedProduct, selectedProductExtraData })} variant="success">
+                    <Button disabled={selectedModalData?.color && selectedModalData?.quantity && selectedModalData?.size ? false : true} onClick={() => handleSelectedProductToRFQ({ selectedProduct, selectedProductExtraData })} variant="success">
                         Add
                     </Button>
                 </Modal.Footer>
             </Modal>
-        </div>
+            {/* clear all products show modal  */}
+            <Modal show={clearAllProductsShowModal} onHide={() => setClearAllProductsShowModal(false)} backdrop="static" keyboard={false}>
+                <Modal.Header closeButton>
+                    <Modal.Title className='text-danger'><span role="img" aria-label="Danger">
+                        ⚠️
+                    </span>{' '} Confirmation for All products !!</Modal.Title>
+                </Modal.Header>
+                <Modal.Body className='text-danger'>Are you sure you want to clear all products?</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setClearAllProductsShowModal(false)}>
+                        Cancel
+                    </Button>
+                    <Button variant="danger" onClick={() => handleClearAllProducts()}>
+                        Clear All
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+            {/* clear last product modal  */}
+            <Modal show={clearLastProductsShowModal} onHide={() => setClearLastProductsShowModal(false)} backdrop="static" keyboard={false}>
+                <Modal.Header closeButton>
+                    <Modal.Title className='text-danger'><span role="img" aria-label="Danger">
+                        ⚠️
+                    </span>{' '} Confirmation for Last Product !!</Modal.Title>
+                </Modal.Header>
+                <Modal.Body className='text-danger'>Are you sure you want to clear last added product ??</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setClearLastProductsShowModal(false)}>
+                        Cancel
+                    </Button>
+                    <Button variant="danger" onClick={() => {
+                        const updatedRfqProducts = [...rfqProducts];
+                        const removed = updatedRfqProducts.pop();
+                        setRfqProducts(updatedRfqProducts);
+                        if (removed) {
+                            setClearLastProductsShowModal(false)
+                            toast.success('Removed last product...')
+                        }
+                    }}>
+                        Clear Last Product
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        </div >
     );
 };
 

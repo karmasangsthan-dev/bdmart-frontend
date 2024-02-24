@@ -2369,14 +2369,31 @@ a.slide_btn {
   left: 50%;
   top: 60%;
 }
-.rfq-form-container{
+
+.rfq-form-container {
   width: 80%;
 }
+
 .rfq-container .rfq-banner>button:hover {
   background-color: rgb(3, 158, 106);
 
 }
 
+.product-colors-nav-rfq a {
+  width: 1.5rem;
+  height: 1.5rem;
+  display: block;
+  border-radius: 50%;
+  border: 0.2rem solid #fff;
+  margin-right: 0.9rem;
+  transition: box-shadow .35s ease, -webkit-box-shadow .35s ease;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  cursor: pointer;
+}
+.product-colors-nav-rfq a.active {
+  box-shadow: 0 0px 0px 0.2rem #5d5d5d;
+}
 .custom-required-asterisk:after {
   content: " *" !important;
   color: red !important;
@@ -2434,18 +2451,20 @@ input.form-control::placeholder {
   align-items: center;
   /* background-color: rgb(223, 223, 223); */
   border: 1px solid #ddd;
-  border-radius: 7px;  
+  border-radius: 7px;
   padding: 5px 15px;
 }
-.selected-products .selected-options{
-  display: flex ;
+
+.selected-products .selected-options {
+  display: flex;
   gap: 10px;
 }
 
 .selected-products>div>p {
   width: 50%;
 }
-.confirmed-selected-all-products{
+
+.confirmed-selected-all-products {
   padding: 10px 15px;
   margin-top: 30px;
   width: 100%;
@@ -2454,13 +2473,15 @@ input.form-control::placeholder {
   border-radius: 7px;
 
 }
-.rfq-container .checkbox-container{
+
+.rfq-container .checkbox-container {
   margin-top: 20px;
   user-select: none;
   display: flex;
   align-items: center;
 }
-.rfq-container .checkbox-container span{
+
+.rfq-container .checkbox-container span {
   cursor: pointer;
   color: rgb(24, 27, 238);
 }
