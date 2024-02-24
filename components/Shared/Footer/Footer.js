@@ -28,14 +28,14 @@ const Footer = () => {
               </Link>
             </li>
             <li className="">
-              <Link className="" href="/#">
+              <Link className="" href="/careers">
                 Careers
               </Link>
             </li>
             <li className="">
-              <a className="" href="/#">
+              <Link className="" href="/latest-news">
                 Latest News
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
@@ -69,7 +69,7 @@ const Footer = () => {
           <h3 className="">My Account</h3>
           <ul className="">
             <li className="">
-              <Link className="" href={`/user/dashboard/${user?.email}`}>
+              <Link className="" href={`/user/dashboard`}>
                 Dashboard
               </Link>
             </li>
