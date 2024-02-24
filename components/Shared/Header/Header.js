@@ -43,7 +43,6 @@ const Header = () => {
   const { data, isLoading, isError, error, refetch } =
     useGetSearchProductQuery(searchText);
   const searchProduct = data?.data;
-
   useEffect(() => {
     if (searchProduct?.length !== undefined) {
       setShowSuggestions(true)
@@ -101,6 +100,7 @@ const Header = () => {
 
 
 
+  console.log({router:router?.asPath});
   const isLoginPage = router.asPath === '/signin';
   const isRegisterPage = router.asPath === '/signup';
 
@@ -147,7 +147,7 @@ const Header = () => {
 
 
   return (
-    <header className={`header ${isScrolled ? 'scrolled' : ''}`} style={{ display: isLoginPage || isRegisterPage ? 'none' : 'block' }}>
+    <header className={`header ${isScrolled ? 'scrolled' : ''}`} >
       <ContactHeader user={user} />
 
       <div

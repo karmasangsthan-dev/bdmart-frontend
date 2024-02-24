@@ -92,13 +92,13 @@ export default function ContactHeader({ user }) {
               </a>
             </span>
             <div className="contact-right-part">
-              <a
+              <Link
                 className="font-medium hover:text-emerald-600"
                 href="/about-us"
               >
                 {" "}
                 About Us
-              </a>
+              </Link>
               <span className="mx-2">|</span>
               <Link
                 className="font-medium hover:text-emerald-600"
@@ -109,7 +109,7 @@ export default function ContactHeader({ user }) {
               </Link>
               <span className="mx-2">|</span>
               <button
-                onClick={() => router.push(`/user/dashboard/${user?.email}`)}
+                onClick={() => router.push(`/user/dashboard`)}
                 className="font-medium hover:text-emerald-600"
               >
                 My account
