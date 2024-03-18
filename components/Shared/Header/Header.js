@@ -146,7 +146,7 @@ const Header = () => {
 
   return (
     <header className={`header ${isScrolled ? 'scrolled' : ''}`} >
-      <ContactHeader user={user} />
+      <ContactHeader seller={seller} user={user} />
 
       <div
         className={`search-cart-header ${isScrolled ? 'sticky' : ''}`}
