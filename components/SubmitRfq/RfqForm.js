@@ -25,7 +25,6 @@ const RfqForm = () => {
         size: '',
         quantity: ''
     });
-    console.log({ rfqProducts });
     const [variant, setVariant] = useState();
     const [productText, setProductText] = useState('')
     const [showModal, setShowModal] = useState(false);
@@ -36,7 +35,6 @@ const RfqForm = () => {
         useGetSearchProductQuery(productText);
 
     const searchProducts = data?.data;
-    console.log({ searchProducts });
     const handleClose = () => setShowModal(false);
     useEffect(() => {
         if (productText.length > 0) {
@@ -50,7 +48,6 @@ const RfqForm = () => {
         setProductText('')
         if (selectedProduct?.title) {
             setShowSuggetions(false);
-            console.log({ selectedProduct });
             setShowModal(true)
         }
         else {
@@ -124,7 +121,7 @@ const RfqForm = () => {
         })
         handleClose();
     }
-    console.log(rfqProducts);
+
 
     const handleSubmitRfq = (event) => {
         event.preventDefault();
@@ -139,13 +136,12 @@ const RfqForm = () => {
         const doNotShip = event.target.doNotShip.value
         const assignTo = event.target.assignTo.value
 
-        const data = { fullName, phoneNo, company, role, notes, PONumber, doNotShip, assignTo }
-        getCreateRFQ(data)
+        const data = { fullName, phoneNo, company, role, notes, PONumber, doNotShip, assignTo, products: rfqProducts }
+        getCreateRFQ(data);
 
     }
 
     useEffect(() => {
-        console.log({ errorRFQ });
         if (isSuccessRFQ) {
             toast.success("Successfully submitted request for quote !!", { id: "getCreateRFQ" });
             router.push('/submit-rfq')
@@ -339,7 +335,7 @@ const RfqForm = () => {
                                                         setSelectedModalData(prevState => ({ ...prevState, color: `rgba(${variantItem.color.r}, ${variantItem.color.g}, ${variantItem.color.b}, ${variantItem.color.a})` }))
                                                         setSelectedProductExtraData(prevState => ({ ...prevState, color: `rgba(${variantItem.color.r}, ${variantItem.color.g}, ${variantItem.color.b}, ${variantItem.color.a})` }));
                                                         setVariant(variantItem);
-                                                        console.log(`altaf rgba(${variantItem.color.r}, ${variantItem.color.g}, ${variantItem.color.b}, ${variantItem.color.a})`);
+                                                        
                                                     }}
                                                     style={{
 
