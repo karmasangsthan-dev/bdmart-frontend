@@ -1,6 +1,11 @@
 import React from 'react';
 import { CustomChat, FacebookProvider } from 'react-facebook';
 const Support = () => {
+    const isProduction = process.env.NODE_ENV === 'production';
+
+    if (!isProduction) {
+        return <></>;
+    }
 
     return (
         <div>
