@@ -2,6 +2,7 @@ import React from 'react';
 import Layout from '../components/Layout';
 import { toast } from 'react-hot-toast';
 import ContactUs from '../components/Shared/ContactUs/ContactUs';
+import Footer from '../components/Shared/Footer/Footer';
 
 const contact = () => {
     const handleContactFormSubmit = (event) => {
@@ -15,6 +16,7 @@ const contact = () => {
     return (
         <Layout title='Contact Us - Bangladesh Mart'>
             <ContactUs></ContactUs>
+            <Footer></Footer>
         </Layout>
     );
 };

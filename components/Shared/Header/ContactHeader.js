@@ -13,7 +13,7 @@ import ContactHeaderLogOut from "./ContactHeaderLogOut";
 import ContactHeaderSellerLogOut from "./ContactHeaderSellerLogOut";
 
 require("dotenv").config();
-export default function ContactHeader({ user }) {
+export default function ContactHeader({ user}) {
   const router = useRouter();
   const dispatch = useDispatch();
   const { locale, locales, push } = router;
@@ -109,15 +109,23 @@ export default function ContactHeader({ user }) {
               </Link>
               <span className="mx-2">|</span>
               <button
-                onClick={() => router.push(`/user/dashboard`)}
+                onClick={() => {
+                  if(user?.email){
+                    router.push('/user/dashboard')
+                  }
+                  else if(seller?.email){
+                    router.push('/seller/dashboard')
+                  }
+                }}
                 className="font-medium hover:text-emerald-600"
               >
                 My account
               </button>
-              <span className="mx-2">|</span>
+              <span className="mx-2"></span>
 
               {user?.email === undefined && seller?.email === undefined ? (
                 <>
+                <span className="mx-2">|</span>
                   <button
                     onClick={() =>
                       router.push({

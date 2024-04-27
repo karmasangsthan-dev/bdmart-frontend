@@ -40,12 +40,16 @@ const styles = {
   },
 };
 
-const BestSelling = ({ t, data = [] }) => {
+const BestSelling = ({ t, data = [], error }) => {
   const [isFound, setIsFound] = useState(0);
   const [isServerError, setIsServerError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  
-  
+  useEffect(() => {
+    if (error) {
+      setIsLoading(true);
+    }
+  }, [error])
+
 
   const settings = {
     dots: false,
@@ -110,7 +114,7 @@ const BestSelling = ({ t, data = [] }) => {
         </div>
 
 
-        { isLoading  ? (
+        {isLoading ? (
           <div className="">
             <Slider {...settings}>
               {[1, 2, 3, 4, 5, 6].map((product, i) => {
