@@ -23,10 +23,10 @@ export default function Document() {
           property="og:image"
           content="https://bangladeshmart.com.bd/_ipx/w_256,q_75/%2Fimages%2Flogo2.jpg?url=%2Fimages%2Flogo2.jpg&w=256&q=75"
         />
-        
-        
-        <meta property="og:site_name" content="Bangladesh Mart" />
 
+
+        <meta property="og:site_name" content="Bangladesh Mart" />
+        <meta name="google-site-verification" content="wqiPOEdNBB5jW2_BbXMgFaBjo60zf7x67kBmeSTZ1aw" />
         <script
           src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
           integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
