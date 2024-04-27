@@ -800,7 +800,7 @@ const MegaMenu = () => {
   return (
     <div id="sec_bar" className="sec_nav ">
       <div className="container-fluid">
-        <div className="row align-items-center">
+        <div className="row align-items-center ">
 
           <div className="d-flex justify-content-between">
             <div
@@ -811,7 +811,7 @@ const MegaMenu = () => {
                 <ul className="mb-0" >
                   <span onClick={handleMegaMenu} className="cateogries-megamenu">
                     <span className=" d-inline-block">
-                      <li className="inner-li">Categories</li>
+                      <li className="inner-li font-roboto-sans">Categories</li>
 
                     </span>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" aria-hidden="true" className="ml-1 h-3 w-3 group-hover:text-emerald-600"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7"></path></svg>
@@ -832,7 +832,7 @@ const MegaMenu = () => {
                                   </header>
                                   <ul className="pro-nav ps-0 ">
                                     {category?.childCategories?.map((child, index) => (
-                                      <li key={index} className="drop-nav-link">
+                                      <li key={index} className="drop-nav-link ">
                                         <Link href={`/shop?category=${menu?.mainCategoryName}&subCategory=${category?.name}&childCategory=${child?.name}`}>
                                           {child?.name}
                                         </Link>
@@ -849,11 +849,11 @@ const MegaMenu = () => {
                   </div>}
                   {t.homePage.header.nav.map((navItem, index) => (
                     <Link key={index} href={navItem?.link}>
-                      <li className="inner-li">{navItem?.title}</li>
+                      <li className="inner-li font-roboto-sans">{navItem?.title}</li>
                     </Link>
                   ))}
                   {!seller?.email && <p onClick={handleNavigateForSeller} className="become-seller">
-                    <span className="inner-li">Become a seller</span>
+                    <span className="inner-li font-roboto-sans">Become a seller</span>
                   </p>}
                 </ul>
               </div>
@@ -862,8 +862,8 @@ const MegaMenu = () => {
               <div className=" ">
                 <ul className="mb-0 d-flex justify-content-center align-items-center">
                   <LanguageSelector></LanguageSelector>
-                  <Link className="inner-li" href='/privacy-policy'>Privacy Policy</Link>
-                  <Link className="inner-li" href='/terms-and-conditions'>Terms & Conditions</Link>
+                  <Link className="inner-li font-roboto-sans" href='/privacy-policy'>Privacy Policy</Link>
+                  <Link className="inner-li font-roboto-sans" href='/terms-and-conditions'>Terms & Conditions</Link>
                 </ul>
 
               </div>

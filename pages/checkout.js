@@ -12,6 +12,7 @@ import { useCartProductsTotal } from "../helperHooks/useCartProductsTotal";
 
 const checkout = () => {
   const dispatch = useDispatch();
+  const [token, setToken] = useState('');
   const router = useRouter();
   const [getCreateOrder, { data, isLoading, isSuccess, isError }] =
     useGetCreateOrderMutation();
@@ -71,7 +72,10 @@ const checkout = () => {
       [name]: value,
     });
   };
-
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    setToken(token);
+  }, []);
   const orderData = {
     name: formData?.firstName + " " + formData?.lastName,
     country: formData?.country,
@@ -123,6 +127,7 @@ const checkout = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
       },
       body: JSON.stringify(orderData),
     });
