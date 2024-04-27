@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { useHandleAddToCart } from "../../helperHooks/handleAddToCart";
 import {
+  getProductPriceRangeDetails,
   getProductPriceRangeForCard,
   getShopPageProductDiscountLowestHighestPrice,
 } from "../../helperHooks/getProductPriceRange";
@@ -17,14 +18,20 @@ export default function ShopProduct({ product }) {
     (state) => state.currency
   );
 
-  const productHighestPrice = getProductPriceRangeForCard(
-    product?.variants,
-    currencyRate
-  ).highestPrice;
-  const productLowestPrice = getProductPriceRangeForCard(
-    product?.variants,
-    currencyRate
-  ).lowestPrice;
+  // const productHighestPrice = getProductPriceRangeForCard(
+  //   product?.variants,
+  //   currencyRate
+  // ).highestPrice;
+
+  // const productLowestPrice = getProductPriceRangeForCard(
+  //   product?.variants,
+  //   currencyRate
+  // ).lowestPrice;
+
+  const { highestPrice: productHighestPrice, lowestPrice: productLowestPrice } = getProductPriceRangeDetails(
+    product
+  );
+
   const { oldLowestPrice, oldHighestPrice } =
     getShopPageProductDiscountLowestHighestPrice(product?.variants);
 
@@ -77,11 +84,11 @@ export default function ShopProduct({ product }) {
             {product?.variants?.length > 1 ? (
               <>
                 <span className="item-price">
-                  {productLowestPrice} {currency}
+                  {(productLowestPrice * currencyRate).toFixed(2)} {currency}
                 </span>{" "}
                 -{" "}
                 <span className="item-price pl-2">
-                  {productHighestPrice} {currency}
+                  {(productHighestPrice * currencyRate).toFixed(2)} {currency}
                 </span>
               </>
             ) : (
